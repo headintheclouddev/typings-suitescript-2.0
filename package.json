@@ -1,5 +1,5 @@
 {
-    "name": "netsuite-types",
+    "name": "@johnogle/netsuite-types",
     "description": "Provides NetSuite TypeScript type definitions",
     "readme": "",
     "repository": {
