@@ -1,5 +1,5 @@
 {
-  "name": "@johnogle/netsuite-types",
+  "name": "@hitc/netsuite-types",
   "description": "Provides NetSuite TypeScript type definitions",
   "repository": {
     "type": "git",
@@ -8,6 +8,6 @@
   "homepage": "https://bitbucket.org/headinthecloud/netsuite-types#readme",
   "version": "1.0.0",
   "main": "N.d.ts",
-  "author": "John Ogle",
+  "author": "Head in the Cloud",
   "license": "ISC"
 }
