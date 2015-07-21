@@ -9,5 +9,8 @@
   "version": "1.0.0",
   "main": "N.d.ts",
   "author": "Head in the Cloud",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tsd": "^0.6.3"
+  }
 }

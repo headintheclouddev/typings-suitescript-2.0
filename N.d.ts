@@ -1,4 +1,4 @@
-/// <reference path="./es6-promise.d.ts" />
+/// <reference path="./typings/tsd.d.ts" />
 
 declare module N {
     class Record {
