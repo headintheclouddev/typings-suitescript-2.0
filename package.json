@@ -1,0 +1,9 @@
+{
+    "name": "netsuite-types",
+    "description": "Provides NetSuite TypeScript type definitions",
+    "readme": "",
+    "repository": {
+        "type": "git",
+        "url": "git@bitbucket.org:headinthecloud/netsuite-types.git"
+    }
+}
