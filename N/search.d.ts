@@ -31,10 +31,6 @@ interface SearchInstance {
     each: SearchInstanceEach;
 }
 
-interface SearchTypes {
-    TRANSACTION_SEARCH: string;
-}
-
 interface Search {
     name: string;
     join: string;
@@ -53,7 +49,6 @@ interface SearchCreateFunction {
 
 declare module N {
     module search {
-        var types: SearchTypes;
         var createColumn: (options: CreateSearchColumnOptions) => SearchColumn;
         var create: SearchCreateFunction;
     }
