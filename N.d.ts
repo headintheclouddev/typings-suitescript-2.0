@@ -5,3 +5,16 @@
 declare module 'N' {
     export = N;
 }
+
+interface LogFunction {
+    (title: string, details: string);
+}
+
+interface LogInterface {
+    debug: LogFunction;
+    audit: LogFunction;
+    error: LogFunction;
+    emergency: LogFunction;
+}
+
+declare var log : LogInterface;
