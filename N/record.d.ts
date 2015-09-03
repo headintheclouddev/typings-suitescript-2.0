@@ -1,12 +1,29 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 interface RecordSaveFunction {
-    (): void;
-    promise(): Promise<void>;
+    (options?:SubmitConfig): void;
+    promise(options?:SubmitConfig): Promise<void>;
+}
+
+interface GetFieldOptions {
+    fieldId: string;
+}
+
+interface SetFieldOptions {
+    fieldId: string;
+    value: any;
+    ignoreFieldChange?: boolean;
 }
 
 interface Record {
-    setValue(field: string, value: string): void;
+    getText(options:GetFieldOptions): string;
+    getText(fieldId:string): string;
+    getValue(options:GetFieldOptions): string;
+    getValue(fieldId:string): string;
+    setText(options:SetFieldOptions): void;
+    setText(fieldId:string, value:string): void;
+    setValue(options:SetFieldOptions): void;
+    setValue(fieldId:string, value:string): void;
     save: RecordSaveFunction;
 }
 
@@ -158,6 +175,24 @@ interface RecordTypes {
     WORK_ORDER_ISSUE: string;
 }
 
+interface SubmitConfig {
+    enableSourcing?: boolean;
+    disableTriggers?: boolean;
+    ignoreMandatoryFields?: boolean;
+}
+
+interface SubmitFieldsOptions {
+    type: string;
+    id: string;
+    values: any;
+    options?: SubmitConfig;
+}
+
+interface SubmitFieldsFunction {
+    (options: SubmitFieldsOptions): number;
+    promise(options: SubmitFieldsOptions): Promise<number>;
+}
+
 interface RecordCreateOptions {
     type: string;
 }
@@ -170,6 +205,7 @@ interface RecordCreateFunction {
 declare module N {
     module record {
         var create: RecordCreateFunction;
+        var submitFields: SubmitFieldsFunction;
         var Type: RecordTypes;
     }
 }
