@@ -1,14 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-interface CreateSearchFilterOptions {
-    name: string;
-    join?: string;
-    operator: string;
-    values?: any;
-    formula?: string;
-    summary?: string;
-}
-
 interface SearchOperator {
     AFTER: string;
     ALLOF: string;
@@ -51,6 +42,11 @@ interface SearchOperator {
 }
 
 interface SearchFilter {
+    name: string;
+    join: string;
+    operator: SearchOperator;
+    summary: SearchSummary;
+    formula: string;
 }
 
 interface SearchSummary {
@@ -62,22 +58,26 @@ interface SearchSummary {
     MAX: string;
 }
 
-interface CreateSearchColumnOptions {
+interface SearchColumnSetWhenOrderedByOptions {
     name: string;
-    join?: string;
-    summary?: string;
+    join: string;
 }
 
 interface SearchColumn {
+    setWhenOrderedBy: (SearchColumnSetWhenOrderedByOptions) => SearchColumn;
     name: string;
-    join?: string;
-    summary?: string;
+    join: string;
+    summary: SearchSummary;
+    formula: string;
+    label: string;
+    function: string
+    sort: boolean;
 }
 
 interface SearchResultGetValueTextOptions {
     name: string;
-    join?: string;
-    summary?: string;
+    join: string;
+    summary?: SearchSummary;
 }
 
 interface SearchResult {
@@ -90,26 +90,97 @@ interface SearchResult {
     columns: SearchColumn[];
 }
 
-interface SearchResultSetGetResults {
-    promise(startAt:number, results:number): Promise<SearchResult[]>;
-    (startAt:number, results:number): SearchResult[];
+interface SearchResultSetGetRangeOptions {
+    start: number;
+    end: number;
 }
 
-interface SearchResultSetEach {
+interface SearchResultSetGetRangeFunction {
+    promise(options:SearchResultSetGetRangeOptions): Promise<SearchResult[]>;
+    (options:SearchResultSetGetRangeOptions): SearchResult[];
+}
+
+interface SearchResultSetEachFunction {
     promise(callback: (result: SearchResult, index: number) => boolean): Promise<boolean>;
     (callback: (result: SearchResult, index: number) => boolean): void;
 }
 
 interface SearchResultSet {
-    each: SearchResultSetEach;
-    getResults: SearchResultSetGetResults;
+    each: SearchResultSetEachFunction;
+    getRange: SearchResultSetGetRangeFunction;
+    columns: SearchColumn[];
 }
 
 interface Search {
+    searchType: string;
+    searchId: number;
+    filters: SearchFilter[];
+    filterExpression: Object[];
+    columns: (SearchColumn[]|string[]);
+    title: string;
+    id: string;
+    isPublic: boolean;
+    save: () => number;
+    run: () => SearchResultSet;
+}
+
+interface CreateSearchFilterOptions {
     name: string;
-    join: string;
-    summary: string;
-    run(): SearchResultSet;
+    join?: string;
+    operator: SearchOperator;
+    values?: (string|Date|number|string[]);
+    formula?: string;
+    summary?: SearchSummary;
+}
+
+interface CreateSearchColumnOptions {
+    name: string;
+    join?: string;
+    summary?: SearchSummary;
+    formula?: string;
+    function?: string;
+    label?: string;
+    sort?: boolean;
+}
+
+interface SearchLookupFieldsOptions {
+    type: string;
+    id: string;
+    columns: (string|string[]);
+}
+
+interface SearchLookupFieldsFunction {
+    promise(options:SearchLookupFieldsOptions): Promise<Object>;
+    (options:SearchLookupFieldsOptions): Object;
+}
+
+interface SearchGlobalOptions {
+    keywords: string;
+}
+
+interface SearchGlobalFunction {
+    promise(options:SearchGlobalOptions): Promise<SearchResult[]>;
+    (options:SearchGlobalOptions): SearchResult[];
+}
+
+interface SearchDuplicatesOptions {
+    type: string;
+    fields?: string[];
+    id?: number;
+}
+
+interface SearchDuplicatesFunction {
+    promise(options:SearchDuplicatesOptions): Promise<SearchResult[]>;
+    (options:SearchDuplicatesOptions): SearchResult[];
+}
+
+interface SearchDeleteOptions {
+    id: string;
+}
+
+interface SearchDeleteFunction {
+    promise(options:SearchDeleteOptions): Promise<void>;
+    (options:SearchDeleteOptions): void;
 }
 
 interface SearchLoadOptions {
@@ -123,8 +194,8 @@ interface SearchLoadFunction {
 
 interface SearchCreateOptions {
     type: string;
-    filters?: any;
-    columns?: any;
+    filters?: (SearchFilter[]|Object[]);
+    columns?: (SearchColumn[]|string[]);
     title?: string;
     id?: string;
 }
@@ -134,15 +205,21 @@ interface SearchCreateFunction {
     promise(options: SearchCreateOptions): Promise<Search>;
 }
 
+interface SearchModule {
+    create: SearchCreateFunction;
+    load: SearchLoadFunction;
+    delete: SearchDeleteFunction;
+    duplicates: SearchDuplicatesFunction;
+    global: SearchGlobalFunction;
+    lookupFields: SearchLookupFieldsFunction;
+    createColumn: (options: CreateSearchColumnOptions) => SearchColumn;
+    createFilter: (options: CreateSearchFilterOptions) => SearchFilter;
+    Operator: SearchOperator;
+    Summary: SearchSummary;
+}
+
 declare module N {
-    module search {
-        var create: SearchCreateFunction;
-        var load: SearchLoadFunction;
-        var createColumn: (options: CreateSearchColumnOptions) => SearchColumn;
-        var createFilter: (options: CreateSearchFilterOptions) => SearchFilter;
-        var Operator: SearchOperator;
-        var Summary: SearchSummary;
-    }
+    var search:SearchModule;
 }
 
 declare module "N/search" {

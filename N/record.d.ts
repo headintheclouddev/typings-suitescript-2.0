@@ -202,12 +202,14 @@ interface RecordCreateFunction {
     promise(options: RecordCreateOptions): Promise<Record>;
 }
 
+interface RecordModule {
+    create: RecordCreateFunction;
+    submitFields: SubmitFieldsFunction;
+    Type: RecordTypes;
+}
+
 declare module N {
-    module record {
-        var create: RecordCreateFunction;
-        var submitFields: SubmitFieldsFunction;
-        var Type: RecordTypes;
-    }
+    var record:RecordModule;
 }
 
 declare module 'N/record' {
