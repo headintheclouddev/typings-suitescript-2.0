@@ -2,8 +2,8 @@
 
 interface NSFile {
     description: string;
-    encoding: string;
-    fileType: string;
+    encoding: FileEncodingValue;
+    fileType: FileTypeValue;
     folder: number;
     id: number;
     isInactive: boolean;
@@ -17,54 +17,58 @@ interface NSFile {
     getContents: () => string;
 }
 
-interface FileTypes {
-    AUTOCAD: string;
-    BMPIMAGE: string;
-    CSV: string;
-    EXCEL: string;
-    FLASH: string;
-    FREEMARKER: string;
-    GIFIMAGE: string;
-    GZIP: string;
-    HTMLDOC: string;
-    ICON: string;
-    JAVASCRIPT: string;
-    JPGIMAGE: string;
-    JSON: string;
-    MESSAGERFC: string;
-    MP3: string;
-    MPEGMOVIE: string;
-    MSPROJECT: string;
-    PDF: string;
-    PJPGIMAGE: string;
-    PLAINTEXT: string;
-    PNGIMAGE: string;
-    POSTSCRIPT: string;
-    POWERPOINT: string;
-    QUICKTIME: string;
-    RTF: string;
-    SMS: string;
-    STYLESHEET: string;
-    TAR: string;
-    TIFFIMAGE: string;
-    VISIO: string;
-    WEBAPPPAGE: string;
-    WEBAPPSCRIPT: string;
-    WORD: string;
-    XMLDOC: string;
-    XSD: string;
-    ZIP: string;
+interface FileTypeValue {}
+
+interface FileType {
+    AUTOCAD: FileTypeValue;
+    BMPIMAGE: FileTypeValue;
+    CSV: FileTypeValue;
+    EXCEL: FileTypeValue;
+    FLASH: FileTypeValue;
+    FREEMARKER: FileTypeValue;
+    GIFIMAGE: FileTypeValue;
+    GZIP: FileTypeValue;
+    HTMLDOC: FileTypeValue;
+    ICON: FileTypeValue;
+    JAVASCRIPT: FileTypeValue;
+    JPGIMAGE: FileTypeValue;
+    JSON: FileTypeValue;
+    MESSAGERFC: FileTypeValue;
+    MP3: FileTypeValue;
+    MPEGMOVIE: FileTypeValue;
+    MSPROJECT: FileTypeValue;
+    PDF: FileTypeValue;
+    PJPGIMAGE: FileTypeValue;
+    PLAINTEXT: FileTypeValue;
+    PNGIMAGE: FileTypeValue;
+    POSTSCRIPT: FileTypeValue;
+    POWERPOINT: FileTypeValue;
+    QUICKTIME: FileTypeValue;
+    RTF: FileTypeValue;
+    SMS: FileTypeValue;
+    STYLESHEET: FileTypeValue;
+    TAR: FileTypeValue;
+    TIFFIMAGE: FileTypeValue;
+    VISIO: FileTypeValue;
+    WEBAPPPAGE: FileTypeValue;
+    WEBAPPSCRIPT: FileTypeValue;
+    WORD: FileTypeValue;
+    XMLDOC: FileTypeValue;
+    XSD: FileTypeValue;
+    ZIP: FileTypeValue;
 }
 
-interface FileEncodings {
-    UTF8: string;
-    WINDOWS_1252: string;
-    ISO_8859_1: string;
-    GB18030: string;
-    SHIFT_JIS: string;
-    MAC_ROMAN: string;
-    GB2312: string;
-    BIG5: string;
+interface FileEncodingValue {}
+
+interface FileEncoding {
+    UTF8: FileEncodingValue;
+    WINDOWS_1252: FileEncodingValue;
+    ISO_8859_1: FileEncodingValue;
+    GB18030: FileEncodingValue;
+    SHIFT_JIS: FileEncodingValue;
+    MAC_ROMAN: FileEncodingValue;
+    GB2312: FileEncodingValue;
+    BIG5: FileEncodingValue;
 }
 
 interface FileLoadOptions {
@@ -77,7 +81,7 @@ interface FileDeleteOptions {
 
 interface FileCreateOptions {
     name: string;
-    fileType: string;
+    fileType: FileTypeValue;
     contents: string;
 }
 
@@ -85,8 +89,8 @@ interface FileModule {
     create: (options: FileCreateOptions) => NSFile;
     delete: (options: FileDeleteOptions) => void;
     load: (options: FileLoadOptions) => NSFile;
-    Encoding: FileEncodings;
-    Type: FileTypes;
+    Encoding: FileEncoding;
+    Type: FileType;
 }
 
 declare module N {

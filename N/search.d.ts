@@ -1,61 +1,65 @@
 /// <reference path="../typings/tsd.d.ts" />
 
+interface SearchOperatorValue {}
+
 interface SearchOperator {
-    AFTER: string;
-    ALLOF: string;
-    ANY: string;
-    ANYOF: string;
-    BEFORE: string;
-    BETWEEN: string;
-    CONTAINS: string;
-    DOESNOTCONTAIN: string;
-    DOESNOTSTARTWITH: string;
-    EQUALTO: string;
-    GREATERTHAN: string;
-    GREATERTHANOREQUALTO: string;
-    HASKEYWORDS: string;
-    IS: string;
-    ISEMPTY: string;
-    ISNOT: string;
-    ISNOTEMPTY: string;
-    LESSTHAN: string;
-    LESSTHANOREQUALTO: string;
-    NONEOF: string;
-    NOTAFTER: string;
-    NOTALLOF: string;
-    NOTBEFORE: string;
-    NOTBETWEEN: string;
-    NOTEQUALTO: string;
-    NOTGREATERTHAN: string;
-    NOTGREATERTHANOREQUALTO: string;
-    NOTLESSTHAN: string;
-    NOTLESSTHANOREQUALTO: string;
-    NOTON: string;
-    NOTONORAFTER: string;
-    NOTONORBEFORE: string;
-    NOTWITHIN: string;
-    ON: string;
-    ONORAFTER: string;
-    ONORBEFORE: string;
-    STARTSWITH: string;
-    WITHIN: string;
+    AFTER: SearchOperatorValue;
+    ALLOF: SearchOperatorValue;
+    ANY: SearchOperatorValue;
+    ANYOF: SearchOperatorValue;
+    BEFORE: SearchOperatorValue;
+    BETWEEN: SearchOperatorValue;
+    CONTAINS: SearchOperatorValue;
+    DOESNOTCONTAIN: SearchOperatorValue;
+    DOESNOTSTARTWITH: SearchOperatorValue;
+    EQUALTO: SearchOperatorValue;
+    GREATERTHAN: SearchOperatorValue;
+    GREATERTHANOREQUALTO: SearchOperatorValue;
+    HASKEYWORDS: SearchOperatorValue;
+    IS: SearchOperatorValue;
+    ISEMPTY: SearchOperatorValue;
+    ISNOT: SearchOperatorValue;
+    ISNOTEMPTY: SearchOperatorValue;
+    LESSTHAN: SearchOperatorValue;
+    LESSTHANOREQUALTO: SearchOperatorValue;
+    NONEOF: SearchOperatorValue;
+    NOTAFTER: SearchOperatorValue;
+    NOTALLOF: SearchOperatorValue;
+    NOTBEFORE: SearchOperatorValue;
+    NOTBETWEEN: SearchOperatorValue;
+    NOTEQUALTO: SearchOperatorValue;
+    NOTGREATERTHAN: SearchOperatorValue;
+    NOTGREATERTHANOREQUALTO: SearchOperatorValue;
+    NOTLESSTHAN: SearchOperatorValue;
+    NOTLESSTHANOREQUALTO: SearchOperatorValue;
+    NOTON: SearchOperatorValue;
+    NOTONORAFTER: SearchOperatorValue;
+    NOTONORBEFORE: SearchOperatorValue;
+    NOTWITHIN: SearchOperatorValue;
+    ON: SearchOperatorValue;
+    ONORAFTER: SearchOperatorValue;
+    ONORBEFORE: SearchOperatorValue;
+    STARTSWITH: SearchOperatorValue;
+    WITHIN: SearchOperatorValue;
 }
 
 interface SearchFilter {
     name: string;
     join: string;
-    operator: SearchOperator;
-    summary: SearchSummary;
+    operator: SearchOperatorValue;
+    summary: SearchSummaryValue;
     formula: string;
 }
 
+interface SearchSummaryValue {}
+
 interface SearchSummary {
-    GROUP: string;
-    COUNT: string;
-    SUM: string;
-    AVG: string;
-    MIN: string;
-    MAX: string;
+    GROUP: SearchSummaryValue;
+    COUNT: SearchSummaryValue;
+    SUM: SearchSummaryValue;
+    AVG: SearchSummaryValue;
+    MIN: SearchSummaryValue;
+    MAX: SearchSummaryValue;
 }
 
 interface SearchColumnSetWhenOrderedByOptions {
@@ -67,7 +71,7 @@ interface SearchColumn {
     setWhenOrderedBy: (SearchColumnSetWhenOrderedByOptions) => SearchColumn;
     name: string;
     join: string;
-    summary: SearchSummary;
+    summary: SearchSummaryValue;
     formula: string;
     label: string;
     function: string
@@ -77,7 +81,7 @@ interface SearchColumn {
 interface SearchResultGetValueTextOptions {
     name: string;
     join: string;
-    summary?: SearchSummary;
+    summary?: SearchSummaryValue;
 }
 
 interface SearchResult {
@@ -127,16 +131,16 @@ interface Search {
 interface CreateSearchFilterOptions {
     name: string;
     join?: string;
-    operator: SearchOperator;
+    operator: SearchOperatorValue;
     values?: (string|Date|number|string[]);
     formula?: string;
-    summary?: SearchSummary;
+    summary?: SearchSummaryValue;
 }
 
 interface CreateSearchColumnOptions {
     name: string;
     join?: string;
-    summary?: SearchSummary;
+    summary?: SearchSummaryValue;
     formula?: string;
     function?: string;
     label?: string;

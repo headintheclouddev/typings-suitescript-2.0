@@ -202,8 +202,25 @@ interface RecordCreateFunction {
     promise(options: RecordCreateOptions): Promise<Record>;
 }
 
+interface RecordLoadDeleteOptions {
+    type: string;
+    id: (string|number);
+}
+
+interface RecordLoadFunction {
+    (options: RecordLoadDeleteOptions): Record;
+    promise(options:RecordLoadDeleteOptions): Promise<Record>;
+}
+
+interface RecordDeleteFunction {
+    (options:RecordLoadDeleteOptions): void;
+    promise(options:RecordLoadDeleteOptions): Promise<void>;
+}
+
 interface RecordModule {
     create: RecordCreateFunction;
+    load: RecordLoadFunction;
+    delete: RecordDeleteFunction;
     submitFields: SubmitFieldsFunction;
     Type: RecordTypes;
 }
