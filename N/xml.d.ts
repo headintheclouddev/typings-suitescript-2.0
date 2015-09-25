@@ -14,6 +14,10 @@ interface Parser {
 }
 
 interface XMLModule {
+    Attr: Attr;
+    Document: XMLDocument;
+    Element: Element;
+    Node: XMLDocument|Element|Attr;
     Parser: Parser;
 }
 
