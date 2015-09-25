@@ -10,7 +10,7 @@ interface ParserToStringOptions {
 
 interface Parser {
   fromString: (options: ParserFromStringOptions) => XMLDocument;
-  toString: (opations: ParserToStringOptions) => string;
+  toString: (options: ParserToStringOptions) => string;
 }
 
 declare module N {
