@@ -13,8 +13,12 @@ interface Parser {
   toString: (options: ParserToStringOptions) => string;
 }
 
+interface XMLModule {
+    Parser: Parser;
+}
+
 declare module N {
-    var xml:any;
+    var xml: XMLModule;
 }
 
 declare module 'N/xml' {
