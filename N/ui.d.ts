@@ -1,7 +1,7 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 interface addButtonOptions {
-  id?: string;
+  id: string;
   label: string;
   script?: string;
 }
