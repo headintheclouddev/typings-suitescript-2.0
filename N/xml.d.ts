@@ -1,5 +1,21 @@
 /// <reference path="../typings/tsd.d.ts" />
 
+interface NSNode {
+  
+}
+
+interface NSAttr extends NSNode {
+  
+}
+
+interface NSElement extends NSNode {
+  
+}
+
+interface NSXMLDocument extends NSNode {
+  
+}
+
 interface ParserFromStringOptions {
   text: string;
 }
@@ -14,10 +30,10 @@ interface Parser {
 }
 
 interface XMLModule {
-    Attr: Attr;
-    Document: XMLDocument;
-    Element: Element;
-    Node: XMLDocument|Element|Attr;
+    Attr: NSAttr;
+    Document: NSXMLDocument;
+    Element: NSElement;
+    Node: NSNode;
     Parser: Parser;
 }
 
