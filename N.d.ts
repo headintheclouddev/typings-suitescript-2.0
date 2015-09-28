@@ -16,6 +16,7 @@
 /// <reference path="./N/task.d.ts" />
 /// <reference path="./N/transaction.d.ts" />
 /// <reference path="./N/ui.d.ts" />
+/// <reference path="./N/url.d.ts" />
 /// <reference path="./N/workflow.d.ts" />
 /// <reference path="./N/xml.d.ts" />
 
