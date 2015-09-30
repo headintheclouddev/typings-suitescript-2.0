@@ -5,8 +5,29 @@ interface RecordSaveFunction {
     promise(options?:SubmitConfig): Promise<void>;
 }
 
+interface CancelLineOptions {
+    sublistId: string;
+}
+
 interface GetFieldOptions {
     fieldId: string;
+}
+
+interface GetCurrentSublistValueOptions {
+    sublistId: string;
+    fieldId: string;
+}
+
+interface GetSublistValueOptions {
+    sublistId: string;
+    fieldId: string;
+    line: number;
+}
+
+interface SetCurrentSublistValueOptions {
+    sublistId: string;
+    fieldId: string;
+    value: string|number;
 }
 
 interface SetFieldOptions {
@@ -16,10 +37,18 @@ interface SetFieldOptions {
 }
 
 interface Record {
+    cancelLine(options: CancelLineOptions): void;
+    cancelLine(sublistId: string): void;
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions): string;
+    getCurrentSublistValue(sublistId: string, fieldId: string): string;
+    getSublistValue(options: GetSublistValueOptions): string;
+    getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
     getValue(options:GetFieldOptions): string;
     getValue(fieldId:string): string;
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
+    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): void;
     setText(options:SetFieldOptions): void;
     setText(fieldId:string, value:string): void;
     setValue(options:SetFieldOptions): void;
