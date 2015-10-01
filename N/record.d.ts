@@ -28,6 +28,8 @@ interface SetCurrentSublistValueOptions {
     sublistId: string;
     fieldId: string;
     value: string|number;
+    ignoreFieldChange?: boolean;
+    fireSlavingSync?: boolean;
 }
 
 interface SetFieldOptions {
