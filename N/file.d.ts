@@ -72,7 +72,8 @@ interface FileEncoding {
 }
 
 interface FileLoadOptions {
-    idOrPath: (number|string);
+    /** ID or Path */
+    id: (number|string);
 }
 
 interface FileDeleteOptions {
