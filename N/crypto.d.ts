@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="./encode.d.ts" />
 
 interface Cipher {
   final: (options: FinalOptions) => CipherPayload;
@@ -42,7 +43,7 @@ interface FinalOptions {
 
 interface UpdateOptions {
   input: string;
-  inputEncoding: string; // todo: link this to encode.Encoding enum?
+  inputEncoding: Encoding;
 }
 
 interface CreateDecipherOptions {
