@@ -20,6 +20,8 @@
 /// <reference path="./N/workflow.d.ts" />
 /// <reference path="./N/xml.d.ts" />
 
+/// <reference path="./scriptTypes/scriptEntry.d.ts" />
+
 declare module 'N' {
     export = N;
 }
