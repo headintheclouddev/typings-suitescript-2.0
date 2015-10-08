@@ -1,4 +1,5 @@
 /// <reference path="../N/record.d.ts" />
+/// <reference path="../N/ui.d.ts" />
 
 interface NS2_Client_FieldChangeContext {
 	currentRecord: Record;
@@ -90,4 +91,100 @@ interface NS2_Client_ValidateLineContext {
 
 interface NS2_Client_ValidateLine {
   (scriptContext?: NS2_Client_ValidateLineContext): boolean;
+}
+
+interface NS2_UE_BeforeLoadContext {
+  newRecord: Record;
+  type: UserEventTypes;
+  form: uiForm;
+}
+
+interface NS2_UE_BeforeSubmitContext {
+  newRecord: Record;
+  oldRecord: Record;
+  type: UserEventTypes;
+}
+
+interface NS2_UE_AfterSubmitContext {
+  newRecord: Record;
+  oldRecord: Record;
+  type: NS2_UserEventTypes;
+}
+
+interface NS2_UserEventTypes {
+  EDIT: string;
+  CREATE: string;
+  DELETE: string;
+  ATTACH: string;
+  INLINE_EDIT: string;
+  CANCEL: string;
+  APPROVE: string;
+  REJECT: string;
+}
+
+interface NS2_ScheduledScriptContext {
+  type: NS2_ScheduledInvocationTypes;
+}
+
+interface NS2_ScheduledInvocationTypes {
+  SCHEDULED: string;
+  ON_DEMAND: string;
+  USER_INTERFACE: string;
+  ABORTED: string;
+  SKIPPED: string;
+}
+
+interface NS2_MapReduce_MapContext {
+  key: string;
+  value: string;
+  write: (key: string, value: string) => void;
+}
+
+interface NS2_MapReduce_ReduceContext {
+  key: string;
+  values: string[];
+  write: (key: string, value: string[]) => void;
+}
+
+interface NS2_MapReduce_Iterator {
+  each(callback: (key: string, value: string) => void) : void;
+}
+
+interface NS2_MapReduce_SummaryFunction {
+  dateCreated: Date;
+  seconds: number;
+  usage: number;
+  concurrency: number;
+  yields: number;
+  inputSummary: NS2_MapReduce_InputSummary;
+  mapSummary: NS2_MapReduce_MapSummary;
+  reduceSummary: NS2_MapReduce_ReduceSummary;
+  output: NS2_MapReduce_Iterator;
+}
+
+interface NS2_MapReduce_InputSummary {
+  dateCreated: Date;
+  seconds: number;
+  usage: number;
+  error: string;
+}
+
+interface NS2_MapReduce_MapSummary {
+  dateCreated: Date;
+  seconds: number;
+  usage: number;
+  concurrency: number;
+  yields: number;
+  keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+  errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+}
+
+interface NS2_MapReduce_ReduceSummary {
+  dateCreated: Date;
+  seconds: number;
+  usage: number;
+  concurrency: number;
+  yields: number;
+  keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+  errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
 }
