@@ -1,5 +1,6 @@
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="../N/file.d.ts" />
+/// <reference path="../N/record.d.ts" />
 
 interface ClientResponse {
   toString: () => string;
@@ -86,12 +87,6 @@ interface WritePageOptions {
 
 interface GetLineCountOptions {
   group: string;
-}
-
-interface GetSublistValueOptions {
-  group: string;
-  name: string;
-  line: string;
 }
 
 interface GetOptions {
