@@ -7,36 +7,31 @@ interface FormatOptions {
 
 interface FormatDateTimeOptions {
     value: Date;
-    type: DateType;
+    type: FormatType;
     timezone: Timezone|number;
 }
 
-interface DateType {
-    DATETIME: string;
-    DATETIMETZ: string;
-}
-
 interface FormatType {
-    CCEXPDATE: string;
-    CCNUMBER: string;
-    CCVALIDFROM: string;
-    CHECKBOX: string;
-    COLOR: string;
-    CURRENCY: string;
-    CURRENCY2: string;
-    DATE: string;
-    DATETIME: string;
-    DATETIMETZ: string;
-    FLOAT: string;
-    FULLPHONE: string;
-    FUNCTION: string;
-    IDENTIFIER: string;
-    INTEGER: string;
-    MMYYDATE: string;
-    NONNEGCURRENCY: string;
-    NONNEGFLOAT: string;
-    PERCENT: string;
-    PHONE: string;
+    CCEXPDATE;
+    CCNUMBER;
+    CCVALIDFROM;
+    CHECKBOX;
+    COLOR;
+    CURRENCY;
+    CURRENCY2;
+    DATE;
+    DATETIME;
+    DATETIMETZ;
+    FLOAT;
+    FULLPHONE;
+    FUNCTION;
+    IDENTIFIER;
+    INTEGER;
+    MMYYDATE;
+    NONNEGCURRENCY;
+    NONNEGFLOAT;
+    PERCENT;
+    PHONE;
 }
 
 interface Timezone {
@@ -130,8 +125,10 @@ interface Timezone {
 }
 
 interface FormatModule {
-    format: (options: FormatOptions|FormatDateTimeOptions) => string|Object;
-    parse: (options: FormatOptions|FormatDateTimeOptions) => Date|string|number;
+    format (options: FormatOptions): string|Object;
+    format (options: FormatDateTimeOptions): string|Object;
+    parse (options: FormatOptions): Date|string|number;
+    parse (options: FormatDateTimeOptions): Date|string|number;
     Type: FormatType;
     Timezone: Timezone;
 }
