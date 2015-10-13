@@ -9,19 +9,28 @@ interface CancelLineOptions {
     sublistId: string;
 }
 
+interface GetCurrentSublistValueOptions {
+    sublistId: string;
+    fieldId: string;
+}
+
 interface GetFieldOptions {
     fieldId: string;
 }
 
-interface GetCurrentSublistValueOptions {
-    sublistId: string;
-    fieldId: string;
+interface RecordGetLineCountOptions {
+  sublistId: string;
 }
 
 interface GetSublistValueOptions {
     sublistId: string;
     fieldId: string;
     line: number;
+}
+
+interface SelectLineOptions {
+  sublistId: string;
+  line: number;
 }
 
 interface SetCurrentSublistValueOptions {
@@ -43,12 +52,16 @@ interface Record {
     cancelLine(sublistId: string): void;
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): string;
     getCurrentSublistValue(sublistId: string, fieldId: string): string;
+    getLineCount(options: RecordGetLineCountOptions): number;
+    getLineCount(sublistId: string): number;
     getSublistValue(options: GetSublistValueOptions): string;
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
     getValue(options:GetFieldOptions): string;
     getValue(fieldId:string): string;
+    selectLine(options: SelectLineOptions): void;
+    selectLine(sublistId: string, line: number): void;
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
     setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): void;
     setText(options:SetFieldOptions): void;
