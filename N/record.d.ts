@@ -69,6 +69,9 @@ interface Record {
     setValue(options:SetFieldOptions): void;
     setValue(fieldId:string, value:string): void;
     save: RecordSaveFunction;
+    id: string;
+    isDynamic: boolean;
+    type: RecordTypes;
 }
 
 interface RecordTypes {
