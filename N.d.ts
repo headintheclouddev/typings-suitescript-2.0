@@ -12,6 +12,7 @@
 /// <reference path="./N/https.d.ts" />
 /// <reference path="./N/record.d.ts" />
 /// <reference path="./N/render.d.ts" />
+/// <reference path="./N/runtime.d.ts" />
 /// <reference path="./N/search.d.ts" />
 /// <reference path="./N/task.d.ts" />
 /// <reference path="./N/transaction.d.ts" />
