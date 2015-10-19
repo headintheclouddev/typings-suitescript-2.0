@@ -221,7 +221,7 @@ interface GetElementByIdOptions {
 }
 
 interface GetElementsByTagNameOptions {
-    tag: string;
+    tagName: string;
 }
 
 interface GetElementsByTagNameNSOpts {
