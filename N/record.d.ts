@@ -5,8 +5,37 @@ interface RecordSaveFunction {
     promise(options?:SubmitConfig): Promise<void>;
 }
 
-interface CancelLineOptions {
+interface AttachOptions {
+  record: Record;
+  // Need record type and Id?
+  to: Record;  
+  // Need record type and id?
+  attributes: Object;
+}
+
+interface CancelCommitLineOptions {
     sublistId: string;
+}
+
+interface CopyLoadOptions {
+    type: RecordTypes;
+    id: number;
+    isDynamic?: boolean;
+    defaultValue?: Object;
+}
+
+interface DetachOptions {
+    record: Record;
+    // Need type and id?
+    from: Record;
+    // Need type and id?
+    attributes?: Object;
+}
+
+interface FindSublistLineWithValueOptions {
+    sublistId: string;
+    fieldId: string;
+    value: any;
 }
 
 interface GetCurrentSublistValueOptions {
@@ -19,7 +48,7 @@ interface GetFieldOptions {
 }
 
 interface RecordGetLineCountOptions {
-  sublistId: string;
+    sublistId: string;
 }
 
 interface GetSublistValueOptions {
@@ -29,8 +58,8 @@ interface GetSublistValueOptions {
 }
 
 interface SelectLineOptions {
-  sublistId: string;
-  line: number;
+    sublistId: string;
+    line: number;
 }
 
 interface SetCurrentSublistValueOptions {
@@ -48,8 +77,11 @@ interface SetFieldOptions {
 }
 
 interface Record {
-    cancelLine(options: CancelLineOptions): void;
+    cancelLine(options: CancelCommitLineOptions): void;
     cancelLine(sublistId: string): void;
+    commitLine(options: CancelCommitLineOptions): Record;
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
+    getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): string;
     getCurrentSublistValue(sublistId: string, fieldId: string): string;
     getLineCount(options: RecordGetLineCountOptions): number;
@@ -230,9 +262,10 @@ interface SubmitConfig {
 
 interface SubmitFieldsOptions {
     type: string;
-    id: string;
+    id: string|number;
     values: any;
     options?: SubmitConfig;
+    defaultValues?: Object;
 }
 
 interface SubmitFieldsFunction {
@@ -242,6 +275,8 @@ interface SubmitFieldsFunction {
 
 interface RecordCreateOptions {
     type: string;
+    isDynamic?: boolean;
+    defaultValue?: Object;
 }
 
 interface RecordCreateFunction {
@@ -249,26 +284,38 @@ interface RecordCreateFunction {
     promise(options: RecordCreateOptions): Promise<Record>;
 }
 
-interface RecordLoadDeleteOptions {
+interface RecordDeleteOptions {
     type: string;
     id: (string|number);
 }
 
 interface RecordLoadFunction {
-    (options: RecordLoadDeleteOptions): Record;
-    promise(options:RecordLoadDeleteOptions): Promise<Record>;
+    (options: CopyLoadOptions): Record;
+    promise(options: CopyLoadOptions): Promise<Record>;
 }
 
 interface RecordDeleteFunction {
-    (options:RecordLoadDeleteOptions): void;
-    promise(options:RecordLoadDeleteOptions): Promise<void>;
+    (options:RecordDeleteOptions): void;
+    promise(options: RecordDeleteOptions): Promise<void>;
+}
+
+interface RecordTransformOptions {
+    type: string;
+    id: number;
+    toType: string;
+    isDynamic?: boolean;
+    defaultValues?: Object;
 }
 
 interface RecordModule {
+    attach(options: AttachOptions): void;
+    copy(options: CopyOptions): Record;
     create: RecordCreateFunction;
     load: RecordLoadFunction;
     delete: RecordDeleteFunction;
+    detach(options: DetachOptions): void;
     submitFields: SubmitFieldsFunction;
+    transform(options: RecordTransformOptions): Record;
     Type: RecordTypes;
 }
 
