@@ -95,20 +95,20 @@ interface NS2_Client_ValidateLine {
 
 interface NS2_UE_BeforeLoadContext {
   newRecord: Record;
-  type: NS2_UserEventTypes;
+  type: string;
   form: uiForm;
 }
 
 interface NS2_UE_BeforeSubmitContext {
   newRecord: Record;
   oldRecord: Record;
-  type: NS2_UserEventTypes;
+  type: string;
 }
 
 interface NS2_UE_AfterSubmitContext {
   newRecord: Record;
   oldRecord: Record;
-  type: NS2_UserEventTypes;
+  type: string;
 }
 
 interface NS2_UserEventTypes {
