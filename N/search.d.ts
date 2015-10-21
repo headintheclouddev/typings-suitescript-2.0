@@ -68,14 +68,14 @@ interface SearchColumnSetWhenOrderedByOptions {
 }
 
 interface SearchColumn {
-    setWhenOrderedBy: (SearchColumnSetWhenOrderedByOptions) => SearchColumn;
+    setWhenOrderedBy?: (SearchColumnSetWhenOrderedByOptions) => SearchColumn;
     name: string;
-    join: string;
-    summary: SearchSummaryValue;
-    formula: string;
-    label: string;
-    function: string
-    sort: boolean;
+    join?: string;
+    summary?: string;
+    formula?: string;
+    label?: string;
+    function?: string
+    sort?: string; // SORT enum: ASC/DESC/NONE
 }
 
 interface SearchResultGetValueTextOptions {
@@ -140,11 +140,11 @@ interface CreateSearchFilterOptions {
 interface CreateSearchColumnOptions {
     name: string;
     join?: string;
-    summary?: SearchSummaryValue;
+    summary?: string; // todo: use enum
     formula?: string;
     function?: string;
     label?: string;
-    sort?: boolean;
+    sort?: string; // todo: use enum (ASC/DESC/NONE)
 }
 
 interface SearchLookupFieldsOptions {
