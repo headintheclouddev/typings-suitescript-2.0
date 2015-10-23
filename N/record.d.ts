@@ -18,8 +18,8 @@ interface CancelCommitLineOptions {
 }
 
 interface CopyLoadOptions {
-    type: RecordTypes;
-    id: number;
+    type: string;
+    id: number|string;
     isDynamic?: boolean;
     defaultValue?: Object;
 }
@@ -309,7 +309,7 @@ interface RecordTransformOptions {
 
 interface RecordModule {
     attach(options: AttachOptions): void;
-    copy(options: CopyOptions): Record;
+    copy(options: CopyLoadOptions): Record;
     create: RecordCreateFunction;
     load: RecordLoadFunction;
     delete: RecordDeleteFunction;
