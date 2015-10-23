@@ -14,7 +14,7 @@ interface Session {
 }
 
 interface User {
-  
+  id: string;
 }
 
 interface FeatureOptions {
