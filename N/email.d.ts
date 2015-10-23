@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="file.d.ts" />
 
 interface SendOptions {
     author: number;
@@ -8,7 +9,7 @@ interface SendOptions {
     bcc?: string[];
     subject: string;
     body: string;
-    attachments?: File[];
+    attachments?: NSFile[];
     relatedRecords?: RelatedRecordTypes;
     isInternalOnly?: boolean;   
 }
