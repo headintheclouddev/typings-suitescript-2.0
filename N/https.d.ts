@@ -44,6 +44,12 @@ interface SecureString {
 interface HttpsModule {
   createSecureKey: (options: CreateSecureKeyOptions) => SecretKey;
   createSecureString: (options: CreateSecureStringOptions) => any;
+  // This module encapsulates the HTTP module (any better way to do this?):
+  get: (GetOptions) => ClientResponse;
+  delete: (DeleteOptions) => ClientResponse;
+  request: (RequestOptions) => ClientResponse;
+  post: (PostOptions) => ClientResponse;
+  put: (PutOptions) => ClientResponse;
 }
 
 declare module N {
