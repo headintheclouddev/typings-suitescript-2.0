@@ -95,31 +95,37 @@ interface NS2_Client_ValidateLine {
 
 interface NS2_UE_BeforeLoadContext {
   newRecord: Record;
-  type: string;
+  type: NS2_UserEventTypes;
   form: uiForm;
+  UserEventTypes: NS2_UserEventTypes
 }
 
 interface NS2_UE_BeforeSubmitContext {
   newRecord: Record;
   oldRecord: Record;
-  type: string;
+  type: NS2_UserEventTypes;
+  UserEventTypes: NS2_UserEventTypes
 }
 
 interface NS2_UE_AfterSubmitContext {
   newRecord: Record;
   oldRecord: Record;
-  type: string;
+  type: NS2_UserEventTypes;
+  UserEventTypes: NS2_UserEventTypes
 }
 
+interface NS2_ContextType {}
+
 interface NS2_UserEventTypes {
-  EDIT: string;
-  CREATE: string;
-  DELETE: string;
-  ATTACH: string;
-  INLINE_EDIT: string;
-  CANCEL: string;
-  APPROVE: string;
-  REJECT: string;
+  EDIT: NS2_ContextType;
+  CREATE: NS2_ContextType;
+  DELETE: NS2_ContextType;
+  ATTACH: NS2_ContextType;
+  INLINE_EDIT: NS2_ContextType;
+  CANCEL: NS2_ContextType;
+  APPROVE: NS2_ContextType;
+  REJECT: NS2_ContextType;
+  VIEW: NS2_ContextType;
 }
 
 interface NS2_ScheduledScriptContext {
