@@ -9,7 +9,7 @@ interface AddButtonOptions {
 interface AddFieldOptions {
   id: string;
   label: string;
-  type: FieldType;
+  type: FieldTypeList;
   source?: string;
   tab?: string;
 }
@@ -46,40 +46,44 @@ interface UIField {
   displayType: FieldDisplayType;
 }
 
+interface FieldDisplayValue {}
+
 interface FieldDisplayType {
-  DISABLED: string;
-  ENTRY: string;
-  HIDDEN: string;
-  INLINE: string;
-  NORMAL: string;
-  READONLY: string;
+  DISABLED: FieldDisplayValue;
+  ENTRY: FieldDisplayValue;
+  HIDDEN: FieldDisplayValue;
+  INLINE: FieldDisplayValue;
+  NORMAL: FieldDisplayValue;
+  READONLY: FieldDisplayValue;
 }
 
-interface FieldType {
-  CHECKBOX: string;
-  CURRENCY: string;
-  DATE: string;
-  DATETIMETZ: string;
-  EMAIL: string;
-  FILE: string;
-  FLOAT: string;
-  HELP: string;
-  INLINEHTML: string;
-  INTEGER: string;
-  IMAGE: string;
-  LABEL: string;
-  LONGTEXT: string;
-  MULTISELECT: string;
-  PASSPORT: string;
-  PERCENT: string;
-  PHONE: string;
-  SELECT: string;
-  RADIO: string;
-  RICHTEXT: string;
-  TEXT: string;
-  TEXTAREA: string;
-  TIMEOFDAY: string;
-  URL: string;
+interface FieldTypeValue {}
+
+interface FieldTypeList {
+  CHECKBOX: FieldTypeValue;
+  CURRENCY: FieldTypeValue;
+  DATE: FieldTypeValue;
+  DATETIMETZ: FieldTypeValue;
+  EMAIL: FieldTypeValue;
+  FILE: FieldTypeValue;
+  FLOAT: FieldTypeValue;
+  HELP: FieldTypeValue;
+  INLINEHTML: FieldTypeValue;
+  INTEGER: FieldTypeValue;
+  IMAGE: FieldTypeValue;
+  LABEL: FieldTypeValue;
+  LONGTEXT: FieldTypeValue;
+  MULTISELECT: FieldTypeValue;
+  PASSPORT: FieldTypeValue;
+  PERCENT: FieldTypeValue;
+  PHONE: FieldTypeValue;
+  SELECT: FieldTypeValue;
+  RADIO: FieldTypeValue;
+  RICHTEXT: FieldTypeValue;
+  TEXT: FieldTypeValue;
+  TEXTAREA: FieldTypeValue;
+  TIMEOFDAY: FieldTypeValue;
+  URL: FieldTypeValue;
 }
 
 interface uiForm {
@@ -95,6 +99,8 @@ interface uiModule {
   Form: uiForm;
   Sublist: Object;
   Tab: Object;
+  FieldDisplayType: FieldDisplayType;
+  FieldType: FieldTypeList;
 }
 
 declare module N {
