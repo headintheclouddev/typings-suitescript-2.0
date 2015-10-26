@@ -1,3 +1,4 @@
+/// <reference path="../N/http.d.ts" />
 /// <reference path="../N/record.d.ts" />
 /// <reference path="../N/ui.d.ts" />
 
@@ -193,4 +194,9 @@ interface NS2_MapReduce_ReduceSummary {
   yields: number;
   keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
   errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+}
+
+interface NS2_Suitelet_Context {
+  request: ServerRequest;
+  response: ServerResponse;
 }
