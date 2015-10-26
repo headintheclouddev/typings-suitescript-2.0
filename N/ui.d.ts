@@ -9,7 +9,7 @@ interface AddButtonOptions {
 interface AddFieldOptions {
   id: string;
   label: string;
-  type: FieldTypeList;
+  type: FieldTypeValue;
   source?: string;
   tab?: string;
 }
