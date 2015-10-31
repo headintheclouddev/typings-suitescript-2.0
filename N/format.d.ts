@@ -32,6 +32,15 @@ interface FormatType {
     NONNEGFLOAT: string;
     PERCENT: string;
     PHONE: string;
+    POSCURRENCY: string;
+    POSFLOAT: string;
+    POSINTEGER: string;
+    RATE: string;
+    RATEHIGHPRECISION: string;
+    TIME: string;
+    TIMEOFDAY: string;
+    TIMETRACK: string;
+    URL: string;
 }
 
 interface Timezone {
