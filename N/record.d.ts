@@ -90,7 +90,8 @@ interface Record {
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
-    getValue(options:GetFieldOptions): string;
+    getValue(options:GetFieldOptions): Date;
+    getValue(options:GetFieldOptions): number|string|string[];
     getValue(fieldId:string): string;
     selectLine(options: SelectLineOptions): void;
     selectLine(sublistId: string, line: number): void;
