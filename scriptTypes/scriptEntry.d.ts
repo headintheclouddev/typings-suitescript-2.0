@@ -2,7 +2,7 @@
 /// <reference path="../N/record.d.ts" />
 /// <reference path="../N/ui.d.ts" />
 
-interface NS2_Client_FieldChangeContext {
+interface NS2_Client_FieldChangedContext {
 	currentRecord: Record;
 	sublistId: string;
 	fieldId: string;
@@ -11,7 +11,7 @@ interface NS2_Client_FieldChangeContext {
 }
 
 interface NS2_Client_FieldChanged {
-  (scriptContext?: NS2_Client_FieldChangeContext): void;
+  (scriptContext?: NS2_Client_FieldChangedContext): void;
 }
 
 interface NS2_Client_LineInitContext {
