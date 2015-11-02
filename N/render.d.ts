@@ -1,4 +1,11 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="./file.d.ts" />
+
+interface PrintModes {
+  DEFAULT: string;
+  HTML: string;
+  PDF: string;
+}
 
 interface StatementOptions {
   entityId: number;
@@ -11,6 +18,7 @@ interface StatementOptions {
 
 interface RenderModule {
   statement(options: StatementOptions): NSFile;
+  PrintMode: PrintModes;
 }
 
 declare module N {
