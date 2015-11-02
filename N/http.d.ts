@@ -13,8 +13,8 @@ interface ClientResponse {
 }
 
 interface ServerRequest {
-  getLineCount: (GetLineCountOptions) => number;
-  getSublistValue: (GetSublistValueOptions) => string;
+  getLineCount: (options: GetLineCountOptions) => number;
+  getSublistValue: (options: GetSublistValueOptions) => string;
   toString: () => string;
   body: string;
   files: Object;
@@ -25,16 +25,16 @@ interface ServerRequest {
 }
 
 interface ServerResponse {
-  addHeader: (AddHeaderOptions) => void;
-  getHeader: (GetHeaderOptions) => string;
-  sendRedirect: (SendRedirectOptions) => void;
-  setHeader: (SetHeaderOptions) => void;
-  renderPdf: (RenderPDFOptions) => void;
-  setCdnCacheable: (SetCDNCacheableOptions) => void;
-  write: (WriteOptions) => void;
-  writeFile: (WriteFileOptions) => void;
-  writeLine: (WriteLineOptions) => void;
-  writePage: (WritePageOptions) => void;
+  addHeader: (options: AddHeaderOptions) => void;
+  getHeader: (options: GetHeaderOptions) => string;
+  sendRedirect: (options: SendRedirectOptions) => void;
+  setHeader: (options: SetHeaderOptions) => void;
+  renderPdf: (options: RenderPDFOptions) => void;
+  setCdnCacheable: (options: SetCDNCacheableOptions) => void;
+  write: (options: WriteOptions) => void;
+  writeFile: (options: WriteFileOptions) => void;
+  writeLine: (options: WriteLineOptions) => void;
+  writePage: (options: WritePageOptions) => void;
   headers: Object;
 }
 
@@ -133,11 +133,11 @@ interface HttpMethod {
 }
 
 interface HttpModule {
-  get: (GetOptions) => ClientResponse;
-  delete: (DeleteOptions) => ClientResponse;
-  request: (RequestOptions) => ClientResponse;
-  post: (PostOptions) => ClientResponse;
-  put: (PutOptions) => ClientResponse;
+  get: (options: GetOptions) => ClientResponse;
+  delete: (options: DeleteOptions) => ClientResponse;
+  request: (options: RequestOptions) => ClientResponse;
+  post: (options: PostOptions) => ClientResponse;
+  put: (options: PutOptions) => ClientResponse;
 }
 
 declare module N {
