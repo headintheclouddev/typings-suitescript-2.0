@@ -14,51 +14,62 @@ interface Session {
 }
 
 interface User {
+  // TODO: Define getPermissions and getPreference
+  department: number;
+  email: string;
   id: number;
+  location: number;
+  name: string;
+  role: number;
+  roleCenter: number;
+  roleId: string; // text ID
+  subsidiary: number;
 }
 
 interface FeatureOptions {
   name: string;
 }
 
-interface ContextType {
-  USER_INTERFACE;
-  WEBSERVICES;
-  WEBSTORE;
-  PORTLET;
-  SCHEDULED;
-  SUITELET;
-  CSV_IMPORT;
-  CUSTOM_MASSUPDATE;
-  WORKFLOW;
-  USEREVENT;
+interface ContextTypes {
+  USER_INTERFACE: string;
+  WEBSERVICES: string;
+  WEBSTORE: string;
+  PORTLET: string;
+  SCHEDULED: string;
+  SUITELET: string;
+  CSV_IMPORT: string;
+  CUSTOM_MASSUPDATE: string;
+  WORKFLOW: string;
+  USEREVENT: string;
 }
 
-interface EnvType {
-  SANDBOX;
-  PRODUCTION;
-  BETA;
-  INTERNAL;
+interface EnvTypes {
+  SANDBOX: string;
+  PRODUCTION: string;
+  BETA: string;
+  INTERNAL: string;
 }
 
-interface Permission {
-  FULL;
-  EDIT;
-  CREATE;
-  VIEW;
-  NONE;
+interface Permissions {
+  FULL: string;
+  EDIT: string;
+  CREATE: string;
+  VIEW: string;
+  NONE: string;
 }
 
 interface RuntimeModule {
   accountId: string;
-  envType: EnvType;
-  executionContext: ContextType;
+  envType: string;
+  executionContext: string;
   queueCount: number;
   version: string;
   getCurrentScript: () => Script;
   getCurrentSession: () => Session;
   getCurrentUser: () => User;
   isFeatureInEffect: (options: FeatureOptions) => boolean;
+  ContextType: ContextTypes;
+  EnvType: EnvTypes;
 }
 
 declare module N {
