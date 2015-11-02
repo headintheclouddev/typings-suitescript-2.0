@@ -2,8 +2,8 @@
 
 interface ConvertOptions {
     string: string;
-    inputEncoding: Encoding;
-    outputEncoding: Encoding;
+    inputEncoding: string;
+    outputEncoding: string;
 }
 
 interface Encoding {
