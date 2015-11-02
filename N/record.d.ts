@@ -76,6 +76,10 @@ interface SetFieldOptions {
     ignoreFieldChange?: boolean;
 }
 
+interface Field {
+  
+}
+
 interface Record {
     cancelLine(options: CancelCommitLineOptions): void;
     cancelLine(sublistId: string): void;
@@ -84,8 +88,11 @@ interface Record {
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): string;
     getCurrentSublistValue(sublistId: string, fieldId: string): string;
+    getField(options: GetFieldOptions): Field;
+    getFields(): string[];
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
+    // Todo: pick up here in defining stuff
     getSublistValue(options: GetSublistValueOptions): string;
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getText(options:GetFieldOptions): string;
