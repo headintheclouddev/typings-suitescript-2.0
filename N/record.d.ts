@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="ui.d.ts" />
 
 interface RecordSaveFunction {
     (options?:SubmitConfig): void;
@@ -6,11 +7,11 @@ interface RecordSaveFunction {
 }
 
 interface AttachOptions {
-  record: Record;
-  // Need record type and Id?
-  to: Record;  
-  // Need record type and id?
-  attributes: Object;
+    record: Record;
+    // Need record type and Id?
+    to: Record;  
+    // Need record type and id?
+    attributes: Object;
 }
 
 interface CancelCommitLineOptions {
@@ -57,6 +58,12 @@ interface GetSublistValueOptions {
     line: number;
 }
 
+interface InsertLineOptions {
+    sublistId: string,
+    line: number,
+    ignoreRecalc?: boolean // Default is false
+}
+
 interface SelectLineOptions {
     sublistId: string;
     line: number;
@@ -70,14 +77,46 @@ interface SetCurrentSublistValueOptions {
     fireSlavingSync?: boolean;
 }
 
+interface SetCurrentSublistTextOptions {
+    sublistId: string;
+    fieldId: string;
+    text: number|Date|string|string[];
+    ignoreFieldChange?: boolean; // Default false
+}
+
 interface SetFieldOptions {
     fieldId: string;
     value: any;
     ignoreFieldChange?: boolean;
 }
 
+interface SetSublistTextOptions {
+    sublistId: string;
+    fieldId: string;
+    line: number;
+    text: string;
+}
+
+interface SetSublistValueOptions {
+    sublistId: string;
+    fieldId: string;
+    line: number;
+    value: number|Date|string|string[];
+}
+
 interface Field {
-  
+    getSelectOptions(options: GetSelectOptionsOpts): Object[];
+    toString(): string;
+    label: string;
+    id: string;
+    sublistId: string;
+    type: string;
+    isMandatory: boolean;
+    isDisabled: boolean;
+    isPopup: boolean;
+    isDisplay: boolean;
+    isVisible: boolean;
+    isReadOnly: boolean;
 }
 
 interface Record {
@@ -92,26 +131,40 @@ interface Record {
     getFields(): string[];
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
-    // Todo: pick up here in defining stuff
+    getSublistField(options: GetSublistValueOptions): Field;
+    getSublistFields(options: RecordGetLineCountOptions): string[];
+    getSublistSubrecord(options: GetSublistValueOptions): Record;
+    getSublistText(options: GetSublistValueOptions): string;
     getSublistValue(options: GetSublistValueOptions): string;
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
+    getSubRecord(options: GetFieldOptions): Record;
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
     getValue(options:GetFieldOptions): Date;
     getValue(options:GetFieldOptions): number|string|string[];
     getValue(fieldId:string): string;
-    selectLine(options: SelectLineOptions): void;
-    selectLine(sublistId: string, line: number): void;
-    setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
-    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): void;
-    setText(options:SetFieldOptions): void;
-    setText(fieldId:string, value:string): void;
-    setValue(options:SetFieldOptions): void;
-    setValue(fieldId:string, value:string): void;
+    insertLine(options: InsertLineOptions): Record;
+    removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
+    removeLine(options: InsertLineOptions): Record;
+    removeSublistSubrecord(options: GetSublistValueOptions): Record;
+    removeSubrecord(options: RecordGetLineCountOptions): Record;
     save: RecordSaveFunction;
+    selectLine(options: SelectLineOptions): Record;
+    selectLine(sublistId: string, line: number): Record;
+    selectNewLine(options: RecordGetLineCountOptions): Record;
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions): Record;
+    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): Record;
+    setCurrentSublistText(options: SetCurrentSublistTextOptions): Record;
+    setSublistText(options: SetSublistTextOptions): Record;
+    setSublistValue(options: SetSublistValueOptions): Record;
+    setText(options:SetFieldOptions): Record;
+    setText(fieldId:string, value:string): Record;
+    setValue(options:SetFieldOptions): Record;
+    setValue(fieldId:string, value:string): Record;
+    toString(): string;
     id: string;
     isDynamic: boolean;
-    type: RecordTypes;
+    type: string;
 }
 
 interface RecordTypes {
