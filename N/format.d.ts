@@ -136,8 +136,7 @@ interface Timezone {
 interface FormatModule {
     format (options: FormatOptions): string|Object;
     format (options: FormatDateTimeOptions): string|Object;
-    parse (options: FormatOptions): Date;
-    parse (options: FormatOptions): string|number;
+    parse (options: FormatOptions): Date|string|number;
     parse (options: FormatDateTimeOptions): Date|string|number;
     Type: FormatType;
     Timezone: Timezone;
