@@ -140,8 +140,7 @@ interface Record {
     getSubRecord(options: GetFieldOptions): Record;
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
-    getValue(options:GetFieldOptions): Date;
-    getValue(options:GetFieldOptions): number|string|string[];
+    getValue(options:GetFieldOptions): Date|number|string|string[];
     getValue(fieldId:string): string;
     insertLine(options: InsertLineOptions): Record;
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
