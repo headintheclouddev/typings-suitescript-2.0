@@ -2,7 +2,7 @@
 /// <reference path="ui.d.ts" />
 
 interface RecordSaveFunction {
-    (options?:SubmitConfig): void;
+    (options?: SubmitConfig): number;
     promise(options?:SubmitConfig): Promise<void>;
 }
 
