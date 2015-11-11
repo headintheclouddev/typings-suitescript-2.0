@@ -97,7 +97,7 @@ interface NS2_Client_ValidateLine {
 interface NS2_UE_BeforeLoadContext {
   newRecord: Record;
   type: string;
-  form: uiForm;
+  form: UIForm;
   UserEventTypes: NS2_UserEventTypes
 }
 
