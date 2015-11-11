@@ -100,7 +100,7 @@ interface DeleteOptions {
 }
 
 interface RequestOptions {
-  method: HttpMethod;
+  method: string;
   url: string;
   body?: string|Object;
   headers?: Object;
@@ -138,6 +138,8 @@ interface HttpModule {
   request: (options: RequestOptions) => ClientResponse;
   post: (options: PostOptions) => ClientResponse;
   put: (options: PutOptions) => ClientResponse;
+  CacheDuration: CacheDuration;
+  Method: HttpMethod;
 }
 
 declare module N {
