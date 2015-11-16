@@ -85,7 +85,15 @@ interface FieldTypeLists {
 }
 
 interface Assistant {
-    
+    // Todo: Define Assistant methods from documentation
+    currentStep: void;
+    defaultValues: string[];
+    errorHtml: string; // Error message text for the current step
+    finishedHtml: string; // The text to display after the assistant finishes. For example “You have completed the Small Business Setup Assistant. Take the rest of the day off”.
+    hideAddToShortcutsLink: boolean;
+    hideStepNumber: boolean;
+    isNotOrdered: boolean;
+    title: string;
 }
 
 interface AssistantStep {
