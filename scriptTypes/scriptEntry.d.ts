@@ -98,21 +98,21 @@ interface NS2_UE_BeforeLoadContext {
   newRecord: Record;
   type: string;
   form: UIForm;
-  UserEventTypes: NS2_UserEventTypes
+  UserEventTypes: NS2_UserEventTypes;
 }
 
 interface NS2_UE_BeforeSubmitContext {
   newRecord: Record;
   oldRecord: Record;
   type: string;
-  UserEventTypes: string
+  UserEventTypes: NS2_UserEventTypes;
 }
 
 interface NS2_UE_AfterSubmitContext {
   newRecord: Record;
   oldRecord: Record;
   type: string;
-  UserEventTypes: NS2_UserEventTypes
+  UserEventTypes: NS2_UserEventTypes;
 }
 
 interface NS2_UserEventTypes {
