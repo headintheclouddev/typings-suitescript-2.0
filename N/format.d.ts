@@ -1,5 +1,9 @@
 /// <reference path="../typings/tsd.d.ts" />
 
+/**
+ * param value is the return type, not the referenced type.
+ * format.format() is the one that works for Date parsing. Deal.
+ */
 interface FormatOptions {
     value: Date|string|number;
     type: string;

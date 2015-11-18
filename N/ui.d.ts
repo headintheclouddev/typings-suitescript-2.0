@@ -6,6 +6,11 @@ interface AddButtonOptions {
     script?: string;
 }
 
+interface AddFieldGroupOptions {
+    id: string;
+    label: string;
+}
+
 interface AddFieldOptions {
     id: string;
     label: string;
@@ -20,9 +25,17 @@ interface AddSelectOptionOptions {
     isSelected?: boolean;
 }
 
+interface ClientScriptOptions {
+    script: string; // The scriptId or internal ID
+}
+
 interface CreateAssistantOptions {
     title: string;
     hideNavBar?: boolean;
+}
+
+interface IDOptions {
+    id: string;
 }
 
 interface UIGetFieldOptions {
@@ -38,6 +51,12 @@ interface GetSelectOptionsOpts {
 interface SetHelpTextOptions {
     help: string;
     showInlineForAssistant?: boolean;
+}
+
+interface SetSplashOptions {
+    title: string,
+    text1: string,
+    text2?: string 
 }
 
 interface AssistantSubmitActions {
@@ -85,7 +104,27 @@ interface FieldTypeLists {
 }
 
 interface Assistant {
-    // Todo: Define Assistant methods from documentation
+    addField: (options: AddFieldOptions) => UIField;
+    addFieldGroup: (options: AddFieldGroupOptions) => UIFieldGroup;
+    addStep: (options: AddFieldGroupOptions) => UIAssistantStep;
+    addSublist: (options: AddFieldGroupOptions) => UISublist;
+    clientScript: (options: ClientScriptOptions) => void;
+    getField: (options: IDOptions) => UIField;
+    getFieldGroup: (options: IDOptions) => UIFieldGroup;
+    getFieldGroupIds: () => string[];
+    getFieldIds: () => string; // not string[]?? may need testing.
+    getLastAction: () => AssistantSubmitActions;
+    getLastStep: () => UIAssistantStep;
+    getNextStep: () => UIAssistantStep;
+    getStep: (options: IDOptions) => UIAssistantStep;
+    getStepCount: () => number;
+    getSteps: () => UIAssistantStep[];
+    getSublist: (options: IDOptions) => UISublist;
+    getSublistIds: () => string[];
+    hasErrorHtml: () => boolean;
+    isFinished: () => boolean;
+    sendRedirect: () => void;
+    setSplash: (options: SetSplashOptions) => void;
     currentStep: void;
     defaultValues: string[];
     errorHtml: string; // Error message text for the current step
@@ -97,6 +136,10 @@ interface Assistant {
 }
 
 interface AssistantStep {
+    
+}
+
+interface UIAssistantStep {
     
 }
 

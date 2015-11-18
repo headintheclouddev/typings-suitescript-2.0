@@ -327,7 +327,10 @@ interface SubmitFieldsOptions {
     options?: SubmitConfig;
     defaultValues?: Object;
 }
-
+/**
+ * The 'value' parameter in this function is an object with matching properties and values.
+ * ex.: value: {'name': 'Bob', 'department': '12'}
+ */
 interface SubmitFieldsFunction {
     (options: SubmitFieldsOptions): number;
     promise(options: SubmitFieldsOptions): Promise<number>;
