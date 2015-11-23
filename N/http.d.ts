@@ -25,16 +25,17 @@ interface ServerRequest {
 }
 
 interface ServerResponse {
-  addHeader: (options: AddHeaderOptions) => void;
-  getHeader: (options: GetHeaderOptions) => string;
-  sendRedirect: (options: SendRedirectOptions) => void;
-  setHeader: (options: SetHeaderOptions) => void;
-  renderPdf: (options: RenderPDFOptions) => void;
-  setCdnCacheable: (options: SetCDNCacheableOptions) => void;
-  write: (options: WriteOptions) => void;
-  writeFile: (options: WriteFileOptions) => void;
-  writeLine: (options: WriteLineOptions) => void;
-  writePage: (options: WritePageOptions) => void;
+  addHeader(options: AddHeaderOptions): void;
+  getHeader(options: GetHeaderOptions): string;
+  sendRedirect(options: SendRedirectOptions): void;
+  setHeader(options: SetHeaderOptions): void;
+  renderPdf(options: RenderPDFOptions): void;
+  setCdnCacheable(options: SetCDNCacheableOptions): void;
+  write(options: WriteOptions): void;
+  writeFile(options: WriteFileOptions): void;
+  writeLine(options: WriteLineOptions): void;
+  writePage(options: WritePageOptions): void;
+  writePage(form: UIForm): void;
   headers: Object;
 }
 
