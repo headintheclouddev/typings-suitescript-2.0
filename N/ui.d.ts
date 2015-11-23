@@ -6,6 +6,15 @@ interface AddButtonOptions {
     script?: string;
 }
 
+interface AddCredentialFieldOptions {
+    id: string;
+    label: string;
+    restrictToCurrentUser?: boolean;
+    restrictToDomains?: string|string[];
+    restrictToScriptId?: string;
+    tab?: string;
+}
+
 interface AddFieldGroupOptions {
     id: string;
     label: string;
@@ -19,10 +28,33 @@ interface AddFieldOptions {
     tab?: string;
 }
 
+interface AddPageLinkOptions {
+    title: string;
+    type: string;
+    url: string;
+}
+
+interface AddResetButtonOptions {
+    label: string;
+}
+
 interface AddSelectOptionOptions {
     value: string;
     text: string;
     isSelected?: boolean;
+}
+
+interface AddSublistOptions {
+    id: string;
+    label: string;
+    tab?: string;
+    type: string;
+}
+
+interface AddSubtabOptions {
+    id: string;
+    label: string;
+    tab?: string;
 }
 
 interface ClientScriptOptions {
@@ -107,7 +139,7 @@ interface Assistant {
     addField: (options: AddFieldOptions) => UIField;
     addFieldGroup: (options: AddFieldGroupOptions) => UIFieldGroup;
     addStep: (options: AddFieldGroupOptions) => UIAssistantStep;
-    addSublist: (options: AddFieldGroupOptions) => UISublist;
+    addSublist: (options: AddSublistOptions) => UISublist;
     clientScript: (options: ClientScriptOptions) => void;
     getField: (options: IDOptions) => UIField;
     getFieldGroup: (options: IDOptions) => UIFieldGroup;
@@ -165,8 +197,15 @@ interface UIFieldGroup {
 
 interface UIForm {
     addButton: (options: AddButtonOptions) => UIButton;
+    addCredentialField: (options: AddCredentialFieldOptions) => UIField;
     addField: (options: AddFieldOptions) => UIField;
+    addFieldGroup: (options: AddFieldGroupOptions) => UIFieldGroup;
+    addPageLink: (options: AddPageLinkOptions) => void;
+    addResetButton: (options: AddResetButtonOptions) => UIButton;
+    addSublist: (options: AddSublistOptions) => UISublist;
+    addSubtab: (options: AddSubtabOptions) => UITab;
     getField: (options: UIGetFieldOptions) => UIField;
+    clientScript: (options: ClientScriptOptions) => void;
 }
 
 interface UISublist {
