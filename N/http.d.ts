@@ -32,8 +32,7 @@ interface ServerResponse {
     renderPdf(options: RenderPDFOptions): void;
     setCdnCacheable(options: SetCDNCacheableOptions): void;
     write(options: WriteOptions): void;
-    writeFile(options: WriteFileOptions): void; // This doesn't work.
-    writeFile(NSFile): void; // This isn't documented and shouldn't work, but does.
+    writeFile(options: WriteFileOptions): void; // This doesn't work.  Defect filed.
     writeLine(options: WriteLineOptions): void;
     writePage(options: WritePageOptions): void; // This doesn't work.
     writePage(form: UIForm): void; // This isn't documented and shouldn't work, but does.

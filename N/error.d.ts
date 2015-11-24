@@ -1,7 +1,7 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 interface SuiteScriptError {
-    toString: () => string;
+    toString(): string;
     id: string;
     message: string;
     name: string;
@@ -9,7 +9,7 @@ interface SuiteScriptError {
 }
 
 interface UserEventError {
-    toString: () => string;
+    toString(): string;
     eventType: EventType;
     id: string;
     message: string;
@@ -33,7 +33,7 @@ interface CreateOptions {
 interface ErrorModule {
     SuiteScriptError: SuiteScriptError;
     UserEventError: UserEventError;
-    create: (options: CreateOptions) => SuiteScriptError|UserEventError;
+    create(options: CreateOptions): SuiteScriptError|UserEventError;
 }
 
 declare module N {

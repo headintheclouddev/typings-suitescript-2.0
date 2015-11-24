@@ -5,7 +5,7 @@ interface CheckStatusOptions {
     taskId: ScheduledScriptTask|MapReduceScriptTask|CsvImportTask|EntityDeduplicationTask|WorkflowTriggerTask;
 }
 
-interface CreateOptions {
+interface TaskCreateOptions {
     taskType: string;
 }
 
@@ -141,7 +141,7 @@ interface WorkflowTriggerTaskStatus {
 }
 
 interface TaskModule {
-    create(options: CreateOptions): ScheduledScriptTask|MapReduceScriptTask|CsvImportTask|EntityDeduplicationTask|WorkflowTriggerTask;
+    create(options: TaskCreateOptions): ScheduledScriptTask|MapReduceScriptTask|CsvImportTask|EntityDeduplicationTask|WorkflowTriggerTask;
     checkStatus(options: CheckStatusOptions): ScheduledScriptTask|MapReduceScriptTask|CsvImportTask|EntityDeduplicationTask|WorkflowTriggerTask;
     DedupeEntityType: DedupeEntityTypes;
     DedupeMode: DedupeModes;
