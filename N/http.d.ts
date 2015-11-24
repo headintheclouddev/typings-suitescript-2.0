@@ -29,7 +29,7 @@ interface ServerResponse {
     getHeader(options: GetHeaderOptions): string;
     sendRedirect(options: SendRedirectOptions): void;
     setHeader(options: SetHeaderOptions): void;
-    renderPdf(options: RenderPDFOptions): void;
+    renderPdf(options: RenderPDFOptions): void; // Converts XML to PDF
     setCdnCacheable(options: SetCDNCacheableOptions): void;
     write(options: WriteOptions): void;
     writeFile(options: WriteFileOptions): void; // This doesn't work.  Defect filed.
