@@ -80,9 +80,49 @@ interface GetSelectOptionsOpts {
     filteroperator?: string;
 }
 
+interface GetSublistFieldIdsOptions {
+    group: string;
+}
+
+interface UIGetSublistValueOptions {
+    group: string;
+    id: number;
+    line: string;
+}
+
+interface InsertFieldOptions {
+    field: string;
+    nextField: string;
+}
+
+interface InsertSublistOptions {
+    sublist: string;
+    nextsublist: string;
+}
+
+interface InsertSubtabOptions {
+    subtab: string;
+    nextsubtab: string;
+}
+
+interface SetDefaultValuesOptions {
+    values: Object;
+}
+
 interface SetHelpTextOptions {
     help: string;
     showInlineForAssistant?: boolean;
+}
+
+interface SublistGetSublistValueOptions {
+    id: string;
+    line: number;
+}
+
+interface SublistSetSublistValueOptions {
+    id: string;
+    line: number;
+    value: string;
 }
 
 interface SetSplashOptions {
@@ -136,27 +176,27 @@ interface FieldTypeLists {
 }
 
 interface Assistant {
-    addField: (options: AddFieldOptions) => UIField;
-    addFieldGroup: (options: AddFieldGroupOptions) => UIFieldGroup;
-    addStep: (options: AddFieldGroupOptions) => UIAssistantStep;
-    addSublist: (options: AddSublistOptions) => UISublist;
-    clientScript: (options: ClientScriptOptions) => void;
-    getField: (options: IDOptions) => UIField;
-    getFieldGroup: (options: IDOptions) => UIFieldGroup;
-    getFieldGroupIds: () => string[];
-    getFieldIds: () => string; // not string[]?? may need testing.
-    getLastAction: () => AssistantSubmitActions;
-    getLastStep: () => UIAssistantStep;
-    getNextStep: () => UIAssistantStep;
-    getStep: (options: IDOptions) => UIAssistantStep;
-    getStepCount: () => number;
-    getSteps: () => UIAssistantStep[];
-    getSublist: (options: IDOptions) => UISublist;
-    getSublistIds: () => string[];
-    hasErrorHtml: () => boolean;
-    isFinished: () => boolean;
-    sendRedirect: () => void;
-    setSplash: (options: SetSplashOptions) => void;
+    addField(options: AddFieldOptions): UIField;
+    addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
+    addStep(options: AddFieldGroupOptions): AssistantStep;
+    addSublist(options: AddSublistOptions): UISublist;
+    clientScript(options: ClientScriptOptions): void;
+    getField(options: IDOptions): UIField;
+    getFieldGroup(options: IDOptions): UIFieldGroup;
+    getFieldGroupIds(): string[];
+    getFieldIds(): string; // not string[]?? may need testing.
+    getLastAction(): AssistantSubmitActions;
+    getLastStep(): AssistantStep;
+    getNextStep(): AssistantStep;
+    getStep(options: IDOptions): AssistantStep;
+    getStepCount(): number;
+    getSteps(): AssistantStep[];
+    getSublist(options: IDOptions): UISublist;
+    getSublistIds(): string[];
+    hasErrorHtml(): boolean;
+    isFinished(): boolean;
+    sendRedirect(): void;
+    setSplash(options: SetSplashOptions): void;
     currentStep: void;
     defaultValues: string[];
     errorHtml: string; // Error message text for the current step
@@ -168,11 +208,16 @@ interface Assistant {
 }
 
 interface AssistantStep {
-    
-}
-
-interface UIAssistantStep {
-    
+    getFieldIds(): string[];
+    getSublistFieldIds(options: GetSublistFieldIdsOptions): string[];
+    getLineCount(options: GetSublistFieldIdsOptions): number;
+    getSubmittedSublistIds(): string[];
+    getSublistValue(options: UIGetSublistValueOptions): string;
+    getValue(options: IDOptions): string|string[];
+    helpText: string;
+    id: string;
+    label: string;
+    stepNumber: number;
 }
 
 interface UIButton {
@@ -182,38 +227,78 @@ interface UIButton {
 }
 
 interface UIField {
-    addSelectOption: (options: AddSelectOptionOptions) => void;
-    getSelectOptions: (options: GetSelectOptionsOpts) => Object[];
-    setHelpText: (options: SetHelpTextOptions) => UIField;
-    alias: UIField;
+    addSelectOption(options: AddSelectOptionOptions): void;
+    getSelectOptions(options: GetSelectOptionsOpts): Object[];
+    setHelpText(options: SetHelpTextOptions): UIField;
+    alias: string;
+    breakType: string;
     defaultValue: string;
     displaySize: number;
     displayType: string;
+    id: string;
+    isMandatory: boolean;
+    label: string;
+    layoutType: string;
+    linkText: string;
+    maxLength: number;
+    padding: number;
+    richTextHeight: number;
+    richTextWidth: number;
+    type: string;
 }
 
 interface UIFieldGroup {
-    
+    isBorderHidden: boolean;
+    isCollapsible: boolean;
+    isCollapsed: boolean;
+    isSingleColumn: boolean;
+    label: string;
 }
 
 interface UIForm {
-    addButton: (options: AddButtonOptions) => UIButton;
-    addCredentialField: (options: AddCredentialFieldOptions) => UIField;
-    addField: (options: AddFieldOptions) => UIField;
-    addFieldGroup: (options: AddFieldGroupOptions) => UIFieldGroup;
-    addPageLink: (options: AddPageLinkOptions) => void;
-    addResetButton: (options: AddResetButtonOptions) => UIButton;
-    addSublist: (options: AddSublistOptions) => UISublist;
-    addSubtab: (options: AddSubtabOptions) => UITab;
-    getField: (options: UIGetFieldOptions) => UIField;
-    clientScript: (options: ClientScriptOptions) => void;
+    addButton(options: AddButtonOptions): UIButton;
+    addCredentialField(options: AddCredentialFieldOptions): UIField;
+    addField(options: AddFieldOptions): UIField;
+    addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
+    addPageLink(options: AddPageLinkOptions): void;
+    addResetButton(options: AddResetButtonOptions): UIButton;
+    addSublist(options: AddSublistOptions): UISublist;
+    addSubmitButton(label: string): void; // Not documented. Is there some other way to do this now?
+    addSubtab(options: AddSubtabOptions): UITab;
+    addTab(options: AddFieldGroupOptions): UITab;
+    clientScript(options: ClientScriptOptions): void;
+    getButton(options: IDOptions): UIButton;
+    getField(options: UIGetFieldOptions): UIField;
+    getSublist(options: IDOptions): UISublist;
+    getSubtab(options: IDOptions): UITab;
+    getTabs(): UITab[];
+    insertField(options: InsertFieldOptions): UIField;
+    insertSublist(options: InsertSublistOptions): UISublist;
+    insertSubtab(options: InsertSubtabOptions): UITab;
+    insertTab(options: InsertSubtabOptions): UITab;
+    removeButton(options: IDOptions): void;
+    setDefaultValues(options: SetDefaultValuesOptions): void;
+    title: string;
 }
 
 interface UISublist {
-    
+    addButton(options: AddButtonOptions): UIButton;
+    addField(options: AddFieldOptions): UIField;
+    addMarkAllButtons(): UIButton;
+    addRefreshButton(): UIButton;
+    getSublistValue(options: SublistGetSublistValueOptions): string;
+    setSublistValue(options: SublistSetSublistValueOptions): string;
+    displayType: string;
+    helpText: string;
+    label: string;
+    lineCount: number;
+    totallingFieldId: string;
+    uniqueFieldId: string;
 }
 
 interface UITab {
-    
+    helpText: string;
+    label: string;
 }
 
 interface uiModule {
@@ -228,8 +313,8 @@ interface uiModule {
     FieldDisplayType: FieldDisplayTypes;
     FieldType: FieldTypeLists;
     AssistantSubmitAction: AssistantSubmitActions;
-    createAssistant: (options: CreateAssistantOptions) => Assistant;
-    createForm: (options: CreateAssistantOptions) => UIForm;
+    createAssistant(options: CreateAssistantOptions): Assistant;
+    createForm(options: CreateAssistantOptions): UIForm;
 }
 
 declare module N {
