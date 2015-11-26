@@ -138,8 +138,17 @@ interface Timezone {
 }
 
 interface FormatModule {
+    /**
+     * Use format to convert an Object (like a Date) into a specific NS string format. 
+     * Options: value (Date|string|number), type (format.FormatType).
+     * @return {string|Object}
+     */
     format (options: FormatOptions): string|Object;
     format (options: FormatDateTimeOptions): string|Object;
+    /**
+     * Use parse to convert a string into an object, like a Date.
+     * Options: value (Date|string|number), type (format.FormatType).
+     */
     parse (options: FormatOptions): Date|string|number;
     parse (options: FormatDateTimeOptions): Date|string|number;
     Type: FormatType;
