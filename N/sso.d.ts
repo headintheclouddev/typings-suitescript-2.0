@@ -12,6 +12,6 @@ declare module N {
     var sso: SsoModule;
 }
 
-declare module 'N/render' {
+declare module 'N/sso' {
     export = N.sso;
 }
