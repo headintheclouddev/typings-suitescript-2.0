@@ -7,11 +7,14 @@ interface RecordSaveFunction {
 }
 
 interface AttachOptions {
-    record: Record;
-    // Need record type and Id?
-    to: Record;  
-    // Need record type and id?
-    attributes: Object;
+    record: AttachRecordOptions;
+    to: AttachRecordOptions;
+    attributes?: Object;
+}
+
+interface AttachRecordOptions {
+    type: string;
+    id: number|string;
 }
 
 interface CancelCommitLineOptions {
@@ -26,10 +29,8 @@ interface CopyLoadOptions {
 }
 
 interface DetachOptions {
-    record: Record;
-    // Need type and id?
-    from: Record;
-    // Need type and id?
+    record: AttachRecordOptions;
+    from: AttachRecordOptions;
     attributes?: Object;
 }
 
@@ -383,7 +384,7 @@ interface RecordModule {
 }
 
 declare module N {
-    var record:RecordModule;
+    var record: RecordModule;
 }
 
 declare module 'N/record' {
