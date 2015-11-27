@@ -48,6 +48,6 @@ declare module N {
     var redirect: RedirectModule;
 }
 
-declare module 'N/render' {
+declare module 'N/redirect' {
     export = N.redirect;
 }
