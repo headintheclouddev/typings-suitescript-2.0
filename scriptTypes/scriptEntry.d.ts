@@ -3,7 +3,7 @@
 /// <reference path="../N/ui.d.ts" />
 
 interface NS2_Client_FieldChangedContext {
-	currentRecord: Record;
+	currentRecord: ClientCurrentRecord;
 	sublistId: string;
 	fieldId: string;
 	lineNum: string;
@@ -15,7 +15,7 @@ interface NS2_Client_FieldChanged {
 }
 
 interface NS2_Client_LineInitContext {
-	currentRecord: Record;
+	currentRecord: ClientCurrentRecord;
 	sublistId: string;
 }
 
@@ -24,7 +24,7 @@ interface NS2_Client_LineInit {
 }
 
 interface NS2_Client_PageInitContext {
-	currentRecord: Record;
+	currentRecord: ClientCurrentRecord;
 	mode: string;
 }
 
@@ -33,7 +33,7 @@ interface NS2_Client_PageInit {
 }
 
 interface NS2_Client_PostSourceContext {
-    currentRecord: Record;
+    currentRecord: ClientCurrentRecord;
     sublistId: string;
     fieldId: string;
 }
@@ -47,11 +47,11 @@ interface NS2_Client_SaveRecord {
 }
 
 interface NS2_Client_SaveRecordContext {
-    currentRecord: Record;
+    currentRecord: ClientCurrentRecord;
 }
 
 interface NS2_Client_SublistChangedContext {
-    currentRecord: Record;
+    currentRecord: ClientCurrentRecord;
     sublistId: string;
 }
 
@@ -60,7 +60,7 @@ interface NS2_Client_SublistChanged {
 }
 
 interface NS2_Client_ValidateDeleteContext {
-    currentRecord: Record;
+    currentRecord: ClientCurrentRecord;
     sublistId: string;
 }
 
@@ -69,7 +69,7 @@ interface NS2_Client_ValidateDelete {
 }
 
 interface NS2_Client_ValidateFieldContext {
-    currentRecord: Record;
+    currentRecord: ClientCurrentRecord;
     sublistId: string;
     fieldId: string;
     lineNum?: string;
@@ -81,7 +81,7 @@ interface NS2_Client_ValidateField {
 }
 
 interface NS2_Client_ValidateInsertContext {
-     currentRecord: Record;
+     currentRecord: ClientCurrentRecord;
     sublistId: string;
 }
 
@@ -90,7 +90,7 @@ interface NS2_Client_ValidateInsert {
 }
 
 interface NS2_Client_ValidateLineContext {
-     currentRecord: Record;
+     currentRecord: ClientCurrentRecord;
      sublistId: string;
 }
 
@@ -201,4 +201,67 @@ interface NS2_MapReduce_ReduceSummary {
 interface NS2_Suitelet_Context {
     request: ServerRequest;
     response: ServerResponse;
+}
+
+interface ClientCurrentRecord {
+    cancelLine(options: CancelCommitLineOptions): void;
+    cancelLine(sublistId: string): void;
+    commitLine(options: CancelCommitLineOptions): void;
+    findMatrixSublistLineWithValue(options: any): number; // TODO: Document this?
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
+    getCurrentMatrixSublistValue(options: any): string; // TODO: Document this?
+    getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
+    getCurrentSublistSubrecord(options: any): Record; // TODO: Document this?
+    getCurrentSublistText(options: GetCurrentSublistValueOptions): string; // TODO: Document this?
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions): string;
+    getCurrentSublistValue(sublistId: string, fieldId: string): string;
+    getField(options: GetFieldOptions): Field;
+    // getFields(): string[];
+    getLineCount(options: RecordGetLineCountOptions): number;
+    getLineCount(sublistId: string): number;
+    getMatrixHeaderCount(options: any): number; // TODO: Document this?
+    getMatrixHeaderField(options: any): Field;  // TODO: Document this?
+    getMatrixHeaderValue(options: any): string; // TODO: Document this?
+    getMatrixSublistField(options: any): Field; // TODO: Document this?
+    getMatrixSublistValue(options: any): string; // TODO: Document this?
+    getSublist(options: any): UISublist; // TODO: Document this?
+    getSublistField(options: GetSublistValueOptions): Field;
+    // getSublistFields(options: RecordGetLineCountOptions): string[];
+    // getSublistSubrecord(options: GetSublistValueOptions): Record;
+    getSublistText(options: GetSublistValueOptions): string;
+    getSublistValue(options: GetSublistValueOptions): string;
+    getSublistValue(sublistId: string, fieldId: string, line: number): string;
+    getSubRecord(options: GetFieldOptions): Record;
+    getText(options:GetFieldOptions): string;
+    getText(fieldId:string): string;
+    getValue(options:GetFieldOptions): Date|number|string|string[]|boolean;
+    getValue(fieldId:string): string;
+    hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
+    hasSublistSubrecord(options: any): boolean; // TODO: Document this?
+    hasSubrecord(options: any): boolean; // TODO: Document this?
+    id(): string; 
+    insertLine(options: InsertLineOptions): void;
+    isDynamic(): boolean;
+    removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): void;
+    removeLine(options: InsertLineOptions): void;
+    // removeSublistSubrecord(options: GetSublistValueOptions): Record;
+    removeSubrecord(options: RecordGetLineCountOptions): void;
+    // save(): RecordSaveFunction;
+    selectLine(options: SelectLineOptions): void;
+    selectLine(sublistId: string, line: number): void;
+    selectNewLine(options: RecordGetLineCountOptions): void;
+    setCurrentMatrixSublistValue(options: any): void; // TODO: Document this?
+    setCurrentSublistText(options: SetCurrentSublistTextOptions): void;
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
+    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): void;
+    setMatrixHeaderValue(options: any): void; // TODO: Document this?
+    setMatrisSublistValue(options: any): void; // TODO: Document this?
+    // setSublistText(options: SetSublistTextOptions): Record;
+    // setSublistValue(options: SetSublistValueOptions): Record;
+    setText(options:SetFieldOptions): void;
+    setText(fieldId:string, value:string): void;
+    setValue(options:SetFieldOptions): void;
+    setValue(fieldId:string, value:string): void;
+    // toString(): string;
+    type(): string;
 }
