@@ -148,7 +148,7 @@ interface Record {
     removeLine(options: InsertLineOptions): Record;
     removeSublistSubrecord(options: GetSublistValueOptions): Record;
     removeSubrecord(options: RecordGetLineCountOptions): Record;
-    save: RecordSaveFunction;
+    save(): RecordSaveFunction;
     selectLine(options: SelectLineOptions): Record;
     selectLine(sublistId: string, line: number): Record;
     selectNewLine(options: RecordGetLineCountOptions): Record;
