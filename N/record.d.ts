@@ -364,8 +364,8 @@ interface RecordDeleteFunction {
 }
 
 interface RecordTransformOptions {
-    type: string;
-    id: number;
+    fromType: string; // Documented as just "type" but that's wrong.
+    fromId: number; // Documented as just "id" but that's wrong.
     toType: string;
     isDynamic?: boolean;
     defaultValues?: Object;
