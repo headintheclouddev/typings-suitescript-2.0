@@ -31,10 +31,20 @@ interface SendCampaignOptions {
     recipientId: number;
 }
 
+interface EmailSendFunction {
+    (options: SendOptions): void;
+    promise(options: SendOptions): Promise<void>;
+}
+
+interface EmailSendCampaignFunction {
+    (options: SendCampaignOptions): number;
+    promise(options: SendCampaignOptions): Promise<number>;
+}
+
 interface EmailModule {
-    send: (options: SendOptions) => void;
-    sendBulk: (options: SendOptions) => void;
-    sendCampaign: (options: SendCampaignOptions) => number;
+    send: EmailSendFunction;
+    sendBulk: EmailSendFunction;
+    sendCampaign: EmailSendCampaignFunction;
 }
 
 declare module N {
