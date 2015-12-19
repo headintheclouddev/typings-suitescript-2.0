@@ -133,12 +133,37 @@ interface HttpMethod {
     POST: string;
 }
 
+interface HttpDeleteFunction {
+    (options: DeleteOptions): ClientResponse;
+    promise(options: DeleteOptions): Promise<ClientResponse>;
+}
+
+interface HttpGetFunction {
+    (options: GetOptions): ClientResponse;
+    promise(options: GetOptions): Promise<ClientResponse>;
+}
+
+interface HttpPostFunction {
+    (options: PostOptions): ClientResponse;
+    promise(options: PostOptions): Promise<ClientResponse>;
+}
+
+interface HttpPutFunction {
+    (options: PutOptions): ClientResponse;
+    promise(options: PutOptions): Promise<ClientResponse>;
+}
+
+interface HttpRequestFunction {
+    (options: RequestOptions): ClientResponse;
+    promise(options: RequestOptions): Promise<ClientResponse>;
+}
+
 interface HttpModule {
-    get(options: GetOptions): ClientResponse;
-    delete(options: DeleteOptions): ClientResponse;
-    request(options: RequestOptions): ClientResponse;
-    post(options: PostOptions): ClientResponse;
-    put(options: PutOptions): ClientResponse;
+    get: HttpGetFunction;
+    delete: HttpDeleteFunction;
+    request: HttpRequestFunction;
+    post: HttpPostFunction;
+    put: HttpPutFunction;
     CacheDuration: CacheDuration;
     Method: HttpMethod;
 }
