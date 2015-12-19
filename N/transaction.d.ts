@@ -5,8 +5,13 @@ interface VoidOptions {
     type: string;
 }
 
+interface TransactionVoidFunction {
+    (options: VoidOptions): number;
+    promise(options: VoidOptions): Promise<number>;
+}
+
 interface TransactionModule {
-    void(options: VoidOptions): number;
+    void: TransactionVoidFunction;
 }
 
 declare module N {
