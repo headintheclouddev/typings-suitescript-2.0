@@ -148,7 +148,7 @@ interface Record {
     removeLine(options: InsertLineOptions): Record;
     removeSublistSubrecord(options: GetSublistValueOptions): Record;
     removeSubrecord(options: RecordGetLineCountOptions): Record;
-    save(): RecordSaveFunction;
+    save: RecordSaveFunction;
     selectLine(options: SelectLineOptions): Record;
     selectLine(sublistId: string, line: number): Record;
     selectNewLine(options: RecordGetLineCountOptions): Record;
@@ -337,6 +337,16 @@ interface SubmitFieldsFunction {
     promise(options: SubmitFieldsOptions): Promise<number>;
 }
 
+interface RecordAttachFunction {
+    (options: AttachOptions): void;
+    promise(options: AttachOptions): Promise<void>;
+}
+
+interface RecordCopyFunction {
+    (options: CopyLoadOptions): Record;
+    promise(options: CopyLoadOptions): Promise<Record>;
+}
+
 interface RecordCreateOptions {
     type: string;
     isDynamic?: boolean;
@@ -353,14 +363,24 @@ interface RecordDeleteOptions {
     id: (string|number);
 }
 
+interface RecordDetachFunction {
+    (options: DetachOptions): void;
+    promise(options: DetachOptions): Promise<void>;
+}
+
 interface RecordLoadFunction {
     (options: CopyLoadOptions): Record;
     promise(options: CopyLoadOptions): Promise<Record>;
 }
 
 interface RecordDeleteFunction {
-    (options:RecordDeleteOptions): void;
+    (options: RecordDeleteOptions): void;
     promise(options: RecordDeleteOptions): Promise<void>;
+}
+
+interface RecordTransformFunction {
+    (options: RecordTransformOptions): Record;
+    promise(options: RecordTransformOptions): Promise<Record>;
 }
 
 interface RecordTransformOptions {
@@ -372,14 +392,14 @@ interface RecordTransformOptions {
 }
 
 interface RecordModule {
-    attach(options: AttachOptions): void;
-    copy(options: CopyLoadOptions): Record;
+    attach: RecordAttachFunction;
+    copy: RecordCopyFunction;
     create: RecordCreateFunction;
     load: RecordLoadFunction;
     delete: RecordDeleteFunction;
-    detach(options: DetachOptions): void;
+    detach: RecordDetachFunction;
     submitFields: SubmitFieldsFunction;
-    transform(options: RecordTransformOptions): Record;
+    transform: RecordTransformFunction;
     Type: RecordTypes;
 }
 
