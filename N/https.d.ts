@@ -35,23 +35,33 @@ interface HmacOptions {
 }
 
 interface SecureString {
-    appendString: (options: AppendStringOptions) => SecureString;
-    appendSecureString: (options: AppendSecureStringOptions) => SecureString;
-    convertEncoding: (options: ConvertEncodingOptions) => SecureString;
-    hash: (options: HashOptions) => SecureString;
-    hmac: (options: HmacOptions) => SecureString;
-    toString: () => string;
+    appendString(options: AppendStringOptions): SecureString;
+    appendSecureString(options: AppendSecureStringOptions): SecureString;
+    convertEncoding(options: ConvertEncodingOptions): SecureString;
+    hash(options: HashOptions): SecureString;
+    hmac(options: HmacOptions): SecureString;
+    toString(): string;
+}
+
+interface HttpsCreateSecureKeyFunction {
+    (options: CreateSecureKeyOptions): SecretKey;
+    promise(options: CreateSecureKeyOptions): Promise<SecretKey>;
+}
+
+interface HttpsCreateSecureStringFunction {
+    (options: CreateSecureStringOptions): any;
+    promise(options: CreateSecureStringOptions): Promise<any>;
 }
 
 interface HttpsModule {
-    createSecureKey: (options: CreateSecureKeyOptions) => SecretKey;
-    createSecureString: (options: CreateSecureStringOptions) => any;
+    createSecureKey: HttpsCreateSecureKeyFunction;
+    createSecureString: HttpsCreateSecureStringFunction;
     // This module encapsulates the HTTP module (any better way to do this?):
-    get: (options: GetOptions) => ClientResponse;
-    delete: (options: DeleteOptions) => ClientResponse;
-    request: (options: RequestOptions) => ClientResponse;
-    post: (options: PostOptions) => ClientResponse;
-    put: (options: PutOptions) => ClientResponse;
+    get: HttpGetFunction;
+    delete: HttpDeleteFunction;
+    request: HttpRequestFunction;
+    post: HttpPostFunction;
+    put: HttpPutFunction;
 }
 
 declare module N {
