@@ -31,6 +31,7 @@ interface ServerResponse {
     setHeader(options: SetHeaderOptions): void;
     renderPdf(options: RenderPDFOptions): void; // Converts XML to PDF
     setCdnCacheable(options: SetCDNCacheableOptions): void;
+    write(output: string): void;
     write(options: WriteOptions): void;
     writeFile(options: WriteFileOptions): void; // This doesn't work.  Defect filed.
     writeLine(options: WriteLineOptions): void;
