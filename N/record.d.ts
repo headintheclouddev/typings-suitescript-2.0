@@ -102,7 +102,7 @@ interface SetSublistValueOptions {
     sublistId: string;
     fieldId: string;
     line: number;
-    value: number|Date|string|string[];
+    value: boolean|number|Date|string|string[];
 }
 
 interface Field {
