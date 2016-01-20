@@ -258,10 +258,10 @@ interface ClientCurrentRecord {
     setMatrisSublistValue(options: any): void; // TODO: Document this?
     // setSublistText(options: SetSublistTextOptions): Record;
     // setSublistValue(options: SetSublistValueOptions): Record;
-    setText(options:SetFieldOptions): void;
-    setText(fieldId:string, value:string): void;
-    setValue(options:SetFieldOptions): void;
-    setValue(fieldId:string, value:string): void;
+    setText(options: SetFieldTextOptions): void;
+    setText(fieldId: string, value: string): void;
+    setValue(options: SetFieldOptions): void;
+    setValue(fieldId: string, value: string): void;
     // toString(): string;
     type(): string;
 }

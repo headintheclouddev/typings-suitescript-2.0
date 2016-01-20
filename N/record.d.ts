@@ -89,6 +89,14 @@ interface SetFieldOptions {
     fieldId: string;
     value: any;
     ignoreFieldChange?: boolean;
+    fireSlavingSync?: boolean;
+}
+
+interface SetFieldTextOptions {
+    fieldId: string;
+    text: any;
+    ignoreFieldChange?: boolean;
+    fireSlavingSync?: boolean;
 }
 
 interface SetSublistTextOptions {
@@ -157,10 +165,10 @@ interface Record {
     setCurrentSublistText(options: SetCurrentSublistTextOptions): Record;
     setSublistText(options: SetSublistTextOptions): Record;
     setSublistValue(options: SetSublistValueOptions): Record;
-    setText(options:SetFieldOptions): Record;
-    setText(fieldId:string, value:string): Record;
-    setValue(options:SetFieldOptions): Record;
-    setValue(fieldId:string, value:string): Record;
+    setText(options: SetFieldTextOptions): Record;
+    setText(fieldId: string, value: string): Record;
+    setValue(options: SetFieldOptions): Record;
+    setValue(fieldId: string, value: string): Record;
     toString(): string;
     id: string;
     isDynamic: boolean;
