@@ -1,6 +1,7 @@
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="./file.d.ts" />
 /// <reference path="./http.d.ts" />
+/// <reference path="./record.d.ts" />
 /// <reference path="./search.d.ts" />
 
 interface AddRecordOptions {
@@ -24,12 +25,12 @@ interface EmailMergeResult {
 }
 
 interface MergeEmailOptions {
-    templateId: number;
-    entity: RecordRef; // Seems unlikely these should all be required
-    recipient: RecordRef;
-    customRecord: RecordRef;
-    supportCaseId: number;
-    transactionId: number;
+    templateId: number; // One of the below fields must be included
+    entity?: Record; // Documentation says this is mandatory 
+    recipient?: Record; // Documentation says this is mandatory 
+    customRecord?: Record; // Documentation says this is mandatory 
+    supportCaseId?: number; // Documentation says this is mandatory 
+    transactionId?: number; // Documentation says this is mandatory 
 }
 
 interface PackingSlipOptions {
@@ -53,7 +54,7 @@ interface PrintModes {
      PDF: string;
 }
 
-interface RecordRef {
+interface RecordRef { // This isn't in use
     id: number;
     type: string;
 }
