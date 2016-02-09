@@ -92,7 +92,7 @@ interface UIGetSublistValueOptions {
 
 interface InsertFieldOptions {
     field: string;
-    nextField: string;
+    nextfield: string;
 }
 
 interface InsertSublistOptions {
