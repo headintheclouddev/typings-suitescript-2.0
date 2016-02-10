@@ -18,7 +18,6 @@
 /// <reference path="./N/sso.d.ts" />
 /// <reference path="./N/task.d.ts" />
 /// <reference path="./N/transaction.d.ts" />
-//  <reference path="./N/ui.d.ts" />
 /// <reference path="./N/ui/serverWidget.d.ts" />
 /// <reference path="./N/ui/dialog.d.ts" />
 /// <reference path="./N/ui/message.d.ts" />
