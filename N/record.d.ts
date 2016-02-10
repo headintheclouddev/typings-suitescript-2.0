@@ -1,5 +1,4 @@
 /// <reference path="../typings/tsd.d.ts" />
-/// <reference path="ui.d.ts" />
 
 interface RecordSaveFunction {
     (options?: SubmitConfig): number;

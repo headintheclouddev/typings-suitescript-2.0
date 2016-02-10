@@ -1,6 +1,5 @@
 /// <reference path="../N/http.d.ts" />
 /// <reference path="../N/record.d.ts" />
-/// <reference path="../N/ui.d.ts" />
 
 interface NS2_Client_FieldChangedContext {
 	currentRecord: ClientCurrentRecord;
