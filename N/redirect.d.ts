@@ -21,6 +21,10 @@ interface ToSearchOptions {
     search: Search;
 }
 
+interface ToSearchResultOptions {
+    Search: Search;
+}
+
 interface ToSuiteletOptions {
     scriptId: string;
     deploymentId: string;
@@ -39,7 +43,7 @@ interface RedirectModule {
     toSavedSearch(options: ToSavedSearchOptions): void;
     toSavedSearchResult(options: ToSavedSearchOptions): void;
     toSearch(options: ToSearchOptions): void;
-    toSearchResult(options: ToSearchOptions): void;
+    toSearchResult(options: ToSearchResultOptions): void;
     toSuitelet(options: ToSuiteletOptions): void;
     toTaskLink(options: ToTaskLinkOptions): void;
 }
