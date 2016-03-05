@@ -1,5 +1,6 @@
 /// <reference path="../N/http.d.ts" />
 /// <reference path="../N/record.d.ts" />
+/// <reference path="../N/ui/serverWidget.d.ts" />
 
 interface NS2_Client_FieldChangedContext {
 	currentRecord: ClientCurrentRecord;
@@ -101,33 +102,47 @@ interface NS2_UE_BeforeLoadContext {
      newRecord: Record;
      type: string;
      form: UIForm;
-     UserEventTypes: NS2_UserEventTypes;
+     UserEventType: NS2_UserEventTypes;
 }
 
 interface NS2_UE_BeforeSubmitContext {
     newRecord: Record;
     oldRecord: Record;
     type: string;
-    UserEventTypes: NS2_UserEventTypes;
+    UserEventType: NS2_UserEventTypes;
 }
 
 interface NS2_UE_AfterSubmitContext {
     newRecord: Record;
-     oldRecord: Record;
+    oldRecord: Record;
     type: string;
-    UserEventTypes: NS2_UserEventTypes;
+    UserEventType: NS2_UserEventTypes;
 }
 
 interface NS2_UserEventTypes {
-    EDIT: string;
+    APPROVE: string;
+    CANCEL: string;
+    CHANGEPASSWORD: string;
+    COPY: string;
     CREATE: string;
     DELETE: string;
-    ATTACH: string;
-    INLINE_EDIT: string;
-    CANCEL: string;
-    APPROVE: string;
+    DROPSHIP: string;
+    EDIT: string;
+    EDITFORECAST: string;
+    EMAIL: string;
+    MARKCOMPLETE: string;
+    ORDERITEMS: string;
+    PACK: string;
+    PAYBILLS: string;
+    PRINT: string;
+    QUICKVIEW: string;
+    REASSIGN: string;
     REJECT: string;
-    // VIEW: NS2_ContextType; This doesn't exist (yet?)
+    SHIP: string;
+    SPECIALORDER: string;
+    TRANSFORM: string;
+    VIEW: string;
+    XEDIT: string;
 }
 
 interface NS2_ScheduledScriptContext {
