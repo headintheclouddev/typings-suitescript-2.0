@@ -72,7 +72,7 @@ interface SelectLineOptions {
 interface SetCurrentSublistValueOptions {
     sublistId: string;
     fieldId: string;
-    value: string|number;
+    value: boolean|string|number;
     ignoreFieldChange?: boolean;
     fireSlavingSync?: boolean;
 }
