@@ -3,7 +3,7 @@
 interface AddButtonOptions {
     id: string;
     label: string;
-    script?: string;
+    functionName?: string;
 }
 
 interface AddCredentialFieldOptions {
