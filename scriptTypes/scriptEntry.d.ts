@@ -212,6 +212,11 @@ interface NS2_MapReduce_ReduceSummary {
     errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
 }
 
+interface NS2_MassUpdate_Context {
+    id: string;
+    type: string; 
+}
+
 interface NS2_Suitelet_Context {
     request: ServerRequest;
     response: ServerResponse;
