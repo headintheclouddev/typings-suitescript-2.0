@@ -167,7 +167,7 @@ interface Record {
     setText(options: SetFieldTextOptions): Record;
     setText(fieldId: string, value: string): Record;
     setValue(options: SetFieldOptions): Record;
-    setValue(fieldId: string, value: string): Record;
+    setValue(fieldId: string, value: string|number): Record;
     toString(): string;
     id: string;
     isDynamic: boolean;
