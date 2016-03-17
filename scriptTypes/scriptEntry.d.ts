@@ -217,6 +217,14 @@ interface NS2_MassUpdate_Context {
     type: string; 
 }
 
+interface NS2_Portlet_Form_Context {
+    portlet: PortletForm;
+}
+
+interface NS2_Portlet_HTML_Context {
+    portlet: PortletHTML;
+}
+
 interface NS2_Suitelet_Context {
     request: ServerRequest;
     response: ServerResponse;
@@ -283,4 +291,35 @@ interface ClientCurrentRecord {
     setValue(fieldId: string, value: string): void;
     // toString(): string;
     type(): string;
+}
+
+interface PortletForm { // Haven't validated that all these methods actually exist yet 
+    // addButton(options: AddButtonOptions): UIButton;
+    addCredentialField(options: AddCredentialFieldOptions): UIField;
+    addField(options: AddFieldOptions): UIField;
+    addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
+    addPageLink(options: AddPageLinkOptions): void;
+    addResetButton(options: AddResetButtonOptions): UIButton;
+    addSublist(options: AddSublistOptions): UISublist;
+    addSubmitButton(label: string): void; // Not documented. Is there some other way to do this now?
+    addSubtab(options: AddSubtabOptions): UITab;
+    addTab(options: AddFieldGroupOptions): UITab;
+    clientScript(options: ClientScriptOptions): void;
+    getButton(options: IDOptions): UIButton;
+    getField(options: UIGetFieldOptions): UIField;
+    getSublist(options: IDOptions): UISublist;
+    getSubtab(options: IDOptions): UITab;
+    getTabs(): UITab[];
+    insertField(options: InsertFieldOptions): UIField;
+    insertSublist(options: InsertSublistOptions): UISublist;
+    insertSubtab(options: InsertSubtabOptions): UITab;
+    insertTab(options: InsertSubtabOptions): UITab;
+    // removeButton(options: IDOptions): void;
+    setDefaultValues(options: SetDefaultValuesOptions): void;
+    title: string;
+}
+
+interface PortletHTML {
+    html: string;
+    title: string;
 }
