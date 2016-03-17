@@ -131,12 +131,31 @@ interface SetSplashOptions {
     text2?: string 
 }
 
+interface UpdateBreakTypeOptions {
+    breakType: string;
+}
+
+interface UpdateDisplaySizeOptions {
+    height: number;
+    width: number;
+}
+
+interface UpdateLayoutTypeOptions {
+    layoutType: string;
+}
+
 interface AssistantSubmitActions {
     BACK: string;
     CANCEL: string;
     FINISH: string;
     JUMP: string;
     NEXT: string;
+}
+
+interface FieldBreakTypes {
+    NONE: string;
+    STARTCOL: string;
+    STARTROW: string;
 }
 
 interface FieldDisplayTypes {
@@ -146,6 +165,16 @@ interface FieldDisplayTypes {
     INLINE: string;
     NORMAL: string;
     READONLY: string;
+}
+
+interface FieldLayoutTypes {
+    ENDROW: string;
+    NORMAL: string;
+    MIDROW: string;
+    OUTSIDE: string;
+    OUTSIDEBELOW: string;
+    OUTSIDEABOVE: string;
+    STARTROW: string;
 }
 
 interface FieldTypeLists {
@@ -230,11 +259,14 @@ interface UIField {
     addSelectOption(options: AddSelectOptionOptions): void;
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
     setHelpText(options: SetHelpTextOptions): UIField;
+    updateDisplaySize(options: UpdateDisplaySizeOptions): UIField;
+    updateBreakType(options: UpdateBreakTypeOptions): UIField;
+    updateLayoutType(options: UpdateLayoutTypeOptions): UIField;
     alias: string;
-    breakType: string;
+    // breakType: string; // no longer documented as of 2016.1
     defaultValue: string;
-    displaySize: number;
-    displayType: string;
+    // displaySize: number; // no longer documented as of 2016.1
+    // displayType: string;  // no longer documented as of 2016.1
     id: string;
     isMandatory: boolean;
     label: string;
@@ -301,7 +333,7 @@ interface UITab {
     label: string;
 }
 
-interface serverWidget {
+interface serverWidget { // TODO: Review 2016.1 documentation, add more Enums
     Assitant: Assistant;
     AssistantStep: AssistantStep;
     Button: UIButton;
@@ -310,7 +342,9 @@ interface serverWidget {
     Form: UIForm;
     Sublist: UISublist;
     Tab: UITab;
+    FieldBreakType: FieldBreakTypes;
     FieldDisplayType: FieldDisplayTypes;
+    FieldLayoutType: FieldLayoutTypes;
     FieldType: FieldTypeLists;
     AssistantSubmitAction: AssistantSubmitActions;
     createAssistant(options: CreateAssistantOptions): Assistant;
