@@ -140,6 +140,10 @@ interface UpdateDisplaySizeOptions {
     width: number;
 }
 
+interface UpdateDisplayTypeOptions {
+    displayType: number;
+}
+
 interface UpdateLayoutTypeOptions {
     layoutType: string;
 }
@@ -159,12 +163,12 @@ interface FieldBreakTypes {
 }
 
 interface FieldDisplayTypes {
-    DISABLED: string;
-    ENTRY: string;
-    HIDDEN: string;
-    INLINE: string;
-    NORMAL: string;
-    READONLY: string;
+    DISABLED: number;
+    ENTRY: number;
+    HIDDEN: number;
+    INLINE: number;
+    NORMAL: number;
+    READONLY: number;
 }
 
 interface FieldLayoutTypes {
@@ -260,6 +264,7 @@ interface UIField {
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
     setHelpText(options: SetHelpTextOptions): UIField;
     updateDisplaySize(options: UpdateDisplaySizeOptions): UIField;
+    updateDisplayType(options: UpdateDisplayTypeOptions): UIField;
     updateBreakType(options: UpdateBreakTypeOptions): UIField;
     updateLayoutType(options: UpdateLayoutTypeOptions): UIField;
     alias: string;
