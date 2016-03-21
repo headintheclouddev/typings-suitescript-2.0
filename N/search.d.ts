@@ -81,8 +81,8 @@ interface SearchResultGetValueTextOptions {
 }
 
 interface SearchResult {
-    getValue(options: SearchResultGetValueTextOptions): string;
-    getValue(SearchColumn): string;
+    getValue(options: SearchResultGetValueTextOptions): boolean|string|string[];
+    getValue(SearchColumn): boolean|string|string[];
     getText(options: SearchResultGetValueTextOptions): string;
     getText(SearchColumn): string;
     recordType: string;
