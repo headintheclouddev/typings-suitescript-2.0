@@ -304,7 +304,7 @@ interface PortletForm { // Haven't validated that all these methods actually exi
     addSubmitButton(label: string): void; // Not documented. Is there some other way to do this now?
     addSubtab(options: AddSubtabOptions): UITab;
     addTab(options: AddFieldGroupOptions): UITab;
-    clientScript(options: ClientScriptOptions): void;
+    // clientScript(options: ClientScriptOptions): void;
     getButton(options: IDOptions): UIButton;
     getField(options: UIGetFieldOptions): UIField;
     getSublist(options: IDOptions): UISublist;
@@ -316,6 +316,7 @@ interface PortletForm { // Haven't validated that all these methods actually exi
     insertTab(options: InsertSubtabOptions): UITab;
     // removeButton(options: IDOptions): void;
     setDefaultValues(options: SetDefaultValuesOptions): void;
+    clientScriptFileId: number;
     title: string;
 }
 
