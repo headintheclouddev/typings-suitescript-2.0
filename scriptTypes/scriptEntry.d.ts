@@ -266,9 +266,9 @@ interface ClientCurrentRecord {
     hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSubrecord(options: any): boolean; // TODO: Document this?
-    id(): string; 
+    id: string; 
     insertLine(options: InsertLineOptions): void;
-    isDynamic(): boolean;
+    isDynamic: boolean;
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): void;
     removeLine(options: InsertLineOptions): void;
     // removeSublistSubrecord(options: GetSublistValueOptions): Record;
@@ -290,7 +290,7 @@ interface ClientCurrentRecord {
     setValue(options: SetFieldOptions): void;
     setValue(fieldId: string, value: string): void;
     // toString(): string;
-    type(): string;
+    type: string;
 }
 
 interface PortletForm { // Haven't validated that all these methods actually exist yet 

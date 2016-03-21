@@ -6,7 +6,7 @@
     "url": "git+ssh://git@bitbucket.org/headinthecloud/netsuite-types.git"
   },
   "homepage": "https://bitbucket.org/headinthecloud/netsuite-types#readme",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "main": "N.d.ts",
   "author": "Head in the Cloud",
   "license": "ISC",
