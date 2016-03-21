@@ -213,7 +213,7 @@ interface Assistant {
     addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
     addStep(options: AddFieldGroupOptions): AssistantStep;
     addSublist(options: AddSublistOptions): UISublist;
-    clientScript(options: ClientScriptOptions): void;
+    // clientScript(options: ClientScriptOptions): void;
     getField(options: IDOptions): UIField;
     getFieldGroup(options: IDOptions): UIFieldGroup;
     getFieldGroupIds(): string[];
@@ -230,6 +230,7 @@ interface Assistant {
     isFinished(): boolean;
     sendRedirect(): void;
     setSplash(options: SetSplashOptions): void;
+    clientScriptFileId: number;
     currentStep: void;
     defaultValues: string[];
     errorHtml: string; // Error message text for the current step
