@@ -208,6 +208,36 @@ interface FieldTypeLists {
     URL: string;
 }
 
+interface FormPageLinkTypes {
+    BREADCRUMB: string;
+    CROSSLINK: string;
+}
+
+interface LayoutJustifications {
+    CENTER: string;
+    LEFT: string;
+    RIGHT: string;
+}
+
+interface ListStyles {
+    GRID: string;
+    REPORT: string;
+    PLAIN: string;
+    NORMAL: string;
+}
+
+interface SublistDisplayTypes {
+    HIDDEN: string;
+    NORMAL: string;
+}
+
+interface SublistTypes {
+    EDITOR: string;
+    INLINEEDITOR: string;
+    LIST: string;
+    STATICLIST: string;
+}
+
 interface Assistant {
     addField(options: AddFieldOptions): UIField;
     addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
