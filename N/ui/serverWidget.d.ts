@@ -18,6 +18,7 @@ interface AddCredentialFieldOptions {
 interface AddFieldGroupOptions {
     id: string;
     label: string;
+    tab?: string;
 }
 
 interface AddFieldOptions {
@@ -25,7 +26,11 @@ interface AddFieldOptions {
     label: string;
     type: string;
     source?: string;
-    tab?: string;
+    /**
+     * The internal ID of the tab or field group to add the field to.
+     * By default, the field is added to the main section of the form.
+     */
+    container?: string;
 }
 
 interface AddPageLinkOptions {
