@@ -374,7 +374,7 @@ interface UITab {
     label: string;
 }
 
-interface serverWidget { // TODO: Review 2016.1 documentation, add more Enums
+interface serverWidget {
     Assitant: Assistant;
     AssistantStep: AssistantStep;
     Button: UIButton;
