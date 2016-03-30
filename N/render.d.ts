@@ -55,7 +55,7 @@ interface PrintModes {
 }
 
 interface RecordRef {
-    id: string;
+    id: number;
     type: string;
 }
 
