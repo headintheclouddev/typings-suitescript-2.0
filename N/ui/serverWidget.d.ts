@@ -18,6 +18,7 @@ interface AddCredentialFieldOptions {
 interface AddFieldGroupOptions {
     id: string;
     label: string;
+    tab?: string;
 }
 
 interface AddFieldOptions {
@@ -25,7 +26,11 @@ interface AddFieldOptions {
     label: string;
     type: string;
     source?: string;
-    tab?: string;
+    /**
+     * The internal ID of the tab or field group to add the field to.
+     * By default, the field is added to the main section of the form.
+     */
+    container?: string;
 }
 
 interface AddPageLinkOptions {
@@ -131,6 +136,23 @@ interface SetSplashOptions {
     text2?: string 
 }
 
+interface UpdateBreakTypeOptions {
+    breakType: string;
+}
+
+interface UpdateDisplaySizeOptions {
+    height: number;
+    width: number;
+}
+
+interface UpdateDisplayTypeOptions {
+    displayType: number;
+}
+
+interface UpdateLayoutTypeOptions {
+    layoutType: string;
+}
+
 interface AssistantSubmitActions {
     BACK: string;
     CANCEL: string;
@@ -139,13 +161,29 @@ interface AssistantSubmitActions {
     NEXT: string;
 }
 
+interface FieldBreakTypes {
+    NONE: string;
+    STARTCOL: string;
+    STARTROW: string;
+}
+
 interface FieldDisplayTypes {
-    DISABLED: string;
-    ENTRY: string;
-    HIDDEN: string;
-    INLINE: string;
+    DISABLED: number;
+    ENTRY: number;
+    HIDDEN: number;
+    INLINE: number;
+    NORMAL: number;
+    READONLY: number;
+}
+
+interface FieldLayoutTypes {
+    ENDROW: string;
     NORMAL: string;
-    READONLY: string;
+    MIDROW: string;
+    OUTSIDE: string;
+    OUTSIDEBELOW: string;
+    OUTSIDEABOVE: string;
+    STARTROW: string;
 }
 
 interface FieldTypeLists {
@@ -175,12 +213,42 @@ interface FieldTypeLists {
     URL: string;
 }
 
+interface FormPageLinkTypes {
+    BREADCRUMB: string;
+    CROSSLINK: string;
+}
+
+interface LayoutJustifications {
+    CENTER: string;
+    LEFT: string;
+    RIGHT: string;
+}
+
+interface ListStyles {
+    GRID: string;
+    REPORT: string;
+    PLAIN: string;
+    NORMAL: string;
+}
+
+interface SublistDisplayTypes {
+    HIDDEN: string;
+    NORMAL: string;
+}
+
+interface SublistTypes {
+    EDITOR: string;
+    INLINEEDITOR: string;
+    LIST: string;
+    STATICLIST: string;
+}
+
 interface Assistant {
     addField(options: AddFieldOptions): UIField;
     addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
     addStep(options: AddFieldGroupOptions): AssistantStep;
     addSublist(options: AddSublistOptions): UISublist;
-    clientScript(options: ClientScriptOptions): void;
+    // clientScript(options: ClientScriptOptions): void;
     getField(options: IDOptions): UIField;
     getFieldGroup(options: IDOptions): UIFieldGroup;
     getFieldGroupIds(): string[];
@@ -197,6 +265,7 @@ interface Assistant {
     isFinished(): boolean;
     sendRedirect(): void;
     setSplash(options: SetSplashOptions): void;
+    clientScriptFileId: number;
     currentStep: void;
     defaultValues: string[];
     errorHtml: string; // Error message text for the current step
@@ -230,11 +299,15 @@ interface UIField {
     addSelectOption(options: AddSelectOptionOptions): void;
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
     setHelpText(options: SetHelpTextOptions): UIField;
+    updateDisplaySize(options: UpdateDisplaySizeOptions): UIField;
+    updateDisplayType(options: UpdateDisplayTypeOptions): UIField;
+    updateBreakType(options: UpdateBreakTypeOptions): UIField;
+    updateLayoutType(options: UpdateLayoutTypeOptions): UIField;
     alias: string;
-    breakType: string;
+    // breakType: string; // no longer documented as of 2016.1
     defaultValue: string;
-    displaySize: number;
-    displayType: string;
+    // displaySize: number; // no longer documented as of 2016.1
+    // displayType: string;  // no longer documented as of 2016.1
     id: string;
     isMandatory: boolean;
     label: string;
@@ -310,7 +383,9 @@ interface serverWidget {
     Form: UIForm;
     Sublist: UISublist;
     Tab: UITab;
+    FieldBreakType: FieldBreakTypes;
     FieldDisplayType: FieldDisplayTypes;
+    FieldLayoutType: FieldLayoutTypes;
     FieldType: FieldTypeLists;
     AssistantSubmitAction: AssistantSubmitActions;
     createAssistant(options: CreateAssistantOptions): Assistant;

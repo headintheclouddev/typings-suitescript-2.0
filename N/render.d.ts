@@ -25,12 +25,12 @@ interface EmailMergeResult {
 }
 
 interface MergeEmailOptions {
-    templateId: number; // One of the below fields must be included
-    entity?: Record; // Documentation says this is mandatory 
-    recipient?: Record; // Documentation says this is mandatory 
-    customRecord?: Record; // Documentation says this is mandatory 
-    supportCaseId?: number; // Documentation says this is mandatory 
-    transactionId?: number; // Documentation says this is mandatory 
+    templateId:     number;    // One of the below fields must be included.
+    entity?:        RecordRef; 
+    recipient?:     RecordRef; 
+    customRecord?:  RecordRef; 
+    supportCaseId?: number; 
+    transactionId?: number; 
 }
 
 interface PackingSlipOptions {
@@ -54,7 +54,7 @@ interface PrintModes {
      PDF: string;
 }
 
-interface RecordRef { // This isn't in use
+interface RecordRef {
     id: number;
     type: string;
 }

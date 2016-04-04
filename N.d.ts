@@ -10,6 +10,9 @@
 /// <reference path="./N/format.d.ts" />
 /// <reference path="./N/http.d.ts" />
 /// <reference path="./N/https.d.ts" />
+/// <reference path="./N/log.d.ts" />
+/// <reference path="./N/plugin.d.ts" />
+/// <reference path="./N/portlet.d.ts" />
 /// <reference path="./N/record.d.ts" />
 /// <reference path="./N/redirect.d.ts" />
 /// <reference path="./N/render.d.ts" />
@@ -22,6 +25,7 @@
 /// <reference path="./N/ui/dialog.d.ts" />
 /// <reference path="./N/ui/message.d.ts" />
 /// <reference path="./N/url.d.ts" />
+/// <reference path="./N/util.d.ts" />
 /// <reference path="./N/workflow.d.ts" />
 /// <reference path="./N/xml.d.ts" />
 
