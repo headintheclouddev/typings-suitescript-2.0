@@ -239,7 +239,7 @@ interface ParserFromStringOptions {
 }
 
 interface ParserToStringOptions {
-  document: XMLDocument;
+  document: NSXMLDocument;
 }
 
 interface Parser {
