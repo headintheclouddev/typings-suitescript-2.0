@@ -173,7 +173,7 @@ interface NS2_MapReduce_Iterator {
     each(callback: (key: string, value: string) => void) : void;
 }
 
-interface NS2_MapReduce_SummaryFunction {
+interface NS2_MapReduce_SummaryContext {
     dateCreated: Date;
     seconds: number;
     usage: number;
@@ -210,6 +210,23 @@ interface NS2_MapReduce_ReduceSummary {
     yields: number;
     keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
     errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+}
+
+interface NS2_MapReduce_SummaryFunction {
+    (summary:NS2_MapReduce_SummaryContext): void;
+}
+
+interface NS2_MassUpdate_Context {
+    id: string;
+    type: string; 
+}
+
+interface NS2_Portlet_Form_Context {
+    portlet: PortletForm;
+}
+
+interface NS2_Portlet_HTML_Context {
+    portlet: PortletHTML;
 }
 
 interface NS2_Suitelet_Context {
@@ -253,9 +270,9 @@ interface ClientCurrentRecord {
     hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSubrecord(options: any): boolean; // TODO: Document this?
-    id(): string; 
+    id: string; 
     insertLine(options: InsertLineOptions): void;
-    isDynamic(): boolean;
+    isDynamic: boolean;
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): void;
     removeLine(options: InsertLineOptions): void;
     // removeSublistSubrecord(options: GetSublistValueOptions): Record;
@@ -277,5 +294,37 @@ interface ClientCurrentRecord {
     setValue(options: SetFieldOptions): void;
     setValue(fieldId: string, value: string): void;
     // toString(): string;
-    type(): string;
+    type: string;
+}
+
+interface PortletForm { // Haven't validated that all these methods actually exist yet 
+    // addButton(options: AddButtonOptions): UIButton;
+    addCredentialField(options: AddCredentialFieldOptions): UIField;
+    addField(options: AddFieldOptions): UIField;
+    addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
+    addPageLink(options: AddPageLinkOptions): void;
+    addResetButton(options: AddResetButtonOptions): UIButton;
+    addSublist(options: AddSublistOptions): UISublist;
+    addSubmitButton(label: string): void; // Not documented. Is there some other way to do this now?
+    addSubtab(options: AddSubtabOptions): UITab;
+    addTab(options: AddFieldGroupOptions): UITab;
+    // clientScript(options: ClientScriptOptions): void;
+    getButton(options: IDOptions): UIButton;
+    getField(options: UIGetFieldOptions): UIField;
+    getSublist(options: IDOptions): UISublist;
+    getSubtab(options: IDOptions): UITab;
+    getTabs(): UITab[];
+    insertField(options: InsertFieldOptions): UIField;
+    insertSublist(options: InsertSublistOptions): UISublist;
+    insertSubtab(options: InsertSubtabOptions): UITab;
+    insertTab(options: InsertSubtabOptions): UITab;
+    // removeButton(options: IDOptions): void;
+    setDefaultValues(options: SetDefaultValuesOptions): void;
+    clientScriptFileId: number;
+    title: string;
+}
+
+interface PortletHTML {
+    html: string;
+    title: string;
 }
