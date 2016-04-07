@@ -16,15 +16,43 @@ interface AddCredentialFieldOptions {
 }
 
 interface AddFieldGroupOptions {
+    /**
+     * An internal ID for the field group.
+     */
     id: string;
+    /**
+     * The label for this field group.
+     */
     label: string;
+    /**
+     * The internal ID of the tab to add the field group to. By default, the field group is added to the main section of the form.
+     */
     tab?: string;
 }
 
 interface AddFieldOptions {
+    /**
+     * The internal ID of the field.
+     * The internal ID must be in lowercase, contain no spaces, and include
+     * the prefix custpage if you are adding the field to an existing page. For
+     * example, if you add a field that appears as Purchase Details, the field
+     * internal ID should be something similar to custpage_purchasedetails or
+     * custpage_purchase_details.
+     */
     id: string;
+    /**
+     * The label for this field.
+     */
     label: string;
+    /**
+     * The field type for the field. Use the serverWidget.FieldType enum to define the field type.
+     */
     type: string;
+    /**
+     * The internalId or scriptId of the source list for this field if it is a select (List/Record) or multi-select field.
+     * Note: For radio fields only, the source parameter must contain the internal ID for the field.
+     * For more information about working with radio buttons, see "Working with Radio Buttons" in Help.
+     */
     source?: string;
     /**
      * The internal ID of the tab or field group to add the field to.
@@ -61,13 +89,21 @@ interface AddSubtabOptions {
     label: string;
     tab?: string;
 }
-
+/*
 interface ClientScriptOptions {
     script: string; // The scriptId or internal ID
 }
-
+*/
 interface CreateAssistantOptions {
+    /**
+     * The title of the form.
+     */
     title: string;
+    /**
+     * Indicates whether to hide the navigation bar menu.
+     * By default, set to false. The header appears in the top-right corner on the form.
+     * If set to true, the header on the assistant is hidden from view.
+     */
     hideNavBar?: boolean;
 }
 
@@ -331,7 +367,13 @@ interface UIFieldGroup {
 interface UIForm {
     addButton(options: AddButtonOptions): UIButton;
     addCredentialField(options: AddCredentialFieldOptions): UIField;
+    /**
+     * Adds a field to a form.
+     */
     addField(options: AddFieldOptions): UIField;
+    /**
+     * Adds a group of fields to a form.
+     */
     addFieldGroup(options: AddFieldGroupOptions): UIFieldGroup;
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options: AddResetButtonOptions): UIButton;
@@ -339,7 +381,7 @@ interface UIForm {
     addSubmitButton(label: string): void; // Not documented. Is there some other way to do this now?
     addSubtab(options: AddSubtabOptions): UITab;
     addTab(options: AddFieldGroupOptions): UITab;
-    clientScript(options: ClientScriptOptions): void;
+    // clientScript(options: ClientScriptOptions): void;
     getButton(options: IDOptions): UIButton;
     getField(options: UIGetFieldOptions): UIField;
     getSublist(options: IDOptions): UISublist;
@@ -351,6 +393,10 @@ interface UIForm {
     insertTab(options: InsertSubtabOptions): UITab;
     removeButton(options: IDOptions): void;
     setDefaultValues(options: SetDefaultValuesOptions): void;
+    /**
+     * The file cabinet ID of client script file to be used in this form.
+     */
+    clientScriptFileId: number;
     title: string;
 }
 
@@ -389,6 +435,9 @@ interface serverWidget {
     FieldType: FieldTypeLists;
     AssistantSubmitAction: AssistantSubmitActions;
     createAssistant(options: CreateAssistantOptions): Assistant;
+    /**
+     * Creates a form object.
+     */
     createForm(options: CreateAssistantOptions): UIForm;
 }
 
