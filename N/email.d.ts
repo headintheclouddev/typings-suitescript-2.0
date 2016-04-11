@@ -3,7 +3,7 @@
 
 interface SendOptions {
     author: number;
-    recipients: number|string[];
+    recipients: number[]|string[];
     replyTo?: string;
     cc?: string[];
     bcc?: string[];
