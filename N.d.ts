@@ -63,3 +63,16 @@ interface UtilInterface {
 }
 
 declare var util : UtilInterface;
+
+interface Window { // Fun undocumented NetSuite stuff
+    /**
+     * Gets the value of a URL parameter (undocumented NetSuite method).
+     * @param {string} parameter The URL parameter to get the value of.
+     */
+    getParameter(parameter: string): string;
+    /**
+     * Client method to submit the current record (undocumented NetSuite method).
+     * @param {string} name The name of the save button to trigger.
+     */
+    NLDoMainFormButtonAction(name: string, mystery: boolean);
+}
