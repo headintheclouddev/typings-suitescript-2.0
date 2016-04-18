@@ -3,6 +3,7 @@
 /// <reference path="./N/config.d.ts" />
 /// <reference path="./N/crypto.d.ts" />
 /// <reference path="./N/currency.d.ts" />
+/// <reference path="./N/currentRecord.d.ts" />
 /// <reference path="./N/email.d.ts" />
 /// <reference path="./N/encode.d.ts" />
 /// <reference path="./N/error.d.ts" />
