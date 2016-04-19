@@ -2,7 +2,7 @@
 
 interface RecordSaveFunction {
     (options?: SubmitConfig): number;
-    promise(options?:SubmitConfig): Promise<void>;
+    promise(options?: SubmitConfig): Promise<number>;
 }
 
 interface AttachOptions {
@@ -399,9 +399,15 @@ interface RecordTransformOptions {
 }
 
 interface RecordModule {
+    /**
+     * Attaches a record to another record.
+     */
     attach: RecordAttachFunction;
     copy: RecordCopyFunction;
     create: RecordCreateFunction;
+    /**
+     * Loads an existing record.
+     */
     load: RecordLoadFunction;
     delete: RecordDeleteFunction;
     detach: RecordDetachFunction;
