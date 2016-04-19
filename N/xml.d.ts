@@ -1,36 +1,36 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 interface NSNode {
-  appendChild: (options: AppendChildOptions) => NSNode;
-  cloneNode: (options?: CloneNodeOptions) => NSNode;
-  compareDocumentPosition: (options: CompareDocumentOptions) => number;
-  hasAttributes: () => boolean;
-  hasChildNodes: () => boolean;
-  insertBefore: (options: InsertBeforeOptions) => NSNode;
-  isDefaultNamespace: (options: IsDefaultNamespaceOptions) => boolean;
-  isEqualNode: (options: CompareDocumentOptions) => boolean;
-  isSameNode: (options: CompareDocumentOptions) => boolean;
-  lookupNamespaceURI: (options: LookupNamespaceURIOptions) => string;
-  lookupPrefix: (options: LookupPrefixOptions) => string;
-  normalize: () => void;
-  removeChild: (options: RemoveChildOptions) => NSNode;
-  replaceChild: (options: ReplaceChildOptions) => NSNode;
-  attributes: string;
-  baseURI: string;
-  childNodes: NSNode[];
-  firstChild: NSNode;
-  lastChild: NSNode;
-  localName: string;
-  namespaceURI: string;
-  nextSibling: NSNode;
-  nodeName: string;
-  nodeType: NodeType;
-  nodeValue: string;
-  ownerDocument: NSXMLDocument;
-  parentNode: NSNode;
-  prefix: string;
-  previousSibling: NSNode;
-  textContent: string;
+    appendChild: (options: AppendChildOptions) => NSNode;
+    cloneNode: (options?: CloneNodeOptions) => NSNode;
+    compareDocumentPosition: (options: CompareDocumentOptions) => number;
+    hasAttributes: () => boolean;
+    hasChildNodes: () => boolean;
+    insertBefore: (options: InsertBeforeOptions) => NSNode;
+    isDefaultNamespace: (options: IsDefaultNamespaceOptions) => boolean;
+    isEqualNode: (options: CompareDocumentOptions) => boolean;
+    isSameNode: (options: CompareDocumentOptions) => boolean;
+    lookupNamespaceURI: (options: LookupNamespaceURIOptions) => string;
+    lookupPrefix: (options: LookupPrefixOptions) => string;
+    normalize: () => void;
+    removeChild: (options: RemoveChildOptions) => NSNode;
+    replaceChild: (options: ReplaceChildOptions) => NSNode;
+    attributes: string;
+    baseURI: string;
+    childNodes: NSNode[];
+    firstChild: NSNode;
+    lastChild: NSNode;
+    localName: string;
+    namespaceURI: string;
+    nextSibling: NSNode;
+    nodeName: string;
+    nodeType: NodeType;
+    nodeValue: string;
+    ownerDocument: NSXMLDocument;
+    parentNode: NSNode;
+    prefix: string;
+    previousSibling: NSNode;
+    textContent: string;
 }
 
 interface AppendChildOptions {
@@ -91,8 +91,6 @@ interface NSAttr extends NSNode {
     ownerElement: NSElement;
     specified: boolean;
     value: string;
-    escape: (options: EscapeOptions) => string;
-    validate: (options: ValidateOptions) => void;
 }
 
 interface EscapeOptions {
@@ -235,16 +233,16 @@ interface ImportNodeOptions {
 }
 
 interface ParserFromStringOptions {
-  text: string;
+    text: string;
 }
 
 interface ParserToStringOptions {
-  document: NSXMLDocument;
+    document: NSXMLDocument;
 }
 
 interface Parser {
-  fromString: (options: ParserFromStringOptions) => NSXMLDocument;
-  toString: (options: ParserToStringOptions) => string;
+    fromString: (options: ParserFromStringOptions) => NSXMLDocument;
+    toString: (options: ParserToStringOptions) => string;
 }
 
 interface XPath {
@@ -263,6 +261,9 @@ interface XMLModule {
     Node: NSNode;
     Parser: Parser;
     XPath: XPath;
+    escape(options: EscapeOptions): string;
+    validate(options: ValidateOptions): void;
+    NodeType: NodeType;
 }
 
 declare module N {
