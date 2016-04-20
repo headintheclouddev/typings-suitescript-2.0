@@ -32,14 +32,14 @@ interface NS2_Client_PageInit {
     (scriptContext?: NS2_Client_PageInitContext): void;
 }
 
-interface NS2_Client_PostSourceContext {
+interface NS2_Client_PostSourcingContext {
     currentRecord: ClientCurrentRecord;
     sublistId: string;
     fieldId: string;
 }
 
-interface NS2_Client_PostSource {
-    (scriptContext?: NS2_Client_PostSourceContext): void;
+interface NS2_Client_PostSourcing {
+    (scriptContext?: NS2_Client_PostSourcingContext): void;
 }
 
 interface NS2_Client_SaveRecord {
