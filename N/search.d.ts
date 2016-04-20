@@ -168,8 +168,8 @@ interface RunPagedOptions {
 }
 
 interface SearchRunPagedFunction {
-    promise(options: RunPagedOptions): Promise<PagedData>;
-    (options: RunPagedOptions): PagedData;
+    promise(options?: RunPagedOptions): Promise<PagedData>;
+    (options?: RunPagedOptions): PagedData;
 }
 
 interface Search {
