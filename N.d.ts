@@ -71,9 +71,11 @@ interface Window { // Fun undocumented NetSuite stuff
      * @param {string} parameter The URL parameter to get the value of.
      */
     getParameter(parameter: string): string;
-    /**
-     * Client method to submit the current record (undocumented NetSuite method).
-     * @param {string} name The name of the save button to trigger.
-     */
-    NLDoMainFormButtonAction(name: string, mystery: boolean);
 }
+
+/**
+ * Client method to submit the current record (undocumented NetSuite method).
+ * @param {string} name The name of the save button to trigger.
+ * @param {boolean} arg2 Not really sure what this parameter is used for.
+ */
+declare function NLDoMainFormButtonAction(name: string, arg2: boolean): void;
