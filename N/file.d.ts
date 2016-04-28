@@ -77,9 +77,16 @@ interface FileDeleteOptions {
 }
 
 interface FileCreateOptions {
-    name: string;
+    /**
+     * The file name.
+     */
+    name:     string;
     fileType: string;
     contents: string;
+    /**
+     * The internal ID of the folder used when the file is saved.
+     */
+    folder?:  number
 }
 
 interface FileModule {
