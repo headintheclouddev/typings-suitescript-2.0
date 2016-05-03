@@ -10,7 +10,7 @@ interface SetOptions {
 }
 
 interface Script {
-    getParameter(options: GetParameterOptions): number|Date|string|string[];
+    getParameter(options: GetParameterOptions): boolean|number|Date|string|string[];
     getRemainingUsage(): number;
     deploymentId: string;
     id: string;
