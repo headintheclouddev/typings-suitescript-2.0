@@ -178,6 +178,15 @@ declare function nlapiGetFieldValue(fldnam: string): string;
  */
 declare function nlapiGetFieldValues(fldnam: string): string[];
 /**
+ * Return the value of a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {int} 	linenum Line number (1-based)
+ * @param {string} 	timezone
+ */
+declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, timezone?: string): string;
+/**
  * Return field definition for a sublist field.
  * @param {string} type Sublist name.
  * @param {string} fldnam Sublist field name.
@@ -192,6 +201,24 @@ declare function nlapiGetLineItemField(type: string, fldnam: string, linenum?: n
  * @param {number} column Matrix column index (1-based).
  */
 declare function nlapiGetLineItemMatrixField(type: string, fldnam: string, linenum: number, column: number): NLObjField;
+/**
+ * Return the value of a sublist matrix field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {number} 	linenum Line number (1-based)
+ * @param {number} 	column Column index (1-based)
+ * @param {string}  value
+ */
+declare function nlapiGetLineItemMatrixValue(type: string, fldnam: string, linenum: number, column: number, value: string): string;
+/**
+ * Return the value of a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {number} 	linenum Line number (1-based)
+ */
+declare function nlapiGetLineItemValue(type: string, fldnam: string, linenum: number): string;
 /**
  * Return the internal ID for the current user's location.
  */
@@ -341,6 +368,19 @@ declare function nlapiSendEmail(
  */
 declare function nlapiSendFax(from: number, to: string|number, subject: string, body: string, records?: Object, files?: NLObjFile[]): void;
 /**
+ * Set the current value of a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @restriction synchronous arg is only supported in Client SuiteScript
+ *
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {number} 	column Matrix column index (1-based)
+ * @param {string} 	value Matrix field value
+ * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
+ * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
+ */
+declare function nlapiSetCurrentLineItemMatrixValue(type: string, fldnam: string, column: number, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
  * Set the value of a field on the current record on a page using it's label.
  * @param {string} fldnam The field name.
  * @param {string} txt Display name used to lookup field value.
@@ -372,6 +412,15 @@ declare function nlapiSetFieldValue(fldnam: string, value: string, firefieldchan
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
 declare function nlapiSetFieldValues(fldnam: string, values: string[], firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
+ * Set the value of a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {number} 	linenum Line number (1-based)
+ * @param {string} value
+ */
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string): void;
 /**
  * Set the value of a matrix header field.
  * @restriction synchronous arg is only supported in client SuiteScript
