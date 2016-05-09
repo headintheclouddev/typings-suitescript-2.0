@@ -17,12 +17,28 @@ interface ConfigGetOptions {
 interface Config {
     names: string;
     type: string;
-    getField: (options:ConfigGetOptions) => Object;
-    getText: (options:ConfigGetOptions) => (string|string[]);
-    getValue: (options:ConfigGetOptions) => (string|string[]|boolean);
-    save: () => void;
-    setText: (options:ConfigSetTextOptions) => Config;
-    setValue: (options:ConfigSetValueOptions) => Config;
+    /**
+     * Description TBA (5/9/2016)
+     */
+    getField (options: ConfigGetOptions): Object;
+
+    getText (options: ConfigGetOptions): (string|string[]);
+    /**
+     * Description TBA (5/9/2016)
+     */
+    getValue (options: ConfigGetOptions): (string|string[]|boolean);
+    /**
+     * Description TBA (5/9/2016)
+     */
+    save (): void;
+    /**
+     * Description TBA (5/9/2016)
+     */
+    setText (options: ConfigSetTextOptions): Config;
+    /**
+     * Description TBA (5/9/2016)
+     */
+    setValue (options: ConfigSetValueOptions): Config;
 }
 
 interface ConfigTypes {
@@ -36,18 +52,30 @@ interface ConfigTypes {
 }
 
 interface LoadOptions {
-    type: ConfigTypes;
+    type: string;
 }
 
 interface ConfigModule {
-    load: (options:LoadOptions) => Config;
+    /**
+     * Method used to load a record.Record object that encapsulates the specified NetSuite configuration page.
+     */
+    load (options: LoadOptions): Config;
+    /**
+     * Enumeration that holds the string values for supported configuration pages. 
+     * This enum is used to set the value of the Record.type property.
+     * Note that the Record.type property is read-only.
+     */
     Type: ConfigTypes;
 }
 
 declare module N {
-    var config:ConfigModule;
+    var config: ConfigModule;
 }
-
+/**
+ * Load the N/config module when you want to access NetSuite configuration settings. 
+ * The config.load(options) method returns a record.Record object. Use the record.Record 
+ * object members to access configuration settings. You do not need to load the record module to do this.
+ */
 declare module 'N/config' {
     export = N.config;
 }
