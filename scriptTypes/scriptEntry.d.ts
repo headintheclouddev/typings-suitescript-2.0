@@ -266,7 +266,7 @@ interface ClientCurrentRecord {
     getText(options:GetFieldOptions): string;
     getText(fieldId:string): string;
     getValue(options:GetFieldOptions): Date|number|string|string[]|boolean;
-    getValue(fieldId:string): string;
+    getValue(fieldId:string): Date|number|string|string[]|boolean;
     hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSublistSubrecord(options: any): boolean; // TODO: Document this?
     hasSubrecord(options: any): boolean; // TODO: Document this?
