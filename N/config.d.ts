@@ -52,6 +52,9 @@ interface ConfigTypes {
 }
 
 interface LoadOptions {
+    /**
+     * Use the config.Type enumeration.
+     */
     type: string;
 }
 
