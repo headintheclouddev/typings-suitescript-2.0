@@ -118,6 +118,19 @@ interface Window {
  */
 declare function nlapiAttachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
 /**
+ * Cancel any changes made on the currently selected line.
+ * @restriction Only supported for sublists of type inlineeditor and editor
+ *
+ * @param {string} type Sublist name.
+ */
+declare function nlapiCancelLineItem(type: string): void;
+/**
+ * Save changes made on the currently selected line to the sublist.
+ *
+ * @param {string} type Sublist name.
+ */
+declare function nlapiCommitLineItem(type: string): void;
+/**
  * Return a new record using values from an existing record.
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
@@ -146,9 +159,54 @@ declare function nlapiDeleteRecord(type: string, id: number|string): void;
  */
 declare function nlapiDetachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
 /**
+ * Return the first line number that a matrix field value appears in.
+ *
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Matrix field name
+ * @param {number} 	column Matrix column index (1-based)
+ * @param {string} 	val The value being queried for in a matrix field
+ */
+declare function nlapiFindLineItemMatrixValue(type: string, fldnam: string, column: number, val: string): number;
+/**
+ * Return the first line number that a sublist field value appears in.
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} val The value being queried for in a sublist field
+ */
+declare function nlapiFindLineItemValue(type: string, fldnam: string, val: string): number;
+/**
  * Return context information about the current user/script.
  */
 declare function nlapiGetContext(): NLObjContext;
+/**
+ * Return the value of a field on the currently selected line.
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} timezone Timezone
+ */
+declare function nlapiGetCurrentLineItemDateTimeValue(type: string, fldnam: string, timezone?: string): string;
+/**
+ * Return the line number for the currently selected line.
+ *
+ * @param {string} type Sublist name
+ */
+declare function nlapiGetCurrentLineItemIndex(type): number;
+/**
+ * Return the label of a select field's current selection on the currently selected line.
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ */
+declare function nlapiGetCurrentLineItemText(type: string, fldnam: string): string;
+/**
+ * Return the value of a field on the currently selected line.
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ */
+declare function nlapiGetCurrentLineItemValue(type: string, fldnam: string): string;
 /**
  * Return the internal ID for the current user's department.
  */
@@ -187,6 +245,13 @@ declare function nlapiGetFieldValues(fldnam: string): string[];
  */
 declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, timezone?: string): string;
 /**
+ * Return the number of sublists in a sublist on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * 
+ * @param {string} type Sublist name
+ */
+declare function nlapiGetLineItemCount(type: string): number;
+/**
  * Return field definition for a sublist field.
  * @param {string} type Sublist name.
  * @param {string} fldnam Sublist field name.
@@ -212,6 +277,14 @@ declare function nlapiGetLineItemMatrixField(type: string, fldnam: string, linen
  */
 declare function nlapiGetLineItemMatrixValue(type: string, fldnam: string, linenum: number, column: number, value: string): string;
 /**
+ * Return the label of a select field's current selection for a particular line.
+ *
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {int} 	linenum Line number (1-based)
+ */
+declare function nlapiGetLineItemText(type: string, fldnam: string, linenum: number): string;
+/**
  * Return the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @param {string} 	type Sublist name
@@ -223,6 +296,13 @@ declare function nlapiGetLineItemValue(type: string, fldnam: string, linenum: nu
  * Return the internal ID for the current user's location.
  */
 declare function nlapiGetLocation(): number;
+/**
+ * Return the number of columns for a matrix field.
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Matrix field name
+ */
+declare function nlapiGetMatrixCount(type: string, fldnam: string): number;
 /**
  * Return field definition for a matrix field.
  * @param {string} 	type   Matrix sublist name.
@@ -258,6 +338,13 @@ declare function nlapiGetSubsidiary(): number;
  */
 declare function nlapiGetUser(): number;
 /**
+ * Insert and select a new line into the sublist on a page or userevent.
+ *
+ * @param {string} type Sublist name
+ * @param {number} line Line number at which to insert a new line.
+ */
+declare function nlapiInsertLineItem(type: string, line?: number): void;
+/**
  * Load an existing record from the system.
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
@@ -272,6 +359,13 @@ declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
  * @param {boolean} text If true then the display value is returned instead for select fields.
  */
 declare function nlapiLookupField(type: string, id: number, fields: string|string[], text?: boolean): string|Object;
+/**
+ * Remove the currently selected line from the sublist on a page or userevent.
+ *
+ * @param {string} type Sublist name
+ * @param {number} line	Line number to remove (uses current row if null).
+ */
+declare function nlapiRemoveLineItem(type: string, line?: number): void;
 /**
  * Request a URL to an external or internal resource.
  * @param {string} url A fully qualified URL to an HTTP(s) resource.
@@ -324,6 +418,13 @@ declare function nlapiSearchRecord(
     columns?: NLObjSearchColumn|NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
+ * Select an existing line in a sublist.
+ *
+ * @param {string} type Sublist name
+ * @param {number} linenum Line number to select
+ */
+declare function nlapiSelectLineItem(type: string, linenum: number): void;
+/**
  * Sends a single on-demand campaign email to a specified recipient and returns a campaign response ID to track the email.
  * @param {number} campaigneventid Internal ID of the campaign event.
  * @param {number} recipientid Internal ID of the recipient - the recipient must have an email.
@@ -368,6 +469,16 @@ declare function nlapiSendEmail(
  */
 declare function nlapiSendFax(from: number, to: string|number, subject: string, body: string, records?: Object, files?: NLObjFile[]): void;
 /**
+ * Set the value of a field on the currently selected line.
+ * @restriction synchronous arg is only supported in client SuiteScript
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} value Field value
+ * @param {string} timezone Timezone
+ */
+declare function nlapiSetCurrentLineItemDateTimeValue(type: string,fldnam: string, value: string, timezone?: string): void;
+/**
  * Set the current value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @restriction synchronous arg is only supported in Client SuiteScript
@@ -380,6 +491,28 @@ declare function nlapiSendFax(from: number, to: string|number, subject: string, 
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
 declare function nlapiSetCurrentLineItemMatrixValue(type: string, fldnam: string, column: number, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
+ * Set the value of a field on the currently selected line using it's label.
+ * @restriction synchronous arg is only supported in client SuiteScript
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} txt String containing display value or search text.
+ * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
+ * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
+ */
+declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
+ * Set the value of a field on the currently selected line.
+ * @restriction synchronous arg is only supported in client SuiteScript
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} value Field value
+ * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
+ * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
+ */
+declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
  * Set the value of a field on the current record on a page using it's label.
  * @param {string} fldnam The field name.
@@ -412,6 +545,16 @@ declare function nlapiSetFieldValue(fldnam: string, value: string, firefieldchan
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
 declare function nlapiSetFieldValues(fldnam: string, values: string[], firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
+ * Set the value of a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type Sublist name
+ * @param {string} 	fldnam Sublist field name
+ * @param {number} 	linenum Line number (1-based)
+ * @param {string}  datetime Date/Time value
+ * @param {string}  timezone Timezone
+ */
+declare function nlapiSetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, datetime: string, timezone?: string): void;
 /**
  * Set the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
