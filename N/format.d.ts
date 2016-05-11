@@ -1,16 +1,15 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-/**
- * param value is the return type, not the referenced type.
- * format.format() is the one that works for Date parsing. Deal.
- */
 interface FormatOptions {
     value: Date|string|number;
     type: string;
 }
 
 interface FormatDateTimeOptions {
-    value: Date;
+    /**
+     * If parsing a string to a timezone, the string must include seconds.
+     */
+    value: Date|string;
     type: string;
     timezone: number;
 }
@@ -141,15 +140,22 @@ interface FormatModule {
     /**
      * Use format to convert an Object (like a Date) into a specific NS string format. 
      * Options: value (Date|string|number), type (format.FormatType).
-     * @return {string|Object}
      */
     format (options: FormatOptions): string|Object;
+    /**
+     * Use format to convert an Object (like a Date) into a specific NS string format. 
+     * Options: value (Date|string), type (format.FormatType), timezone (enum).
+     */
     format (options: FormatDateTimeOptions): string|Object;
     /**
      * Use parse to convert a string into an object, like a Date.
      * Options: value (Date|string|number), type (format.FormatType).
      */
     parse (options: FormatOptions): Date|string|number;
+    /**
+     * Use parse to convert a string into an object, like a Date.
+     * Options: value (Date|string), type (format.FormatType), timezone (enum).
+     */
     parse (options: FormatDateTimeOptions): Date|string|number;
     Type: FormatType;
     Timezone: Timezone;
