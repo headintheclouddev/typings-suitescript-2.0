@@ -234,6 +234,9 @@ interface NS2_Suitelet_Context {
     response: ServerResponse;
 }
 
+/**
+ * Almost like a full Record, except without things like save().
+ */
 interface ClientCurrentRecord {
     cancelLine(options: CancelCommitLineOptions): void;
     cancelLine(sublistId: string): void;
@@ -263,8 +266,8 @@ interface ClientCurrentRecord {
     getSublistValue(options: GetSublistValueOptions): string;
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getSubRecord(options: GetFieldOptions): Record;
-    getText(options:GetFieldOptions): string;
-    getText(fieldId:string): string;
+    getText(options: GetFieldOptions): string|string[];
+    getText(fieldId: string): string|string[];
     getValue(options:GetFieldOptions): Date|number|string|string[]|boolean;
     getValue(fieldId:string): Date|number|string|string[]|boolean;
     hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
