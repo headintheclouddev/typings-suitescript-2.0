@@ -146,8 +146,8 @@ interface Record {
     getSublistValue(options: GetSublistValueOptions): string;
     getSublistValue(sublistId: string, fieldId: string, line: number): string;
     getSubRecord(options: GetFieldOptions): Record;
-    getText(options:GetFieldOptions): string;
-    getText(fieldId:string): string;
+    getText(options: GetFieldOptions): string|string[];
+    getText(fieldId: string): string|string[];
     getValue(options:GetFieldOptions): Date|number|string|string[]|boolean;
     getValue(fieldId:string): string;
     insertLine(options: InsertLineOptions): Record;
