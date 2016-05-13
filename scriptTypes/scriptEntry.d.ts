@@ -173,6 +173,10 @@ interface NS2_MapReduce_Iterator {
     each(callback: (key: string, value: string) => void) : void;
 }
 
+interface NS2_MapReduce_IteratorContainer {
+    iterator() : NS2_MapReduce_Iterator;
+}
+
 interface NS2_MapReduce_SummaryContext {
     dateCreated: Date;
     seconds: number;
@@ -182,7 +186,7 @@ interface NS2_MapReduce_SummaryContext {
     inputSummary: NS2_MapReduce_InputSummary;
     mapSummary: NS2_MapReduce_MapSummary;
     reduceSummary: NS2_MapReduce_ReduceSummary;
-    output: NS2_MapReduce_Iterator;
+    output: NS2_MapReduce_IteratorContainer;
 }
 
 interface NS2_MapReduce_InputSummary {
@@ -198,8 +202,8 @@ interface NS2_MapReduce_MapSummary {
     usage: number;
     concurrency: number;
     yields: number;
-    keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
-    errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+    keys: NS2_MapReduce_IteratorContainer;
+    errors: NS2_MapReduce_IteratorContainer;
 }
 
 interface NS2_MapReduce_ReduceSummary {
@@ -208,8 +212,8 @@ interface NS2_MapReduce_ReduceSummary {
     usage: number;
     concurrency: number;
     yields: number;
-    keys: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
-    errors: NS2_MapReduce_Iterator; // TODO: recheck documentation in the future, seems questionable
+    keys: NS2_MapReduce_IteratorContainer;
+    errors: NS2_MapReduce_IteratorContainer;
 }
 
 interface NS2_MapReduce_SummaryFunction {
