@@ -446,8 +446,8 @@ declare function nlapiSendCampaignEmail(campaigneventid: number, recipientid: nu
  * @param {string} replyTo Email reply-to address.
  */
 declare function nlapiSendEmail(
-    from: number;
-    to: string|number;
+    from: number,
+    to: string|number,
     subject: string,
     body: string,
     cc?: string|string[],
