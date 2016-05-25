@@ -988,7 +988,7 @@ function nlapiInsertLineItemOption(type, fldnam, value, text, selected) { ; }
  * @since 2008.2
  */
 function nlapiRemoveLineItemOption(type, fldnam, value) { ; }
-
+// TODO: Continue here ->
 /**
  * Returns true if any changes have been made to a sublist.
  * @restriction Client SuiteScript only
