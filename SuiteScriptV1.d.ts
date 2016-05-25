@@ -345,6 +345,27 @@ declare function nlapiGetUser(): number;
  */
 declare function nlapiInsertLineItem(type: string, line?: number): void;
 /**
+ * Adds a select option to a scripted select or multiselect sublist field.
+ * @restriction Client SuiteScript only
+ *
+ * @param {string} type	Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} value Internal ID for select option
+ * @param {string} text Display text for select option
+ * @param {boolean} selected If true then option will be selected by default
+ */
+declare function nlapiInsertLineItemOption(type: string, fldnam: string, value: string, text: string, selected?: boolean): void;
+/**
+ * Adds a select option to a scripted select or multiselect field.
+ * @restriction Client SuiteScript only
+ *
+ * @param {string} fldnam Field name
+ * @param {string} value Internal ID for select option
+ * @param {string} text Display text for select option
+ * @param {boolean} selected If true then option will be selected by default
+ */
+declare function nlapiInsertSelectOption(fldnam: string, value: string, text: string, selected?: boolean): void;
+/**
  * Load an existing record from the system.
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
@@ -360,12 +381,37 @@ declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
  */
 declare function nlapiLookupField(type: string, id: number, fields: string|string[], text?: boolean): string|Object;
 /**
+ * Refresh the sublist table.
+ * @restriction Only supported for sublists of type inlineeditor, editor, and staticlist
+ * @restriction Client SuiteScript only.
+ *
+ * @param {string} type Sublist name
+ */
+declare function nlapiRefreshLineItems(type: string): void;
+/**
  * Remove the currently selected line from the sublist on a page or userevent.
  *
  * @param {string} type Sublist name
  * @param {number} line	Line number to remove (uses current row if null).
  */
 declare function nlapiRemoveLineItem(type: string, line?: number): void;
+/**
+ * Removes a select option (or all if value is null) from a scripted select or multiselect sublist field.
+ * @restriction Client SuiteScript only
+ *
+ * @param {string} type	Sublist name
+ * @param {string} fldnam Sublist field name
+ * @param {string} value Internal ID for select option to remove
+ */
+declare function nlapiRemoveLineItemOption(type: string, fldnam: string, value: string): void;
+/**
+ * Removes a select option (or all if value is null) from a scripted select or multiselect field.
+ * @restriction Client SuiteScript only
+ *
+ * @param {string} fldnam Field name
+ * @param {string} value Internal ID of select option to remove
+ */
+declare function nlapiRemoveSelectOption(fldnam: string, value: string): void;
 /**
  * Request a URL to an external or internal resource.
  * @param {string} url A fully qualified URL to an HTTP(s) resource.
@@ -424,6 +470,13 @@ declare function nlapiSearchRecord(
  * @param {number} linenum Line number to select
  */
 declare function nlapiSelectLineItem(type: string, linenum: number): void;
+/**
+ * Select a new line in a sublist.
+ * @restriction Only supported for sublists of type inlineeditor and editor
+ *
+ * @param {string} type Sublist name
+ */
+declare function nlapiSelectNewLineItem(type: string): void;
 /**
  * Sends a single on-demand campaign email to a specified recipient and returns a campaign response ID to track the email.
  * @param {number} campaigneventid Internal ID of the campaign event.
