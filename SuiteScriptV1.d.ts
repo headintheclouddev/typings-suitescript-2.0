@@ -138,11 +138,60 @@ declare function nlapiCommitLineItem(type: string): void;
  */
 declare function nlapiCopyRecord(type: string, id: number|string, initializeValues?: Object): NLObjRecord;
 /**
+ * Return a new assistant page.
+ * @restriction Suitelets only
+ *
+ * @param {string} title Page title
+ * @param {boolean} hideHeader true to hide the page header (false by default)
+ */
+declare function nlapiCreateAssistant(title: string, hideHeader?: boolean): NLObjAssistant;
+/**
+ * Create an nlobjError object that can be used to abort script execution and configure error notification
+ *
+ * @param {string} code Error code
+ * @param {string} details Error description
+ * @param {boolean} suppressEmail If true then suppress the error notification emails from being sent out (false by default).
+ */
+declare function nlapiCreateError(code: string, details: string, suppressEmail?: boolean): NLObjError;
+/**
+ * Instantiate a file object (specifying the name, type, and contents which are base-64 encoded for binary types.)
+ * @restriction Server SuiteScript only
+ *
+ * @param {string} name File name
+ * @param {string} type File type i.e. plainText, htmlDoc, pdf, word (see documentation for the list of supported file types)
+ * @param {string} contents String containing file contents (must be base-64 encoded for binary types)
+ */
+declare function nlapiCreateFile(name: string, type: string, contents: string): NLObjFile;
+/**
+ * Return a new entry form page.
+ * @restriction Suitelets only
+ *
+ * @param {string} title Page title
+ * @param {boolean} hideHeader true to hide the page header (false by default)
+ */
+declare function nlapiCreateForm(title: string, hideHeader?: boolean): NLObjForm;
+/**
+ * Return a new list page.
+ * @restriction Suitelets only
+ *
+ * @param {string} title Page title
+ * @param {boolean} hideHeader true to hide the page header (false by default)
+ */
+declare function nlapiCreateList(title: string, hideHeader?: boolean): NLObjList;
+/**
  * Instantiate a new nlobjRecord object containing all the default field data for that record type.
  * @param {string} type The record type name.
  * @param {Object} initializeValues Contains an array of name/value pairs of defaults to be used during record initialization.
  */
 declare function nlapiCreateRecord(type: string, initializeValues?: Object): NLObjRecord;
+/**
+ * Delete a file from the file cabinet.
+ * @governance 20 units
+ * @restriction Server SuiteScript only
+ *
+ * @param {number} id Internal ID of file to be deleted
+ */
+declare function nlapiDeleteFile(id: number): number;
 /**
  * Delete a record from the system.
  * @param {string} type The record type name.
@@ -318,6 +367,16 @@ declare function nlapiGetMatrixField(type: string, fldnam: string, column: numbe
  */
 declare function nlapiGetMatrixValue(type: string, fldnam: string, column: number): string;
 /**
+ * Return an record object containing the data being submitted to the system for the currenr record.
+ * @restriction User Event scripts only
+ */
+declare function nlapiGetNewRecord(): NLObjRecord;
+/**
+ * Return an record object containing the current record's data prior to the write operation.
+ * @restriction beforeSubmit|afterSubmit User Event scripts only
+ */
+declare function nlapiGetOldRecord(): NLObjRecord;
+/**
  * Return the internal ID corresponding to the current page or userevent script.
  */
 declare function nlapiGetRecordId(): number;
@@ -366,6 +425,21 @@ declare function nlapiInsertLineItemOption(type: string, fldnam: string, value: 
  */
 declare function nlapiInsertSelectOption(fldnam: string, value: string, text: string, selected?: boolean): void;
 /**
+ * Returns true if any changes have been made to a sublist.
+ * @restriction Client SuiteScript only
+ *
+ * @param {string} type Sublist name
+ */
+declare function nlapiIsLineItemChanged(type: string): boolean;
+/**
+ * Load a file from the file cabinet (via its internal ID or path).
+ * @governance 10 units
+ * @restriction Server SuiteScript only
+ *
+ * @param {string|number} id Internal ID or relative path to file in the file cabinet (i.e. /SuiteScript/foo.js)
+ */
+declare function nlapiLoadFile(id: string|number): NLObjFile;
+/**
  * Load an existing record from the system.
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
@@ -380,6 +454,20 @@ declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
  * @param {boolean} text If true then the display value is returned instead for select fields.
  */
 declare function nlapiLookupField(type: string, id: number, fields: string|string[], text?: boolean): string|Object;
+/**
+ * Perform a mail merge operation using any template and up to 2 records and returns an nlobjFile with the results.
+ * @restriction only supported for record types that are available in mail merge: transactions, entities, custom records, and cases
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {number} id internal ID of template
+ * @param {string} baseType primary record type
+ * @param {number} baseId internal ID of primary record
+ * @param {string} altType secondary record type
+ * @param {number} altId internal ID of secondary record
+ * @param {Object} fields Object of merge field values to use in the mail merge (by default all field values are obtained from records) which overrides those from the record.
+ */
+declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
 /**
  * Refresh the sublist table.
  * @restriction Only supported for sublists of type inlineeditor, editor, and staticlist
@@ -641,6 +729,14 @@ declare function nlapiSetMatrixValue(type: string, fldnam: string, column: numbe
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
 declare function nlapiSubmitField(type: string, id: number, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
+/**
+ * Add/update a file in the file cabinet.
+ * @governance 20 units
+ * @restriction Server SuiteScript only
+ *
+ * @param {NLObjFile} file A file object to submit
+ */
+declare function nlapiSubmitFile(file: NLObjFile): number;
 /**
  * Submit a record to the system for creation or update.
  * @param {NLObjRecord} record Record object containing the data record.
