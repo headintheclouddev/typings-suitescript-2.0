@@ -22,6 +22,10 @@ interface NLObjContext {
   
 }
 
+interface NLObjEmailMerger {
+    
+}
+
 interface NLObjError {
   
 }
@@ -109,6 +113,20 @@ interface Window {
 }
 
 /**
+ * Add days to a Date object and returns a new Date
+ *
+ * @param {date} d Date object used to calculate the new date
+ * @param {number} days The number of days to add to this date object.
+ */
+declare function nlapiAddDays(d: Date, days: number): Date;
+/**
+ * Add months to a Date object and returns a new Date.
+ *
+ * @param {date} d Date object used to calculate the new date
+ * @param {number} months The number of months to add to this date object.
+ */
+declare function nlapiAddMonths(d: Date, months: number): Date;
+/**
  * Attach a single record to another with optional properties.
  * @param {string} type1 The record type name being attached.
  * @param {number} id1 The internal ID for the record being attached.
@@ -145,6 +163,14 @@ declare function nlapiCopyRecord(type: string, id: number|string, initializeValu
  * @param {boolean} hideHeader true to hide the page header (false by default)
  */
 declare function nlapiCreateAssistant(title: string, hideHeader?: boolean): NLObjAssistant;
+/**
+ * Create an email merger used to assemble subject and body text of an email from a given
+ * FreeMarker template and a set of associated records.
+ * @restriction Server SuiteScript only
+ *
+ * @param {number} templateId Internal ID of the template
+ */
+declare function nlapiCreateEmailMerger(templateId): NLObjEmailMerger;
 /**
  * Create an nlobjError object that can be used to abort script execution and configure error notification
  *
@@ -185,6 +211,22 @@ declare function nlapiCreateList(title: string, hideHeader?: boolean): NLObjList
  */
 declare function nlapiCreateRecord(type: string, initializeValues?: Object): NLObjRecord;
 /**
+ * Create a template renderer used to generate various outputs based on a template.
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {string} type	Media type: pdf|html
+ * @param {string} engineType Default is freemarker/html
+ */
+declare function nlapiCreateTemplateRenderer(type: string, engineType?: string): NLObjTemplateRenderer;
+/**
+ * Convert a Date object into a String
+ *
+ * @param {date} d Date object being converted to a string.
+ * @param {string} formattype Format type to use: date|datetime|timeofday with date being the default.
+ */
+declare function nlapiDateToString(d: Date, formattype?: string): string;
+/**
  * Delete a file from the file cabinet.
  * @governance 20 units
  * @restriction Server SuiteScript only
@@ -208,6 +250,18 @@ declare function nlapiDeleteRecord(type: string, id: number|string): void;
  */
 declare function nlapiDetachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
 /**
+ * Encrypt a String using a SHA-1 hash function.
+ *
+ * @param {string} s String to encrypt.
+ */
+declare function nlapiEncrypt(s: string): string;
+/**
+ * Escape a String for use in an XML document.
+ *
+ * @param {string} text String to escape
+ */
+declare function nlapiEscapeXML(text: string): string;
+/**
  * Return the first line number that a matrix field value appears in.
  *
  * @param {string} 	type Sublist name
@@ -224,6 +278,12 @@ declare function nlapiFindLineItemMatrixValue(type: string, fldnam: string, colu
  * @param {string} val The value being queried for in a sublist field
  */
 declare function nlapiFindLineItemValue(type: string, fldnam: string, val: string): number;
+/**
+ * Format a number for data entry into a currency field.
+ *
+ * @param {string} str Numeric string used to format for display as currency using user's locale.
+ */
+declare function nlapiFormatCurrency(str: string): string;
 /**
  * Return context information about the current user/script.
  */
@@ -432,6 +492,14 @@ declare function nlapiInsertSelectOption(fldnam: string, value: string, text: st
  */
 declare function nlapiIsLineItemChanged(type: string): boolean;
 /**
+ * Loads a configuration record
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {string} type
+ */
+declare function nlapiLoadConfiguration(type: string): NLObjConfiguration;
+/**
  * Load a file from the file cabinet (via its internal ID or path).
  * @governance 10 units
  * @restriction Server SuiteScript only
@@ -445,6 +513,14 @@ declare function nlapiLoadFile(id: string|number): NLObjFile;
  * @param {number|string} id The internal ID of the record to copy.
  */
 declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
+/**
+ * Create an entry in the script execution log (note that execution log entries are automatically purged after 30 days).
+ *
+ * @param {string} type	Log type: debug|audit|error|emergency
+ * @param {string} title Log title (up to 90 characters supported)
+ * @param {string} details Log details (up to 3000 characters supported)
+ */
+declare function nlapiLogExecution(type: string, title: string, details?: string): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
@@ -468,6 +544,25 @@ declare function nlapiLookupField(type: string, id: number, fields: string|strin
  * @param {Object} fields Object of merge field values to use in the mail merge (by default all field values are obtained from records) which overrides those from the record.
  */
 declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
+/**
+ * Return a URL with a generated OAuth token.
+ * @restriction Suitelets and Portlets only
+ * @governance 20 units
+ *
+ * @param {string} ssoAppKey
+ */
+declare function nlapiOutboundSSO(ssoAppKey: string): string;
+/**
+ * Print a record (transaction) gievn its type, id, and output format.
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {string} type Print output type: transaction|statement|packingslip|pickingticket
+ * @param {number} id Internal ID of record to print
+ * @param {string} format Output format: html|pdf|default
+ * @param {Object} properties Object of properties used to configure print
+ */
+declare function nlapiPrintRecord(type: string, id: number, format?: string, properties?: Object): NLObjFile;
 /**
  * Refresh the sublist table.
  * @restriction Only supported for sublists of type inlineeditor, editor, and staticlist
@@ -526,6 +621,17 @@ declare function nlapiRequestURLWithCredentials(credentials: string[], url: stri
  * @param {string} pagemode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
 declare function nlapiResolveURL(type: string, subtype: string, id: string, pagemode?: string): string;
+/**
+ * Queue a scheduled script for immediate execution and return the status QUEUED if successfull.
+ * @restriction Server SuiteScript only
+ * @governance 20 units
+ *
+ * @param {string|number} script Script ID or internal ID of scheduled script
+ * @param {string|number} deployment Script ID or internal ID of scheduled script deployment. If empty, the first "free" deployment (i.e. status = Not Scheduled or Completed) will be used
+ * @param {Object} arameters Object of parameter name->values used in this scheduled script instance
+ * @return {string} QUEUED or null if no available deployments were found or the current status of the deployment specified if it was not available.
+ */
+declare function nlapiScheduleScript(script: string|number, deployment?: string|number, parameters?: Object): string;
 /**
  * Perform a duplicate record search using Duplicate Detection criteria.
  * @param {string} type The recordType you are checking duplicates for (for example, customer|lead|prospect|partner|vendor|contact).
@@ -721,6 +827,21 @@ declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: nu
  */
 declare function nlapiSetMatrixValue(type: string, fldnam: string, column: number, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
+ * Convert a String into a Date object.
+ *
+ * @param {string} str Date string in the user's date format, timeofday format, or datetime format.
+ * @param {string} format Format type to use: date|datetime|timeofday with date being the default.
+ */
+declare function nlapiStringToDate(str: string, format?: string): Date;
+/**
+ * Commits all changes to a configuration record.
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {nlobjConfiguration} setup Record
+ */
+declare function nlapiSubmitConfiguration(setup: NLObjConfiguration): void;
+/**
  * Submit the values of a field or set of fields for an existing record.
  * @param {string} type The record type name.
  * @param {number} id The internal ID for the record.
@@ -759,6 +880,14 @@ declare function nlapiTransformRecord(type: string, id: number, transformType: s
  * @return {string} If accounting preference is reversing journal, then it is new journal id, otherwise, it is the input record id.
  */
 declare function nlapiVoidTransaction(type: string, id: string): string;
+/**
+ * Generate a PDF from XML using the BFO report writer (see http://big.faceless.org/products/report/).
+ * @restriction Server SuiteScript only
+ * @governance 10 units
+ *
+ * @param {string} input String containing BFO compliant XHTML
+ */
+declare function nlapiXMLToPDF(input: string): NLObjFile;
 /**
  * Client method to submit the current record (undocumented NetSuite method).
  * @param {string} name The name of the save button to trigger.
