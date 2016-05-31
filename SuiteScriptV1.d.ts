@@ -22,6 +22,10 @@ interface NLObjContext {
   
 }
 
+interface NLObjCSVImport {
+    
+}
+
 interface NLObjEmailMerger {
     
 }
@@ -164,6 +168,11 @@ declare function nlapiCopyRecord(type: string, id: number|string, initializeValu
  */
 declare function nlapiCreateAssistant(title: string, hideHeader?: boolean): NLObjAssistant;
 /**
+ * Initializes a new record and returns an nlobjCSVImport object.
+ * @restriction Only supported for bundle installation scripts, scheduled scripts, and RESTlets.
+ */
+declare function nlapiCreateCSVImport(): NLObjCSVImport;
+/**
  * Create an email merger used to assemble subject and body text of an email from a given
  * FreeMarker template and a set of associated records.
  * @restriction Server SuiteScript only
@@ -261,6 +270,15 @@ declare function nlapiEncrypt(s: string): string;
  * @param {string} text String to escape
  */
 declare function nlapiEscapeXML(text: string): string;
+/**
+ * Calculate exchange rate between two currencies as of today or an optional effective date.
+ * @governance 10 units
+ *
+ * @param {string|number} fromCurrency Internal ID or currency code of currency we are converting from.
+ * @param {string|number} toCurrency Internal ID or currency code of currency we are converting to.
+ * @param {string} date String containing date of effective exchange rate. defaults to today.
+ */
+declare function nlapiExchangeRate(fromCurrency: string|number, toCurrency: string|number, date?: string): number;
 /**
  * Return the first line number that a matrix field value appears in.
  *
@@ -456,6 +474,25 @@ declare function nlapiGetSubsidiary(): number;
  * Return the internal ID for the currently logged in user. Returns -4 when called from online forms or "Available without Login" Suitelets.
  */
 declare function nlapiGetUser(): number;
+/**
+ * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
+ * @governance 20 units
+ *
+ * @param {string} recordtype Record type ID of the workflow base record.
+ * @param {numberint} id Internal ID of the base record.
+ * @param {string|number} workflowid Internal ID or script ID for the workflow definition.
+ */
+declare function nlapiInitiateWorkflow(recordtype: string, id: number, workflowid: string|number): number;
+/**
+ * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
+ * @governance 20 units
+ *
+ * @param {string} recordtype Record type ID of the workflow base record.
+ * @param {numberint} id Internal ID of the base record.
+ * @param {string|number} workflowid Internal ID or script ID for the workflow definition.
+ * @param {Object} parameters
+ */
+declare function nlapiInitiateWorkflowAsync(recordtype: string, id: number, workflowid: string|number, parameters: Object): number;
 /**
  * Insert and select a new line into the sublist on a page or userevent.
  *
@@ -672,6 +709,34 @@ declare function nlapiSelectLineItem(type: string, linenum: number): void;
  */
 declare function nlapiSelectNewLineItem(type: string): void;
 /**
+ * Select a node from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
+ *
+ * @param {Node} 	node node being queried
+ * @param {string} 	xpath string containing XPath expression.
+ */
+declare function nlapiSelectNode(node: Node, xpath: string): Node;
+/**
+ * Select an array of nodes from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
+ *
+ * @param {Node} 	node Node being queried
+ * @param {string} 	xpath string containing XPath expression.
+ */
+declare function nlapiSelectNodes(node: Node, xpath: string): Node[];
+/**
+ * Select a value from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
+ *
+ * @param {Node} node Node being queried
+ * @param {string} xpath String containing XPath expression.
+ */
+declare function nlapiSelectValue(node: Node, xpath: string): string;
+/**
+ * Select an array of values from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
+ *
+ * @param {Node} node Node being queried
+ * @param {string} xpath String containing XPath expression.
+ */
+declare function nlapiSelectValues(node: Node, xpath: string): string[];
+/**
  * Sends a single on-demand campaign email to a specified recipient and returns a campaign response ID to track the email.
  * @param {number} campaigneventid Internal ID of the campaign event.
  * @param {number} recipientid Internal ID of the recipient - the recipient must have an email.
@@ -834,6 +899,13 @@ declare function nlapiSetMatrixValue(type: string, fldnam: string, column: numbe
  */
 declare function nlapiStringToDate(str: string, format?: string): Date;
 /**
+ * Convert a String into an XML document. Note that in Server SuiteScript XML is supported natively by the JS runtime using the e4x standard (http://en.wikipedia.org/wiki/E4X)
+ * This makes scripting XML simpler and more efficient
+ *
+ * @param {string} str String being parsed into an XML document
+ */
+declare function nlapiStringToXML(str: string): XMLDocument;
+/**
  * Commits all changes to a configuration record.
  * @restriction Server SuiteScript only
  * @governance 10 units
@@ -874,6 +946,27 @@ declare function nlapiSubmitRecord(record: NLObjRecord, doSourcing?: boolean, ig
  */
 declare function nlapiTransformRecord(type: string, id: number, transformType: string, transformValues?: Object): NLObjRecord;
 /**
+ * Triggers a workflow on a record.
+ * @governance 20 units
+ *
+ * @param {string} recordtype Record type ID of the workflow base record
+ * @param {number} id Internal ID of the base record
+ * @param {string|number} workflowid Internal ID or script ID for the workflow definition
+ * @param {string|number} actionid Internal ID or script ID of the action script
+ * @param {string|number} stateid Internal ID or script ID of the state contains the referenced add button action
+ */
+declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid: string|number, actionid: string|number, stateid: string|number): number;
+/**
+ * Validate that a given XML document conforms to a given XML schema. XML Schema Definition (XSD) is the expected schema format.
+ *
+ * @param {XMLDocument} xmlDocument xml to validate
+ * @param {XMLDocument} schemaDocument schema to enforce
+ * @param {string} schemaFolderId if your schema utilizes <import> or <include> tags which refer to sub-schemas by file name (as opposed to URL),
+ *                 provide the Internal Id of File Cabinet folder containing these sub-schemas as the schemaFolderId argument
+ * @throws {nlobjError} error containsing validation failure message(s) - limited to first 10
+ */
+declare function nlapiValidateXML(xmlDocument: XMLDocument, schemaDocument: XMLDocument, schemaFolderId: string): void;
+/**
  * Void a transaction based on type and id.
  * @param {string} type The transaction type name.
  * @param {string} id The internal ID for the record.
@@ -888,6 +981,13 @@ declare function nlapiVoidTransaction(type: string, id: string): string;
  * @param {string} input String containing BFO compliant XHTML
  */
 declare function nlapiXMLToPDF(input: string): NLObjFile;
+/**
+ * Convert an XML document into a String.  Note that in Server SuiteScript XML is supported natively by the JS runtime using the e4x standard (http://en.wikipedia.org/wiki/E4X)
+ * This makes scripting XML data simpler and more efficient
+ *
+ * @param {XMLDocument} xml Document being serialized into a string
+ */
+declare function nlapiXMLToString(xml: XMLDocument): string;
 /**
  * Client method to submit the current record (undocumented NetSuite method).
  * @param {string} name The name of the save button to trigger.
