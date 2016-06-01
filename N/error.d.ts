@@ -31,9 +31,18 @@ interface CreateOptions {
 }
 
 interface ErrorModule {
+    /**
+     * Encapsulates a SuiteScript error thrown by any script type that is not a user event script.
+     */
     SuiteScriptError: SuiteScriptError;
+    /**
+     * Encapsulates a SuiteScript error thrown by a user event script.
+     */
     UserEventError: UserEventError;
-    create(options: CreateOptions): SuiteScriptError|UserEventError;
+    /**
+     * Creates a new error.SuiteScriptError or error.UserEventError object.
+     */
+    create (options: CreateOptions): SuiteScriptError | UserEventError;
 }
 
 declare module N {
