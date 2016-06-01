@@ -16,7 +16,13 @@ interface Encoding {
 }
 
 interface EncodeModule {
-    convert: (options: ConvertOptions) => string;
+    /**
+     * Converts a string to another type of encoding and returns the re-encoded string.
+     */
+    convert (options: ConvertOptions): string;
+    /**
+     * Holds the string values for supported encoding specifications.
+     */
     Encoding: Encoding;
 }
 
