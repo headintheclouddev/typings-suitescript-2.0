@@ -68,11 +68,16 @@ interface FileEncoding {
 }
 
 interface FileLoadOptions {
-    /** ID or Path */
-    id: (number|string);
+    /** 
+     * Internal ID of the file as a number or a string, OR  The relative file path to the file in the file cabinet.
+     */
+    idOrPath: (number|string);
 }
 
 interface FileDeleteOptions {
+    /**
+     * Internal ID of the file.
+     */
     id: (number|string);
 }
 
@@ -80,20 +85,41 @@ interface FileCreateOptions {
     /**
      * The file name.
      */
-    name:     string;
+    name: string;
+    /**
+     * The file type.
+     */
     fileType: string;
+    /**
+     * The file content.
+     */
     contents: string;
     /**
      * The internal ID of the folder used when the file is saved.
      */
-    folder?:  number
+    folder?: number
 }
 
 interface FileModule {
-    create: (options: FileCreateOptions) => NSFile;
-    delete: (options: FileDeleteOptions) => void;
-    load: (options: FileLoadOptions) => NSFile;
+    /**
+     * Method used to create a new file in the NetSuite file cabinet.
+     */
+    create (options: FileCreateOptions): NSFile;
+    /**
+     * Method used to delete an existing file from the NetSuite file cabinet.
+     */
+    delete (options: FileDeleteOptions): void;
+    /**
+     * Method used to load an existing file from the NetSuite file cabinet.
+     */
+    load (options: FileLoadOptions): NSFile;
+    /**
+     * Enumeration that holds the string values for supported character encoding.
+     */
     Encoding: FileEncoding;
+    /**
+     * Enumeration that holds the string values for supported file types.
+     */
     Type: FileType;
 }
 
