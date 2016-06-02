@@ -23,7 +23,13 @@ interface NLObjContext {
 }
 
 interface NLObjCSVImport {
-    
+    /**
+     * Sets the data to be imported in a linked file for a multi-file import job, by referencing a file in the file cabinet using nlapiLoadFile(id), or by inputting CSV data as raw string.
+     *
+     * @param {string} sublist The internal ID of the record sublist for which data is being imported.
+     * @param {string | nlobjFile} file Raw data or nlobjFile object containing CSV data.
+     */
+    setLinkedFile(sublist: string, file: string|NLObjFile): NLObjCSVImport;
 }
 
 interface NLObjEmailMerger {
@@ -867,6 +873,14 @@ declare function nlapiSetFieldValues(fldnam: string, values: string[], firefield
  * @param {string}  timezone Timezone
  */
 declare function nlapiSetLineItemDateTimeValue(type: string, fldnam: string, linenum: number, datetime: string, timezone?: string): void;
+/**
+ * Undocumented function that disables a line item column.  Best used in lineInit().
+ * @param {string} type Sublist Id.
+ * @param {string} fldnam Column Id.
+ * @param {boolean} val True to disable, false to enable.
+ * @param {number} linenum 
+ */
+declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boolean, linenum?: number): void;
 /**
  * Set the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
