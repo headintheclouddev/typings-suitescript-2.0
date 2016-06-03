@@ -27,9 +27,34 @@ interface NLObjCSVImport {
      * Sets the data to be imported in a linked file for a multi-file import job, by referencing a file in the file cabinet using nlapiLoadFile(id), or by inputting CSV data as raw string.
      *
      * @param {string} sublist The internal ID of the record sublist for which data is being imported.
-     * @param {string | nlobjFile} file Raw data or nlobjFile object containing CSV data.
+     * @param {string|NLObjFile} file Raw data or nlobjFile object containing CSV data.
      */
     setLinkedFile(sublist: string, file: string|NLObjFile): NLObjCSVImport;
+    /**
+     * Sets the name of the saved import map to be used for an import, by referencing the internal ID or script ID of the import map.
+     *
+     * @param {string} savedImport The internal ID or script ID of the saved mapping to use for the import job.
+     */
+    setMapping(savedImport: string): void;
+    /**
+     * Sets the name of the saved import map to be used for an import, by referencing the internal ID or script ID of the import map.
+     *
+     * @param {string} option The name of the option; in this case, jobName.
+     * @param {string} value The value for the jobName option, meaning the text to be displayed in the Job Name column at Setup > Import/Export > View CSV Import Status.
+     */
+    setOption(option: string, value: string): void;
+    /**
+     * Sets the data to be imported in the primary file for an import job, by referencing a file in the file cabinet using nlapiLoadFile, or by inputting CSV data as raw string.
+     *
+     * @param {string|NLObjFile} file Raw data or nlobjFile object containing CSV data.
+     */
+    setPrimaryFile(file: string|NLObjFile): void;
+    /**
+     * Sets the data to be imported in the primary file for an import job, by referencing a file in the file cabinet using nlapiLoadFile, or by inputting CSV data as raw string.
+     *
+     * @param {string} queue The new queue number. Valid values range from '1' to '5', depending upon the SuiteCloud License.
+     */
+    setQueue(queue: string): void;
 }
 
 interface NLObjEmailMerger {
@@ -68,12 +93,55 @@ interface NLObjRecord {
   
 }
 
+interface NLObjReportDefinition {
+    
+}
+
+interface NLObjReportForm {
+    
+}
+
 interface NLObjRequest {
   
 }
 
 interface NLObjResponse {
   
+}
+
+interface NLObjSearch {
+    /**
+     * Adds a single return column to the search. Note that existing columns on the search are not changed.
+     *
+     * @param {NLObjSearchColumn} column The nlobjSearchColumn you want added to the search.
+     */
+    addColumn(column: NLObjSearchColumn): void;
+    /**
+     * Adds multiple return columns to the search. Note that existing columns on the search are not changed.
+     *
+     * @param {NLObjSearchColumn[]} columns The nlobjSearchColumn[] you want added to the search.
+     */
+    addColumns(columns: NLObjSearchColumn[]): void;
+    /**
+     * Adds a single search filter. Note that existing filters on the search are not changed.
+     *
+     * @param {nlobjSearchFilter} filter The nlobjSearchFilter you want added to the search.
+     */
+    addFilter(filter: NLObjSearchFilter): void;
+    /**
+     * Adds a search filter list. Note that existing filters on the search are not changed.
+     *
+     * @param {nlobjSearchFilter[]} filters The nlobjSearchFilter[] you want added to the search.
+     */
+    addFilters(filters: NLObjSearchFilter[]): void;
+    /**
+     * Deletes a given saved search that was created through scripting or through the UI.
+     */
+    deleteSearch(): void;
+    /**
+     * Gets the search return columns for the search.
+     */
+    getColumns(): NLObjSearchColumn[];
 }
 
 interface NLObjSearchColumn {
@@ -225,6 +293,24 @@ declare function nlapiCreateList(title: string, hideHeader?: boolean): NLObjList
  * @param {Object} initializeValues Contains an array of name/value pairs of defaults to be used during record initialization.
  */
 declare function nlapiCreateRecord(type: string, initializeValues?: Object): NLObjRecord;
+/**
+ * Creates an instance of a report definition object.
+ */
+declare function nlapiCreateReportDefinition(): NLObjReportDefinition;
+/**
+ * Creates an nlobjReportForm object to render the report definition.
+ *
+ * @param {string} title The title of the form
+ */
+declare function nlapiCreateReportForm(title: string): NLObjReportForm;
+/**
+ * Creates a new search.
+ *
+ * @param {string} type the record type you are searching
+ * @param {NLObjSearchFilter|NLObjSearchFilter[]|Object[]} filters A single nlobjSearchFilter object or an array of nlobjSearchFilter objects or a search filter expression
+ * @param {NLObjSearchColumn|NLObjSearchColumn[]} columns A single nlobjSearchColumn object or an array of nlobjSearchColumn objects.
+ */
+declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|NLObjSearchFilter[]|Object[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
 /**
  * Create a template renderer used to generate various outputs based on a template.
  * @restriction Server SuiteScript only
@@ -556,6 +642,14 @@ declare function nlapiLoadFile(id: string|number): NLObjFile;
  * @param {number|string} id The internal ID of the record to copy.
  */
 declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
+/**
+ * Loads an existing saved search.
+ *
+ * @governance 5 units
+ * @param {string} type The record type you are searching
+ * @param {string} id The internal ID or script ID of the saved search
+ */
+declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
 /**
  * Create an entry in the script execution log (note that execution log entries are automatically purged after 30 days).
  *
