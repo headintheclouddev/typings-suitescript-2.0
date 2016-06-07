@@ -142,6 +142,70 @@ interface NLObjSearch {
      * Gets the search return columns for the search.
      */
     getColumns(): NLObjSearchColumn[];
+    /**
+     * Gets the filter expression for the search.
+     */
+    getFilterExpression(): any[];
+    /**
+     * Gets the filters for the search.
+     */
+    getFilters(): NLObjSearchFilter[];
+    /**
+     * Gets the internal ID of the search.
+     */
+    getId(): string;
+    /**
+     * Gets whether the nlobjSearch has been set as public search.
+     */
+    getIsPublic(): boolean;
+    /**
+     * Gets the script ID of the search.
+     */
+    getScriptId(): string;
+    /**
+     * Returns the record type that the search was based on. This method is helpful when you have the internal ID of the search, but do not know the record type the search was based on.
+     */
+    getSearchType(): string;
+    /**
+     * Runs an ad-hoc search, returning the results. Be aware that calling this method does NOT save the search.
+     */
+    runSearch(): NLObjSearchResultSet;
+    /**
+     * Saves the search created by nlapiCreateSearch(type, filters, columns).
+     * @param {string} title The title you want to give the saved search.
+     * @param {string} scriptId The script ID you want to assign to the saved search. All saved search script IDs must be prefixed with customsearch.
+     */
+    saveSearch(title?: string, scriptId?: string): number;
+    /**
+     * Sets the return columns for this search, overwriting any prior columns. If null is passed in it is treated as if it were an empty array and removes any existing columns on the search.
+     * 
+     * @param {NLObjSearchColumn[]} columns The nlobjSearchColumn[] you want to set in the search. Passing in null or [] removes all columns from the search.
+     */
+    setColumns(columns: NLObjSearchColumn[]): void;
+    /**
+     * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
+     *
+     * @param {Object[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
+     */
+    setFilters(filterExpression: any[]): void;
+    /**
+     * Sets whether the search is public or private. By default, all searches created through nlapiCreateSearch(type, filters, columns) are private.
+     *
+     * @param {boolean} value Set to true to designate the search as a public search. Set to false to designate the search as a private search.
+     */
+    setIsPublic(value: boolean): void;
+    /**
+     * Acts like nlapiSetRedirectURL(type, identifier, id, editmode, parameters) but redirects end users to a populated search definition page. You can use this method with any kind of search that is held in the nlobjSearch object.
+     *
+     * @restriction This method is supported in afterSubmit user event scripts, Suitelets, and client scripts.
+     */
+    setRedirectURLToSearch(): void;
+    /**
+     * Acts like nlapiSetRedirectURL(type, identifier, id, editmode, parameters) but redirects end users to a search results page. You can use this method with any kind of search that is held in the nlobjSearch object.
+     *
+     * @restriction This method is supported in afterSubmit user event scripts, Suitelets, and client scripts.
+     */
+    setRedirectURLToSearchResults(): void;
 }
 
 interface NLObjSearchColumn {
@@ -157,8 +221,22 @@ interface NLObjSearchResult {
 }
 
 interface NLObjSearchResultSet {
+    /**
+     * Calls the developer-defined callback function for every result in this set.
+     *
+     * @param {function} callback A JavaScript function. This may be defined as a separate named function, or it may be an anonymous inline function.
+     */
     forEachResult(callback: (result: NLObjSearchResult) => boolean): void;
+    /**
+     * Returns a list of nlobjSearchColumn objects for this result set. This list contains one nlobjSearchColumn object for each result column in the nlobjSearchResult objects returned by this search.
+     */
     getColumns(): NLObjSearchColumn[];
+    /**
+     * Retrieve a slice of the search result. The start parameter is the inclusive index of the first result to return. The end parameter is the exclusive index of the last result to return.
+     *
+     * @param {number} start The index number of the first result to return, inclusive.
+     * @param {number} end The index number of the last result to return, exclusive.
+     */
     getResults(start: number, end: number): NLObjSearchResult[];
 }
 
@@ -350,6 +428,14 @@ declare function nlapiDeleteRecord(type: string, id: number|string): void;
  * @param {Object} properties Object containing name/value pairs used to configure detach operation.
  */
 declare function nlapiDetachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
+/**
+ * Sets the given field to disabled or enabled.
+ *
+ * @restriction supported in client scripts only
+ * @param {string} fldnam the internal ID name of the field to enable/disable
+ * @param {boolean} val if set to true, the field is disabled; if set to false, it is enabled.
+ */
+declare function nlapiDisableField(fldnam: string, val: boolean): void;
 /**
  * Encrypt a String using a SHA-1 hash function.
  *
