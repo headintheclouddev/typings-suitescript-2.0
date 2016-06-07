@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="./ui/serverWidget.d.ts" />
 
 interface RecordSaveFunction {
     (options?: SubmitConfig): number;
@@ -143,8 +144,8 @@ interface Record {
     getSublistFields(options: RecordGetLineCountOptions): string[];
     getSublistSubrecord(options: GetSublistValueOptions): Record;
     getSublistText(options: GetSublistValueOptions): string;
-    getSublistValue(options: GetSublistValueOptions): string;
-    getSublistValue(sublistId: string, fieldId: string, line: number): string;
+    getSublistValue(options: GetSublistValueOptions): boolean|string;
+    getSublistValue(sublistId: string, fieldId: string, line: number): boolean|string;
     getSubRecord(options: GetFieldOptions): Record;
     getText(options: GetFieldOptions): string|string[];
     getText(fieldId: string): string|string[];
