@@ -1,17 +1,32 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 interface FormatOptions {
-    value: Date|string|number;
+    /**
+     * The input data to format.
+     */
+    value: Date | string | number;
+    /**
+     * The field type (for example, DATE, CURRENCY, INTEGER). Set using the format.Type enum.
+     */
     type: string;
 }
 
 interface FormatDateTimeOptions {
     /**
+     * The Date Object being converted into a string.
      * If parsing a string to a timezone, the string must include seconds.
      */
-    value: Date|string;
+    value: Date | string;
+    /**
+     * The field type (either DATETIME or DATETIMETX). Set using the format.Type enum.
+     */
     type: string;
-    timezone: number;
+    /**
+     * -optional- The time zone specified for the returned string. Set using the format.Timezone enum or key.
+     * If a time zone is not specified, the time zone is set based on user preference.
+     * If the time zone is invalid, the time zone is set to GMT.
+     */
+    timezone?: number;
 }
 
 interface FormatType {
@@ -157,7 +172,15 @@ interface FormatModule {
      * Options: value (Date|string), type (format.FormatType), timezone (enum).
      */
     parse (options: FormatDateTimeOptions): Date|string|number;
+    /**
+     * -enum- Holds the string values for the supported field types. 
+     * Used to set the value of the options.type parameter.
+     */
     Type: FormatType;
+    /**
+     * -enum- Holds the string values for supported time zone formats. 
+     * Used to set the value of the options.timezone parameter.
+     */
     Timezone: Timezone;
 }
 
