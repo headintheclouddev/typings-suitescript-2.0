@@ -3,24 +3,72 @@
 /// <reference path="../N/record.d.ts" />
 
 interface ClientResponse {
+    /**
+     * Not Documented. (6/8/2016)
+     */
     toString(): string;
+    /**
+     * The client response body.
+     */
     body: string;
+    /**
+     * The client response code.
+     */
     code: number;
+    /**
+     * The client response headers. Object key/values not yet documented.
+     */
     headers: Object;
+    /**
+     * Not Documented. (6/8/2016)
+     */
     method: string;
+    /**
+     * Not Documented. (6/8/2016)
+     */
     parameters: Object;
+    /**
+     * Not Documented. (6/8/2016)
+     */
     url: string;
 }
 
 interface ServerRequest {
+    /**
+     * Method used to return the number of lines in a sublist.
+     */
     getLineCount(options: GetLineCountOptions): number;
+    /**
+     * Method used to return the value of a sublist line item.
+     */
     getSublistValue(options: GetSublistValueOptions): string;
+    /**
+     * Not Documented.
+     */
     toString(): string;
+    /**
+     * The server request body.
+     */
     body: string;
+    /**
+     * The server request files. Object key/values not yet documented.
+     */
     files: Object;
+    /**
+     * The server request headers. Object key/values not yet documented.
+     */
     headers: Object;
+    /**
+     * The server request http method.
+     */
     method: string;
+    /**
+     * The server request parameters. Object key/values not yet documented.
+     */
     parameters: Object;
+    /**
+     * The server request URL.
+     */
     url: string;
 }
 
