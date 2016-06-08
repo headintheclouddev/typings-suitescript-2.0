@@ -81,8 +81,16 @@ interface NLObjForm {
   
 }
 
+interface NLObjJobManager {
+
+}
+
 interface NLObjList {
   
+}
+
+interface NLObjLogin {
+
 }
 
 interface NLObjPortlet {
@@ -250,6 +258,10 @@ interface NLObjServerResponse {
 
 interface NLObjSubList {
   
+}
+
+interface NLObjSubrecord {
+
 }
 
 interface NLObjTab {
@@ -437,6 +449,15 @@ declare function nlapiDetachRecord(type1: string, id1: number, type2: string, id
  */
 declare function nlapiDisableField(fldnam: string, val: boolean): void;
 /**
+ * Sets the given line item field of a sublist to disabled or enabled.
+ *
+ * @restriction supported in client scripts only
+ * @param {string} type The sublist internal ID
+ * @param {string} fldnam The name of the line item field to enable/disable
+ * @param {boolean} val If set to true, the field is disabled; if set to false, it is enabled
+ */
+declare function nlapiDisableLineItemField(type: string, fldnam: string, val: boolean): void;
+/**
  * Encrypt a String using a SHA-1 hash function.
  *
  * @param {string} s String to encrypt.
@@ -513,9 +534,24 @@ declare function nlapiGetCurrentLineItemText(type: string, fldnam: string): stri
  */
 declare function nlapiGetCurrentLineItemValue(type: string, fldnam: string): string;
 /**
+ * Returns the values of a multiselect sublist field on the currently selected line.
+ *
+ * @param {string} type The sublist internal ID.
+ * @param {string} fldnam The name of the multiselect field.
+ */
+declare function nlapiGetCurrentLineItemValues(type: string, fldnam: string): string[];
+/**
  * Return the internal ID for the current user's department.
  */
 declare function nlapiGetDepartment(): number;
+/**
+ * This API returns the value of a datetime field. If timeZone is passed in, the datetime value is converted to that time zone and then returned.
+ * If timeZone is not passed in, the datetime value is returned in the default time zone.
+ *
+ * @param {string} fieldId the internal field ID of a datetime field
+ * @param {string|number} timeZone One of values (string) or keys (int) from the Olson Values table
+ */
+declare function nlapiGetDateTimeValue(fieldId: string, timeZone?: string|number): string;
 /**
  * Return field definition for a field.
  * @param {string} fldnam The name of the field.
@@ -540,6 +576,12 @@ declare function nlapiGetFieldValue(fldnam: string): string;
  * @param {string} fldnam The field name.
  */
 declare function nlapiGetFieldValues(fldnam: string): string[];
+/**
+ * Returns a job manager instance.
+ *
+ * @param {string} jobType Aet to DUPLICATERECORDS
+ */
+declare function nlapiGetJobManager(jobType: string): NLObjJobManager;
 /**
  * Return the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -598,9 +640,24 @@ declare function nlapiGetLineItemText(type: string, fldnam: string, linenum: num
  */
 declare function nlapiGetLineItemValue(type: string, fldnam: string, linenum: number): string;
 /**
+ * Returns the values of a multiselect sublist field on a selected line.
+ *
+ * @param {string} type The sublist internal ID
+ * @param {string} fldnam The name of the multiselect field
+ * @param {number} linenum The line number for this field (1-based).
+ */
+declare function nlapiGetLineItemValues(type: string, fldnam: string, linenum: number): string[];
+/**
  * Return the internal ID for the current user's location.
  */
 declare function nlapiGetLocation(): number;
+/**
+ * Returns the NetSuite login credentials of currently logged-in user.
+ *
+ * @governance 10 units
+ * @restriction supported in user event, portlet, Suitelet, RESTlet and SSP scripts
+ */
+declare function nlapiGetLogin(): NLObjLogin;
 /**
  * Return the number of columns for a matrix field.
  *
@@ -732,8 +789,8 @@ declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
  * Loads an existing saved search.
  *
  * @governance 5 units
- * @param {string} type The record type you are searching
- * @param {string} id The internal ID or script ID of the saved search
+ * @param {string} type The record type you are searching.
+ * @param {string} id The internal ID or script ID of the saved search.
  */
 declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
 /**
@@ -768,6 +825,19 @@ declare function nlapiLookupField(type: string, id: number, fields: string|strin
  */
 declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
 /**
+ * This API is deprecated as of NetSuite Version 2008 Release 1.
+ *
+ * @param {number} id Internal ID of template
+ * @param {string} baseType Primary record type
+ * @param {number} baseId Internal ID of primary record
+ * @param {string} altType Secondary record type
+ * @param {number} altId Internal ID of secondary record
+ * @param {Object} fields Object of merge field values to use in the mail merge (by default all field values are obtained from records) which overrides those from the record.
+ * 
+ * @deprecated
+ */
+declare function nlapiMergeTemplate(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
+/**
  * Return a URL with a generated OAuth token.
  * @restriction Suitelets and Portlets only
  * @governance 20 units
@@ -794,6 +864,10 @@ declare function nlapiPrintRecord(type: string, id: number, format?: string, pro
  * @param {string} type Sublist name
  */
 declare function nlapiRefreshLineItems(type: string): void;
+/**
+ * Causes a FORM type nlobjPortlet to immediately reload.
+ */
+declare function nlapiRefreshPortlet(): void;
 /**
  * Remove the currently selected line from the sublist on a page or userevent.
  *
@@ -836,6 +910,10 @@ declare function nlapiRequestURL(url: string, postdata: string|Object, headers: 
  * @param {string} method HTTP method: GET, POST, PUT, DELETE, etc.
  */
 declare function nlapiRequestURLWithCredentials(credentials: string[], url: string, postdata: string|Object, headers: Object, method: string): NLObjServerResponse;
+/**
+ * Causes a custom form portlet to be resized.
+ */
+declare function nlapiResizePortlet(): void;
 /**
  * Resolve a URL to a resource or object in the system.
  * @param {string} type Type specifier for URL: SUITELET|TASKLINK|RECORD|MEDIAITEM.
@@ -1012,6 +1090,25 @@ declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: 
  */
 declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
+ * Set the value of a multi-select field on the currently selected line.
+ * @restriction synchronous arg is only supported in client SuiteScript
+ *
+ * @param {string} type Sublist name
+ * @param {string} fldnam sublist field name
+ * @param {string[]} values Field values
+ * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
+ * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
+ */
+declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, values: string[], firefieldchanged?: boolean, synchronous?: boolean): void;
+/**
+ * Set the values of a date/time field.
+ *
+ * @param {string} fieldId the internal field ID of a datetime field
+ * @param {string} The date and time in format mm/dd/yyyy hh:mm:ss am|pm
+ * @param {string|number} [timeZone] One of values (string) or keys (int) from the Olson Values table.
+ */
+declare function nlapiSetDateTimeValue(fieldId: string, value: string, timezone?: string|number): void;
+/**
  * Set the value of a field on the current record on a page using it's label.
  * @param {string} fldnam The field name.
  * @param {string} txt Display name used to lookup field value.
@@ -1086,6 +1183,10 @@ declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: nu
  */
 declare function nlapiSetMatrixValue(type: string, fldnam: string, column: number, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
+ * Creates a recovery point saving the state of the script's execution.
+ */
+declare function nlapiSetRecoveryPoint(): Object;
+/**
  * Convert a String into a Date object.
  *
  * @param {string} str Date string in the user's date format, timeofday format, or datetime format.
@@ -1107,6 +1208,12 @@ declare function nlapiStringToXML(str: string): XMLDocument;
  * @param {nlobjConfiguration} setup Record
  */
 declare function nlapiSubmitConfiguration(setup: NLObjConfiguration): void;
+/**
+ * Submits a CSV import job to asynchronously import record data into NetSuite.
+ *
+ * @param {nlobjSCVImport} csvImport
+ */
+declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
 /**
  * Submit the values of a field or set of fields for an existing record.
  * @param {string} type The record type name.
@@ -1161,6 +1268,12 @@ declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid
  */
 declare function nlapiValidateXML(xmlDocument: XMLDocument, schemaDocument: XMLDocument, schemaFolderId: string): void;
 /**
+ * view a subrecord on body field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	fldnam Body field name.
+ */
+declare function nlapiViewSubrecord(fldname: string): NLObjSubrecord;
+/**
  * Void a transaction based on type and id.
  * @param {string} type The transaction type name.
  * @param {string} id The internal ID for the record.
@@ -1182,6 +1295,10 @@ declare function nlapiXMLToPDF(input: string): NLObjFile;
  * @param {XMLDocument} xml Document being serialized into a string
  */
 declare function nlapiXMLToString(xml: XMLDocument): string;
+/**
+ * Creates a recovery point and then reschedules the script.
+ */
+declare function nlapiYieldScript(): Object;
 /**
  * Client method to submit the current record (undocumented NetSuite method).
  * @param {string} name The name of the save button to trigger.
