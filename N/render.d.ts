@@ -4,9 +4,30 @@
 /// <reference path="./record.d.ts" />
 /// <reference path="./search.d.ts" />
 
+interface AddCustomDataSourceOptions {
+    /**
+     * Data source alias.
+     */
+    alias: string;
+    /**
+     * Data format, uses the render.DataFormat enum.
+     */
+    format: string;
+    /**
+     * Object, document, or string.
+     */
+    data: Object|Document|string;
+}
+
 interface AddRecordOptions {
+    /**
+     * Name of the template.
+     */
     templateName: string;
-    record: Record;
+    /**
+     * The record to add.
+     */
+    record: RecordRef;
 }
 
 interface AddSearchResultsOptions {
@@ -76,13 +97,35 @@ interface XMLToPDFOptions {
     xmlString: string;
 }
 
+interface DataSources {
+    JSON: string;
+    OBJECT: string;
+    XML_DOC: string;
+    XML_STRING: string;
+}
+
 interface TemplateRenderer {
+    /**
+     * Adds XML or JSON as custom data source to an advanced PDF/HTML template.
+     */
+    addCustomDataSource(options: AddCustomDataSourceOptions): void;
+    /**
+     * Binds a record to a template variable.
+     */
     addRecord(options: AddRecordOptions): void;
     addSearchResults(options: AddSearchResultsOptions): void;
     renderAsPdf(): NSFile;
     renderAsPdfToResponse(options: RenderToResponseOptions): void;
     renderAsString(): string;
     renderToResponse(options: RenderToResponseOptions): void;
+    /**
+     * Sets the template using the internal ID.
+     */
+    setTemplateById(options: { id: number; }): void;
+    /**
+     * Sets the template using the script ID.
+     */
+    setTemplateByScriptId(options: { scriptId: string; }): void;
     templateContent: string;
 }
 
@@ -101,6 +144,7 @@ interface RenderModule {
     statement(options: StatementOptions): NSFile;
     transaction(options: TransactionOptions): NSFile;
     xmlToPdf(options: XMLToPDFOptions): NSFile;
+    DataSource: DataSources;
     PrintMode: PrintModes;
 }
 
