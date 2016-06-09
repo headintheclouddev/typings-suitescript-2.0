@@ -355,6 +355,18 @@ interface HttpRequestFunction {
 
 interface HttpModule {
     /**
+     * Encapsulates the response to an HTTP client request.
+     */
+    ClientResponse: ClientResponse;
+    /**
+     * Encapsulates the HTTP request information sent to an HTTP server. For example, a request received by a Suitelet or RESTlet.
+     */
+    ServerRequest: ServerRequest;
+    /**
+     * Encapsulates the response from an HTTP server to an HTTP request. For example, a response from a Suitelet or RESTlet.
+     */
+    ServerResponse: ServerResponse;
+    /**
      * Sends an HTTP GET request and returns the response.
      */
     get: HttpGetFunction;
