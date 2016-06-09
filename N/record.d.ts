@@ -150,7 +150,7 @@ interface Record {
     getText(options: GetFieldOptions): string|string[];
     getText(fieldId: string): string|string[];
     getValue(options:GetFieldOptions): Date|number|string|string[]|boolean;
-    getValue(fieldId:string): string;
+    getValue(fieldId:string): Date|number|string|string[]|boolean;
     insertLine(options: InsertLineOptions): Record;
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
     removeLine(options: InsertLineOptions): Record;
@@ -168,7 +168,7 @@ interface Record {
     setText(options: SetFieldTextOptions): Record;
     setText(fieldId: string, value: string): Record;
     setValue(options: SetFieldOptions): Record;
-    setValue(fieldId: string, value: string|number): Record;
+    setValue(fieldId: string, value: string|string[]|number): Record;
     toString(): string;
     id: string;
     isDynamic: boolean;
