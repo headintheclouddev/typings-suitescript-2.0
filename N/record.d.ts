@@ -161,14 +161,14 @@ interface Record {
     selectLine(sublistId: string, line: number): Record;
     selectNewLine(options: RecordGetLineCountOptions): Record;
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): Record;
-    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number): Record;
+    setCurrentSublistValue(sublistId: string, fieldId: string, value: string|number|boolean|Date): Record;
     setCurrentSublistText(options: SetCurrentSublistTextOptions): Record;
     setSublistText(options: SetSublistTextOptions): Record;
     setSublistValue(options: SetSublistValueOptions): Record;
     setText(options: SetFieldTextOptions): Record;
     setText(fieldId: string, value: string): Record;
     setValue(options: SetFieldOptions): Record;
-    setValue(fieldId: string, value: string|string[]|number): Record;
+    setValue(fieldId: string, value: string|string[]|number|boolean|Date): Record;
     toString(): string;
     id: string;
     isDynamic: boolean;
