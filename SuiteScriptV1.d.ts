@@ -98,7 +98,35 @@ interface NLObjPortlet {
 }
 
 interface NLObjRecord {
-  
+    /**
+     * Return field metadata for field.
+     * @param {string} fldnam Field name
+     */
+    getField(fldnam: string): NLObjField;
+    /**
+     * Return the internalId of the record or NULL for new records.
+     */
+    getId(): number;
+    /**
+     * Return metadata for sublist field.
+     *
+     * @param {string} type Sublist name
+     * @param {string} fldnam Sublist field name
+     * @param {int} linenum Line number (1-based). If empty, the current sublist field is returned. Only settable for sublists of type list.
+     */
+    getLineItemField(type: string, fldnam: string, linenum?: number): NLObjField;
+    /**
+     * Return field metadata for field.
+     *
+     * @param {string} type matrix sublist name
+     * @param {string} fldnam matrix field name
+     * @param {number} linenum matrix column (1-based)
+     */
+    getMatrixField(type: string, fldnam: string, linenum: number): NLObjField;
+    /**
+     * Return the recordType corresponding to this record.
+     */
+    getRecordType(): string;
 }
 
 interface NLObjReportDefinition {
@@ -261,7 +289,14 @@ interface NLObjSubList {
 }
 
 interface NLObjSubrecord {
-
+    /**
+     * Commit the subrecord after you finish modifying it.
+     */
+    commit(): void;
+    /**
+     * Cancel any modification on a subrecord.
+     */
+    cancel(): void;
 }
 
 interface NLObjTab {
@@ -337,6 +372,13 @@ declare function nlapiCreateAssistant(title: string, hideHeader?: boolean): NLOb
  */
 declare function nlapiCreateCSVImport(): NLObjCSVImport;
 /**
+ * Create a subrecord on a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type sublist name
+ * @param {string} 	fldnam sublist field name
+ */
+declare function nlapiCreateCurrentLineItemSubrecord(type: string, fldnam: string): NLObjSubrecord;
+/**
  * Create an email merger used to assemble subject and body text of an email from a given
  * FreeMarker template and a set of associated records.
  * @restriction Server SuiteScript only
@@ -402,6 +444,12 @@ declare function nlapiCreateReportForm(title: string): NLObjReportForm;
  */
 declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|NLObjSearchFilter[]|Object[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
 /**
+ * Create a subrecord on body field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	fldnam body field name
+ */
+declare function nlapiCreateSubrecord(fldnam: string): NLObjSubrecord;
+/**
  * Create a template renderer used to generate various outputs based on a template.
  * @restriction Server SuiteScript only
  * @governance 10 units
@@ -457,6 +505,19 @@ declare function nlapiDisableField(fldnam: string, val: boolean): void;
  * @param {boolean} val If set to true, the field is disabled; if set to false, it is enabled
  */
 declare function nlapiDisableLineItemField(type: string, fldnam: string, val: boolean): void;
+/**
+ * Edit a subrecord on a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type sublist name
+ * @param {string} 	fldnam sublist field name
+ */
+declare function nlapiEditCurrentLineItemSubrecord(type: string, fldnam: string): NLObjSubrecord;
+/**
+ * Edit a subrecord on body field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	fldnam body field name
+ */
+declare function nlapiEditSubrecord(fldnam: string): NLObjSubrecord;
 /**
  * Encrypt a String using a SHA-1 hash function.
  *
@@ -869,6 +930,13 @@ declare function nlapiRefreshLineItems(type: string): void;
  */
 declare function nlapiRefreshPortlet(): void;
 /**
+ * Remove a subrecord on a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type sublist name
+ * @param {string} 	fldnam sublist field name
+ */
+declare function nlapiRemoveCurrentLineItemSubrecord(type: string, fldnam: string): void;
+/**
  * Remove the currently selected line from the sublist on a page or userevent.
  *
  * @param {string} type Sublist name
@@ -892,6 +960,12 @@ declare function nlapiRemoveLineItemOption(type: string, fldnam: string, value: 
  * @param {string} value Internal ID of select option to remove
  */
 declare function nlapiRemoveSelectOption(fldnam: string, value: string): void;
+/**
+ * Remove a subrecord on body field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	fldnam body field name
+ */
+declare function nlapiRemoveSubrecord(fldnam: string): void;
 /**
  * Request a URL to an external or internal resource.
  * @param {string} url A fully qualified URL to an HTTP(s) resource.
@@ -1267,6 +1341,21 @@ declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid
  * @throws {nlobjError} error containsing validation failure message(s) - limited to first 10
  */
 declare function nlapiValidateXML(xmlDocument: XMLDocument, schemaDocument: XMLDocument, schemaFolderId: string): void;
+/**
+ * View a subrecord on a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} 	type sublist name
+ * @param {string} 	fldnam sublist field name
+ */
+declare function nlapiViewCurrentLineItemSubrecord(type: string, fldnam: string): NLObjSubrecord;
+/**
+ * View a subrecord on a sublist field on the current record on a page.
+ * @restriction supported in client and user event scripts only.
+ * @param {string} type sublist name
+ * @param {string} fldnam sublist field name
+ * @param {number} linenum
+ */
+declare function nlapiViewLineItemSubrecord(type: string, fldnam: string, linenum: number): NLObjSubrecord;
 /**
  * view a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
