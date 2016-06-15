@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 /// <reference path="./file.d.ts" />
 /// <reference path="./http.d.ts" />
 /// <reference path="./record.d.ts" />

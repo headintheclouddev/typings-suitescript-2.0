@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 /* This is an undocumented module.  Use this when you have a UI button in a 
    client View mode, as these are the only attributes of the current record

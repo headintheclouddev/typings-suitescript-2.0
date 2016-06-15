@@ -1,4 +1,4 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../typings/index.d.ts" />
 
 interface MessageType {
     CONFIRMATION: string; // A green background with a checkmark icon.

@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 interface InitiateOptions {
     recordType: string; // Documentation says number, but examples clearly contradict
