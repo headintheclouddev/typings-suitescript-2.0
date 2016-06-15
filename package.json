@@ -11,6 +11,6 @@
   "author": "Head in the Cloud",
   "license": "ISC",
   "devDependencies": {
-    "tsd": "^0.6.3"
+    "typings": "latest"
   }
 }

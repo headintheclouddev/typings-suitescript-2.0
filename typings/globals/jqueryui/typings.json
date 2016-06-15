@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/7c6411053f6ead18f7f096ef6fbfde352e55faa1/jqueryui/jqueryui.d.ts",
+    "raw": "registry:dt/jqueryui#1.9.0+20160509160024",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/7c6411053f6ead18f7f096ef6fbfde352e55faa1/jqueryui/jqueryui.d.ts"
+  }
+}
