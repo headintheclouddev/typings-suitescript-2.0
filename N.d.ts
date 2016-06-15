@@ -79,3 +79,9 @@ interface Window { // Fun undocumented NetSuite stuff
  * @param {boolean} arg2 Not really sure what this parameter is used for.
  */
 declare function NLDoMainFormButtonAction(name: string, arg2: boolean): void;
+
+/**
+ * Standard module loading function ala RequireJS.
+ * Always available in SSv2 contexts.
+ */
+declare function require(modules:string[], callback?:(...any) => any);
