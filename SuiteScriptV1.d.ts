@@ -99,14 +99,59 @@ interface NLObjPortlet {
 
 interface NLObjRecord {
     /**
+     * Return an Array of all field names on the record.
+     */
+    getAllFields(): string[];
+    /**
+     * Return an Array of all field names on a record for a particular sublist.
+     *
+     * @param {string} group sublist name
+     */
+    getAllLineItemFields(group: string): string[];
+    /**
      * Return field metadata for field.
      * @param {string} fldnam Field name
      */
     getField(fldnam: string): NLObjField;
     /**
+     * Return the display value for a select field.
+     * @restriction only supported for select fields
+     *
+     * @param {string} name Field name
+     */
+    getFieldText(name: string): string;
+    /**
+     * Return the selected display values of a multi-select field as an Array.
+     * @restriction only supported for multi-select fields
+     *
+     * @param {string} name Field name
+     */
+    getFieldTexts(name: string): string[];
+    /**
+     * Return the value of a field.
+     *
+     * @param {string} name Field name.
+     */
+    getFieldValue(name: string): string;
+    /**
+     * Return the selected values of a multi-select field as an Array.
+     *
+     * @param {string} name Field name.
+     */
+    getFieldValues(name: string): string[];
+    /**
      * Return the internalId of the record or NULL for new records.
      */
     getId(): number;
+    /**
+     * Return the value of a sublist field.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {number} line line number (1-based)
+     * @param {string} timezone value
+     */
+    getLineItemDateTimeValue(group: string, name: string, line: number, timezone?: string): string;
     /**
      * Return metadata for sublist field.
      *
@@ -116,6 +161,31 @@ interface NLObjRecord {
      */
     getLineItemField(type: string, fldnam: string, linenum?: number): NLObjField;
     /**
+     * Return metadata for sublist field.
+     *
+     * @param {string} type Matrix sublist name
+     * @param {string} fldnam Matrix field name
+     * @param {number} linenum Line number
+     * @param {number} column Matrix column (1-based)
+     */
+    getLineItemMatrixField(type: string, fldnam: string, linenum: number, column: number): NLObjField;
+    /**
+     * Return the text value of a sublist field.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {number} line line number (1-based)
+     */
+    getLineItemText(group: string, name: string, line: number): string;
+    /**
+     * Return the value of a sublist field.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {number} line line number (1-based)
+     */
+    getLineItemValue(group: string, name: string, line: number): string;
+    /**
      * Return field metadata for field.
      *
      * @param {string} type matrix sublist name
@@ -124,9 +194,75 @@ interface NLObjRecord {
      */
     getMatrixField(type: string, fldnam: string, linenum: number): NLObjField;
     /**
+     * Get the value of a matrix header field.
+     *
+     * @param {string} type matrix sublist name
+     * @param {string} name	matrix field name
+     * @param {number} column matrix column index (1-based)
+     */
+    getMatrixValue(type: string, name: string, column: number): string;
+    /**
      * Return the recordType corresponding to this record.
      */
     getRecordType(): string;
+    /**
+     * Set the value (via display value) of a select field.
+     * @restriction only supported for select fields
+     *
+     * @param {string} name Field name
+     * @param {string} text Field display value
+     */
+    setFieldText(name: string, text: string): void;
+    /**
+     * Set the values (via display values) of a multi-select field.
+     * @restriction only supported for multi-select fields
+     *
+     * @param {string} name Field name
+     * @param {string[]} texts Array of field display values
+     */
+    setFieldTexts(name: string, texts: string[]): void;
+    /**
+     * Set the value of a field.
+     *
+     * @param {string} name Field name
+     * @param {string} value Field value
+     */
+    setFieldValue(name: string, value: string): void;
+    /**
+     * Set the values of a multi-select field.
+     *
+     * @param {string} name Field name
+     * @param {string[]} values String array containing field values
+     */
+    setFieldValues(name: string, values: string[]): void;
+    /**
+     * Set the value of a sublist field.
+     *
+     * @param {string} group Sublist name
+     * @param {string} name Sublist field name
+     * @param {number} line Line number (1-based)
+     * @param {string} value Datetime value
+     * @param {string} timezone Optional value
+     */
+    setLineItemDateTimeValue(group: string, name: string, line: number, value: string, timezone?: string): void;
+    /**
+     * Set the value of a sublist field.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {number} line line number (1-based)
+     * @param {string} value sublist field value
+     */
+    setLineItemValue(group: string, name: string, line: number, value: string): void;
+    /**
+     * Set the value of a matrix header field.
+     *
+     * @param {string} type matrix sublist name
+     * @param {string} name	matrix field name
+     * @param {number} column matrix column index (1-based)
+     * @param {string} value field value
+     */
+    setMatrixValue(type: string, name: string, column: number, value: string): void;
 }
 
 interface NLObjReportDefinition {
