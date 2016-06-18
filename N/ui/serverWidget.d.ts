@@ -347,7 +347,7 @@ interface UIField {
     id: string;
     isMandatory: boolean;
     label: string;
-    layoutType: string;
+    // layoutType: string; // This isn't a thing anymore, as of 2016.1
     linkText: string;
     maxLength: number;
     padding: number;
