@@ -58,6 +58,12 @@ interface SearchSummary {
     MAX: string;
 }
 
+interface SearchSort {
+    ASC: string;
+    DESC: string;
+    NONE: string;
+}
+
 interface SearchColumnSetWhenOrderedByOptions {
     name: string;
     join: string;
@@ -202,7 +208,7 @@ interface CreateSearchColumnOptions {
     formula?: string;
     function?: string;
     label?: string;
-    sort?: string; // todo: use enum (ASC/DESC/NONE)
+    sort?: SearchSort;
 }
 
 interface SearchLookupFieldsOptions {
@@ -278,6 +284,7 @@ interface SearchModule {
     createFilter(options: CreateSearchFilterOptions): SearchFilter;
     Operator: SearchOperator;
     Summary: SearchSummary;
+    Sort: SearchSort;
     Type: SearchTypes;
 }
 
