@@ -204,11 +204,11 @@ interface CreateSearchFilterOptions {
 interface CreateSearchColumnOptions {
     name: string;
     join?: string;
-    summary?: string; // todo: use enum
+    summary?: string; // See SearchSummary enum
     formula?: string;
     function?: string;
     label?: string;
-    sort?: SearchSort;
+    sort?: string; // See SearchSort enum
 }
 
 interface SearchLookupFieldsOptions {
