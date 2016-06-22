@@ -25,9 +25,9 @@ interface AddRecordOptions {
      */
     templateName: string;
     /**
-     * The record to add.
+     * The loaded record object to add.
      */
-    record: RecordRef;
+    record: Record;
 }
 
 interface AddSearchResultsOptions {
