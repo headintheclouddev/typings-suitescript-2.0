@@ -99,6 +99,36 @@ interface NLObjPortlet {
 
 interface NLObjRecord {
     /**
+     * Commit the current line in a sublist.
+     *
+     * @param {string} 	group sublist name
+     */
+    commitLineItem(group: string): void;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to create a subrecord from a sublist field on the parent record.
+     *
+     * @param {string} sublist The sublist internal ID on the parent record.
+     * @param {string} fldname The internal ID of the 'subrecord field' on the sublist of the parent record.
+     */
+    createCurrentLineItemSubrecord(sublist: string, fldname: string): NLObjSubrecord;
+    /**
+     * Return line number for 1st occurence of field value in a sublist column.
+     *
+     * @param {string} 	group	sublist name
+     * @param {string} 	fldnam	sublist field name
+     * @param {number} 	column  matrix column index (1-based)
+     * @param {string} 	value 	matrix field value
+     */
+    findLineItemMatrixValue(group: string, fldnam: string, column: number, value: string): number;
+    /**
+     * Return line number for 1st occurence of field value in a sublist column.
+     *
+     * @param {string} group	sublist name
+     * @param {string} fldnam	sublist field name
+     * @param {string} value	sublist field value
+     */
+    findLineItemValue(group: string, fldnam: string, value: string): number;
+    /**
      * Return an Array of all field names on the record.
      */
     getAllFields(): string[];
@@ -108,6 +138,36 @@ interface NLObjRecord {
      * @param {string} group sublist name
      */
     getAllLineItemFields(group: string): string[];
+    /**
+     * Return the current value of a sublist field.
+     *
+     * @param {string} 	group sublist name
+     * @param {string} 	name sublist field name
+     * @param {string}  timezone
+     */
+    getCurrentLineItemDateTimeValue(group: string, name: string, timezone?: string): string;
+    /**
+     * Return the current value of a sublist matrix field.
+     *
+     * @param {string} 	group matrix sublist name
+     * @param {string} 	name matrix field name
+     * @param {number} 	column matrix field column index (1-based)
+     */
+    getCurrentLineItemMatrixValue(group: string, name: string, column: number): string;
+    /**
+     * Return the current value of a sublist field.
+     *
+     * @param {string} 	group sublist name
+     * @param {string} 	name sublist field name
+     */
+    getCurrentLineItemValue(group: string, name: string): string;
+    /**
+     * Return the value of a field on the current record on a page.
+     * @restriction supported in client and user event scripts only.
+     * @param {string} fldnam the field name
+     * @param {string} timezone [optional] Olson value
+     */
+    getDateTimeValue(fldnam: string, timezone?: string): string;
     /**
      * Return field metadata for field.
      * @param {string} fldnam Field name
@@ -143,6 +203,12 @@ interface NLObjRecord {
      * Return the internalId of the record or NULL for new records.
      */
     getId(): number;
+    /**
+     * Return the number of lines in a sublist.
+     *
+     * @param {string} group sublist name
+     */
+    getLineItemCount(group: string): number;
     /**
      * Return the value of a sublist field.
      *
@@ -186,6 +252,13 @@ interface NLObjRecord {
      */
     getLineItemValue(group: string, name: string, line: number): string;
     /**
+     * Return the number of columns for a matrix field.
+     *
+     * @param {string} 	group matrix sublist name
+     * @param {string} 	name matrix field name
+     */
+    getMatrixCount(group: string, name: string): number;
+    /**
      * Return field metadata for field.
      *
      * @param {string} type matrix sublist name
@@ -205,6 +278,65 @@ interface NLObjRecord {
      * Return the recordType corresponding to this record.
      */
     getRecordType(): string;
+    /**
+     * Insert a new line into a sublist.
+     *
+     * @param {string} group Sublist name.
+     * @param {number} line Line index at which to insert line.
+     */
+    insertLineItem(group: string, line?: number): void;
+    /**
+     * Remove an existing line from a sublist.
+     *
+     * @param {string} group Sublist name.
+     * @param {number} line Line number to remove.
+     */
+    removeLineItem(group: string, line?: number): void;
+    /**
+     * Select an existing line in a sublist.
+     *
+     * @param {string} group Sublist name.
+     * @param {number} line Line number to select.
+     */
+    selectLineItem(group: string, line: number): void;
+    /**
+     * Insert and select a new line in a sublist.
+     *
+     * @param {string} group sublist name
+     */
+    selectNewLineItem(group: string): void;
+    /**
+     * Set the current value of a sublist field.
+     * @param {string} 	group sublist name
+     * @param {string} 	name sublist field name
+     * @param {string} 	value sublist field value
+     * @param {string} 	timezone 
+     */
+    setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone?: string): void;
+    /**
+     * Set the current value of a sublist matrix field.
+     *
+     * @param {string} 	group matrix sublist name
+     * @param {string} 	name matrix field name
+     * @param {number} 	column matrix field column index (1-based)
+     * @param {string} 	value matrix field value
+     */
+    setCurrentLineItemMatrixValue(group: string, name: string, column: number, value: string): void;
+    /**
+     * Set the current value of a sublist field.
+     * @param {string} 	group sublist name
+     * @param {string} 	name sublist field name
+     * @param {string} 	value sublist field value
+     */
+    setCurrentLineItemValue(group: string, name: string, value: string): void;
+    /**
+     * Set the value of a field.
+     *
+     * @param {string} name Field name.
+     * @param {string} value Field value.
+     * @param {string} timezone Olson value.
+     */
+    setDateTimeValue(name: string, value: string, timezone?: string): void;
     /**
      * Set the value (via display value) of a select field.
      * @restriction only supported for select fields
