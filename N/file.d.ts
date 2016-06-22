@@ -69,9 +69,9 @@ interface FileEncoding {
 
 interface FileLoadOptions {
     /** 
-     * Internal ID of the file as a number or a string, OR  The relative file path to the file in the file cabinet.
+     * Internal ID of the file as a number or a string, or the relative file path to the file in the file cabinet.
      */
-    idOrPath: (number|string);
+    id: (number|string);
 }
 
 interface FileDeleteOptions {
@@ -113,6 +113,10 @@ interface FileModule {
      * Method used to load an existing file from the NetSuite file cabinet.
      */
     load (options: FileLoadOptions): NSFile;
+    /**
+     * Method used to load an existing file from the NetSuite file cabinet.
+     */
+    load (idOrPath: number|string): NSFile;
     /**
      * Enumeration that holds the string values for supported character encoding.
      */
