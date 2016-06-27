@@ -112,6 +112,25 @@ interface NLObjRecord {
      */
     createCurrentLineItemSubrecord(sublist: string, fldname: string): NLObjSubrecord;
     /**
+     * Returns a nlobjSubrecord object. Use this API to create a subrecord from a body field on the parent record.
+     *
+     * @param {string} fldname The internal ID of the 'subrecord field' on the body of the parent record.
+     */
+    createSubrecord(fldnam: string): NLObjSubrecord;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to edit a subrecord from a sublist field on the parent record.
+     *
+     * @param {string} sublist The sublist internal ID on the parent record
+     * @param {string} fldname The internal ID of the 'subrecord field' on the sublist of the parent record
+     */
+    editCurrentLineItemSubrecord(sublist: string, fldname: string): NLObjSubrecord;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to edit a subrecord from a body field on the parent record.
+     *
+     * @param {string} fldname The internal ID of the 'subrecord field' on the body of the parent record.
+     */
+    editSubrecord(fldname: string): NLObjSubrecord;
+    /**
      * Return line number for 1st occurence of field value in a sublist column.
      *
      * @param {string} 	group	sublist name
@@ -161,6 +180,14 @@ interface NLObjRecord {
      * @param {string} 	name sublist field name
      */
     getCurrentLineItemValue(group: string, name: string): string;
+    /**
+     * Returns the values of a multiselect sublist field on the currently selected line. One example of a multiselect sublist field is the Serial Numbers field on the Items sublist.
+     * @restriction This function is not supported in client SuiteScript. It is meant to be used in user event scripts.
+     *
+     * @param {string} type The sublist internal ID
+     * @param {string} fldname The name of the multiselect field
+     */
+    getCurrentLineItemValues(type: string, fldname: string): string[];
     /**
      * Return the value of a field on the current record on a page.
      * @restriction supported in client and user event scripts only.
@@ -236,6 +263,15 @@ interface NLObjRecord {
      */
     getLineItemMatrixField(type: string, fldnam: string, linenum: number, column: number): NLObjField;
     /**
+     * Use this API to get the value of a matrix field that appears on a specific line in a specific column. This API can be used only in the context of a matrix sublist.
+     *
+     * @param {string} group The sublist internal ID
+     * @param {string} fldnam The internal ID of the matrix field whose value you want returned
+     * @param {number} linenum The line number for this field. Note the first line number on a sublist is 1 (not 0).
+     * @param {number} column The column number for this field. Column numbers start at 1 (not 0).
+     */
+    getLineItemMatrixValue(group: string, fldnam: string, linenum: number, column: number): string;
+    /**
      * Return the text value of a sublist field.
      *
      * @param {string} group sublist name
@@ -251,6 +287,15 @@ interface NLObjRecord {
      * @param {number} line line number (1-based)
      */
     getLineItemValue(group: string, name: string, line: number): string;
+    /**
+     * Returns the values of a multiselect sublist field on a selected line. One example of a multiselect sublist field is the Serial Numbers field on the Items sublist.
+     * @restriction This function is not supported in client SuiteScript. It is meant to be used in user event scripts.
+     *
+     * @param {string} type The sublist internal ID
+     * @param {string} fldnam The internal ID of the multiselect field
+     * @param {number} linenum The line number for this field. Note the first line number on a sublist is 1 (not 0).
+     */
+    getLineItemValues(type: string, fldnam: string, linenum: number): string[];
     /**
      * Return the number of columns for a matrix field.
      *
@@ -286,12 +331,25 @@ interface NLObjRecord {
      */
     insertLineItem(group: string, line?: number): void;
     /**
+     * Returns a nlobjSubrecord object. Use this API to remove a subrecord from a sublist field on the parent record.
+     *
+     * @param {string} sublist The sublist internal ID on the parent record.
+     * @param {string} fldname The internal ID of the 'subrecord field' on the sublist of the parent record.
+     */
+    removeCurrentLineItemSubrecord(sublist: string, fldname: string): void;
+    /**
      * Remove an existing line from a sublist.
      *
      * @param {string} group Sublist name.
      * @param {number} line Line number to remove.
      */
     removeLineItem(group: string, line?: number): void;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to remove a subrecord from a body field on the parent record.
+     *
+     * @param {string} fldname The internal ID of the 'subrecord field' on the body of the parent record.
+     */
+    removeSubrecord(fldname: string): NLObjRecord;
     /**
      * Select an existing line in a sublist.
      *
@@ -395,6 +453,27 @@ interface NLObjRecord {
      * @param {string} value field value
      */
     setMatrixValue(type: string, name: string, column: number, value: string): void;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to view a subrecord from a sublist field on the parent record.
+     *
+     * @param {string} sublist The sublist internal ID on the parent record.
+     * @param {string} fldname The internal ID of the 'subrecord field' on the sublist of the parent record.
+     */
+    viewCurrentLineItemSubrecord(sublist: string, fldname: string): NLObjSubrecord;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to view a subrecord from a sublist field on the parent record.
+     *
+     * @param {string} sublist The sublist internal ID on the parent record
+     * @param {string} fldname The internal ID of the 'subrecord field' on the sublist of the parent record
+     * @param {number} linenum The line number for the sublist field. Note the first line number on a sublist is 1 (not 0).
+     */
+    viewLineItemSubrecord(sublist: string, fldname: string, linenum: number): NLObjSubrecord;
+    /**
+     * Returns a nlobjSubrecord object. Use this API to view a subrecord from a body field on the parent record.
+     *
+     * @param {string} fldname The internal ID of the 'subrecord field' on the body of the parent record.
+     */
+    viewSubrecord(fldname: string): NLObjSubrecord;
 }
 
 interface NLObjReportDefinition {
