@@ -15,7 +15,76 @@ interface NLObjColumn {
 }
 
 interface NLObjConfiguration {
-  
+    /**
+     * Return an Array of all field names on the record.
+     */
+    getAllFields(): string[];
+    /**
+     * Return the type corresponding to this setup record.
+     */
+    getType(): string;
+    /**
+     * Return field metadata for field.
+     *
+     * @param {string} fldnam field name
+     */
+    getField(fldnam: string): NLObjField;
+    /**
+     * Return the text value of a field.
+     * @restriction only supported for select fields
+     *
+     * @param {string} name field name
+     */
+    getFieldText(name: string): string;
+    /**
+     * Return the selected text values of a multi-select field as an Array.
+     * @param {string} name field name
+     */
+    getFieldTexts(name: string): string[];
+    /**
+     * Return the value of a field.
+     *
+     * @param {string} name field name
+     */
+    getFieldValue(name: string): string;
+    /**
+     * Return the selected values of a multi-select field as an Array.
+     * @restriction only supported for multi-select fields
+     *
+     * @param {string} name field name
+     */
+    getFieldValues(name: string): string[];
+    /**
+     * Set the value of a field.
+     *
+     * @param {string} name field name
+     * @param {string} value field value
+     */
+    setFieldValue(name: string, value: string): void;
+    /**
+     * Set the values of a multi-select field.
+     * @restriction only supported for multi-select fields
+     *
+     * @param {string} name field name
+     * @param {string[]} value field values
+     */
+    setFieldValues(name: string, values: string[]): void;
+    /**
+     * Set the value (via display value) of a field.
+     * @restriction only supported for select fields
+     *
+     * @param {string} name field name
+     * @param {string} text field display text
+     */
+    setFieldText(name: string, text: string): void; 
+    /**
+     * Set the values (via display values) of a multi-select field.
+     * @restriction only supported for multi-select fields
+     *
+     * @param {string} name Field name.
+     * @param {string[]} texts Array of field display text values.
+     */
+    setFieldTexts(name: string, texts: string[]): void;
 }
 
 interface NLObjContext {
@@ -74,7 +143,77 @@ interface NLObjFieldGroup {
 }
 
 interface NLObjFile {
-  
+    /**
+     * Return the file description.
+     */
+    getDescription(): string;
+    /**
+     * Return the internal ID of the folder that this file is in.
+     */
+    getFolder(): number;
+    /**
+     * Return the id of the file (if stored in the FC).
+     */
+    getId(): number;
+	/**
+     * Return the name of the file.
+     */
+    getName(): string;
+    /**
+     * Return the size of the file in bytes.
+     */
+    getSize(): number;
+    /**
+     * Return the type of the file.
+     */
+    getType(): string;
+    /**
+     * Return the URL of the file (if stored in the FC).
+     */
+    getURL(): string;
+    /**
+     * Return the value (base64 encoded for binary types) of the file.
+     */
+    getValue(): string;
+    /**
+     * Return true if the file is inactive.
+     */
+    isInactive(): boolean;
+    /**
+     * Return true if the file is "Available without Login".
+     */
+    isOnline(): boolean;
+    /**
+     * Sets the file's description.
+     * @param {string} descr the file description
+     */
+    setDescription(descr: string): void;
+    /**
+     * Sets the character encoding for the file.
+     * @param {string} encoding
+     */
+    setEncoding(encoding: string): void;
+    /**
+     * Sets the internal ID of the folder that this file is in.
+     * @param {number} folder
+     */
+    setFolder(folder: number): void;
+    /**
+     * Sets the file's inactive status.
+     * @param {boolean} inactive
+     */
+    setIsInactive(inactive: boolean): void;
+    /**
+     * Sets the file's "Available without Login" status.
+     * @param {boolean} online
+     */
+    setIsOnline(online: boolean): void;
+    /**
+     * Sets the name of a file.
+     * @param {string} name the name of the file.
+     */
+    setName(name: string): void;
+    
 }
 
 interface NLObjForm {
@@ -596,7 +735,10 @@ interface NLObjSearchColumn {
 }
 
 interface NLObjSearchFilter {
-  
+    /**
+     * Return the name of this search filter.
+     */
+    getName(): string;
 }
 
 interface NLObjSearchResult {
