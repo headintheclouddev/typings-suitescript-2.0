@@ -4,10 +4,10 @@
 
 interface NS2_Client_FieldChangedContext {
 	currentRecord: ClientCurrentRecord;
-	sublistId: string;
-	fieldId: string;
-	lineNum: string;
-	columnNum: string;
+	sublistId:     string;
+	fieldId:       string;
+	lineNum:       string;
+	columnNum:     string;
 }
 
 interface NS2_Client_FieldChanged {
@@ -53,6 +53,10 @@ interface NS2_Client_SaveRecordContext {
 interface NS2_Client_SublistChangedContext {
     currentRecord: ClientCurrentRecord;
     sublistId: string;
+    /**
+     * Commit, etc.
+     */
+    operation: string;
 }
 
 interface NS2_Client_SublistChanged {
@@ -61,7 +65,7 @@ interface NS2_Client_SublistChanged {
 
 interface NS2_Client_ValidateDeleteContext {
     currentRecord: ClientCurrentRecord;
-    sublistId: string;
+    sublistId:     string;
 }
 
 interface NS2_Client_ValidateDelete {
@@ -81,7 +85,7 @@ interface NS2_Client_ValidateField {
 }
 
 interface NS2_Client_ValidateInsertContext {
-     currentRecord: ClientCurrentRecord;
+    currentRecord: ClientCurrentRecord;
     sublistId: string;
 }
 
