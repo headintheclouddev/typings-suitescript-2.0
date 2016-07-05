@@ -731,18 +731,139 @@ interface NLObjSearch {
 }
 
 interface NLObjSearchColumn {
-  
+    /**
+     * Return formula for this search column.
+     */
+    getFormula(): string;
+    /**
+     * The function used in this search column as a string.
+     */
+    getFunction(): string;
+    /**
+     * Return the join id for this search column.
+     */
+    getJoin(): string;
+    /**
+     * Return the label of this search column.
+     */
+    getLabel(): string;
+    /**
+     * Return the name of this search column.
+     */
+    getName(): string;
+    /**
+     * Returns the sort direction for this column.
+     */
+    getSort(): string;
+    /**
+     * Return the summary type (avg,group,sum,count) of this search column.
+     */
+    getSummary(): string;
+    /**
+     * Set the formula used for this column. Name of the column can either be formulatext, formulanumeric, formuladatetime, formulapercent, or formulacurrency.
+     *
+     * @param {string} formula The formula used for this column.
+     */
+    setFormula(formula: string): NLObjSearchColumn;
+    /**
+     * Sets the special function used for this column.
+     *
+     * @param {string} functionId Special function used for this column.
+     */
+    setFunction(functionId: string): NLObjSearchColumn;
+    /**
+     * Set the label used for this column.
+     *
+     * @param {string} label The label used for this column.
+     */
+    setLabel(label: string): NLObjSearchColumn;
+    /**
+     * Return nlobjSearchColumn sorted in either ascending or descending order.
+     *
+     * @param {boolean} sort If not set, defaults to false, which returns column data in ascending order.
+     */
+    setSort(sort: boolean): NLObjSearchColumn;
+    /**
+     * Returns the search column for which the minimal or maximal value should be found when returning the nlobjSearchColumn value.
+     *
+     * @param {string} name The name of the search column for which the minimal or maximal value should be found.
+     * @param {string} join The join id for this search column.
+     */
+    setWhenOrderBy(name: string, join: string): NLObjSearchColumn;
 }
 
 interface NLObjSearchFilter {
     /**
+     * Returns the formula used for this filter.
+     */
+    getFormula(): string;
+    /**
+     * Return the join id for this search filter.
+     */
+    getJoin(): string;
+    /**
      * Return the name of this search filter.
      */
     getName(): string;
+    /**
+     * Return the filter operator used.
+     */
+    getOperator(): string;
+    /**
+     * Returns the summary type used for this filter.
+     */
+    getSummaryType(): string;
+    /**
+     * Sets the formula used for this filter. Name of the filter can either be formulatext, formulanumeric, formuladatetime, formulapercent, or formulacurrency.
+     *
+     * @param {string} formula The formula used for this filter.
+     */
+    setFormula(formula: string): NLObjSearchFilter;
+    /**
+     * Sets the summary type used for this filter. Filter name must correspond to a search column if it is to be used as a summary filter.
+     *
+     * @param {string} type The summary type used for this filter.
+     */
+    setSummaryType(type: string): NLObjSearchFilter;
 }
 
 interface NLObjSearchResult {
-  
+    /**
+     * Return an array of all nlobjSearchColumn objects returned in this search.
+     */
+    getAllColumns(): NLObjSearchColumn[];
+    /**
+     * Return the internalId for the record returned in this row.
+     */
+    getId(): number;
+    /**
+     * Return the recordtype for the record returned in this row.
+     */
+    getRecordType(): string;
+    /**
+     * Return the value for this nlobjSearchColumn.
+     * @param {nlobjSearchColumn} column Search result column.
+     */
+    getValue(column: NLObjSearchColumn): string;
+    /**
+     * Return the value for a return column specified by name, join ID, and summary type.
+     * @param {string} name the name of the search column.
+     * @param {string} join the join ID for the search column.
+     * @param {string} summary summary type specified for this column.
+     */
+    getValue(name: string, join?: string, summary?: string): string;
+    /**
+     * Return the text value for this nlobjSearchColumn.
+     * @param {nlobjSearchColumn} column Search result column.
+     */
+    getText(column: NLObjSearchColumn): string;
+    /**
+     * Return the text value for a return column specified by name, join ID, and summary type.
+     * @param {string} name the name of the search column.
+     * @param {string} join the join ID for the search column.
+     * @param {string} summary summary type specified for this column.
+     */
+    getText(name: string, join?: string, summary?: string): string;
 }
 
 interface NLObjSearchResultSet {
