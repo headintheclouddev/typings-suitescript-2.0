@@ -88,7 +88,174 @@ interface NLObjConfiguration {
 }
 
 interface NLObjContext {
-  
+    /**
+     * Return the account ID of the current user.
+     */
+    getCompany(): string;
+    /**
+     * Return the deployment ID for the current script.
+     */
+    getDeploymentId(): string;
+    /**
+     * Return the internalId of the current user's department.
+     */
+    getDepartment(): number;
+    /**
+     * Return the email address of the current user.
+     */
+    getEmail(): string;
+    /**
+     * Return the environment that the script is executing in: SANDBOX, PRODUCTION, BETA, INTERNAL.
+     */
+    getEnvironment(): string;
+    /**
+     * Return the execution context for this script: webServices|csvImport|client|userInterface|scheduledScript|portlet|suitelet|debugger|custommassupdate
+     */
+    getExecutionContext(): string;
+    /**
+     * Return true if feature is enabled, false otherwise.
+     * @param {string} name
+     */
+    getFeature(name: string): boolean;
+    /**
+     * Return the internalId of the current user's location.
+     */
+    getLocation(): number;
+    /**
+     * Return the logging level for the current script execution. Not supported in CLIENT scripts.
+     */
+    getLogLevel(): string;
+    /**
+     * Return the name of the current user.
+     */
+    getName(): string;
+    /**
+     * Return the % complete specified for the current scheduled script execution.
+     */
+    getPercentComplete(): number;
+    /**
+     * Return current user's permission level (0-4) for this permission.
+     * @param {string} name
+     */
+    getPermission(name: string): number;
+    /**
+     * Return system or script preference selection for current user.
+     * @param {string} name
+     */
+    getPreference(name: string): string;
+    /**
+     * Returns the number of scheduled script queues in a given account.
+     */
+    getQueueCount(): number;
+    /**
+     * Return the amount of usage units remaining for this script.
+     */
+    getRemainingUsage(): number;
+    /**
+     * Return the internalId of the current user's role.
+     */
+    getRole(): string;
+    /**
+     * Return the internalId of the current user's center type.
+     */
+    getRoleCenter(): string;
+    /**
+     * Return the script ID of the current user's role.
+     */
+    getRoleId(): string;
+    /**
+     * Return the script ID for the current script.
+     */
+    getScriptId(): string;
+    /**
+     * Return value of session object set by script.
+     * @param {string} name
+     */
+    getSessionObject(name: string): string;
+    /**
+     * Return a system/script setting. Types are SCRIPT, SESSION, FEATURE, PERMISSION.
+     *
+     * @param {string} type
+     * @param {string} name
+     * 
+     * @deprecated
+     */
+    getSetting(type: string, name: string): string;
+    /**
+     * Return the internalId of the current user's subsidiary.
+     */
+    getSubsidiary(): number;
+    /**
+     * Return the internalId of the current user.
+     */
+    getUser(): string;
+    /**
+     * Return the NetSuite version for the current account.
+     */
+    getVersion(): string;
+    /**
+     * Set the % complete for the current scheduled script execution.
+     * @param {number} pct The percentage of records completed
+     */
+    setPercentComplete(pct: number): void;
+    /**
+     * Set the value of a session object using a key.
+     * @param {string} name
+     * @param {string} value
+     */
+    setSessionObject(name: string, value: string): void;
+    /**
+     * Set a system/script setting. Only supported type is SESSION.
+     *
+     * @param {string} type
+     * @param {string} name
+     * @param {string} value
+     * 
+     * @deprecated
+     */
+    setSetting(type: string, name: string, value: string): void;
+}
+
+/**
+ * Return a new instance of nlobjCredentialBuilder
+ *
+ * @classDescription The nlobjCredentialBuilder object encapsulates a request string that can be passed to nlapiRequestURLWithCredentials(credentials, url, postdata, headers, httpsMethod).
+ * @param {string} request can include an embedded GUID (globally unique string).
+ * @param {string} domain URL’s host name. Host name must exactly match the host name in your URL.
+ * 
+ * @constructor
+ */
+declare function nlobjCredentialBuilder(request: string, domain: string): NLObjCredentialBuilder;
+interface NLObjCredentialBuilder {
+    /**
+     * Appends a passed in string to an nlobjCredentialBuilder object.
+     *
+     * @param {string} string String to be appended.
+     */
+    append(string: string): NLObjCredentialBuilder;
+    /**
+     * Encodes an nlobjCredentialBuilder object per the base64 scheme.
+     */
+    base64(): NLObjCredentialBuilder;
+    /**
+     * Hashes an nlobjCredentialBuilder object with the MD5 hash function.
+     */
+    md5(): NLObjCredentialBuilder;
+    /**
+     * Replaces all instances of string1 with string2.
+     *
+     * @param {string} string1 String to be replaced
+     * @param {string} string2 String to be replaced with
+     */
+    replace(string1: string, string2: string): NLObjCredentialBuilder;
+    /**
+     * Hashes an nlobjCredentialBuilder object with the SHA-256 hash function.
+     */
+    sha256(): NLObjCredentialBuilder;
+    /**
+     * Encodes an nlobjCredentialBuilder object per the UTF-8 scheme.
+     */
+    utf8(): NLObjCredentialBuilder;
 }
 
 interface NLObjCSVImport {
@@ -130,8 +297,39 @@ interface NLObjEmailMerger {
     
 }
 
+/**
+ * Return a new instance of nlobjError used system or user-defined error object.
+ *
+ * @classDescription Encapsulation of errors thrown during script execution.
+ * 
+ * @constructor
+ */
+declare function nlobjError(): NLObjError;
 interface NLObjError {
-  
+    /**
+     * Return the error code for this system or user-defined error.
+     */
+    getCode(): string;
+    /**
+     * Return the error description for this error.
+     */
+    getDetails(): string;
+    /**
+     * Return the error db ID for this error (if it was an unhandled unexpected error).
+     */
+    getId(): string;
+    /**
+     * Return the internalid of the record if this error was thrown in an aftersubmit script.
+     */
+    getInternalID(): number;
+    /**
+     * Return a stacktrace containing the location of the error.
+     */
+    getStackTrace(): string[];
+    /**
+     * Return the userevent script name where this error was thrown.
+     */
+    getUserEvent(): string;
 }
 
 interface NLObjField {
@@ -730,6 +928,16 @@ interface NLObjSearch {
     setRedirectURLToSearchResults(): void;
 }
 
+/**
+ * Return a new instance of nlobjSearchColumn used for column objects used to define search return columns.
+ *
+ * @classDescription search column.
+ * @constructor
+ * @param {string} name column name.
+ * @param {string} join internal ID for joined search where this column is defined
+ * @param {string} summary
+ */
+declare function nlobjSearchColumn(name: string, join: string, summary: string): NLObjSearchColumn;
 interface NLObjSearchColumn {
     /**
      * Return formula for this search column.
@@ -792,6 +1000,18 @@ interface NLObjSearchColumn {
     setWhenOrderBy(name: string, join: string): NLObjSearchColumn;
 }
 
+/**
+ * Return a new instance of nlobjSearchFilter filter objects used to define search criteria.
+ *
+ * @classDescription search filter
+ * @constructor
+ * @param {string} name Filter name.
+ * @param {string} join Internal ID for joined search where this filter is defined
+ * @param {string} operator Operator name (i.e. anyOf, contains, lessThan, etc..)
+ * @param {string|string[]} value
+ * @param {string} value2
+ */
+declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2: string): NLObjSearchFilter;
 interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
