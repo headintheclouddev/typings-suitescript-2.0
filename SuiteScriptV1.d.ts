@@ -825,8 +825,56 @@ interface NLObjRequest {
   
 }
 
+/**
+ * Accessor to Http response made available to Suitelets.
+ */
 interface NLObjResponse {
-  
+    /**
+     * Add a value for a response header.
+     * @param  {string} name of header
+     * @param  {string} value for header
+     */
+    addHeader(name: string, value: string): void;
+    /**
+     * Return an Array (Object?) of all response headers.
+     * @return  {Object}
+     */
+    getAllHeaders(): Object;
+    /**
+     * Return the value of a response header.
+     * @param  {string} name of header
+     */
+    getHeader(): string;
+    /**
+     * Return an Array of all response header values for a header
+     * @param  {string} name of header
+     */
+    getHeaders(name: string): string[];
+    /**
+     * Sets the redirect URL for the response. All URLs must be internal unless the Suitelet is being executed in an "Available without Login" context
+     * at which point it can use type "external" to specify an external url via the subtype arg.
+     *
+     * @param {string} type type specifier for URL: suitelet|tasklink|record|mediaitem|external
+     * @param {string} subtype subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid|url
+     * @param {string} id internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
+     * @param {string} pagemode string specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
+     * @param {Object} parameters Object used to specify additional URL parameters as name/value pairs
+     */
+    sendRedirect(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
+    /**
+     * Sets the content type for the response (and an optional filename for binary output).
+     *
+     * @param {string} type the file type i.e. plainText, word, pdf, htmldoc (see list of media item types)
+     * @param {string} filename the file name
+     * @param {string} disposition Content Disposition used for streaming attachments: inline|attachment
+     */
+    setContentType(type: string, filename: string, disposition: string): void;
+    /**
+     * Set the value of a response header.
+     * @param  {string} name of header
+     * @param  {string} value for header
+     */
+    setHeader(name: string, value: string): void;
 }
 
 interface NLObjSearch {
@@ -1110,8 +1158,40 @@ interface NLObjSelectOption {
   
 }
 
+/**
+ * Contains the results of a server response to an outbound Http(s) call.
+ */
 interface NLObjServerResponse {
-  
+    /**
+     * Return an Array of all headers returned.
+     */
+    getAllHeaders(): string[];
+    /**
+     * Return the response body returned.
+     */
+    getBody(): string;
+    /**
+     * Return the response code returned.
+     */
+    getCode(): number;
+    /**
+     * Return the Content-Type header in response.
+     */
+    getContentType(): string;
+    /**
+     * Return the nlobjError thrown via a client call to nlapiRequestURL.
+     */
+    getError(): NLObjError;
+    /**
+     * Return the value of a header returned.
+     * @param {string} name the name of the header to return
+     */
+    getHeader(name: string): string;
+    /**
+     * Return all the values of a header returned.
+     * @param {string} name the name of the header to return
+     */
+    getHeaders(name: string): string[];
 }
 
 interface NLObjSubList {
@@ -1134,7 +1214,66 @@ interface NLObjTab {
 }
 
 interface NLObjTemplateRenderer {
-  
+    /**
+     * Binds nlobjRecord object to variable name used in template.
+     * @param  {string} variable variable name that represents record
+     * @param  {nlobjRecord} record NetSuite record
+     */
+    addRecord(variable: string, record: NLObjRecord): void;
+    /**
+     * Binds an nlobjSearchResult object to variable name used in template.
+     * @param {string} variable variable name that represents search result
+     * @param {nlobjSearchResult} searchResult NetSuite search result
+     */
+    addSearchResults(variable: string, searchResult: NLObjSearchResult): void;
+    /**
+     * Perform the merge and return an object containing email subject and body.
+     * @governance 20 units
+     * @return {object} pure javascript object with two properties: subject and body
+     */
+    merge(): { subject: string, body: string };
+    /**
+     * Render the output of the template engine into the response.
+     * @param {nlobjResponse}
+     */
+    renderToResponse(nlobjResponse: NLObjResponse): void;
+    /**
+     * Returns template content interpreted by FreeMarker as XML string that can be passed to nlapiXMLToPDF(xmlstring) to produce PDF output.
+     */
+    renderToString(): string;
+    /**
+     * Associate a custom record to the merger.
+     * @param  {string} recordType type of the custom record
+     * @param  {number} recordId ID of the record to be associated with the merger
+     */
+    setCustomRecord(recordType: string, recordId: number): void;
+     /**
+     * Associate an entity to the merger.
+     * @param  {string} entityType Type of the entity (customer/contact/partner/vendor/employee)
+     * @param  {number} entityId ID of the entity to be associated with the merger.
+     */
+    setEntity(entityType: string, entityId: number): void;
+    /**
+     * Associate a second entity (recipient) to the merger.
+     * @param  {string} recipientType type of the entity (customer/contact/partner/vendor/employee)
+     * @param  {number} recipientId ID of the entity to be associated with the merger
+     */
+    setRecipient(recipientType: string, recipientId): void;
+    /**
+     * Associate a support case to the merger.
+     * @param  {number} caseId ID of the support case to be associated with the merger
+     */
+    setSupportCase(caseId: number): void;
+    /**
+     * Passes in raw string of template to be transformed by FreeMarker.
+     * @param  {string} template raw string of template.
+     */
+    setTemplate(template: string): void;
+    /**
+     * Associate a transaction to the merger.
+     * @param  {number} transactionId ID of the transaction to be associated with the merger
+     */
+    setTransaction(transactionId: number): void;
 }
 
 interface Window {
