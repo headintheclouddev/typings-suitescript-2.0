@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface HttpModule {
+interface HttpModule {
     /**
      * Encapsulates the response to an HTTP client request.
      */
@@ -45,4 +45,5 @@ export interface HttpModule {
     Method: HttpMethod;
 }
 
-export default HttpModule;
+declare var _: HttpModule;
+export = _;

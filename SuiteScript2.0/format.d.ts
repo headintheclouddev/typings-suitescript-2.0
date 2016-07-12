@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface FormatModule {
+interface FormatModule {
     /**
      * Use format to convert an Object (like a Date) into a specific NS string format. 
      * Options: value (Date|string|number), type (format.FormatType).
@@ -33,4 +33,5 @@ export interface FormatModule {
     Timezone: Timezone;
 }
 
-export default FormatModule;
+declare var _: FormatModule;
+export = _;

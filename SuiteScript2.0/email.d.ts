@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface EmailModule {
+interface EmailModule {
     /**
      * Method used to send transactional email asynchronously and receive bounceback notifications if the email is not successfully delivered.
      */
@@ -16,4 +16,5 @@ export interface EmailModule {
     sendCampaign: EmailSendCampaignFunction;
 }
 
-export default EmailModule;
+declare var _: EmailModule;
+export = _;

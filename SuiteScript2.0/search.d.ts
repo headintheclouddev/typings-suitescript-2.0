@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface SearchModule {
+interface SearchModule {
     create: SearchCreateFunction;
     load: SearchLoadFunction;
     delete: SearchDeleteFunction;
@@ -15,4 +15,5 @@ export interface SearchModule {
     Type: SearchTypes;
 }
 
-export default SearchModule;
+declare var _: SearchModule;
+export = _;

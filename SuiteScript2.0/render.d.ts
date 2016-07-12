@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface RenderModule {
+interface RenderModule {
     bom(options: BOMOptions): NSFile;
     create(): TemplateRenderer;
     mergeEmail(options: MergeEmailOptions): EmailMergeResult;
@@ -13,4 +13,5 @@ export interface RenderModule {
     PrintMode: PrintModes;
 }
 
-export default RenderModule;
+declare var _: RenderModule;
+export = _;

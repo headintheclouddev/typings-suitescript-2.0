@@ -1,6 +1,6 @@
-/// <reference path="../SuiteScript2.0-Globals/index.d.ts" />s
+/// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface CryptoModule {
+interface CryptoModule {
   Cipher: Cipher;
   CipherPayload: CipherPayload;
   Decipher: Decipher;
@@ -33,4 +33,5 @@ export interface CryptoModule {
   createSecretKey(options: CreateSecretKeyOptions): SecretKey;
 }
 
-export default CryptoModule;
+declare var _: CryptoModule;
+export = _;

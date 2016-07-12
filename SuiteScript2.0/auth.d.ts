@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface AuthModule {
+interface AuthModule {
     /**
      * Method used to change the current user’s NetSuite email address (user name).
      */
@@ -11,4 +11,5 @@ export interface AuthModule {
     changePassword(options: ChangePasswordOptions): void;
 }
 
-export default AuthModule;
+declare var _: AuthModule;
+export = _;

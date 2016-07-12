@@ -1,8 +1,9 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface PluginModule {
+interface PluginModule {
     findImplementations(options: FindImplementationsOptions): string[];
     loadImplementations(options: LoadImplementationsOptions): Object;
 }
 
-export default PluginModule;
+declare var _: PluginModule;
+export = _;

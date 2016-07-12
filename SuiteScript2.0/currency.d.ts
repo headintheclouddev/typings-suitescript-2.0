@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface CurrencyModule {
+interface CurrencyModule {
     /**
      * Method used to return the exchange rate between two currencies based on a certain date.
      * The exchange rate values are sourced from the Currency Exchange Rate record.
@@ -8,4 +8,5 @@ export interface CurrencyModule {
     exchangeRate(options: ExchangeRateOptions): number;
 }
 
-export default CurrencyModule;
+declare var _: CurrencyModule;
+export = _;

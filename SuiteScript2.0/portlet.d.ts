@@ -1,6 +1,7 @@
-export interface PortletModule {
+interface PortletModule {
     resize(): void;
     refresh(): void;
 }
 
-export default PortletModule;
+declare var _: PortletModule;
+export = _;

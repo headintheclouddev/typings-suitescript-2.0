@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface RecordModule {
+interface RecordModule {
     /**
      * Attaches a record to another record.
      */
@@ -18,4 +18,5 @@ export interface RecordModule {
     Type: RecordTypes;
 }
 
-export default RecordModule;
+declare var _: RecordModule;
+export = _;

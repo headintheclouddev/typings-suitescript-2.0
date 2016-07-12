@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface RedirectModule {
+interface RedirectModule {
     redirect(options: RedirectOptions): void;
     toRecord(options: ToRecordOptions): void;
     toSavedSearch(options: ToSavedSearchOptions): void;
@@ -11,4 +11,5 @@ export interface RedirectModule {
     toTaskLink(options: ToTaskLinkOptions): void;
 }
 
-export default RedirectModule;
+declare var _: RedirectModule;
+export = _;

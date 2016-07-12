@@ -1,7 +1,8 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface TransactionModule {
+interface TransactionModule {
     void: TransactionVoidFunction;
 }
 
-export default TransactionModule;
+declare var _: TransactionModule;
+export = _;

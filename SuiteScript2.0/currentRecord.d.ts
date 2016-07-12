@@ -6,9 +6,10 @@
    If you are working in create/edit mode, use the ClientCurrentRecord object
    defined in scriptTypes/scriptEntry.d.ts.  It's more similar to to a full
    Record object. */
-export interface CurrentRecordModule {
+interface CurrentRecordModule {
     id: string;
     type: string;
 }
 
-export default CurrentRecordModule;
+declare var _: CurrentRecordModule;
+export = _;

@@ -2,10 +2,12 @@
 
 ## Installation Instructions
 
-To install the typings into your TypeScript project, you will first need to make sure you have definitions for the Promise types. Install that with this command:
+First, make sure you have typings installed with the command:
 
-`typings install --save --global dt~es6-promise`
+`npm install -g typings`
 
-Now you're ready for the SuiteScript typings file. Install that with this command:
+You can now install the global definitions and the module definitions with the following commands:
 
-`typings install --save github:headintheclouddev/typings-suitescript-2.0`
+`typings install --global --save github:headintheclouddev/typings-suitescript-2.0/SuiteScript2.0-Globals/dist`
+
+`typings install --save github:headintheclouddev/typings-suitescript-2.0/SuiteScript2.0`

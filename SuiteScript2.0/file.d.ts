@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface FileModule {
+interface FileModule {
     /**
      * Method used to create a new file in the NetSuite file cabinet.
      */
@@ -27,4 +27,5 @@ export interface FileModule {
     Type: FileType;
 }
 
-export default FileModule;
+declare var _: FileModule;
+export = _;

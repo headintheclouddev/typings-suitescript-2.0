@@ -11,6 +11,8 @@
   "author": "Head in the Cloud Development",
   "license": "MIT",
   "devDependencies": {
+    "dts-generator": "^1.7.0",
+    "gulp": "^3.9.1",
     "typings": "latest"
   },
   "scripts": {

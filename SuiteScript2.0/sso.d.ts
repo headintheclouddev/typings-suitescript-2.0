@@ -1,7 +1,8 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface SsoModule {
+interface SsoModule {
     generateSuiteSignOnToken(options: GenerateSuiteSignOnTokenOptions): string;
 }
 
-export default SsoModule;
+declare var _: SsoModule;
+export = _;

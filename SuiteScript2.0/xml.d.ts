@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface XMLModule {
+interface XMLModule {
     Attr: NSAttr;
     Document: NSXMLDocument;
     Element: NSElement;
@@ -12,4 +12,5 @@ export interface XMLModule {
     NodeType: NodeType;
 }
 
-export default XMLModule;
+declare var _: XMLModule;
+export = _;

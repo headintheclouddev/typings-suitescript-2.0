@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface TaskModule {
+interface TaskModule {
     create(options: TaskCreateOptions): ScheduledScriptTask | MapReduceScriptTask | CsvImportTask | EntityDeduplicationTask | WorkflowTriggerTask;
     checkStatus(options: CheckStatusOptions): ScheduledScriptTask | MapReduceScriptTask | CsvImportTask | EntityDeduplicationTask | WorkflowTriggerTask;
     DedupeEntityType: DedupeEntityTypes;
@@ -11,4 +11,5 @@ export interface TaskModule {
     TaskType: TaskTypes;
 }
 
-export default TaskModule;
+declare var _: TaskModule;
+export = _;

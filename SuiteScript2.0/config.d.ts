@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface ConfigModule {
+interface ConfigModule {
     /**
      * Method used to load a record.Record object that encapsulates the specified NetSuite configuration page.
      */
@@ -13,4 +13,5 @@ export interface ConfigModule {
     Type: ConfigTypes;
 }
 
-export default ConfigModule;
+declare var _: ConfigModule;
+export = _;

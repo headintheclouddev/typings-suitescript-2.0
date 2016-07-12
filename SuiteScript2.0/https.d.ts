@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface HttpsModule {
+interface HttpsModule {
     // OBJECTS \\
     /**
      * Encapsulates data that may be sent to a third-party via an HTTPS call.
@@ -67,4 +67,5 @@ export interface HttpsModule {
 
 }
 
-export default HttpsModule;
+declare var _: HttpsModule;
+export = _;

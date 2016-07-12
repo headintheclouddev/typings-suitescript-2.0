@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface RuntimeModule {
+interface RuntimeModule {
     accountId: string;
     envType: string;
     executionContext: string;
@@ -14,4 +14,5 @@ export interface RuntimeModule {
     EnvType: EnvTypes;
 }
 
-export default RuntimeModule;
+declare var _: RuntimeModule;
+export = _;

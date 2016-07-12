@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface EncodeModule {
+interface EncodeModule {
     /**
      * Converts a string to another type of encoding and returns the re-encoded string.
      */
@@ -11,4 +11,5 @@ export interface EncodeModule {
     Encoding: Encoding;
 }
 
-export default EncodeModule;
+declare var _: EncodeModule;
+export = _;

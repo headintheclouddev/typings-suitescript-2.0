@@ -1,6 +1,6 @@
 /// <reference path="../SuiteScript2.0-Globals/index.d.ts" />
 
-export interface ErrorModule {
+interface ErrorModule {
     /**
      * Encapsulates a SuiteScript error thrown by any script type that is not a user event script.
      */
@@ -15,4 +15,5 @@ export interface ErrorModule {
     create(options: CreateOptions): SuiteScriptError | UserEventError;
 }
 
-export default ErrorModule;
+declare var _: ErrorModule;
+export = _;
