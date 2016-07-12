@@ -1,15 +1,15 @@
 {
   "name": "@hitc/netsuite-types",
-  "description": "Provides NetSuite TypeScript type definitions",
+  "description": "TypeScript typings for SuiteScript 2.0",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/headinthecloud/netsuite-types.git"
+    "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
   },
   "homepage": "https://bitbucket.org/headinthecloud/netsuite-types#readme",
   "version": "2.7.29",
-  "main": "N.d.ts",
-  "author": "Head in the Cloud",
-  "license": "ISC",
+  "main": "index.d.ts",
+  "author": "Head in the Cloud Development",
+  "license": "MIT",
   "devDependencies": {
     "typings": "latest"
   },
