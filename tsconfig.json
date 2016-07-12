@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5"
+    },
+    "files": [
+        "typings/index.d.ts",
+        "index.d.ts"
+    ]
+}

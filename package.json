@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "typings": "latest"
+  },
+  "scripts": {
+    "postinstall": "typings install"
   }
 }

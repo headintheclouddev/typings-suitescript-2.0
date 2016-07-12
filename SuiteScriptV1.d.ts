@@ -1,20 +1,20 @@
-interface NLObjAssistant {
+export interface NLObjAssistant {
   
 }
 
-interface NLObjAssistantStep {
+export interface NLObjAssistantStep {
   
 }
 
-interface NLObjButton {
+export interface NLObjButton {
   
 }
 
-interface NLObjColumn {
+export interface NLObjColumn {
   
 }
 
-interface NLObjConfiguration {
+export interface NLObjConfiguration {
     /**
      * Return an Array of all field names on the record.
      */
@@ -87,7 +87,7 @@ interface NLObjConfiguration {
     setFieldTexts(name: string, texts: string[]): void;
 }
 
-interface NLObjContext {
+export interface NLObjContext {
     /**
      * Return the account ID of the current user.
      */
@@ -226,7 +226,7 @@ interface NLObjContext {
  * @constructor
  */
 declare function nlobjCredentialBuilder(request: string, domain: string): NLObjCredentialBuilder;
-interface NLObjCredentialBuilder {
+export interface NLObjCredentialBuilder {
     /**
      * Appends a passed in string to an nlobjCredentialBuilder object.
      *
@@ -258,7 +258,7 @@ interface NLObjCredentialBuilder {
     utf8(): NLObjCredentialBuilder;
 }
 
-interface NLObjCSVImport {
+export interface NLObjCSVImport {
     /**
      * Sets the data to be imported in a linked file for a multi-file import job, by referencing a file in the file cabinet using nlapiLoadFile(id), or by inputting CSV data as raw string.
      *
@@ -293,7 +293,7 @@ interface NLObjCSVImport {
     setQueue(queue: string): void;
 }
 
-interface NLObjEmailMerger {
+export interface NLObjEmailMerger {
     
 }
 
@@ -305,7 +305,7 @@ interface NLObjEmailMerger {
  * @constructor
  */
 declare function nlobjError(): NLObjError;
-interface NLObjError {
+export interface NLObjError {
     /**
      * Return the error code for this system or user-defined error.
      */
@@ -332,15 +332,15 @@ interface NLObjError {
     getUserEvent(): string;
 }
 
-interface NLObjField {
+export interface NLObjField {
   
 }
 
-interface NLObjFieldGroup {
+export interface NLObjFieldGroup {
   
 }
 
-interface NLObjFile {
+export interface NLObjFile {
     /**
      * Return the file description.
      */
@@ -414,27 +414,27 @@ interface NLObjFile {
     
 }
 
-interface NLObjForm {
+export interface NLObjForm {
   
 }
 
-interface NLObjJobManager {
+export interface NLObjJobManager {
 
 }
 
-interface NLObjList {
+export interface NLObjList {
   
 }
 
-interface NLObjLogin {
+export interface NLObjLogin {
 
 }
 
-interface NLObjPortlet {
+export interface NLObjPortlet {
   
 }
 
-interface NLObjRecord {
+export interface NLObjRecord {
     /**
      * Commit the current line in a sublist.
      *
@@ -813,22 +813,22 @@ interface NLObjRecord {
     viewSubrecord(fldname: string): NLObjSubrecord;
 }
 
-interface NLObjReportDefinition {
+export interface NLObjReportDefinition {
     
 }
 
-interface NLObjReportForm {
+export interface NLObjReportForm {
     
 }
 
-interface NLObjRequest {
+export interface NLObjRequest {
   
 }
 
 /**
  * Accessor to Http response made available to Suitelets.
  */
-interface NLObjResponse {
+export interface NLObjResponse {
     /**
      * Add a value for a response header.
      * @param  {string} name of header
@@ -877,7 +877,7 @@ interface NLObjResponse {
     setHeader(name: string, value: string): void;
 }
 
-interface NLObjSearch {
+export interface NLObjSearch {
     /**
      * Adds a single return column to the search. Note that existing columns on the search are not changed.
      *
@@ -986,7 +986,7 @@ interface NLObjSearch {
  * @param {string} summary
  */
 declare function nlobjSearchColumn(name: string, join: string, summary: string): NLObjSearchColumn;
-interface NLObjSearchColumn {
+export interface NLObjSearchColumn {
     /**
      * Return formula for this search column.
      */
@@ -1060,7 +1060,7 @@ interface NLObjSearchColumn {
  * @param {string} value2
  */
 declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2: string): NLObjSearchFilter;
-interface NLObjSearchFilter {
+export interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
      */
@@ -1095,7 +1095,7 @@ interface NLObjSearchFilter {
     setSummaryType(type: string): NLObjSearchFilter;
 }
 
-interface NLObjSearchResult {
+export interface NLObjSearchResult {
     /**
      * Return an array of all nlobjSearchColumn objects returned in this search.
      */
@@ -1134,7 +1134,7 @@ interface NLObjSearchResult {
     getText(name: string, join?: string, summary?: string): string;
 }
 
-interface NLObjSearchResultSet {
+export interface NLObjSearchResultSet {
     /**
      * Calls the developer-defined callback function for every result in this set.
      *
@@ -1154,14 +1154,14 @@ interface NLObjSearchResultSet {
     getResults(start: number, end: number): NLObjSearchResult[];
 }
 
-interface NLObjSelectOption {
+export interface NLObjSelectOption {
   
 }
 
 /**
  * Contains the results of a server response to an outbound Http(s) call.
  */
-interface NLObjServerResponse {
+export interface NLObjServerResponse {
     /**
      * Return an Array of all headers returned.
      */
@@ -1194,11 +1194,11 @@ interface NLObjServerResponse {
     getHeaders(name: string): string[];
 }
 
-interface NLObjSubList {
+export interface NLObjSubList {
   
 }
 
-interface NLObjSubrecord {
+export interface NLObjSubrecord {
     /**
      * Commit the subrecord after you finish modifying it.
      */
@@ -1209,11 +1209,11 @@ interface NLObjSubrecord {
     cancel(): void;
 }
 
-interface NLObjTab {
+export interface NLObjTab {
   
 }
 
-interface NLObjTemplateRenderer {
+export interface NLObjTemplateRenderer {
     /**
      * Binds nlobjRecord object to variable name used in template.
      * @param  {string} variable variable name that represents record
@@ -1276,7 +1276,7 @@ interface NLObjTemplateRenderer {
     setTransaction(transactionId: number): void;
 }
 
-interface Window {
+export interface Window {
     /**
      * Gets the value of a URL parameter (undocumented NetSuite method).
      * @param {string} parameter The URL parameter to get the value of.
