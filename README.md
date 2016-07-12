@@ -9,5 +9,3 @@ To install the typings into your TypeScript project, you will first need to make
 Now you're ready for the SuiteScript typings file. Install that with this command:
 
 `typings install --save github:headintheclouddev/typings-suitescript-2.0`
-
-
