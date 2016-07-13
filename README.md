@@ -51,4 +51,4 @@ export function pageInit(ctx: NS2_Client_PageInitContext) {
 }
 ```
 
-Then if you're using a TypeScript-aware text editor (for instance the free [VSCode](https://code.visualstudio.com/) from Microsoft) you'll get syntax highlighting and autocomplete for all NetSuite modules and global functions.
+Then if you're using a TypeScript-aware text editor (for instance the free [VSCode](https://code.visualstudio.com/) from Microsoft) you'll get syntax highlighting, error detection, and autocomplete for all NetSuite modules and global functions.
