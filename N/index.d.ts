@@ -326,4 +326,12 @@ export namespace EntryPoints {
         }
         type onRequest = (scriptContext?: onRequestContext) => void;
     }
+
+    namespace MassUpdate {
+        interface eachContext {
+            id: number;
+            type: string;
+        }
+        type each = (scriptContext?: eachContext) => void;
+    }
 }
