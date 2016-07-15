@@ -29,8 +29,8 @@ The path attribute is a relative path, so make sure you specify an accurate path
   - myClientScripts.ts
 - typings/
   - index.d.ts
-  - global/
-  - module/
+  - globals/
+  - modules/
 - tsconfig.json
 - typings.json
 
