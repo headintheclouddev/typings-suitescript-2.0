@@ -1,3 +1,0 @@
-interface GenerateSuiteSignOnTokenOptions {
-    suiteSignOnId: string;
-}
