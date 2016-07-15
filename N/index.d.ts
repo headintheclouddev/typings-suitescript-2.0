@@ -296,7 +296,7 @@ export namespace EntryPoints {
             keys: MapReduceIteratorContainer;
             errors: MapReduceIteratorContainer;
         }
-        interface summaryContext {
+        interface summarizeContext {
             dateCreated: Date;
             seconds: number;
             usage: number;
@@ -307,7 +307,7 @@ export namespace EntryPoints {
             reduceSummary: ReduceSummary;
             output: MapReduceIteratorContainer;
         }
-        type summary = (summary?: summaryContext) => void;
+        type summarize = (summary?: summarizeContext) => void;
     }
 
     namespace Portlet {
