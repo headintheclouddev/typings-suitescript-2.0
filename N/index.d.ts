@@ -144,8 +144,8 @@ export namespace EntryPoints {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
-            lineNum: number;
-            columnNum: number;
+            line: number;
+            column: number;
         }
         type fieldChanged = (scriptContext?: fieldChangedContext) => void;
 
@@ -193,8 +193,8 @@ export namespace EntryPoints {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
-            lineNum?: number;
-            columnNum?: number;
+            line?: number;
+            column?: number;
         }
         type validateField = (scriptContext?: validateFieldContext) => boolean;
 
