@@ -1,20 +1,279 @@
-export interface NLObjAssistant {
-  
+/**
+ * UI Object page type used to build multi-step "assistant" pages to simplify complex workflows. All data and state for an assistant is tracked automatically throughout the user's session up until completion of the assistant.
+ */
+interface NLObjAssistant {
+    /**
+     * Add a field to this page and return it.
+     * @param {string} name field name
+     * @param {string} type field type
+     * @param {string} label field label
+     * @param {number|string} source script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
+     * @param {string} group group name that this field will live on. If empty then the field is added to the main section of the page
+     */
+    addField(name: string, type: string, label?: string, source?: number|string, group?: string): NLObjField;
+    /**
+     * Add a field group to the page.
+     * @param {string} name field group name
+     * @param {string} label field group label
+     */
+    addFieldGroup(name: string, label: string): NLObjFieldGroup;
+    /**
+     * Add a step to the assistant.
+     * @param {string} name the name of the step
+     * @param {string} label label used for this step
+     */
+    addStep(name: string, label: string): NLObjAssistantStep;
+    /**
+     * Add a sublist to this page and return it. For now only sublists of type inlineeditor are supported
+     * @param {string} name sublist name
+     * @param {string} type sublist type (inlineeditor only for now)
+     * @param {string} label sublist label
+     */
+    addSubList(name: string, type: string, label: string): NLObjSubList;
+    /**
+     * Return an array of the names of all field groups on this page.
+     */
+    getAllFieldGroups(): string[];
+    /**
+     * Return an array of the names of all fields on this page.
+     */
+    getAllFields(): string[];
+    /**
+     * Return an array of all the assistant steps for this assistant.
+     */
+    getAllSteps(): NLObjAssistantStep[];
+    /**
+     * Return an array of the names of all sublists on this page .
+     */
+    getAllSubLists(): string[];
+    /**
+     * Return current step set via nlobjAssistant.setCurrentStep(step)
+     */
+    getCurrentStep(): NLObjAssistantStep;
+    /**
+     * Return a field on this page.
+     * @param {string} name field name
+     */
+    getField(name: string): NLObjField;
+    /**
+     * Return a field group on this page.
+     * @param {string} name field group name
+     */
+    getFieldGroup(name: string): NLObjFieldGroup;
+    /**
+     * Return the last submitted action by the user: next|back|cancel|finish|jump
+     */
+    getLastAction(): string;
+    /**
+     * Return step from which the last submitted action came from
+     */
+    getLastStep(): NLObjAssistantStep;
+    /**
+     * Return the next logical step corresponding to the user's last submitted action. You should only call this after
+     * you have successfully captured all the information from the last step and are ready to move on to the next step. You
+     * would use the return value to set the current step prior to continuing.
+     */
+    getNextStep(): NLObjAssistantStep;
+    /**
+     * Return an assistant step on this page.
+     * @param {string} name step name
+     */
+    getStep(name: string): NLObjAssistantStep;
+    /**
+     * Return the total number of steps in the assistant.
+     */
+    getStepCount(): number;
+    /**
+     * Return a sublist on this page.
+     * @param {string} name sublist name
+     */
+    getSubList(name: string): NLObjSubList;
+    /**
+     * Return true if the assistant has an error message to display for the current step.
+     */
+    hasError(): boolean;
+    /**
+     * Return true if all the steps have been completed.
+     */
+    isFinished(): boolean;
+    /**
+     * Redirect the user following a user submit operation. Use this to automatically redirect the user to the next logical step.
+     * @param {NLObjResponse} response The response object used to communicate back to the user's client
+     */
+    sendRedirect(response: NLObjResponse): void;
+    /**
+     * Mark a step as current. It will be highlighted accordingly when the page is displayed
+     * @param {NLObjAssistantStep} step Assistant step object representing the current step that the user is on.
+     */
+    setCurrentStep(step: NLObjAssistantStep): void;
+    /**
+     * Set the error message for the currrent step.
+     * @param {string} html Error message (rich text) to display on the page to the user.
+     */
+    setError(html: string): void;
+    /**
+     * Set the values for all the fields on this page.
+     * @param {Object} values Object of field name/value pairs used to set all fields on page.
+     */
+    setFieldValues(values: Object): void;
+    /**
+     * Mark assistant page as completed and optionally set the rich text to display on completed page.
+     * @param {string} html Completion message (rich text) to display on the "Finish" page.
+     */
+    setFinished(html: string): void;
+    /**
+     * If numbered, step numbers are displayed next to the step's label in the navigation area.
+     * @param {boolean} numbered If true (default assistant behavior) step numbers will be displayed next to the step label.
+     */
+    setNumbered(numbered: boolean): void;
+    /**
+     * If ordered, steps are show on left and must be completed sequentially, otherwise steps are shown on top and can be done in any order
+     * @param {boolean} ordered	If true (default assistant behavior) then a navigation order thru the steps/pages will be imposed on the user. Otherwise the user will be allowed to navigate across steps/pages in any order they choose.
+     */
+    setOrdered(ordered: boolean): void;
+    /**
+     * Set the script ID for Client Script used for this form.
+     * @param {string|number} script Script ID or internal ID for global client script used to enable Client SuiteScript on page.
+     */
+    setScript(script: string|number): void;
+    /**
+     * Show/hide shortcut link. Always hidden on external pages.
+     * @param {boolean} show Enable/disable "Add To Shortcut" link on this page.
+     */
+    setShortcut(show: boolean): void;
+    /**
+     * Set the splash screen used for this page.
+     * @param {string} title splash portlet title
+     * @param {string} text1 splash portlet content (left side)
+     * @param {string} text2 splash portlet content (right side)
+     */
+    setSplash(title: string, text1: string, text2?: string): void;
+    /**
+     * Set the page title.
+     * @param {string} title
+     */
+    setTitle(title: string): void;
 }
 
-export interface NLObjAssistantStep {
-  
+/**
+ * Assistant Step Definition. Used to define individual steps/pages in multi-step workflows.
+ */
+interface NLObjAssistantStep {
+    /**
+     * Return an array of the names of all fields entered by the user during this step.
+     */
+    getAllFields(): string[];
+    /**
+     * Return an array of the names of all sublist fields entered by the user during this step
+     * @param {string} group sublist name
+     */
+    getAllLineItemFields(group: string): string[];
+    /**
+     * Return an array of the names of all sublists entered by the user during this step.
+     */
+    getAllLineItems(): string[];
+    /**
+     * Return the value of a field entered by the user during this step.
+     * @param {string} name field name
+     */
+    getFieldValue(name: string): string;
+    /**
+     * Return the selected values of a multi-select field as an Array entered by the user during this step.
+     * @param {string} name multi-select field name
+     */
+    getFieldValues(name: string): string[];
+    /**
+     * Return the number of lines previously entered by the user in this step (or -1 if the sublist does not exist).
+     * @param {string} group sublist name
+     */
+    getLineItemCount(group: string): number;
+    /**
+     * Return the value of a sublist field entered by the user during this step.
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {number} line sublist (1-based)
+     */
+    getLineItemValue(group: string, name: string, line: number): string;
+    /**
+     * Return the index of this step in the assistant page (1-based).
+     */
+    getStepNumber(): number;
+    /**
+     * Set helper text for this assistant step.
+     * @param {string} help inline help text to display on assistant page for this step
+     */
+    setHelpText(help: string): NLObjAssistantStep
+    /**
+     * Set the label for this assistant step.
+     * @param {string} label display label used for this assistant step
+     */
+    setLabel(label: string): void;
+    
 }
 
-export interface NLObjButton {
-  
+/**
+ * Buttons used for triggering custom behaviors on pages.
+ */
+interface NLObjButton {
+    /**
+     * Disable or enable button.
+     * @param {boolean} disabled If true then this button should be disabled on the page.
+     */
+    setDisabled(disabled: boolean): NLObjButton;
+    /**
+     * Set the label for this button.
+     * @param {string} label display label for button
+     */
+    setLabel(label: string): NLObjButton;
+    /**
+     * Sets the button as hidden in the UI. This API is supported on custom buttons and on some standard NetSuite buttons
+     * @param {boolean} visible Defaults to true if not set. If set to false, the button will be hidden in the UI.
+     */
+    setVisible(visible: boolean): NLObjButton;
 }
 
-export interface NLObjColumn {
-  
+interface NLObjCache {
+    get(key: string): string;
+    /**
+     * @param {string} key
+     * @param {string} value
+     * @param {number} ttl, time to live in seconds.
+     */
+    put(key: string, value: string, ttl: number): Object;
+    remove(key: string): Object;
 }
 
-export interface NLObjConfiguration {
+/**
+ * For columns used on scriptable lists and list portlets.
+ */
+interface NLObjColumn {
+    /**
+     * Add a URL parameter (optionally defined per row) to this column's URL.
+     *
+     * @param {string} param the name of a parameter to add to URL
+     * @param {string} value the value of the parameter to add to URL -or- a column in the datasource that returns the parameter value for each row
+     * @param {boolean} perRow if true then the 2nd arg is expected to be a column in the datasource
+     */
+    addParamToURL(param: string, value: string, perRow?: boolean): void;
+    /**
+     * Set the header name for this column.
+     *
+     * @param {string} label The label for this column.
+     */
+    setLabel(label: string): void;
+    /**
+     * Set the base URL (optionally defined per row) for this column.
+     *
+     * @param {string} value the base URL or a column in the datasource that returns the base URL for each row
+     * @param {boolean} perRow if true then the 1st arg is expected to be a column in the datasource
+     */
+    setURL(value: string, perRow: boolean): void;
+}
+
+/**
+ * For interacting with setup/configuration pages.
+ */
+interface NLObjConfiguration {
     /**
      * Return an Array of all field names on the record.
      */
@@ -87,7 +346,10 @@ export interface NLObjConfiguration {
     setFieldTexts(name: string, texts: string[]): void;
 }
 
-export interface NLObjContext {
+/**
+ * Utility class providing information about the current user and the script runtime.
+ */
+interface NLObjContext {
     /**
      * Return the account ID of the current user.
      */
@@ -226,7 +488,7 @@ export interface NLObjContext {
  * @constructor
  */
 declare function nlobjCredentialBuilder(request: string, domain: string): NLObjCredentialBuilder;
-export interface NLObjCredentialBuilder {
+interface NLObjCredentialBuilder {
     /**
      * Appends a passed in string to an nlobjCredentialBuilder object.
      *
@@ -258,7 +520,7 @@ export interface NLObjCredentialBuilder {
     utf8(): NLObjCredentialBuilder;
 }
 
-export interface NLObjCSVImport {
+interface NLObjCSVImport {
     /**
      * Sets the data to be imported in a linked file for a multi-file import job, by referencing a file in the file cabinet using nlapiLoadFile(id), or by inputting CSV data as raw string.
      *
@@ -293,8 +555,48 @@ export interface NLObjCSVImport {
     setQueue(queue: string): void;
 }
 
-export interface NLObjEmailMerger {
-    
+interface NLObjDuplicateJobRequest {
+    setEntityType(entityType: string): void;
+    setMasterId(masterID: string): void;
+    setMasterSelectionMode(masterSelectionMode: string): void;
+    setOperation(operation: string): void;
+    setRecords(dupeRecords: string[]): void;
+}
+
+interface NLObjEmailMerger {
+    /**
+     * Perform the merge and return an object containing email subject and body.
+     * @governance 20 units
+     */
+    merge(): { subject: string, body: string };
+    /**
+     * Associate a custom record to the merger.
+     * @param {string} recordType type of the custom record
+     * @param {number} recordId ID of the record to be associated with the merger
+     */
+    setCustomRecord(recordType: string, recordId: number): void;
+    /**
+     * Associate an entity to the merger.
+     * @param {string} entityType type of the entity (customer/contact/partner/vendor/employee)
+     * @param {number} entityId ID of the entity to be associated with the merger
+     */
+    setEntity(entityType: string, entityId: number): void;
+    /**
+     * Associate a second entity (recipient) to the merger.
+     * @param {string} recipientType type of the entity (customer/contact/partner/vendor/employee)
+     * @param {number} recipientId ID of the entity to be associated with the merger
+     */
+    setRecipient(recipientType: string, recipientId: number): void;
+    /**
+     * Associate a support case to the merger.
+     * @param {number} caseId ID of the support case to be associated with the merger
+     */
+    setSupportCase(caseId: number): void;
+    /**
+     * Associate a transaction to the merger
+     * @param {number} transactionId ID of the transaction to be associated with the merger
+     */
+    setTransaction(transactionId: number): void;
 }
 
 /**
@@ -305,7 +607,7 @@ export interface NLObjEmailMerger {
  * @constructor
  */
 declare function nlobjError(): NLObjError;
-export interface NLObjError {
+interface NLObjError {
     /**
      * Return the error code for this system or user-defined error.
      */
@@ -332,15 +634,139 @@ export interface NLObjError {
     getUserEvent(): string;
 }
 
-export interface NLObjField {
-  
+interface NLObjField {
+    /**
+     * Add a select option to this field (valid for select/multiselect fields). This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} value internal ID for this select option
+     * @param {string} text display value for this select option
+     * @param {boolean} selected if true then this select option will be selected by default
+     */
+    addSelectOption(value: string, text: string, selected?: boolean): void;
+    /**
+     * Return field label.
+     */
+    getLabel(): string;
+    /**
+     * Return field name.
+     */
+    getName(): string;
+    /**
+     * This method can only be used in server contexts against a record object. Also note that a call to this method may return different results for the same field for different roles.
+     *
+     * @param {string} filter A search string to filter the select options that are returned.
+     * @param {string} filteroperator Supported operators are contains | is | startswith. If not specified, defaults to the contains operator.
+     */
+    getSelectOptions(filter?: string, filteroperator?: string): NLObjSelectOption[];
+    /**
+     * Return field type.
+     */
+    getType(): string;
+    /**
+     * Set the alias used to set the value for this field. Defaults to field name. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} alias Column used to populate the field (mostly relevant when populating sublist fields).
+     */
+    setAlias(alias: string): NLObjField;
+    /**
+     * Set the break type (startcol|startrow|none) for this field. startrow is only used for fields with a layout type of outside. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} breaktype Break type used to add a break in flow layout for this field: startcol | startrow | none.
+     */
+    setBreakType(breaktype: string): NLObjField;
+    /**
+     * Set the default value for this field. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} value
+     */
+    setDefaultValue(value: string): NLObjField;
+    /**
+     * Set the width and height for this field. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {number} width
+     * @param {number} height
+     */
+    setDisplaySize(width: number, height: number): NLObjField;
+    /**
+     * Set the display type for this field. This method is only supported on scripted fields via the UI Object API
+     *
+     * @param {string} type display type: inline|normal|hidden|disabled|readonly|entry
+     */
+    setDisplayType(type: string): NLObjField;
+    /**
+     * Set help text for this field. If inline is set on assistant pages, help is displayed inline below field. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} help	Field level help content (rich text) for field.
+     * @param {string} inline If true then in addition to the popup field help, the help will also be displayed inline below field (supported on assistant pages only).
+     */
+    setHelpText(help: string, inline?: boolean): NLObjField;
+    /**
+     * Set the label for this field. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {string} label
+     */
+    setLabel(label: string): NLObjField;
+    /**
+     * Set the layout type and optionally the break type. This method is only supported on scripted fields via the UI Object API
+     *
+     * @param {string} type Layout type: outside|startrow|midrow|endrow|normal
+     * @param {string} breaktype Break type: startcol|startrow|none
+     */
+    setLayoutType(type: string, breaktype?: string): NLObjField;
+    /**
+     * Set the text that gets displayed in lieu of the field value for URL fields.
+     *
+     * @param {string} text user-friendly display value in lieu of URL
+     */
+    setLinkText(text: string): NLObjField;
+    /**
+     * Make this field mandatory. This method is only supported on scripted fields via the UI Object API
+     *
+     * @param {boolean} mandatory if true then field becomes mandatory
+     */
+    setMandatory(mandatory: boolean): NLObjField;
+    /**
+     * Set the maxlength for this field (only valid for certain field types). This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {number} maxlength maximum length for this field
+     */
+    setMaxLength(maxLength: number): NLObjField;
+    /**
+     * Set the amount of emppty vertical space (rows) between this field and the previous field. This method is only supported on scripted fields via the UI Object API.
+     *
+     * @param {number} padding # of empty rows to display above field
+     */
+    setPadding(padding: number): NLObjField;
 }
 
-export interface NLObjFieldGroup {
-  
+interface NLObjFieldGroup {
+    /**
+     * Set collapsibility property for this field group.
+     *
+     * @param {boolean} collapsible if true then this field group is collapsible
+     * @param {boolean} defaultcollapsed if true and the field group is collapsible, collapse this field group by default
+     */
+    setCollapsible(collapsible: boolean, defaultcollapsed?: boolean): NLObjFieldGroup;
+    /**
+     * Set the label for this field group.
+     * @param {string} label display label for field group
+     */
+    setLabel(label: string): NLObjFieldGroup;
+    /**
+     * Set showBorder property for this field group.
+     *
+     * @param {boolean} showBorder If true then this field group shows border including label of group.
+     */
+    setShowBorder(showBorder: boolean): NLObjFieldGroup;
+    /**
+     * Set singleColumn property for this field group.
+     *
+     * @param {boolean} singleColumn if true then this field group is displayed in single column
+     */
+    setSingleColumn(singleColumn: boolean): NLObjFieldGroup;
 }
 
-export interface NLObjFile {
+interface NLObjFile {
     /**
      * Return the file description.
      */
@@ -414,27 +840,428 @@ export interface NLObjFile {
     
 }
 
-export interface NLObjForm {
-  
+interface NLObjForm {
+    /**
+     * Add a button to this form.
+     *
+     * @param {string} name button name
+     * @param {string} label button label
+     * @param {string} script button script (function name)
+     */
+    addButton(name: string, label: string, script: string): NLObjButton;
+    /**
+     * Adds a field that lets you store credentials in NetSuite to be used when invoking services provided by third parties.
+     *
+     * @param {string} id The internal ID of the credential field.
+     * @param {string} label The UI label for the credential field.
+     * @param {string} website The domain the credentials can be sent to.
+     * @param {string} scriptId The scriptId of the script that is allowed to use this credential field.
+     * @param {string} value If you choose, you can set an initial value for this field. This value is the handle to the credentials.
+     * @param {boolean} entityMatch Controls whether use of nlapiRequestUrlWithCredentials with this credential is restricted to the same entity that originally entered the credential.
+     * @param {string} tab The tab parameter can be used to specify either a tab or a field group (if you have added nlobjFieldGroup objects to your form).
+     */
+    addCredentialField(id: string, label: string, website?: string, scriptId?: string, value?: string, entitiyMatch?: boolean, tab?: string): NLObjField;
+    /**
+     * Add a field (nlobjField) to this form and return it.
+     *
+     * @param {string} name field name
+     * @param {string} type field type
+     * @param {string} label field label
+     * @param {string|number} source Script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
+     * @param {string} tab Tab name that this field will live on. If empty then the field is added to the main section of the form (immediately below the title bar).
+     */
+    addField(name: string, type: string, label: string, sourceOrRadio?: string|number, tab?: string): NLObjField;
+    /**
+     * Add a field group to the form.
+     * @param {string} name field group name
+     * @param {string} label field group label
+     * @param {string} tab
+     */
+    addFieldGroup(name: string, label: string, tab?: string): NLObjFieldGroup;
+    /**
+     * Add a navigation cross-link to the page.
+     *
+     * @param {string} type	page link type: crosslink|breadcrumb
+     * @param {string} title page link title
+     * @param {string} url URL for page link
+     */
+    addPageLink(type: string, title: string, url: string): void;
+    /**
+     * Add a reset button to this form.
+     *
+     * @param {string} label Label for this button. defaults to "Reset".
+     */
+    addResetButton(label?: string): NLObjButton;
+    /**
+     * Add a sublist (nlobjSubList) to this form and return it.
+     *
+     * @param {string} name sublist name
+     * @param {string} type sublist type: inlineeditor|editor|list|staticlist
+     * @param {string} label sublist label
+     * @param {string} tab parent tab that this sublist lives on. If empty, it is added to the main tab
+     */
+    addSubList(name: string, type: string, label: string, tab?: string): NLObjSubList;
+    /**
+     * Add a submit button to this form.
+     *
+     * @param {string} label Label for this submit button. Defaults to "Save".
+     */
+    addSubmitButton(label?: string): NLObjButton;
+    /**
+     * Add a subtab (nlobjTab) to this form and return it.
+     *
+     * @param {string} name subtab name
+     * @param {string} label subtab label
+     * @param {string} tab parent tab that this subtab lives on. If empty, it is added to the main tab.
+     */
+    addSubTab(name: string, label: string, tab?: string): NLObjTab;
+    /**
+     * Add a tab (nlobjTab) to this form and return it.
+     *
+     * @param {string} name tab name
+     * @param {string} label tab label
+     */
+    addTab(name: string, label: string): NLObjTab;
+    /**
+     * Get a button from this form by name.
+     * @param {string} name Button Id.
+     */
+    getButton(name: string): NLObjButton;
+    /**
+     * Return a field (nlobjField) on this form.
+     *
+     * @param {string} name field name
+     * @param {string} radio If this is a radio field, specify which radio field to return based on radio value.
+     */
+    getField(name: string, radio?: string): NLObjField;
+    /**
+     * Return a sublist (nlobjSubList) on this form.
+     *
+     * @param {string} name sublist name
+     */
+    getSubList(name: string): NLObjSubList;
+    /**
+     * Return a subtab (nlobjTab) on this form.
+     *
+     * @param {string} name subtab name
+     */
+    getSubTab(name: string): NLObjTab;
+    /**
+     * Return a tab (nlobjTab) on this form.
+     *
+     * @param {string} name Tab name.
+     */
+    getTab(name: string): NLObjTab;
+    /**
+     * Get a list of all tabs.
+     */
+    getTabs(): string[];
+    /**
+     * Insert a field (nlobjField) before another field (name).
+     *
+     * @param {NLObjField} field The field object to insert.
+     * @param {string} nextfld The name of the field before which to insert this field.
+     */
+    insertField(field: NLObjField, nextfld: string): NLObjField;
+    /**
+     * Insert a sublist (nlobjSubList) before another subtab or sublist (name).
+     *
+     * @param {NLObjSubList} sublist The sublist object to insert.
+     * @param {string} nextsublist The name of the sublist before which to insert this sublist.
+     */
+    insertSubList(sublist: NLObjSubList, nextsublist: string): NLObjSubList;
+    /**
+     * Insert a subtab (nlobjTab) before another subtab or sublist (name).
+     *
+     * @param {NLObjTab} subtab The subtab object to insert.
+     * @param {string} nextsubtab The name of the subtab before which to insert this subtab.
+     */
+    insertSubTab(subtab: NLObjTab, nextsubtab: string): NLObjTab;
+    /**
+     * Insert a tab (nlobjTab) before another tab (name).
+     *
+     * @param {nlobjTab} tab the tab object to insert
+     * @param {string} nexttab the name of the tab before which to insert this tab
+     */
+    insertTab(tab: NLObjTab, nexttab: string): NLObjTab;
+    /**
+     * Removes an nlobjButton object. This method can be used on custom buttons and certain built-in NetSuite buttons.
+     * @param {string} name
+     */
+    removeButton(name: string): void;
+    /**
+     * Set the values for all the fields on this form.
+     *
+     * @param {Object} values Object containing field name/value pairs
+     */
+    setFieldValues(values: Object): void;
+    /**
+     * Set the Client Script definition used for this page.
+     *
+     * @param {string|number} script Script ID or internal ID for global client script used to enable Client SuiteScript on page
+     */
+    setScript(script: string|number): void;
+    /**
+     * Set the page title.
+     *
+     * @param {string} title
+     */
+    setTitle(title: string): void;
 }
 
-export interface NLObjJobManager {
+interface NLObjFuture {
+    cancel(): boolean;
+    getId(): string;
+    isCancelled(): boolean;
+    isDone(): boolean;
+}
+
+interface NLObjJobManager {
+    createJobRequest(): NLObjJobRequest;
+    getFuture(): NLObjFuture;
+    submit(request: NLObjJobRequest): string;
+}
+
+interface NLObjJobRequest {
 
 }
 
-export interface NLObjList {
-  
+interface NLObjList {
+    /**
+     * Add a column (nlobjColumn) to this list and return it.
+     *
+     * @param {string} name column name
+     * @param {string} type column type
+     * @param {string} label column label
+     * @param {string} align column alignment
+     */
+    addColumn(name: string, type: string, label: string, align?: string): NLObjColumn;
+    /**
+     * Add an Edit column (nlobjColumn) to the left of the column specified.
+     *
+     * @param {NLObjColumn} column
+     * @param {boolean} showView should Edit|View instead of Edit link
+     * @param {string} showHref column that evaluates to T or F that determines whether to disable the edit|view link per-row.
+     */
+    addEditColumn(column: NLObjColumn, showView: boolean, showHref?: string): NLObjColumn;
+    /**
+     * Add a navigation cross-link to the page.
+     *
+     * @param {string} type	page link type: crosslink|breadcrumb
+     * @param {string} title page link title
+     * @param {string} url URL for page link
+     */
+    addPageLink(type: string, title: string, url: string): void;
+    /**
+     * Add a row (Array of name-value pairs or nlobjSearchResult) to this portlet.
+     *
+     * @param {string[]|nlobjSearchResult} row data used to add a single row
+     */
+    addRow(row: string[], NLObjSearchResult): void;
+    /**
+     * Add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this portlet.
+     *
+     * @param {string[][]|nlobjSearchResult[]} rows data used to add multiple rows
+     */
+    addRows(rows: string[][]|NLObjSearchResult[]): void;
+    /**
+     * Set the Client SuiteScript used for this page.
+     *
+     * @param {string|number} script script ID or internal ID for global client script used to enable Client SuiteScript on page
+     */
+    setScript(script: string|number): void;
+    /**
+     * Set the global style for this list: grid|report|plain|normal.
+     *
+     * @param {string} style overall style used to render list
+     */
+    setStyle(style: string): void;
+    /**
+     * Set the page title.
+     *
+     * @param {string} title
+     */
+    setTitle(title: string): void;
 }
 
-export interface NLObjLogin {
-
+interface NLObjLogin {
+    /**
+     * @param {string} currentPassword
+     * @param {string} newEmail new Email
+     * @param {boolean} justThisAccount indicates whether to apply email change only to roles within this account or apply email change to its all NetSuite accounts and roles
+     */
+    changeEmail(currentPassword: string, newEmail: string, justThisAccount: boolean): void;
+    /**
+     * @param {string} currentPassword
+     * @param {string} newPassword New Password.
+     */
+    changePassword(currentPassword: string, newPassword: string): void;
 }
 
-export interface NLObjPortlet {
-  
+interface NLObjMergeResult {
+    /**
+     * Use this method to get the body of the email distribution in string format.
+     */
+    getBody(): string;
+    
+    /**
+     * Use this method to get the subject of the email distribution in string format.
+     */
+    getSubject(): string;
 }
 
-export interface NLObjRecord {
+interface NLObjPivotColumn {
+    /**
+     * Get the column alias.
+     */
+    getAlias(): string;
+    /**
+     * Get the column hierarchy.
+     */
+    getColumnHierarchy(): NLObjPivotColumn;
+    /**
+     * Get dependency for specified alias.
+     */
+    getDependency(alias: string): Object;
+    /**
+     * Get the column label.
+     */
+    getLabel(): string;
+    /**
+     * Get the summary line.
+     */
+    getSummaryLine(): NLObjPivotColumn;
+}
+
+interface NLObjPivotRow {
+    /**
+     * Get the row alias.
+     */
+    getAlias(): string;
+    /**
+     * Get the children rows if there are any.
+     */
+    getChildren(): NLObjPivotRow[];
+    /**
+     * Get the opening line.
+     */
+    getOpeningLine(): NLObjPivotRow;
+    /**
+     * Get the parent row.
+     */
+    getParent(): NLObjPivotRow;
+    /**
+     * Get the summary line from the report.
+     */
+    getSummaryLine(): NLObjPivotRow;
+}
+
+interface NLObjPivotTable {
+    /**
+     * Get the parent column.
+     */
+    getParent(): NLObjPivotColumn;
+    /**
+     * Get the row hierarchy.
+     */
+    getRowHierarchy(): NLObjPivotRow;
+}
+
+interface NLObjPivotTableHandle {
+    /**
+     * Get the pivot table object from the report definition.
+     */
+    getPivotTable(): NLObjPivotTable;
+    /**
+     * Returns the completion status flag of the report definition execution.
+     */
+    isReady(): boolean;
+}
+
+interface NLObjPortlet {
+    /**
+     * Add a column (nlobjColumn) to this LIST portlet and return it.
+     *
+     * @param {string} name	column name
+     * @param {string} type column type
+     * @param {string} label column label
+     * @param {string} align column alignment
+     */
+    addColumn(name: string, type: string, label: string, align?: string): void;
+    /**
+     * Add an Edit column (nlobjColumn) to the left of the column specified (supported on LIST portlets only).
+     *
+     * @param {nlobjColumn} column
+     * @param {boolean} showView should Edit|View instead of Edit link
+     * @param {string} showHref column that evaluates to T or F that determines whether to disable the edit|view link per-row.
+     */
+    addEditColumn(column: NLObjColumn, showView: boolean, showHref?: string): NLObjColumn;
+    /**
+     * add a field (nlobjField) to this FORM portlet and return it.
+     *
+     * @param {string} name field name
+     * @param {string} type field type
+     * @param {string} label field label
+     * @param {string|number} source Script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
+     */
+    addField(name: string, type: string, label?: string, source?: string|number): NLObjField;
+    /**
+     * Add a line (containing text or simple HTML) with optional indenting and URL to this LINKS portlet.
+     *
+     * @param {string} text data to output to line
+     * @param {string} url URL if this line should be clickable (if NULL then line will not be clickable)
+     * @param {number} indent Number of indents to insert before text
+     */
+    addLine(text: string, url?: string, indent?: number): void;
+    /**
+     * Add a row (nlobjSearchResult or Array of name-value pairs) to this LIST portlet.
+     *
+     * @param {string[]|nlobjSearchResult} row
+     */
+    addRow(row: string[]|NLObjSearchResult): void;
+    /**
+     * Add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this LIST portlet.
+     *
+     * @param {string[][]|NLObjSearchResult[]} rows
+     */
+    addRows(rows: string[][]|NLObjSearchResult[]): void;
+    /**
+     * Set the entire contents of the HTML portlet (will be placed inside a <TD>...</TD>).
+     *
+     * @param {string} html
+     */
+    setHtml(html: string): void;
+    /**
+     * Sets the regular interval when a FORM portlet automatically refreshes itself.
+     *
+     * @restriction This API is only available if the portlet type is FORM.
+     *
+     * @param {number} n Number of seconds. In production mode, this value must be at least 60 seconds. An error is raised if this value is less than zero, and in production if it is less than 60.
+     */
+    setRefreshInterval(n: number): void;
+    /**
+     * Sets the client-side script for a FORM portlet. Setting another script implicitly removes the previous script.
+     *
+     * @param {number|string} scriptid The script internalId or custom scriptId of a record-level client script.
+     */
+    setScript(scriptid: number|string): void;
+    /**
+     * Add a FORM submit button to this FORM portlet.
+     *
+     * @param {string} urlURL that this form portlet will POST to
+     * @param {string} label label for submit button (defaults to Save)
+     * @param {string} target The target attribute of the portlet's FORM element
+     */
+    setSubmitButton(url: string, label?: string, target?: string): void;
+    /**
+     * Set the portlet title.
+     *
+     * @param {string} title
+     */
+    setTitle(title: string): void;
+}
+
+interface NLObjRecord {
     /**
      * Commit the current line in a sublist.
      *
@@ -813,22 +1640,166 @@ export interface NLObjRecord {
     viewSubrecord(fldname: string): NLObjSubrecord;
 }
 
-export interface NLObjReportDefinition {
-    
+interface NLObjReportColumn {
+    /**
+     * Get the formula for this column.
+     */
+    getFormula(): string;
+    /**
+     * Get the parent reference of this column.
+     */
+    getParent(): NLObjReportColumnHierarchy;
+    /**
+     * Returns the measure flag.
+     */
+    isMeaure(): boolean;
 }
 
-export interface NLObjReportForm {
-    
+interface NLObjReportColumnHierarchy {
+    /**
+    * Get the children reference of this column hierarchy.
+    */
+    getChildren(): NLObjReportColumnHierarchy;
+    /**
+     * Get the parent reference of this column hierarchy.
+     */
+    getParent(): NLObjReportColumnHierarchy;
 }
 
-export interface NLObjRequest {
-  
+interface NLObjReportDefinition {
+    /**
+    * Add a column to the report definition.
+    * @param {string} alias The column alias.
+    * @param {boolean} isMeasure A value of true means that the column is flagged as a measure.
+    * @param {string} label The column label that will be displayed on the report.
+    * @param {NLObjReportColumnHierarchy} parent The reference to the parent column in the hierarchy. If null, then this column will not be associated with a parent column.
+    * @param {string} format The data type that this column represents
+    * @param {string} formula A string which describes a mathematical formula in the format of 'F(x,y,z) = mathematical function', where x,y,z are previously defined aliases from addRowHierarchy, addColumnHierarchy, or addColumn calls.
+    */
+    addColumn(alias: string, isMeasure: boolean, label: string, parent?: NLObjReportColumnHierarchy, format?: string, formula?: string): NLObjReportColumn;
+    /**
+    * Add a column hierarchy to the report definition.
+    *
+    * @param {string} alias The column alias.
+    * @param {string} label The column label that will be displayed on the report.
+    * @param {NLObjReportColumnHierarchy}  parent The reference of the parent column in the hierarchy. If null, then this column will be the root (top level) column.
+    * @param {string} format The data type that this column represents
+    *
+    * return {nlobjReportColumnHierarchy}
+    *
+    * @since 2012.2
+    */
+    addColumnHierarchy(alias: string, label: string, parent?: NLObjReportColumnHierarchy, format?: string): NLObjReportColumnHierarchy;
+    /**
+    * Add a row hierarchy to the report definition.
+    *
+    * @param {string} alias The row alias.
+    * @param {string} label The row label that will be displayed on the report.
+    * @param {string} format The data type that this row represents.
+    */
+    addRowHierarchy(alias: string, label: string, format: string): NLObjReportRowHierarchy;
+    /**
+    * Attaches a search as a data source to the report definition.
+    *
+    * @param {string} searchType The type of records to search.
+    * @param {string} id The internal id if you are using a saved search as a data source.
+    * @param {NLObjSearchFilter[]} filters The array of search filters.
+    * @param {NLObjSearchColumn[]} columns The array of search columns.
+    * @param {string} map The mapping of rows/columns of the search to the report.
+    */
+    addSearchDatasource(searchType: string, id?: string, filters?: NLObjSearchFilter[], columns?: NLObjSearchColumn[], map?: string): void;
+    /**
+    * Creates the form for rendering from the report definition.
+    *
+    * @param {NLObjReportForm} form The form object created with nlapiCreateReportForm.
+    */
+    executeReport(form: NLObjReportForm): NLObjPivotTableHandle;
+    /**
+    * Sets the title of the report definition.
+    *
+    * @param {string} title The name of the report definition.
+    */
+    setTitle(title?: string): NLObjPivotTableHandle;
+}
+
+interface NLObjReportRowHierarchy {
+    /**
+    * Get the children reference of this column hierarchy.
+    */
+    getChildren(): NLObjReportRowHierarchy;
+    /**
+     * Get the parent reference of this column hierarchy.
+     */
+    getParent(): NLObjReportRowHierarchy;
+}
+
+interface NLObjReportForm { }
+
+interface NLObjRequest {
+    /**
+     * Return an Object containing field names to file objects for all uploaded files.
+     */
+    getAllFiles(): Object;
+    /**
+     * Return an Object containing all the request headers and their values.
+     */
+    getAllHeaders(): Object;
+    /**
+     * Return an Object containing all the request parameters and their values.
+     */
+    getAllParameters(): Object;
+    /**
+     * Return the body of the POST request.
+     */
+    getBody(): string;
+    /**
+     * Return the value of an uploaded file.
+     * @param {string} id file field name
+     */
+    getFile(id: string): NLObjFile;
+    /**
+     * Return the value of a request header.
+     * @param {string} name
+     */
+    getHeader(name: string): string;
+    /**
+     * Return the number of lines in a sublist.
+     * @param {string} group sublist name
+     */
+    getLineItemCount(group: string): number;
+    /**
+     * Return the value of a sublist value.
+     * @param {string} 	group sublist name
+     * @param {string} 	name  sublist field name
+     * @param {number} 	line  sublist line number
+     */
+    getLineItemValue(group: string, name: string, line: number): string;
+    /**
+     * Return the METHOD of the request
+     */
+    getMethod(): string;
+    /**
+     * Return the value of a request parameter.
+     *
+     * @param {string} name parameter name
+     */
+    getParameter(name: string): string;
+    /**
+     * Return the values of a request parameter as an Array.
+     *
+     * @param {string} name parameter name
+     */
+    getParameterValues(name: string): string[];
+    /**
+     * Return the URL of the request
+     */
+    getURL(): string;
 }
 
 /**
  * Accessor to Http response made available to Suitelets.
  */
-export interface NLObjResponse {
+interface NLObjResponse {
     /**
      * Add a value for a response header.
      * @param  {string} name of header
@@ -841,6 +1812,18 @@ export interface NLObjResponse {
      */
     getAllHeaders(): Object;
     /**
+     * Returns the body returned by the server. Only available in the return value of a call to nlapiRequestURL(url, postdata, headers, callback, httpMethod).
+     */
+    getBody(): string;
+    /**
+     * Returns the response code returned by the server. Only available in the return value of a call to nlapiRequestURL(url, postdata, headers, callback, httpMethod).
+     */
+    getCode(): string;
+    /**
+     * Returns the nlobjError thrown during request. Only available in the return value of call to nlapiRequestURL in Client SuiteScript.
+     */
+    getError(): NLObjError;
+    /**
      * Return the value of a response header.
      * @param  {string} name of header
      */
@@ -850,6 +1833,11 @@ export interface NLObjResponse {
      * @param  {string} name of header
      */
     getHeaders(name: string): string[];
+    /**
+     * Generates, and renders, a PDF directly to a response. Use renderPDF to generate PDFs without first importing a file to the file cabinet. This method is useful if your script does not have NetSuite file cabinet permissions.
+     * @param {string} xmlString Content of your PDF, passed to renderPDF as a string.
+     */
+    renderPDF(xmlString: string): void;
     /**
      * Sets the redirect URL for the response. All URLs must be internal unless the Suitelet is being executed in an "Available without Login" context
      * at which point it can use type "external" to specify an external url via the subtype arg.
@@ -870,14 +1858,42 @@ export interface NLObjResponse {
      */
     setContentType(type: string, filename: string, disposition: string): void;
     /**
+     * Sets the character encoding for the response.
+     * @param {String} encoding
+     */
+    setEncoding(encoding: string): void;
+    /**
      * Set the value of a response header.
      * @param  {string} name of header
      * @param  {string} value for header
      */
     setHeader(name: string, value: string): void;
+    /**
+     * Sets CDN caching for a shorter period of time or a longer period of time.
+     * @param {string} type Constant value to represent the caching duration: CACHE_DURATION_UNIQUE, CACHE_DURATION_SHORT, CACHE_DURATION_MEDIUM, CACHE_DURATION_LONG
+     */
+    setCDNCacheable(type: string): void;
+    /**
+     * Write information (text/xml/html) to the response.
+     *
+     * @param {string} output
+     */
+    write(output: string): void;
+    /**
+     * Write line information (text/xml/html) to the response.
+     *
+     * @param {string} output
+     */
+    writeLine(output: string): void;
+    /**
+     * Write a UI object page.
+     *
+     * @param {Object} pageobject Page UI object: nlobjList|nlobjAssistant|nlobjForm|nlobjDashboard
+     */
+    writePage(pageobject: Object): void;
 }
 
-export interface NLObjSearch {
+interface NLObjSearch {
     /**
      * Adds a single return column to the search. Note that existing columns on the search are not changed.
      *
@@ -986,7 +2002,7 @@ export interface NLObjSearch {
  * @param {string} summary
  */
 declare function nlobjSearchColumn(name: string, join: string, summary: string): NLObjSearchColumn;
-export interface NLObjSearchColumn {
+interface NLObjSearchColumn {
     /**
      * Return formula for this search column.
      */
@@ -1060,7 +2076,7 @@ export interface NLObjSearchColumn {
  * @param {string} value2
  */
 declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2: string): NLObjSearchFilter;
-export interface NLObjSearchFilter {
+interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
      */
@@ -1095,7 +2111,7 @@ export interface NLObjSearchFilter {
     setSummaryType(type: string): NLObjSearchFilter;
 }
 
-export interface NLObjSearchResult {
+interface NLObjSearchResult {
     /**
      * Return an array of all nlobjSearchColumn objects returned in this search.
      */
@@ -1134,7 +2150,7 @@ export interface NLObjSearchResult {
     getText(name: string, join?: string, summary?: string): string;
 }
 
-export interface NLObjSearchResultSet {
+interface NLObjSearchResultSet {
     /**
      * Calls the developer-defined callback function for every result in this set.
      *
@@ -1154,14 +2170,21 @@ export interface NLObjSearchResultSet {
     getResults(start: number, end: number): NLObjSearchResult[];
 }
 
-export interface NLObjSelectOption {
-  
+interface NLObjSelectOption {
+    /**
+     * Return internal ID for select option
+     */
+    getId(): string;
+    /**
+     * Return display value for select option.
+     */
+    getText(): string;
 }
 
 /**
  * Contains the results of a server response to an outbound Http(s) call.
  */
-export interface NLObjServerResponse {
+interface NLObjServerResponse {
     /**
      * Return an Array of all headers returned.
      */
@@ -1194,11 +2217,92 @@ export interface NLObjServerResponse {
     getHeaders(name: string): string[];
 }
 
-export interface NLObjSubList {
-  
+interface NLObjSubList {
+    /**
+     * Add a button to this sublist.
+     *
+     * @param {string} name button name
+     * @param {string} label button label
+     * @param {string} script button script (function name)
+     */
+    addButton(name: string, label: string, script: string): NLObjButton;
+    /**
+     * Add a field (column) to this sublist.
+     *
+     * @param {string} name Field name
+     * @param {string} type Field type
+     * @param {string} label Field label
+     * @param {string|number} source Script ID or internal ID for source list used for this select field
+     */
+    addField(name: string, type: string, label: string, source?: string|number): NLObjField;
+    /**
+     * Add "Mark All" and "Unmark All" buttons to this sublist of type "list".
+     */
+    addMarkAllButtons(): void;
+    /**
+     * Add "Refresh" button to sublists of type "staticlist" to support manual refreshing of the sublist (without entire page reloads) if it's contents are very volatile
+     */
+    addRefreshButton(): NLObjButton;
+    /**
+     * Return the number of lines in a sublist.
+     *
+     * @param {string} group sublist name
+     */
+    getLineItemCount(group: string): number;
+    /**
+     * Returns string value of a sublist field. Note that you cannot set default line item values when the line is not in edit mode.
+     *
+     * @param {string} group The sublist internal id
+     * @param {string} fldnam The internal ID of the field (line item) whose value is being returned
+     * @param {number} linenum The line number for this field. Note the first line number on a sublist is 1 (not 0).
+     */
+    getLineItemValue(group: string, fldnam: string, linenum: number): string;
+    /**
+     * Designates a particular column as the totalling column, which is used to calculate and display a running total for the sublist
+     *
+     * @param {string} field The internal ID name of the field on this sublist used to calculate running total
+     */
+    setAmountField(field: string): void;
+    /**
+     * Set the displaytype for this sublist: hidden|normal. This method is only supported on scripted or staticlist sublists via the UI Object API.
+     *
+     * @param {string} type
+     */
+    setDisplayType(type: string): void;
+    /**
+     * Set helper text for this sublist. This method is only supported on sublists via the UI Object API.
+     *
+     * @param {string} help
+     */
+    setHelpText(help: string): void;
+    /**
+     * Set the label for this sublist. This method is only supported on sublists via the UI Object API.
+     *
+     * @param {string} label
+     */
+    setLabel(label: string): void;
+    /**
+     * Set the value of a cell in this sublist.
+     *
+     * @param {string} 	field sublist field name
+     * @param {number} 	line  line number (1-based)
+     * @param {string} 	value sublist value
+     */
+    setLineItemValue(field: string, line: number, value: string): void;
+    /**
+     * Set values for multiple lines (Array of nlobjSearchResults or name-value pair Arrays) in this sublist. Note that this method is only supported on scripted sublists via the UI Object API.
+     *
+     * @param {string[][]|nlobjSearchResult[]} values
+     */
+    setLineItemValues(values: string[][]|NLObjSearchResult[]): void;
+    /**
+     * Designate a field on sublist that must be unique across all lines (only supported on sublists of type inlineeditor, editor).
+     * @param {string} fldnam the name of a field on this sublist whose value must be unique across all lines
+     */
+    setUniqueField(fldnam: string): NLObjField;
 }
 
-export interface NLObjSubrecord {
+interface NLObjSubrecord {
     /**
      * Commit the subrecord after you finish modifying it.
      */
@@ -1209,11 +2313,22 @@ export interface NLObjSubrecord {
     cancel(): void;
 }
 
-export interface NLObjTab {
-  
+interface NLObjTab {
+    /**
+     * Set helper text for this tab or subtab.
+     *
+     * @param {string} help Inline help text used for this tab or subtab.
+     */
+    setHelpText(help: string): NLObjTab;
+    /**
+     * Set the label for this tab or subtab.
+     *
+     * @param {string} label String used as label for this tab or subtab.
+     */
+    setLabel(label: string): NLObjTab;
 }
 
-export interface NLObjTemplateRenderer {
+interface NLObjTemplateRenderer {
     /**
      * Binds nlobjRecord object to variable name used in template.
      * @param  {string} variable variable name that represents record
@@ -1276,7 +2391,7 @@ export interface NLObjTemplateRenderer {
     setTransaction(transactionId: number): void;
 }
 
-export interface Window {
+interface Window {
     /**
      * Gets the value of a URL parameter (undocumented NetSuite method).
      * @param {string} parameter The URL parameter to get the value of.
