@@ -84,6 +84,13 @@ interface AddSublistOptions {
     type: SublistType;
 }
 
+interface AddSubmitButtonOptions {
+    /**
+     * The label for this button. If no label is provided, the label defaults to “Save”.
+     */
+    label?: string;
+}
+
 interface AddSubtabOptions {
     id: string;
     label: string;
@@ -287,7 +294,7 @@ export interface Form extends BaseForm {
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options: AddResetButtonOptions): Button;
     addSublist(options: AddSublistOptions): Sublist;
-    addSubmitButton(label: string): void;
+    addSubmitButton(options?: AddSubmitButtonOptions): void;
     addSubtab(options: AddSubtabOptions): Tab;
     addTab(options: AddFieldGroupOptions): Tab;
     getButton(options: IDOptions): Button;
