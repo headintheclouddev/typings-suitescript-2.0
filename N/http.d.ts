@@ -214,10 +214,6 @@ interface HttpRequestFunction {
  */
 export interface ClientResponse {
     /**
-     * Not Documented. (6/8/2016)
-     */
-    toString(): string;
-    /**
      * The client response body.
      */
     body: string;
@@ -226,21 +222,9 @@ export interface ClientResponse {
      */
     code: number;
     /**
-     * The client response headers. Object key/values not yet documented.
+     * The response header or headers.
      */
     headers: Object;
-    /**
-     * Not Documented. (6/8/2016)
-     */
-    method: string;
-    /**
-     * Not Documented. (6/8/2016)
-     */
-    parameters: Object;
-    /**
-     * Not Documented. (6/8/2016)
-     */
-    url: string;
 }
 
 interface GetSublistValueOptions {
@@ -262,19 +246,15 @@ export interface ServerRequest {
      */
     getSublistValue(options: GetSublistValueOptions): string;
     /**
-     * Not Documented.
-     */
-    toString(): string;
-    /**
      * The server request body.
      */
     body: string;
     /**
-     * The server request files. Object key/values not yet documented.
+     * The server request files.
      */
     files: Object;
     /**
-     * The server request headers. Object key/values not yet documented.
+     * The server request headers.
      */
     headers: Object;
     /**
@@ -282,7 +262,7 @@ export interface ServerRequest {
      */
     method: string;
     /**
-     * The server request parameters. Object key/values not yet documented.
+     * The server request parameters.
      */
     parameters: Object;
     /**
