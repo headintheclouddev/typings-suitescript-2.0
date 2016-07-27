@@ -3,16 +3,55 @@
 import {File} from './file';
 
 interface SendOptions {
+    /**
+     * Internal ID of the email sender.
+     */
     author: number;
-    recipients: number[] | string[];
+    /**
+     * The internal ID or email address of the recipient.
+     * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
+     * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
+     * Note: Only the first recipient displays on the Communication tab (under the Recipient column).
+     */
+    recipients: number[]|string[];
+    /**
+     * The email address that appears in the reply-to header when an email is sent out.
+     */
     replyTo?: string;
-    cc?: string[];
-    bcc?: string[];
+    /**
+     * The internal ID or email address of the secondary recipient to copy.
+     * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
+     * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
+     */
+    cc?: string[]|number[];
+    /**
+     * The internal ID or email address of the secondary recipient to blind copy.
+     * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
+     * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
+     */
+    bcc?: string[]|number[];
+    /**
+     * Subject of the outgoing message
+     */
     subject: string;
+    /**
+     * Contents of the email.
+     */
     body: string;
-    attachments?: File[];
+    /**
+     * The email file attachments.
+     * An individual attachment must not exceed 5MB and the total message size must be 15MB or less.
+     * Note: Supported for server-side scripts only.
+     */
+    attachments?: NSFile[];
+    /**
+     * Object that contains key/value pairs to associate the Message record with related records (including custom records).
+     */
     relatedRecords?: RelatedRecordTypes;
-    isInternalOnly?: boolean;
+    /**
+     * If true, the Message record is not visible to an external Entity (for example, a customer or contact). Default is false.
+     */
+    isInternalOnly?: boolean;   
 }
 
 interface RelatedRecordTypes {
