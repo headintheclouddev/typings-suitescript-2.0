@@ -55,19 +55,43 @@ interface SendOptions {
 }
 
 interface RelatedRecordTypes {
+    /**
+     * The Transaction record(s) attached to the Message record. Use for transaction and opportunity record types.
+     */
     transactionId?: number;
+    /**
+     * The Activity record(s) attached to the Email Message record. Use for Case and Campaign record types.
+     */
     activityId?: number;
+    /**
+     * The Entity record(s) attached to the Email Message record. Use for all Entity record types (for example, customer, contact).
+     */
     entityId?: number;
+    /**
+     * The custom record(s) attached to the Email Message record. For custom records you must specify both the record ID and the record type ID.
+     */
     customRecord?: CustomRecordObject;
 }
 
 interface CustomRecordObject {
+    /**
+     * The instance ID for the custom record attached to the Email Message record.
+     */
     id: number;
+    /**
+     * The custom record type attached to the Message record.
+     */
     recordType: string;
 }
 
 interface SendCampaignOptions {
+    /**
+     * The internal ID of the campaign event.
+     */
     campaignEventId: number;
+    /**
+     * The internal ID of the recipient.
+     */
     recipientId: number;
 }
 
