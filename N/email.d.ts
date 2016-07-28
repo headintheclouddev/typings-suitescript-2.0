@@ -43,7 +43,7 @@ interface SendOptions {
      * An individual attachment must not exceed 5MB and the total message size must be 15MB or less.
      * Note: Supported for server-side scripts only.
      */
-    attachments?: NSFile[];
+    attachments?: File[];
     /**
      * Object that contains key/value pairs to associate the Message record with related records (including custom records).
      */
