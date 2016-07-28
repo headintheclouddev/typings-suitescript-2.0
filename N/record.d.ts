@@ -9,13 +9,28 @@ interface RecordSaveFunction {
 }
 
 interface AttachOptions {
+    /**
+     * The record to attach.
+     */
     record: AttachRecordOptions;
+    /**
+     * The record that the options.record gets attached to.
+     */
     to: AttachRecordOptions;
+    /**
+     * The name-value pairs containing attributes for the attachment.
+     */
     attributes?: Object;
 }
 
 interface AttachRecordOptions {
+    /**
+     * The type of record to attach.
+     */
     type: string;
+    /**
+     * The internal ID of the record to attach.
+     */
     id: number | string;
 }
 
@@ -24,9 +39,25 @@ interface CancelCommitLineOptions {
 }
 
 interface CopyLoadOptions {
+    /**
+     * The record type.
+     */
     type: string;
-    id: number | string;
+    /**
+     * The internal ID of the existing record instance in NetSuite.
+     */
+    id: number;
+    /**
+     * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
+     * - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
+     * - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
+     */
     isDynamic?: boolean;
+    /**
+     * Name-value pairs containing default values of fields in the new record.
+     */
     defaultValue?: Object;
 }
 
@@ -240,8 +271,21 @@ interface RecordCopyFunction {
 }
 
 interface RecordCreateOptions {
+    /**
+     * The record type.
+     */
     type: string;
+    /**
+     * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
+     * - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
+     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
+     * - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
+     */
     isDynamic?: boolean;
+    /**
+     * Name-value pairs containing default values of fields in the new record.
+     */
     defaultValue?: Object;
 }
 
@@ -251,7 +295,13 @@ interface RecordCreateFunction {
 }
 
 interface RecordDeleteOptions {
+    /**
+     * The record type.
+     */
     type: string;
+    /**
+     * The internal ID of the record instance to be deleted.
+     */
     id: (string | number);
 }
 
