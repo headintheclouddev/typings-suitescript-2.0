@@ -32,5 +32,11 @@ export interface Portlet extends BaseForm {
     title: string;
 }
 
+/**
+ * Resizes a form portlet immediately.
+ */
 export function resize(): void;
+/**
+ * Refreshes a form portlet immediately.
+ */
 export function refresh(): void;
