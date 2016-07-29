@@ -62,87 +62,145 @@ interface CopyLoadOptions {
 }
 
 interface DetachOptions {
+    /** The record to be detached. */
     record: AttachRecordOptions;
+    /** The destination record that options.record should be detached from. */
     from: AttachRecordOptions;
+    /** Name-value pairs containing default values of fields in the new record. */
     attributes?: Object;
 }
 
 interface FindSublistLineWithValueOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
+    /** The value to search for. */
     value: FieldValue;
 }
 
 interface GetCurrentSublistValueOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
 }
 
 interface GetFieldOptions {
+    /** The internal ID of a standard or custom body field. */
     fieldId: string;
 }
 
 interface RecordGetLineCountOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
 }
 
 interface GetSublistValueOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
+    /** The line number for the field. */
     line: number;
 }
 
 interface InsertLineOptions {
-    sublistId: string,
-    line: number,
-    ignoreRecalc?: boolean // Default is false
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The line number to insert. */
+    line: number;
+    /** If set to true, scripting recalculation is ignored. Default is false. */
+    ignoreRecalc?: boolean;
 }
 
 interface SelectLineOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The line number to select in the sublist. */
     line: number;
 }
 
 interface SetCurrentSublistValueOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
+    /**
+     * The value to set the field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
     value: FieldValue;
+    /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
-    fireSlavingSync?: boolean;
 }
 
 interface SetCurrentSublistTextOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
-    text: number | Date | string | string[];
-    ignoreFieldChange?: boolean; // Default false
+    /** The text to set the value to. */
+    text: string|string[];
+    /** If set to true, the field change and slaving event is ignored. Default is false. */
+    ignoreFieldChange?: boolean;
 }
 
-interface SetFieldOptions {
+interface SetValueOptions {
+    /** The internal ID of a standard or custom body field. */
     fieldId: string;
+    /**
+     * The value to set the field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
     value: FieldValue;
+    /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
-    fireSlavingSync?: boolean;
 }
 
 interface SetFieldTextOptions {
+    /** The internal ID of a standard or custom body field. */
     fieldId: string;
-    text: string;
+    /** The text to change the field value to. */
+    text: string|string[];
+    /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
-    fireSlavingSync?: boolean;
 }
 
 interface SetSublistTextOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
+    /** The line number for the field. */
     line: number;
+    /** The text to set the value to. */
     text: string;
 }
 
 interface SetSublistValueOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
+    /** The internal ID of a standard or custom sublist field. */
     line: number;
+    /** 
+     * The value to set the sublist field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
     value: FieldValue;
 }
 
@@ -221,7 +279,7 @@ export interface ClientCurrentRecord {
     setMatrixSublistValue(options: any): void; // TODO: Document this?
     setText(options: SetFieldTextOptions): void;
     setText(fieldId: string, value: string): void;
-    setValue(options: SetFieldOptions): void;
+    setValue(options: SetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
     type: string;
 }
