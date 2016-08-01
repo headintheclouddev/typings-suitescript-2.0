@@ -35,6 +35,7 @@ interface AttachRecordOptions {
 }
 
 interface CancelCommitLineOptions {
+    /** The internal ID of the sublist. */
     sublistId: string;
 }
 
@@ -205,22 +206,37 @@ interface SetSublistValueOptions {
 }
 
 interface GetSelectOptionsOpts {
-    filter?: string;
-    filteroperator?: Operator;
+    /** The search string to filter the select options that are returned. */
+    filter: string;
+    /** The following operators are supported: contains, is, startswith. Default is contains. */
+    filteroperator: Operator;
 }
 
 export interface Field {
+    /**
+     * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
+     */
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
-    toString(): string;
+    /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
+    /** Returns the internal ID of a standard or custom body or sublist field. */
     id: string;
-    sublistId: string;
+    /** Returns the type of a body or sublist field. */
     type: string;
+    /** Returns true if the standard or custom field is mandatory on the record form, or false otherwise. */
     isMandatory: boolean;
+    /** Returns true if the standard or custom field is disabled on the record form, or false otherwise. */
     isDisabled: boolean;
+    /** Returns true if the field is a popup list field, or false otherwise. */
     isPopup: boolean;
+    /** Returns true if the field is set to display on the record form, or false otherwise. */
     isDisplay: boolean;
+    /** Returns true if the field is visible on the record form, or false otherwise. */
     isVisible: boolean;
+    /**
+     * Returns true if the field on the record form cannot be edited, or false otherwise.
+     * For textarea fields, this property can be read or written to. For all other fields, this property is read-only.
+     */
     isReadOnly: boolean;
 }
 
@@ -230,17 +246,27 @@ type FieldValue = Date | number | string | string[] | boolean;
  * Almost like a full Record, except without things like save().
  */
 export interface ClientCurrentRecord {
-    cancelLine(options: CancelCommitLineOptions): void;
-    cancelLine(sublistId: string): void;
+    /** Cancels the currently selected line on a sublist. */
+    cancelLine(options: CancelCommitLineOptions): Record;
+    cancelLine(sublistId: string): Record;
+    /** Commits the currently selected line on a sublist. */
     commitLine(options: CancelCommitLineOptions): Record;
-    findMatrixSublistLineWithValue(options: any): number; // TODO: Document this?
+    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions): number;
+    /** Returns the line number for the first occurrence of a field value in a sublist. */
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
-    getCurrentMatrixSublistValue(options: any): FieldValue; // TODO: Document this?
+    /** Gets the value for the currently selected line in the matrix. */
+    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions): number|Date|string|string[]|boolean;
+    /** Returns the line number of the currently selected line. */
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
-    getCurrentSublistSubrecord(options: any): Record; // TODO: Document this?
-    getCurrentSublistText(options: GetCurrentSublistValueOptions): string; // TODO: Document this?
+    /** Gets the subrecord for the associated sublist field on the current line. */
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
+    /** Returns a text representation of the field value in the currently selected line. */
+    getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
+    /** Returns the value of a sublist field on the currently selected sublist line. */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
+    /** Returns a field object from a record. */
     getField(options: GetFieldOptions): Field;
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
