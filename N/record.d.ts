@@ -523,7 +523,7 @@ interface RecordTypes {
     MESSAGE: string;
     MULTIBOOK_ACCOUNTING_TRANSACTION: string;
     NEXUS: string;
-    NON_INVENTORY_PART: string;
+    NON_INVENTORY_ITEM: string;
     NOTE: string;
     OPPORTUNITY: string;
     OTHER_CHARGE_ITEM: string;
