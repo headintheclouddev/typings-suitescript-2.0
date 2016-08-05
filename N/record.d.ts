@@ -47,7 +47,7 @@ interface CopyLoadOptions {
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
-    id: number;
+    id: number|string;
     /**
      * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
      * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
@@ -97,6 +97,33 @@ interface RecordGetLineCountOptions {
     sublistId: string;
 }
 
+interface GetMatrixHeaderCountOptions {
+    /** The internal ID of the sublist that contains the matrix. */
+    sublistId: string;
+    /** The intenral ID of the matrix field. */
+    fieldId: string;
+}
+
+interface GetMatrixHeaderFieldOptions {
+    /** The internal ID of the sublist that contains the matrix. */
+    sublistId: string;
+    /** The intenral ID of the matrix field. */
+    fieldId: string;
+    /** The column number for the field. */
+    column: number;
+}
+
+interface GetMatrixSublistFieldOptions {
+    /** The internal ID of the sublist that contains the matrix. */
+    sublistId: string;
+    /** The intenral ID of the matrix field. */
+    fieldId: string;
+    /** The column number for the field. */
+    column: number;
+    /** The line number for the field. */
+    line: number;
+}
+
 interface GetSublistValueOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
@@ -104,6 +131,11 @@ interface GetSublistValueOptions {
     fieldId: string;
     /** The line number for the field. */
     line: number;
+}
+
+interface HasSubrecordOptions {
+    /** The internal ID of the field that may contain a subrecord. */
+    fieldId: string;
 }
 
 interface InsertLineOptions {
@@ -120,6 +152,28 @@ interface SelectLineOptions {
     sublistId: string;
     /** The line number to select in the sublist. */
     line: number;
+}
+
+interface SetCurrentMatrixSublistValueOptions {
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string;
+    /** The column number for the field. */
+    column: number
+    /**
+     * The value to set the field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
+    value: boolean|string|number|Date|string[];
+    /** If set to true, the field change and slaving event is ignored. Default is false. */
+    ignoreFieldChange?: boolean;
+    /** Indicates whether to perform slaving synchronously. */
+    fireSlavingSync?: boolean;
 }
 
 interface SetCurrentSublistValueOptions {
@@ -268,73 +322,129 @@ export interface ClientCurrentRecord {
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
     /** Returns a field object from a record. */
     getField(options: GetFieldOptions): Field;
+    /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
-    getMatrixHeaderCount(options: any): number; // TODO: Document this?
-    getMatrixHeaderField(options: any): Field;  // TODO: Document this?
-    getMatrixHeaderValue(options: any): string; // TODO: Document this?
-    getMatrixSublistField(options: any): Field; // TODO: Document this?
-    getMatrixSublistValue(options: any): FieldValue; // TODO: Document this?
-    getSublist(options: any): Sublist; // TODO: Document this?
+    /** Returns the number of columns for the specified matrix. */
+    getMatrixHeaderCount(options: GetMatrixHeaderCountOptions): number;
+    /** Gets the field for the specified header in the matrix. */
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions): Field;
+    /** Gets the value for the associated header in the matrix. */
+    getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions): FieldValue;
+    /** Gets the field for the specified sublist in the matrix. */
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field;
+    /** Gets the value for the associated field in the matrix. */
+    getMatrixSublistValue(options: GetMatrixSublistFieldOptions): FieldValue;
+    /** Returns the specified sublist. */
+    getSublist(options: RecordGetLineCountOptions): Sublist;
+    /** Returns a field object from a sublist. */
     getSublistField(options: GetSublistValueOptions): Field;
+    /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: GetSublistValueOptions): string;
+    /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
+    /** Gets the subrecord for the associated field. */
     getSubRecord(options: GetFieldOptions): Record;
+    /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     getText(fieldId: string): string | string[];
+    /** Returns the value of a field. */
     getValue(options: GetFieldOptions): FieldValue;
     getValue(fieldId: string): FieldValue;
-    hasCurrentSublistSubrecord(options: any): boolean; // TODO: Document this?
-    hasSublistSubrecord(options: any): boolean; // TODO: Document this?
-    hasSubrecord(options: any): boolean; // TODO: Document this?
+    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
+    /** Returns a value indicating whether the associated sublist field contains a subrecord. */
+    hasSublistSubrecord(options: GetSublistValueOptions): boolean;
+    /** Returns a value indicating whether the field contains a subrecord. */
+    hasSubrecord(options: HasSubrecordOptions): boolean;
+    /** The internal ID of a specific record. */
     id: string;
+    /** Inserts a sublist line. */
     insertLine(options: InsertLineOptions): void;
+    /**
+     * Indicates whether the record is in dynamic or standard mode.
+     * - If set to true, the record is currently in dynamic mode. If set to false, the record is currently in standard mode.
+     *  - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
+     *  - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
+     *  - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
+     *  - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
+     * This value is set when the record is created or accessed.
+     */
     isDynamic: boolean;
+    /** Removes the subrecord for the associated sublist field on the current line. */
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): void;
+    /** Removes a sublist line. */
     removeLine(options: InsertLineOptions): void;
+    /** Removes the subrecord for the associated field. */
     removeSubrecord(options: RecordGetLineCountOptions): void;
+    /** Selects an existing line in a sublist. */
     selectLine(options: SelectLineOptions): void;
     selectLine(sublistId: string, line: number): void;
+    /** Selects a new line at the end of a sublist. */
     selectNewLine(options: RecordGetLineCountOptions): void;
-    setCurrentMatrixSublistValue(options: any): void; // TODO: Document this?
+    /** Sets the value for the line currently selected in the matrix. */
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions): Record;
+    /** Sets the value for the field in the currently selected line by a text representation. */
     setCurrentSublistText(options: SetCurrentSublistTextOptions): void;
+    /** Sets the value for the field in the currently selected line. */
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
     setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): void;
-    setMatrixHeaderValue(options: any): void; // TODO: Document this?
-    setMatrixSublistValue(options: any): void; // TODO: Document this?
+    /** Sets the value for the associated header in the matrix. */
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
+    /** Sets the value for the associated field in the matrix. */
+    setMatrixSublistValue(options: SetSublistValueOptions): Record;
+    /** Sets the value of the field by a text representation. */
     setText(options: SetFieldTextOptions): void;
     setText(fieldId: string, value: string): void;
+    /** Sets the value of a field. */
     setValue(options: SetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
+    /** The record type. */
     type: string;
 }
 
-//Exported for other modules to be able to consume this type
+// Exported for other modules to be able to consume this type
 export interface Record extends ClientCurrentRecord {
+    /** Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields. */
     getFields(): string[];
+    /** Returns all the names of all the sublists. */
+    getSublists(): string[];
+    /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
+    /** Gets the subrecord associated with a sublist field. */
     getSublistSubrecord(options: GetSublistValueOptions): Record;
+    /** Removes the subrecord for the associated sublist field. */
     removeSublistSubrecord(options: GetSublistValueOptions): Record;
+    /** Submits a new record or saves edits to an existing record. */
     save: RecordSaveFunction;
+    /** Sets the value of a sublist field by a text representation. */
     setSublistText(options: SetSublistTextOptions): Record;
+    /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
 }
 
 interface SubmitConfig {
+    /** Enables sourcing during the record update. Defaults to false. */
     enableSourcing?: boolean;
-    disableTriggers?: boolean;
+    /** Disables mandatory field validation for this save operation. */
     ignoreMandatoryFields?: boolean;
 }
 
 interface SubmitFieldsOptions {
+    /** The type of record. */
     type: string;
-    id: string | number;
-    values: {[fieldId:string]: FieldValue};
+    /** The internal ID of the existing record instance in NetSuite. */
+    id: string|number;
+    /** The ID-value pairs for each field you want to edit and submit. */
+    values: Object;
+    /** Indicates whether to enable sourcing during the record update. */
+    enablesourcing?: boolean;
+    /** Additional options to set for the record. */
     options?: SubmitConfig;
-    defaultValues?: Object;
 }
+
 /**
  * The 'value' parameter in this function is an object with matching properties and values.
  * ex.: value: {'name': 'Bob', 'department': '12'}
@@ -410,27 +520,44 @@ interface RecordTransformFunction {
 }
 
 interface RecordTransformOptions {
-    fromType: string; // Documented as just "type" but that's wrong.
-    fromId: number; // Documented as just "id" but that's wrong.
+    /** The record type of the existing record instance being transformed. */
+    fromType: string;
+    /** The internal ID of the existing record instance being transformed. */
+    fromId: number;
+    /** The record type of the record returned when the transformation is complete. */
     toType: string;
+    /** If set to true, the new record is created in dynamic mode. If set to false, the new record is created in standard mode. */
     isDynamic?: boolean;
+    /** Name-value pairs containing default values of fields in the new record. */
     defaultValues?: Object;
 }
 
-/**
- * Attaches a record to another record.
- */
+/** Attaches a record to another record. */
 export var attach: RecordAttachFunction;
+/** Creates a new record by copying an existing record in NetSuite. */
 export var copy: RecordCopyFunction;
-export var create: RecordCreateFunction;
-/**
- * Loads an existing record.
- */
-export var load: RecordLoadFunction;
+/** Creates a new record. */
+export var create: RecordCreateFunction
+/** Deletes a record. */
 declare var deleteFunc: RecordDeleteFunction;
 export {deleteFunc as delete};
+/** Detaches a record from another record. */
 export var detach: RecordDetachFunction;
+/** Loads an existing record. */
+export var load: RecordLoadFunction;
+/**
+ * Updates and submits one or more body fields on an existing record in NetSuite, and returns the internal ID of the parent record.
+ * When you use this method, you do not need to load or submit the parent record.
+ * You can use this method to edit and submit the following:
+ * - Standard body fields that support inline editing (direct list editing). For more information, see Using Inline Editing.
+ * - Custom body fields that support inline editing.
+ * You cannot use this method to edit and submit the following:
+ * - Select fields
+ * - Sublist line item fields
+ * - Subrecord fields (for example, address fields)
+ */
 export var submitFields: SubmitFieldsFunction;
+/** Transforms a record from one type into another, using data from an existing record. */
 export var transform: RecordTransformFunction;
 
 /**
@@ -584,4 +711,5 @@ interface RecordTypes {
     WORK_ORDER_COMPLETION: string;
     WORK_ORDER_ISSUE: string;
 }
+/** Enumeration that holds the string values for supported record types. */
 export var Type: RecordTypes;
