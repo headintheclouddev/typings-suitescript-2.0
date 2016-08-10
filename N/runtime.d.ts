@@ -42,7 +42,7 @@ interface FeatureOptions {
 
 export var accountId: string;
 export var envType: string;
-export var executionContext: string;
+export var executionContext: ContextType;
 export var queueCount: number;
 export var version: string;
 export function getCurrentScript(): Script;
