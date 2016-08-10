@@ -37,7 +37,7 @@ interface FileCreateOptions {
     /**
      * The file type.
      */
-    fileType: string;
+    fileType: FileType;
     /**
      * The file content.
      */
