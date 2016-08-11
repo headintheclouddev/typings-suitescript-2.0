@@ -1,32 +1,42 @@
 import {Operator} from '../search';
 
 interface AddButtonOptions {
+    /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
     id: string;
+    /** The label for this button. */
     label: string;
+    /** The function name to be triggered on a click event. */
     functionName?: string;
 }
 
 interface AddCredentialFieldOptions {
+    /** The internal ID of the credential field. The internal ID must be in lowercase, contain no spaces, and include the prefix custpage if you are adding the field to an existing page. */
     id: string;
+    /** The label for the credential field. */
     label: string;
+    /**
+     * Controls whether use of this credential is restricted to the same user that originally entered the credential.
+     * - By default, the value is false – multiple users can use the credential. For example, multiple clerks at a store making secure calls to a credit processor using a credential that represents the company they work for.
+     * - If set to true, the credentials apply to a single user.
+     */
     restrictToCurrentUser?: boolean;
+    /**
+     * The domain that the credentials can be sent to, such as 'www.mysite.com'. Credentials cannot be sent to a domain that is not specified here.
+     * This value can be a domain or a list of domains to which the credentials can be sent.
+     */
     restrictToDomains?: string | string[];
-    restrictToScriptId?: string;
-    tab?: string;
+    /** The ID of the script that is allowed to use this credential field. For example, 'customscript_my_script'. */
+    restrictToScriptIds?: string | string[];
+    /** The internal ID of the tab or field group to add the credential field to. By default, the field is added to the main section of the form. */
+    container?: string;
 }
 
 interface AddFieldGroupOptions {
-    /**
-     * An internal ID for the field group.
-     */
+    /** An internal ID for the field group. */
     id: string;
-    /**
-     * The label for this field group.
-     */
+    /** The label for this field group. */
     label: string;
-    /**
-     * The internal ID of the tab to add the field group to. By default, the field group is added to the main section of the form.
-     */
+    /** The internal ID of the tab to add the field group to. By default, the field group is added to the main section of the form. */
     tab?: string;
 }
 
@@ -40,13 +50,9 @@ interface AddFieldOptions {
      * custpage_purchase_details.
      */
     id: string;
-    /**
-     * The label for this field.
-     */
+    /** The label for this field. */
     label: string;
-    /**
-     * The field type for the field. Use the serverWidget.FieldType enum to define the field type.
-     */
+    /** The field type for the field. Use the serverWidget.FieldType enum to define the field type. */
     type: FieldType;
     /**
      * The internalId or scriptId of the source list for this field if it is a select (List/Record) or multi-select field.
@@ -62,12 +68,16 @@ interface AddFieldOptions {
 }
 
 interface AddPageLinkOptions {
+    /** The text label for the link. */
     title: string;
+    /** The type of page link to add. Use the serverWidget.FormPageLinkType enum to set the value. */
     type: FormPageLinkType;
+    /** The URL for the link. */
     url: string;
 }
 
 interface AddResetButtonOptions {
+    /** The label used for this button. If no label is provided, the label defaults to Reset. */
     label: string;
 }
 
@@ -78,33 +88,32 @@ interface AddSelectOptionOptions {
 }
 
 interface AddSublistOptions {
+    /** The internal ID name of the sublist. */
     id: string;
+    /** The label for this sublist. */
     label: string;
+    /** The tab under which to display this sublist. If empty, the sublist is added to the main tab. */
     tab?: string;
+    /** The sublist type. Use the serverWidget.SublistType enum to set the value. */
     type: SublistType;
 }
 
 interface AddSubmitButtonOptions {
-    /**
-     * The label for this button. If no label is provided, the label defaults to “Save”.
-     */
+    /** The label for this button. If no label is provided, the label defaults to “Save”. */
     label?: string;
 }
 
 interface AddSubtabOptions {
+    /** The internal ID name of the subtab. */
     id: string;
+    /** The label for this subtab. */
     label: string;
+    /** The tab under which to display this sublist. If empty, the sublist is added to the main tab. */
     tab?: string;
 }
-/*
- interface ClientScriptOptions {
-    script: string; // The scriptId or internal ID
-}
-*/
+
 interface CreateAssistantOptions {
-    /**
-     * The title of the form.
-     */
+    /** The title of the form. */
     title: string;
     /**
      * Indicates whether to hide the navigation bar menu.
@@ -115,13 +124,14 @@ interface CreateAssistantOptions {
 }
 
 interface IDOptions {
+    /** The internal ID name of the field. */
     id: string;
 }
 
-interface GetFieldOptions {
-    id: string;
-    radio?: string;
-}
+// interface GetFieldOptions {
+//     id: string;
+//     radio?: string;
+// }
 
 interface GetSelectOptionsOpts {
     filter?: string;
@@ -298,7 +308,7 @@ export interface Form extends BaseForm {
     addSubtab(options: AddSubtabOptions): Tab;
     addTab(options: AddFieldGroupOptions): Tab;
     getButton(options: IDOptions): Button;
-    getField(options: GetFieldOptions): Field;
+    getField(options: IDOptions): Field;
     getSublist(options: IDOptions): Sublist;
     getSubtab(options: IDOptions): Tab;
     getTabs(): Tab[];
