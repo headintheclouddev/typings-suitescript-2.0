@@ -1,26 +1,43 @@
 /// <reference path="typings/index.d.ts" />
 
+/** Encapsulates a search filter used in a search. Use the properties for the Filter object to get and set the filter properties. */
 export interface Filter {
+    /** Name or internal ID of the search field as a string. */
     name: string;
+    /** Join ID for the search filter as a string. */
     join: string;
+    /** Operator used for the search filter. See search.Operator. */
     operator: Operator;
+    /** Summary type for the search filter. Use this property to get or set the value of the summary type. See search.Summary. */
     summary: Summary;
+    /** Formula used by the search filter. Use this property to get or set the formula used by the search filter. */
     formula: string;
 }
 
 interface SearchColumnSetWhenOrderedByOptions {
+    /** The name of the search column for which the minimal or maximal value should be found. */
     name: string;
+    /** The join id for the search column. */
     join: string;
 }
 
+/** Encapsulates a single search column in a search.Search. Use the methods and properties available to the Column object to get or set Column properties. */
 export interface Column {
+    /** Returns the search column for which the minimal or maximal value should be found when returning the search.Column value. */
     setWhenOrderedBy?(SearchColumnSetWhenOrderedByOptions): Column;
+    /** Name of a search column as a string. */
     name: string;
+    /** Join ID for a search column as a string. */
     join?: string;
+    /** Returns the summary type for a search column. */
     summary?: Summary;
+    /** Formula used for a search column as a string. To set this value, you must use formulatext, formulanumeric, formuladatetime, formulapercent, or formulacurrency. */
     formula?: string;
+    /** Label used for the search column. You can only get or set custom labels with this property. */
     label?: string;
-    function?: string;
+    /** Special function applied to values in a search column. See Help for Supported Functions. */
+    function?: string
+    /** The sort order of the column. Use the search.Sort enum to set the value. */
     sort?: Sort;
 }
 
