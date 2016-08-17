@@ -327,6 +327,7 @@ export interface Sublist {
     addRefreshButton(): Button;
     getSublistValue(options: SublistGetSublistValueOptions): string;
     setSublistValue(options: SublistSetSublistValueOptions): string;
+    getField(options: IDOptions): Field;
     displayType: SublistDisplayType;
     helpText: string;
     label: string;
