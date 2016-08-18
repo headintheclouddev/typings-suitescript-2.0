@@ -228,8 +228,11 @@ export interface ClientResponse {
 }
 
 interface GetSublistValueOptions {
-    sublistId: string;
-    fieldId: string;
+    /** The sublist internal ID. */
+    group: string;
+    /** The sublist line item ID (name of the field). */
+    name: string;
+    /** The sublist line number (starts at 0). */
     line: number;
 }
 
