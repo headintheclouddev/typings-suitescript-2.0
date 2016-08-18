@@ -128,90 +128,117 @@ interface IDOptions {
     id: string;
 }
 
-// interface GetFieldOptions {
-//     id: string;
-//     radio?: string;
-// }
-
 interface GetSelectOptionsOpts {
+    /**
+     * A search string to filter the select options that are returned. For example, if there are 50 select options available, and 10 of the options contains 'John', e.g. “John Smith” or “Shauna Johnson”, only those 10 options will be returned.
+     * Filter values are case insensitive. The filters 'John' and 'john' will return the same select options.
+     */
     filter?: string;
+    /** Supported operators are contains | is | startswith. If not specified, defaults to the contains operator. */
     filteroperator?: Operator;
 }
 
-interface GetSublistFieldIdsOptions {
+interface GetSublistFieldIdsOptions { // Part of Assistant Step.
+    /** The sublist internal ID. */
     group: string;
 }
 
 interface GetSublistValueOptions {
+    /** The internal ID of the sublist. */
     group: string;
+    /** The internal ID of the sublist field. */
     id: number;
+    /** The line number for the sublist field (starts at 0). */
     line: string;
 }
 
 interface InsertFieldOptions {
-    field: string;
+    /** The Field object to insert. */
+    field: Field;
+    /** The internal ID name of the field you are inserting a field in front of. */
     nextfield: string;
 }
 
 interface InsertSublistOptions {
-    sublist: string;
+    /** The Sublist object to insert. */
+    sublist: Sublist;
+    /** The internal ID name of the sublist you are inserting a sublist in front of. */
     nextsublist: string;
 }
 
 interface InsertSubtabOptions {
-    subtab: string;
+    /** The Subtab object to insert. */
+    subtab: Tab;
+    /** The internal ID name of the subtab you are inserting a subtab in front of. */
     nextsubtab: string;
 }
 
-interface SetDefaultValuesOptions {
-    values: Object;
-}
+// interface SetDefaultValuesOptions {
+//     values: Object;
+// }
 
 interface SetHelpTextOptions {
+    /** The text in the field help popup. */
     help: string;
+    /** If set to true, the field help will display inline below the field on the assistant, and in a field help popup. */
     showInlineForAssistant?: boolean;
 }
 
 interface SublistGetSublistValueOptions {
+    /** The sublist internal ID (for example, use addressbook as the ID for the Address sublist). */
     id: string;
+    /** The line number for this field (starts at 0). */
     line: number;
 }
 
 interface SublistSetSublistValueOptions {
+    /** The internal ID name of the line item field being set. */
     id: string;
+    /** The line number for this field (starts at 0). */
     line: number;
+    /** The value for the field being set. */
     value: string;
 }
 
 interface SetSplashOptions {
-    title: string,
-    text1: string,
-    text2?: string
+    /** The title of the splash screen. */
+    title: string;
+    /** Text for the splash screen. */
+    text1: string;
+    /** Text for a second column on the splash screen, if desired. */
+    text2?: string;
 }
 
 interface UpdateBreakTypeOptions {
+    /** The break type of the field. */
     breakType: FieldBreakType;
 }
 
 interface UpdateDisplaySizeOptions {
+    /** The new height of the field. */
     height: number;
+    /** The new width of the field. */
     width: number;
 }
 
 interface UpdateDisplayTypeOptions {
+    /** The new display type of the field. Set this value with the serverWidget.FieldDisplayType enum. */
     displayType: FieldDisplayType;
 }
 
 interface UpdateLayoutTypeOptions {
+    /** The new layout type of the field. Set this value with the serverWidget.FieldLayoutType enum. */
     layoutType: FieldLayoutType;
 }
 
+/** Encapsulates a scriptable, multi-step NetSuite assistant. Each page of the assistant is defined by a step. */
 export interface Assistant {
+    /** Adds a field to an assistant. */
     addField(options: AddFieldOptions): Field;
+    /** Adds a field group to the assistant. */
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
     addStep(options: AddFieldGroupOptions): AssistantStep;
     addSublist(options: AddSublistOptions): Sublist;
-    // clientScript(options: ClientScriptOptions): void;
     getField(options: IDOptions): Field;
     getFieldGroup(options: IDOptions): FieldGroup;
     getFieldGroupIds(): string[];
@@ -293,6 +320,7 @@ export interface FieldGroup {
 
 export interface BaseForm {
     addField(options: AddFieldOptions): Field;
+    /** The file cabinet ID of client script file to be used in this form. */
     clientScriptFileId: number;
     title: string;
 }
@@ -316,7 +344,8 @@ export interface Form extends BaseForm {
     insertSublist(options: InsertSublistOptions): Sublist;
     insertSubtab(options: InsertSubtabOptions): Tab;
     insertTab(options: InsertSubtabOptions): Tab;
-    setDefaultValues(options: SetDefaultValuesOptions): void;
+    /** Updates the default values of multiple fields on the form. */
+    updateDefaultValues(values: Object): void;
     removeButton(options: IDOptions): void;
 }
 
