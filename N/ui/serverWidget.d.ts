@@ -128,6 +128,11 @@ interface IDOptions {
     id: string;
 }
 
+interface GetFieldIdsByFIeldGroupOptions {
+    /** The internal ID of the field group. */
+    fieldGroup: string;
+}
+
 interface GetSelectOptionsOpts {
     /**
      * A search string to filter the select options that are returned. For example, if there are 50 select options available, and 10 of the options contains 'John', e.g. “John Smith” or “Shauna Johnson”, only those 10 options will be returned.
@@ -172,10 +177,6 @@ interface InsertSubtabOptions {
     /** The internal ID name of the subtab you are inserting a subtab in front of. */
     nextsubtab: string;
 }
-
-// interface SetDefaultValuesOptions {
-//     values: Object;
-// }
 
 interface SetHelpTextOptions {
     /** The text in the field help popup. */
@@ -237,84 +238,152 @@ export interface Assistant {
     addField(options: AddFieldOptions): Field;
     /** Adds a field group to the assistant. */
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
+    /** Adds a step to an assistant. */
     addStep(options: AddFieldGroupOptions): AssistantStep;
+    /** Adds a sublist to an assistant. */
     addSublist(options: AddSublistOptions): Sublist;
+    /** Returns a field object on an assistant page. */
     getField(options: IDOptions): Field;
+    /** Returns a field group on an assistant page. */
     getFieldGroup(options: IDOptions): FieldGroup;
+    /** Retrieves all the internal IDs for field groups in an assistant. */
     getFieldGroupIds(): string[];
+    /** Gets all the internal IDs for fields in an assistant. */
     getFieldIds(): string; // not string[]?? may need testing.
+    /** Gets all field IDs in the assistant field group. */
+    getFieldIdsByFieldGroup(options: GetFieldIdsByFIeldGroupOptions): string[];
+    /** Gets the last action taken by the user. To identify the step that the last action came from, use Assistant.getLastStep(). */
     getLastAction(): AssistantSubmitAction;
+    /** Gets the step associated with the last action submitted by the user. */
     getLastStep(): AssistantStep;
+    /** Gets the next step corresponding to the user's last submitted action in the assistant. If you need information about the last step, use Assistant.getLastStep() before you use this method. */
     getNextStep(): AssistantStep;
+    /** Returns a step in an assistant. */
     getStep(options: IDOptions): AssistantStep;
+    /** Gets the total number of steps in an assistant. */
     getStepCount(): number;
+    /** Gets all the steps in an assistant. */
     getSteps(): AssistantStep[];
+    /** Returns a sublist in an assistant. */
     getSublist(options: IDOptions): Sublist;
+    /** Gets the IDs for all the sublists in an assistant. */
     getSublistIds(): string[];
+    /** Determine whether an assistant has an error message to display for the current step. */
     hasErrorHtml(): boolean;
+    /** Indicates whether all steps in an assistant are completed. */
     isFinished(): boolean;
+    /** 
+      * Manages redirects in an assistant.
+      * This method also addresses the case in which one assistant redirects to another assistant.
+      * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
+      */
     sendRedirect(): void;
+    /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
+    /** Sets the default values of an array of fields that are specific to the assistant. */
+    updateDefaultValues(values: Object);
+    /** The file cabinet ID of client script file to be used in this assistant. */
     clientScriptFileId: number;
-    currentStep: void;
-    defaultValues: string[];
-    errorHtml: string; // Error message text for the current step
-    finishedHtml: string; // The text to display after the assistant finishes. For example “You have completed the Small Business Setup Assistant. Take the rest of the day off”.
+    /** Identifies the current step. You can set any step as the current step. */
+    currentStep: AssistantStep;
+    /** Error message text for the current step. Optionally, you can use HTML tags to format the message. */
+    errorHtml: string;
+    /** The text to display after the assistant finishes. For example “You have completed the Small Business Setup Assistant. Take the rest of the day off”. To trigger display of the completion message, call Assistant.isFinished(). */
+    finishedHtml: string;
+    /** Indicates whether to show or hide the Add to Shortcuts link that appears in the top-right corner of an assistant page. */
     hideAddToShortcutsLink: boolean;
+    /** Indicates whether assistant steps are displayed with numbers. */
     hideStepNumber: boolean;
+    /** Indicates whether steps must be completed in a particular sequence. */
     isNotOrdered: boolean;
+    /** The title for the assistant. The title appears at the top of all assistant pages. This value overrides the title specified in serverWidget.createAssistant(options). */
     title: string;
 }
 
 export interface AssistantStep {
+    /** Gets the IDs for all the fields in a step. */
     getFieldIds(): string[];
+    /** Gets the IDs for all the sublist fields (line items) in a step. */
     getSublistFieldIds(options: GetSublistFieldIdsOptions): string[];
+    /** Gets the number of lines on a sublist in a step. */
     getLineCount(options: GetSublistFieldIdsOptions): number;
+    /** Gets the IDs for all the sublists submitted in a step. */
     getSubmittedSublistIds(): string[];
+    /** Gets the current value of a sublist field (line item) in a step. */
     getSublistValue(options: GetSublistValueOptions): string;
+    /** Gets the current value(s) of a field or mult-select field. */
     getValue(options: IDOptions): string | string[];
+    /** The help text for a step. */
     helpText: string;
+    /** The internal ID of the step. */
     id: string;
+    /** The label for the step. */
     label: string;
+    /** Indicates where this step appears sequentially in the assistant. */
     stepNumber: number;
 }
 
+/** Encapsulates button that appears in a UI object. */
 export interface Button {
+    /** Indicates whether a button is grayed-out and disabled. */
     isDisabled: boolean;
+    /** Indicates whether the button is hidden in the UI. */
     isHidden: boolean;
+    /** The label for the button. */
     label: string;
 }
 
+/** Encapsulates a NetSuite field. */
 export interface Field {
+    /** Adds the select options that appears in the dropdown of a field. */
     addSelectOption(options: AddSelectOptionOptions): void;
+    /** Obtains a list of available options on a select field. */
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
+    /** Sets the help text for the field. */
     setHelpText(options: SetHelpTextOptions): Field;
+    /** Updates the width and height of the field. Only supported on multi-selects, long text, rich text, and fields that get rendered as INPUT (type=text) fields. This function is not supported on list/record fields. */
     updateDisplaySize(options: UpdateDisplaySizeOptions): Field;
+    /** Updates the display type for the field. */
     updateDisplayType(options: UpdateDisplayTypeOptions): Field;
+    /** Updates the break type used to add a break in flow layout for the field. */
     updateBreakType(options: UpdateBreakTypeOptions): Field;
+    /** Updates the layout type for the field. */
     updateLayoutType(options: UpdateLayoutTypeOptions): Field;
+    /** An alternate name that you can assign to a serverWidget.Field object. */
     alias: string;
-    // breakType: string; // no longer documented as of 2016.1
+    /** The default value for this field. */
     defaultValue: string;
-    // displaySize: number; // no longer documented as of 2016.1
-    // displayType: string;  // no longer documented as of 2016.1
+    /** The field internal ID. */
     id: string;
+    /** Indicates whether the field is mandatory or optional. */
     isMandatory: boolean;
+    /** The field label. There is a 40-character limit for custom field labels. */
     label: string;
-    // layoutType: string; // This isn't a thing anymore, as of 2016.1
+    /** The text displayed for a link in place of the URL. */
     linkText: string;
+    /** The maximum length, in characters, of the field (only valid for text, rich text, long text, and textarea fields). */
     maxLength: number;
+    /** The number of empty vertical character spaces above the field. */
     padding: number;
+    /** The height of a rich text field, in pixels. The minimum value is 100 pixels and the maximum value is 500 pixels. */
     richTextHeight: number;
+    /** The width of a rich text field, in pixels. The minimum value is 250 pixels and the maximum value is 800 pixels. */
     richTextWidth: number;
+    /** The field type. For example, text, date, currency, select, checkbox etc. */
     type: FieldType;
 }
 
+/** Encapsulates a field group on serverWidget.createAssistant(options) objects and on serverWidget.Form objects. */
 export interface FieldGroup {
+    /** Indicates whether the field group can be collapsed. */
     isBorderHidden: boolean;
+    /** Indicates whether the field group can be collapsed. */
     isCollapsible: boolean;
+    /** Indicates whether field group is collapsed or expanded. */
     isCollapsed: boolean;
+    /** Indicates whether the field group is aligned. */
     isSingleColumn: boolean;
+    /** The label for the field group. */
     label: string;
 }
 
@@ -325,7 +394,9 @@ export interface BaseForm {
     title: string;
 }
 
+/** Encapsulates a NetSuite-looking form. */
 export interface Form extends BaseForm {
+    /** Adds a button to a form. */
     addButton(options: AddButtonOptions): Button;
     addCredentialField(options: AddCredentialFieldOptions): Field;
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
