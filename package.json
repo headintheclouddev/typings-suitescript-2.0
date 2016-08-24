@@ -11,6 +11,6 @@
   "author": "Head in the Cloud Development",
   "license": "MIT",
   "devDependencies": {
-    "typings": "latest"
+    "typescript": "2.0.0"
   }
 }
