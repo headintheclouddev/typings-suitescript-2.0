@@ -1,7 +1,5 @@
-/// <reference path="typings/index.d.ts" />
-
-import {log, util, EntryPoints} from './N/index';
-import N_search = require('./N/search');
+import {log, util, EntryPoints} from 'N/index';
+import N_search = require('N/search');
 
 export var pageInit: EntryPoints.Client.pageInit = (ctx) => {
     if (ctx.mode != 'edit') return;

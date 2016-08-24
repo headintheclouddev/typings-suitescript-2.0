@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "module": "amd",
-        "target": "es5"
+        "target": "es5",
+        "lib":["es5","es2015.promise"]
     },
     "files": [
         "typings/index.d.ts",

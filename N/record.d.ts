@@ -1,4 +1,3 @@
-/// <reference path="typings/index.d.ts" />
 
 import {Sublist} from './ui/serverWidget';
 import {Operator} from './search';
