@@ -1,7 +1,7 @@
 interface ConvertOptions {
     string: string;
-    inputEncoding: string;
-    outputEncoding: string;
+    inputEncoding: Encoding;
+    outputEncoding: Encoding;
 }
 
 export declare enum Encoding {
