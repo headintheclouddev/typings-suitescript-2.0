@@ -359,7 +359,7 @@ export interface ClientCurrentRecord {
     /** Returns a value indicating whether the field contains a subrecord. */
     hasSubrecord(options: HasSubrecordOptions): boolean;
     /** The internal ID of a specific record. */
-    id: string;
+    id: number;
     /** Inserts a sublist line. */
     insertLine(options: InsertLineOptions): void;
     /**
