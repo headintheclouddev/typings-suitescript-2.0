@@ -359,7 +359,7 @@ export interface ClientCurrentRecord {
     /** Returns a value indicating whether the field contains a subrecord. */
     hasSubrecord(options: HasSubrecordOptions): boolean;
     /** The internal ID of a specific record. */
-    id: string;
+    id: number;
     /** Inserts a sublist line. */
     insertLine(options: InsertLineOptions): void;
     /**
@@ -617,7 +617,8 @@ interface RecordTypes {
     GIFT_CERTIFICATE_ITEM: string;
     GLOBAL_ACCOUNT_MAPPING: string;
     GROUP: string;
-    INTERCOMPANY_JOURNAL_ENTRY: string;
+    INTER_COMPANY_JOURNAL_ENTRY: string;
+    INTER_COMPANY_TRANSFER_ORDER: string;
     INVENTORY_ADJUSTMENT: string;
     INVENTORY_COST_REVALUATION: string;
     INVENTORY_COUNT: string;
