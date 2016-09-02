@@ -1,5 +1,7 @@
 # SuiteScript 2.0 Typings
 
+[![Join the chat at https://gitter.im/typings-suitescript-2-0/Lobby](https://badges.gitter.im/typings-suitescript-2-0/Lobby.svg)](https://gitter.im/typings-suitescript-2-0/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Installation Instructions
 
 First, make sure you have typings installed with the command:
