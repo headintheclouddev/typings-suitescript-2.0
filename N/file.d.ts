@@ -37,7 +37,7 @@ interface FileCreateOptions {
     /**
      * The file type.
      */
-    fileType: FileType;
+    fileType: Type;
     /**
      * The file content.
      */
@@ -81,7 +81,7 @@ export enum Encoding {
 /**
 * Enumeration that holds the string values for supported file types.
  */
-export enum FileType {
+export enum Type {
     AUTOCAD,
     BMPIMAGE,
     CSV,
