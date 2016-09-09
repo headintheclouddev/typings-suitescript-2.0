@@ -3,7 +3,7 @@
 ## Installation Instructions
 
 
-    npm install --save-dev github:headintheclouddev/typings-suitescript-2.0/N
+    npm install --save-dev github:headintheclouddev/typings-suitescript-2.0
 
  
 ## Usage
@@ -67,38 +67,18 @@ A full example might look something like this:
 ```typescript
 /**
  * @NAPIVersion 2.0
- * @NScriptType ClientScript
+ * @NScriptType UserEventScript
  */
 
 import {EntryPoints} from 'N/index'
-import * as search from 'N/search'
+import * as log from 'N/log'
 
-export var pageInit: EntryPoints.Client.pageInit = (ctx) => {
-    if (ctx.mode != 'edit') return;
+export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
 
-    search.create.promise({
-        type: 'customer',
-        filters: [
-            search.createFilter({
-                name: 'companyname',
-                operator: search.Operator.ISNOTEMPTY,
-            }),
-        ],
-        columns: [
-            search.createColumn({
-                name: 'companyname',
-                sort: search.Sort.ASC,
-            }),
-        ],
-    }).then(search => {
-        return search.run().getRange.promise({
-            start: 0,
-            end: 1,
-        });
-    }).then(results => {
-        if(results.length == 0) return alert("No companies");
-        alert(`First company alphabetically: ${results[0].getValue('companyname')}`);
-    });
+    let x = ctx.newRecord.getValue({fieldId: 'companyname'})
+
+    log.audit('value', `companyname is: ${x}`)
+
 }
 ```
 
@@ -108,4 +88,4 @@ Then if you're using a TypeScript-aware text editor (for instance the free [VSCo
 
 You can download the latest published typings library at any time by simply running the command:
 
-`npm update @hitc/netsuite-typings`
+`npm install --save-dev github:headintheclouddev/typings-suitescript-2.0`
