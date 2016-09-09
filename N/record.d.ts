@@ -26,7 +26,7 @@ interface AttachRecordOptions {
     /**
      * The type of record to attach.
      */
-    type: string;
+    type: Type | string;
     /**
      * The internal ID of the record to attach.
      */
@@ -42,7 +42,7 @@ interface CopyLoadOptions {
     /**
      * The record type.
      */
-    type: string;
+    type: Type | string;
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
@@ -400,7 +400,7 @@ export interface ClientCurrentRecord {
     setValue(options: SetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
     /** The record type. */
-    type: string;
+    type: Type | string;
 }
 
 // Exported for other modules to be able to consume this type
@@ -433,7 +433,7 @@ interface SubmitConfig {
 
 interface SubmitFieldsOptions {
     /** The type of record. */
-    type: string;
+    type: Type | string;
     /** The internal ID of the existing record instance in NetSuite. */
     id: string|number;
     /** The ID-value pairs for each field you want to edit and submit. */
@@ -467,7 +467,7 @@ interface RecordCreateOptions {
     /**
      * The record type.
      */
-    type: string;
+    type: Type | string;
     /**
      * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
      * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
@@ -491,7 +491,7 @@ interface RecordDeleteOptions {
     /**
      * The record type.
      */
-    type: string;
+    type: Type | string;
     /**
      * The internal ID of the record instance to be deleted.
      */
@@ -520,11 +520,11 @@ interface RecordTransformFunction {
 
 interface RecordTransformOptions {
     /** The record type of the existing record instance being transformed. */
-    fromType: string;
+    fromType: Type;
     /** The internal ID of the existing record instance being transformed. */
     fromId: number;
     /** The record type of the record returned when the transformation is complete. */
-    toType: string;
+    toType: Type;
     /** If set to true, the new record is created in dynamic mode. If set to false, the new record is created in standard mode. */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */

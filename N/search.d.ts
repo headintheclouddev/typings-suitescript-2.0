@@ -1,3 +1,4 @@
+import * as record from "record"
 
 /** Encapsulates a search filter used in a search. Use the properties for the Filter object to get and set the filter properties. */
 export interface Filter {
@@ -221,7 +222,7 @@ interface SearchLoadFunction {
 }
 
 interface SearchCreateOptions {
-    type: string;
+    type: record.Type | string;
     filters?: (Filter[] | Object[]);
     columns?: (Array<Column|string>);
     title?: string;
