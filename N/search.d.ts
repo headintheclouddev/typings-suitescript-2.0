@@ -1,4 +1,4 @@
-import * as record from "record"
+import * as record from "./record"
 
 /** Encapsulates a search filter used in a search. Use the properties for the Filter object to get and set the filter properties. */
 export interface Filter {
