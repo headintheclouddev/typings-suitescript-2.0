@@ -682,7 +682,7 @@ interface RecordTypes {
     SCHEDULED_SCRIPT_INSTANCE: string;
     SERIALIZED_ASSEMBLY_ITEM: string;
     SERIALIZED_INVENTORY_ITEM: string;
-    SERVICE: string;
+    SERVICE_ITEM: string;
     SOLUTION: string;
     STATISTICAL_JOURNAL_ENTRY: string;
     SUBSIDIARY: string;
