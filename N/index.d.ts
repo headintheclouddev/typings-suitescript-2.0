@@ -24,6 +24,7 @@ import * as N_transaction from './transaction';
 import * as N_url from './url';
 import * as N_util from './util';
 import * as N_workflow from './workflow';
+import * as N_xml from './xml';
 import * as N_ui_dialog from './ui/dialog';
 import * as N_ui_message from './ui/message';
 import * as N_ui_serverWidget from './ui/serverWidget';
@@ -54,6 +55,7 @@ export {N_transaction as transaction};
 export {N_url as url};
 export {N_util as util};
 export {N_workflow as workflow};
+export {N_xml as xml};
 
 declare interface N_UI_Module {
     dialog: typeof N_ui_dialog,
