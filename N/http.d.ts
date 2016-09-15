@@ -103,7 +103,7 @@ interface WritePageOptions {
     /**
      * A standalone page object in the form of an assistant, form or list.
      */
-    pageobject: Object;
+    pageObject: Object;
 }
 
 interface GetLineCountOptions {
