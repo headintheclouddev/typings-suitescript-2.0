@@ -336,4 +336,12 @@ export namespace EntryPoints {
         }
         type each = (scriptContext?: eachContext) => void;
     }
+
+    namespace WorkflowAction {
+        interface onActionContext {
+            newRecord: N_record.Record;
+            oldRecord: N_record.Record;
+        }
+        type onAction = (scriptContext?: onActionContext) => void;
+    }
 }
