@@ -480,7 +480,7 @@ interface RecordCreateOptions {
     /**
      * Name-value pairs containing default values of fields in the new record.
      */
-    defaultValue?: Object;
+    defaultValues?: Object;
 }
 
 interface RecordCreateFunction {
