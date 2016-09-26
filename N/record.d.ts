@@ -39,6 +39,24 @@ interface CancelCommitLineOptions {
     sublistId: string;
 }
 
+interface ClientSetValueOptions {
+    /** The internal ID of a standard or custom body field. */
+    fieldId: string;
+    /**
+     * The value to set the field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
+    value: boolean|string|number|Date|string[];
+    /** If set to true, the field change and slaving event is ignored. */
+    ignoreFieldChange?: boolean;
+    /** Indicates whether to perform slaving synchronously. */
+    fireSlavingSync?: boolean;
+}
+
 interface CopyLoadOptions {
     /**
      * The record type.
@@ -296,9 +314,7 @@ export interface Field {
 
 type FieldValue = Date | number | string | string[] | boolean;
 
-/**
- * Almost like a full Record, except without things like save().
- */
+/** Almost like a full Record, except without things like save(). */
 export interface ClientCurrentRecord {
     /** Cancels the currently selected line on a sublist. */
     cancelLine(options: CancelCommitLineOptions): Record;
@@ -398,7 +414,7 @@ export interface ClientCurrentRecord {
     setText(options: SetFieldTextOptions): void;
     setText(fieldId: string, value: string): void;
     /** Sets the value of a field. */
-    setValue(options: SetValueOptions): void;
+    setValue(options: ClientSetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
     /** The record type. */
     type: string | Type;
