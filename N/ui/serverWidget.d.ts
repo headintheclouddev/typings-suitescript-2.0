@@ -391,6 +391,10 @@ export interface BaseForm {
     addField(options: AddFieldOptions): Field;
     /** The file cabinet ID of client script file to be used in this form. */
     clientScriptFileId: number;
+    /** The relative path to the client script file to be used in this form.
+        Use this property when attaching an ad-hoc client script to a server-side script. */
+    clientScriptModulePath: string;
+    /** The title used for the form. */
     title: string;
 }
 
