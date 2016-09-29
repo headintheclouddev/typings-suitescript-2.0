@@ -52,7 +52,7 @@ export interface Result {
     getValue(SearchColumn): boolean | string | string[];
     getText(options: SearchResultGetValueTextOptions): string;
     getText(SearchColumn): string;
-    recordType: string;
+    recordType: Type | string;
     id: string;
     columns: Column[];
 }
@@ -140,7 +140,7 @@ interface SearchRunPagedFunction {
 }
 
 export interface Search {
-    searchType: string;
+    searchType: Type | string;
     searchId: number;
     filters: Filter[];
     filterExpression: Object[];
@@ -173,7 +173,7 @@ interface CreateSearchColumnOptions {
 }
 
 interface SearchLookupFieldsOptions {
-    type: string;
+    type: Type | string;
     id: string;
     columns: (string | string[]);
 }
@@ -193,7 +193,7 @@ interface SearchGlobalFunction {
 }
 
 interface SearchDuplicatesOptions {
-    type: string;
+    type: Type | string;
     fields?: string[];
     id?: number;
 }
@@ -222,9 +222,9 @@ interface SearchLoadFunction {
 }
 
 interface SearchCreateOptions {
-    type: string;
+    type: Type | string;
     filters?: (Filter[] | Object[]);
-    columns?: (Array<Column|string>);
+    columns?: (Array<Column | string>);
     title?: string;
     id?: string;
 }
@@ -234,150 +234,155 @@ interface SearchCreateFunction {
     promise(options: SearchCreateOptions): Promise<Search>;
 }
 
-interface SearchTypes { // as of 3/23/2016
-    ACCOUNT: string;
-    ACCOUNTING_BOOK: string;
-    ADDRESS: string;
-    AMORTIZATION_SCHEDULE: string;
-    AMORTIZATION_TEMPLATE: string;
-    ACTIVITY: string;
-    ASSEMBLY_BUILD: string;
-    ASSEMBLY_UNBUILD: string;
-    BILLING_CLASS: string;
-    BILLING_SCHEDULE: string;
-    BIN: string;
-    BIN_PUTAWAY_WORKSHEET: string;
-    BIN_TRANSFER: string;
-    BLANKET_PURCHASE_ORDER: string;
-    BUILD_ASSEMBLY: string;
-    CAMPAIGN: string;
-    CAMPAIGN_TEMPLATE: string;
-    CASE: string;
-    CASH_REFUND: string;
-    CASH_SALE: string;
-    CHARGE: string;
-    CHECK: string;
-    CLASS: string;
-    COMPETITOR: string;
-    CONTACT: string;
-    COUPON_CODE: string;
-    CREDIT_MEMO: string;
-    CURRENCY: string;
-    CUSTOMER: string;
-    CUSTOMER_CATEGORY: string;
-    CUSTOMER_DEPOSIT: string;
-    CUSTOMER_PAYMENT: string;
-    CUSTOMER_REFUND: string;
-    CUSTOM_LIST: string;
-    DEPARTMENT: string;
-    DEPOSIT: string;
-    DEPOSIT_APPLICATION: string;
-    DESCRIPTION: string;
-    DISCOUNT: string;
-    DOWNLOAD_ITEM: string;
-    EMAIL_TEMPLATE: string;
-    EMPLOYEE: string;
-    ENTITY: string;
-    ESTIMATE_QUOTE: string;
-    EVENT: string;
-    EXPENSE_CATEGORY: string;
-    EXPENSE_REPORT: string;
-    FOLDER: string;
-    GIFT_CERTIFICATE: string;
-    GIFT_CERTIFICATE_ITEM: string;
-    GLOBAL_ACCOUNT_MAPPING: string;
-    GROUP: string;
-    INTERCOMPANY_JOURNAL_ENTRY: string;
-    INVENTORY_ADJUSTMENT: string;
-    INVENTORY_COST_REVALUATION: string;
-    INVENTORY_COUNT: string;
-    INVENTORY_DETAIL: string;
-    INVENTORY_ITEM: string;
-    INVENTORY_NUMBER: string;
-    INVENTORY_TRANSFER: string;
-    INVOICE: string;
-    ISSUE: string;
-    ITEM_ACCOUNT_MAPPING: string;
-    ITEM_SEARCH: string;
-    ITEM_DEMAND_PLAN: string;
-    ITEM_FULFILLMENT: string;
-    ITEM_GROUP: string;
-    ITEM_RECEIPT: string;
-    ITEM_REVISION: string;
-    ITEM_SUPPLY_PLAN: string;
-    JOURNAL_ENTRY: string;
-    KIT: string;
-    LANDED_COST: string;
-    LEAD: string;
-    LOCATION: string;
-    LOT_NUMBERED_ASSEMBLY_ITEM: string;
-    LOT_NUMBERED_INVENTORY_ITEM: string;
-    MANUFACTURING_COST_TEMPLATE: string;
-    MANUFACTURING_PLANNED_TIME: string;
-    MANUFACTURING_OPERATION_TASK: string;
-    MANUFACTURING_ROUTING: string;
-    MARKUP: string;
-    MESSAGE: string;
-    MULTIBOOK_ACCOUNTING_TRANSACTION: string;
-    NEXUS: string;
-    NON_INVENTORY_ITEM: string;
-    NOTE: string;
-    OPPORTUNITY: string;
-    OTHER_CHARGE_ITEM: string;
-    OTHER_NAME: string;
-    PARTNER: string;
-    PAYCHECK_JOURNAL: string;
-    PAYMENT: string;
-    PAYROLL_ITEM: string;
-    PHONE_CALL: string;
-    PRICE_LEVEL: string;
-    PROJECT_JOB: string;
-    PROJECT_EXPENSE_TYPE: string;
-    PROJECT_TASK: string;
-    PROMOTION: string;
-    PROSPECT: string;
-    PURCHASE_CONTRACT: string;
-    PURCHASE_ORDER: string;
-    REALLOCATE_ITEMS: string;
-    REQUISITION: string;
-    RESOURCE_ALLOCATION: string;
-    RETURN_AUTHORIZATION: string;
-    REVENUE_COMMITMENT: string;
-    REVENUE_COMMITMENT_REVERSAL: string;
-    REVENUE_RECOGNITION_SCHEDULE: string;
-    REVENUE_RECOGNITION_TEMPLATE: string;
-    SALES_ORDER: string;
-    SALES_TAX_ITEM: string;
-    SCHEDULED_SCRIPT_INSTANCE: string;
-    SERIALIZED_ASSEMBLY_ITEM: string;
-    SERIALIZED_INVENTORY_ITEM: string;
-    SERVICE: string;
-    SOLUTION: string;
-    STATISTICAL_JOURNAL_ENTRY: string;
-    SUBSIDIARY: string;
-    SUBTOTAL: string;
-    TASK: string;
-    TAX_CONTROL_ACCOUNT: string;
-    TAX_GROUP: string;
-    TAX_PERIOD: string;
-    TAX_TYPE: string;
-    TERM: string;
-    TIME: string;
-    TOPIC: string;
-    TRANSACTION_SEARCH: string;
-    TRANSFER_ORDER: string;
-    UNIT_OF_MEASURE: string;
-    VENDOR: string;
-    VENDOR_BILL: string;
-    VENDOR_CATEGORY: string;
-    VENDOR_CREDIT: string;
-    VENDOR_PAYMENT: string;
-    VENDOR_RETURN_AUTHORIZATION: string;
-    WEB_SITE_SETUP: string;
-    WORK_ORDER: string;
-    WORK_ORDER_CLOSE: string;
-    WORK_ORDER_COMPLETION: string;
-    WORK_ORDER_ISSUE: string;
+export enum Type { // as of 3/23/2016
+    ACCOUNT,
+    ACCOUNTING_BOOK,
+    ADDRESS,
+    AMORTIZATION_SCHEDULE,
+    AMORTIZATION_TEMPLATE,
+    ACTIVITY,
+    ASSEMBLY_BUILD,
+    ASSEMBLY_UNBUILD,
+    BILLING_CLASS,
+    BILLING_SCHEDULE,
+    BIN,
+    BIN_PUTAWAY_WORKSHEET,
+    BIN_TRANSFER,
+    BLANKET_PURCHASE_ORDER,
+    BUILD_ASSEMBLY,
+    CAMPAIGN,
+    CAMPAIGN_TEMPLATE,
+    CASE,
+    CASH_REFUND,
+    CASH_SALE,
+    CHARGE,
+    CHECK,
+    CLASS,
+    COMPETITOR,
+    CONTACT,
+    COUPON_CODE,
+    CREDIT_MEMO,
+    CURRENCY,
+    CUSTOMER,
+    CUSTOMER_CATEGORY,
+    CUSTOMER_DEPOSIT,
+    CUSTOMER_PAYMENT,
+    CUSTOMER_REFUND,
+    CUSTOM_LIST,
+    DEPARTMENT,
+    DEPOSIT,
+    DEPOSIT_APPLICATION,
+    DESCRIPTION,
+    DISCOUNT,
+    DOWNLOAD_ITEM,
+    EMAIL_TEMPLATE,
+    EMPLOYEE,
+    ENTITY,
+    ESTIMATE_QUOTE,
+    EVENT,
+    EXPENSE_CATEGORY,
+    EXPENSE_REPORT,
+    FOLDER,
+    GIFT_CERTIFICATE,
+    GIFT_CERTIFICATE_ITEM,
+    GLOBAL_ACCOUNT_MAPPING,
+    GROUP,
+    INTERCOMPANY_JOURNAL_ENTRY,
+    INVENTORY_ADJUSTMENT,
+    INVENTORY_COST_REVALUATION,
+    INVENTORY_COUNT,
+    INVENTORY_DETAIL,
+    INVENTORY_ITEM,
+    INVENTORY_NUMBER,
+    INVENTORY_TRANSFER,
+    INVOICE,
+    ISSUE,
+    ITEM_ACCOUNT_MAPPING,
+    ITEM_SEARCH,
+    ITEM_DEMAND_PLAN,
+    ITEM_FULFILLMENT,
+    ITEM_GROUP,
+    ITEM_RECEIPT,
+    ITEM_REVISION,
+    ITEM_SUPPLY_PLAN,
+    JOURNAL_ENTRY,
+    KIT,
+    LANDED_COST,
+    LEAD,
+    LOCATION,
+    LOT_NUMBERED_ASSEMBLY_ITEM,
+    LOT_NUMBERED_INVENTORY_ITEM,
+    MANUFACTURING_COST_TEMPLATE,
+    MANUFACTURING_PLANNED_TIME,
+    MANUFACTURING_OPERATION_TASK,
+    MANUFACTURING_ROUTING,
+    MARKUP,
+    MESSAGE,
+    MULTIBOOK_ACCOUNTING_TRANSACTION,
+    NEXUS,
+    NON_INVENTORY_ITEM,
+    NOTE,
+    OPPORTUNITY,
+    OTHER_CHARGE_ITEM,
+    OTHER_NAME,
+    PARTNER,
+    PAYCHECK_JOURNAL,
+    PAYMENT,
+    PAYROLL_ITEM,
+    PHONE_CALL,
+    PRICE_LEVEL,
+    PROJECT_JOB,
+    PROJECT_EXPENSE_TYPE,
+    PROJECT_TASK,
+    PROMOTION,
+    PROSPECT,
+    PURCHASE_CONTRACT,
+    PURCHASE_ORDER,
+    REALLOCATE_ITEMS,
+    REQUISITION,
+    RESOURCE_ALLOCATION,
+    RETURN_AUTHORIZATION,
+    REVENUE_COMMITMENT,
+    REVENUE_COMMITMENT_REVERSAL,
+    REVENUE_RECOGNITION_SCHEDULE,
+    REVENUE_RECOGNITION_TEMPLATE,
+    SALES_ORDER,
+    SALES_TAX_ITEM,
+    SCHEDULED_SCRIPT_INSTANCE,
+    SERIALIZED_ASSEMBLY_ITEM,
+    SERIALIZED_INVENTORY_ITEM,
+    SERVICE,
+    SOLUTION,
+    STATISTICAL_JOURNAL_ENTRY,
+    SUBSIDIARY,
+    SUBTOTAL,
+    TASK,
+    TAX_CONTROL_ACCOUNT,
+    TAX_GROUP,
+    TAX_PERIOD,
+    TAX_TYPE,
+    TERM,
+    TIME_BILL,
+    TIME_OFF_CHANGE,
+    TIME_OFF_PLAN,
+    TIME_OFF_REQUEST,
+    TIME_OFF_RULE,
+    TIME_OFF_TYPE,
+    TOPIC,
+    TRANSACTION_SEARCH,
+    TRANSFER_ORDER,
+    UNIT_OF_MEASURE,
+    VENDOR,
+    VENDOR_BILL,
+    VENDOR_CATEGORY,
+    VENDOR_CREDIT,
+    VENDOR_PAYMENT,
+    VENDOR_RETURN_AUTHORIZATION,
+    WEB_SITE_SETUP,
+    WORK_ORDER,
+    WORK_ORDER_CLOSE,
+    WORK_ORDER_COMPLETION,
+    WORK_ORDER_ISSUE,
 }
 
 export var create: SearchCreateFunction;
@@ -442,5 +447,3 @@ export enum Sort {
     DESC,
     NONE,
 }
-//Use an interface instead of an enum for custom record searches.
-export var Type: SearchTypes;
