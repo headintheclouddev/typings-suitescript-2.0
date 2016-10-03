@@ -297,6 +297,7 @@ export enum Type { // as of 3/23/2016
     INVENTORY_TRANSFER,
     INVOICE,
     ISSUE,
+    ITEM,
     ITEM_ACCOUNT_MAPPING,
     ITEM_SEARCH,
     ITEM_DEMAND_PLAN,
