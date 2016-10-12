@@ -223,7 +223,7 @@ interface ParserToStringOptions {
     document: NSXMLDocument;
 }
 
-interface Parser {
+interface ParserObject {
     fromString: (options: ParserFromStringOptions) => NSXMLDocument;
     toString: (options: ParserToStringOptions) => string;
 }
@@ -237,6 +237,7 @@ interface SelectOptions {
     xpath: string;
 }
 
+export var Parser: ParserObject;
 export function escape(options: EscapeOptions): string;
 export function validate(options: ValidateOptions): void;
 export enum NodeType {
