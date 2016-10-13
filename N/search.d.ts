@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 /** Encapsulates a search filter used in a search. Use the properties for the Filter object to get and set the filter properties. */
 export interface Filter {
     /** Name or internal ID of the search field as a string. */

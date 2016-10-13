@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import {File} from './file';
 import {Form} from './ui/serverWidget';
 

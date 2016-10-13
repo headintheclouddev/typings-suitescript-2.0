@@ -1,4 +1,3 @@
-/// <reference path="typings/index.d.ts" />
 
 import {Sublist} from './ui/serverWidget';
 import {Operator} from './search';
@@ -27,7 +26,7 @@ interface AttachRecordOptions {
     /**
      * The type of record to attach.
      */
-    type: string | Type;
+    type: Type | string;
     /**
      * The internal ID of the record to attach.
      */
@@ -61,7 +60,7 @@ interface CopyLoadOptions {
     /**
      * The record type.
      */
-    type: string | Type;
+    type: Type | string;
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
@@ -417,7 +416,7 @@ export interface ClientCurrentRecord {
     setValue(options: ClientSetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
     /** The record type. */
-    type: string | Type;
+    type: Type | string;
 }
 
 // Exported for other modules to be able to consume this type
@@ -450,7 +449,7 @@ interface SubmitConfig {
 
 interface SubmitFieldsOptions {
     /** The type of record. */
-    type: string | Type;
+    type: Type | string;
     /** The internal ID of the existing record instance in NetSuite. */
     id: string | number;
     /** The ID-value pairs for each field you want to edit and submit. */
@@ -484,7 +483,7 @@ interface RecordCreateOptions {
     /**
      * The record type.
      */
-    type: string | Type;
+    type: Type | string;
     /**
      * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
      * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
@@ -508,7 +507,7 @@ interface RecordDeleteOptions {
     /**
      * The record type.
      */
-    type: string | Type;
+    type: Type | string;
     /**
      * The internal ID of the record instance to be deleted.
      */
@@ -576,8 +575,11 @@ export var submitFields: SubmitFieldsFunction;
 /** Transforms a record from one type into another, using data from an existing record. */
 export var transform: RecordTransformFunction;
 
-/** Enumeration that holds the string values for supported record types. */
-export enum Type {
+/**
+ * N/record.Type enum
+ *
+ */
+export declare enum Type {
     ACCOUNT,
     ACCOUNTING_BOOK,
     ADDRESS,
