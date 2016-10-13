@@ -53,7 +53,7 @@ interface AddFieldOptions {
     /** The label for this field. */
     label: string;
     /** The field type for the field. Use the serverWidget.FieldType enum to define the field type. */
-    type: FieldType;
+    type: FieldType|string;
     /**
      * The internalId or scriptId of the source list for this field if it is a select (List/Record) or multi-select field.
      * Note: For radio fields only, the source parameter must contain the internal ID for the field.
