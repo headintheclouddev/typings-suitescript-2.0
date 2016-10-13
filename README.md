@@ -4,11 +4,11 @@
 
 ## Installation Instructions
 
+    npm install --save-dev @hitc/netsuite-types
 
-    npm install --save-dev github:headintheclouddev/typings-suitescript-2.0
 
- 
 ## Usage
+
 Once installed, you need to configure TypeScript to find the library declarations and `import` the libraries as needed
 into your scripts.
 
@@ -26,19 +26,17 @@ You can import the modules and use them like normal using standard TypeScript sy
     "newLine": "LF",
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "lib":["es5","es2015.promise"],
+    "lib": ["es5", "es2015.promise", "dom"],
     "paths": {
-      "N/*": [
-        "node_modules/@hitc/netsuite-types/N/*"
-      ]
+      "N": ["node_modules/@hitc/netsuite-types/N"],
+      "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
     }
   },
   "exclude": ["node_modules"]
 }
-
 ```
-The key components are __baseUrl__ and __paths__.
 
+The key components are __baseUrl__ and __paths__.
 
 Then simply import your modules and go.
 
@@ -90,4 +88,4 @@ Then if you're using a TypeScript-aware text editor (for instance the free [VSCo
 
 You can download the latest published typings library at any time by simply running the command:
 
-`npm install --save-dev github:headintheclouddev/typings-suitescript-2.0`
+`npm install --save-dev @hitc/netsuite-types`
