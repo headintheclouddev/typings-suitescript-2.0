@@ -3,7 +3,7 @@
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/index'
+import {EntryPoints} from 'N/types'
 import * as log from 'N/log'
 
 export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
@@ -13,4 +13,3 @@ export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
     log.audit('value', `companyname is: ${x}`)
 
 }
-

@@ -28,7 +28,7 @@ You can import the modules and use them like normal using standard TypeScript sy
     "baseUrl": ".",
     "lib": ["es5", "es2015.promise", "dom"],
     "paths": {
-      "N": ["node_modules/@hitc/netsuite-types/N"],
+      "N": ["node_modules/@hitc/netsuite-types/N.d.ts"],
       "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
     }
   },
@@ -50,13 +50,13 @@ At the top of every script you will want to have the following lines added:
  * @NScriptType ClientScript
  */
 
-import {EntryPoints} from 'N/index';
+import {EntryPoints} from 'N/types';
 ```
 
 EntryPoints isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
 
 ```typescript
-import {EntryPoints} from 'N/index';
+import {EntryPoints} from 'N/types';
 export var pageInit: EntryPoints.Client.pageInit = (ctx) => {
   //Your IDE will now autocomplete from the ctx argument. For instance use this to access ctx.mode and ctx.currentRecord in this pageInit example
 }
@@ -70,7 +70,7 @@ A full example might look something like this:
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/index'
+import {EntryPoints} from 'N/types'
 import * as log from 'N/log'
 
 export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
