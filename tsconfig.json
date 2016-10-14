@@ -3,7 +3,7 @@
     "module": "amd",
     "target": "es5",
     "baseUrl": ".",
-    "lib":["es5","es2015.promise", "dom"],
+    "lib":["es5", "es2015.promise", "dom"],
     "paths": {
       "N/*": [
         "node_modules/@hitc/netsuite-types/N/*"
