@@ -99,8 +99,8 @@ interface StatementOptions {
     formId?: number;
     /** Date of the oldest transaction to appear on the statement. */
     startDate?: Date;
-    /** Statement date. */
-    statementDate?: Date;
+    /** Statement date. NS Docs say this should be a Date object, but in practice it should be a string.*/
+    statementDate?: string;
     /** Include only open transactions. */
     openTransactionsOnly?: boolean;
 }
