@@ -2,6 +2,7 @@ import {File} from './file';
 import {Record} from './record';
 import {ServerResponse} from './http';
 import {Result} from './search';
+import {NSXMLDocument} from './xml';
 
 interface AddCustomDataSourceOptions {
     /** Data source alias. */
@@ -9,7 +10,7 @@ interface AddCustomDataSourceOptions {
     /** Data format, uses the render.DataSource enum. */
     format: DataSource;
     /** Object, document, or string. */
-    data: Object | Document | string;
+    data: Object | NSXMLDocument | string;
 }
 
 interface AddRecordOptions {
