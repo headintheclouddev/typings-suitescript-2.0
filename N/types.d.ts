@@ -283,4 +283,11 @@ export namespace EntryPoints {
         }
         type onAction = (scriptContext?: onActionContext) => void;
     }
+
+    namespace RESTlet {
+        type get = (requestParams?: any) => any;
+        type delete_ = (requestParams?: any) => any;
+        type post = (requestBody?: any) => any;
+        type put = (requestBody?: any) => any;
+    }
 }
