@@ -52,8 +52,8 @@ interface ClientSetValueOptions {
     value: boolean|string|number|Date|string[];
     /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
-    /** Indicates whether to perform slaving synchronously. */
-    fireSlavingSync?: boolean;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface CopyLoadOptions {
@@ -209,6 +209,8 @@ interface SetCurrentSublistValueOptions {
     value: FieldValue;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface SetCurrentSublistTextOptions {
@@ -236,6 +238,8 @@ interface SetValueOptions {
     value: FieldValue;
     /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface SetFieldTextOptions {
@@ -245,6 +249,8 @@ interface SetFieldTextOptions {
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface SetSublistTextOptions {
@@ -256,6 +262,8 @@ interface SetSublistTextOptions {
     line: number;
     /** The text to set the value to. */
     text: string;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface SetSublistValueOptions {
@@ -274,6 +282,8 @@ interface SetSublistValueOptions {
      * - Integer, Float, Currency and Percent fields accept number values.
      */
     value: FieldValue;
+    /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
+    fireSlavingSync: boolean;
 }
 
 interface GetSelectOptionsOpts {
