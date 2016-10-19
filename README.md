@@ -28,7 +28,7 @@ You can import the modules and use them like normal using standard TypeScript sy
     "baseUrl": ".",
     "lib": ["es5", "es2015.promise", "dom"],
     "paths": {
-      "N": ["node_modules/@hitc/netsuite-types/N.d.ts"],
+      "N": ["node_modules/@hitc/netsuite-types/N"],
       "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
     }
   },
