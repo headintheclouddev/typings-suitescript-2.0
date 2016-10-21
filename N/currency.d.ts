@@ -2,7 +2,7 @@ interface ExchangeRateOptions {
     /**
      * The point in time to evaluate currency.
      */
-    date?: number | string;
+    date?: Date;
     /**
      * The internal ID or three-letter ISO code for the currency you are converting from.
      */
