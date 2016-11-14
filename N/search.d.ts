@@ -225,6 +225,7 @@ interface SearchCreateOptions {
     columns?: (Array<Column | string>);
     title?: string;
     id?: string;
+    isPublic: boolean;
 }
 
 interface SearchCreateFunction {
