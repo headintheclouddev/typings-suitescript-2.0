@@ -1,4 +1,5 @@
 import * as N_auth from './N/auth';
+import * as N_cache from './N/cache';
 import * as N_config from './N/config';
 import * as N_crypto from './N/crypto';
 import * as N_currency from './N/currency';
@@ -31,6 +32,7 @@ import * as N_ui_message from './N/ui/message';
 import * as N_ui_serverWidget from './N/ui/serverWidget';
 
 export {N_auth as auth};
+export {N_cache as cache};
 export {N_config as config};
 export {N_crypto as crypto};
 export {N_currency as currency};
