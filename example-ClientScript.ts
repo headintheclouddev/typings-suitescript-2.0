@@ -23,6 +23,8 @@ export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
                 name: 'companyname',
                 sort: search.Sort.ASC
             }),
+            { name: 'email', },
+            'fax',
         ],
     }).then(search => {
         return search.run().getRange.promise({
