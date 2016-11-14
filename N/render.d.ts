@@ -137,7 +137,7 @@ interface TransactionOptions {
     /** The internal ID of the transaction to print. */
     entityId: number;
     /** The print output type. Set using the render.PrintMode enum. */
-    printMode?: PrintMode;
+    printMode?: PrintMode|string;
     /** The transaction form number. */
     formId?: number;
 }
