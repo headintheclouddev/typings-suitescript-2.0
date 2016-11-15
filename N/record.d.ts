@@ -370,7 +370,7 @@ export interface ClientCurrentRecord {
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Gets the subrecord for the associated field. */
-    getSubRecord(options: GetFieldOptions): Record;
+    getSubrecord(options: GetFieldOptions): Record;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     getText(fieldId: string): string | string[];
