@@ -341,7 +341,11 @@ export interface Field {
     getSelectOptions(options: GetSelectOptionsOpts): Object[];
     /** Sets the help text for the field. */
     setHelpText(options: SetHelpTextOptions): Field;
-    /** Updates the width and height of the field. Only supported on multi-selects, long text, rich text, and fields that get rendered as INPUT (type=text) fields. This function is not supported on list/record fields. */
+    /**
+     * Updates the width and height of the field. Only supported on multi-selects, long text, rich text, and fields
+     * that get rendered as INPUT (type=text) fields. This function is not supported on list/record fields.
+     * NOTE: If this method doesn't work, try directly seeing the richTextHeight or richTextWidth properties instead.
+     */
     updateDisplaySize(options: UpdateDisplaySizeOptions): Field;
     /** Updates the display type for the field. */
     updateDisplayType(options: UpdateDisplayTypeOptions): Field;
@@ -425,19 +429,26 @@ export interface Form extends BaseForm {
 }
 
 export interface Sublist {
+    /** Adds a button to a sublist. */
     addButton(options: AddButtonOptions): Button;
+    /** Adds a field to a sublist. */
     addField(options: AddFieldOptions): Field;
+    /** Adds a Mark All and an Unmark All button to a LIST type of sublist. */
     addMarkAllButtons(): Button;
+    /** Adds a Refresh button to a LIST type of sublist. */
     addRefreshButton(): Button;
+    /** Gets a field value on a sublist. */
     getSublistValue(options: SublistGetSublistValueOptions): string;
+    /** Sets the value of a sublist field. */
     setSublistValue(options: SublistSetSublistValueOptions): string;
-    getField(options: IDOptions): Field;
+    /** Updates the ID of a field designated as a totalling column, which is used to calculate and display a running total for the sublist. */
+    updateTotallingFieldId(options: { id: string }): Sublist;
+    /** Updates a field ID that is to have unique values across the rows in the sublist. */
+    updateUniqueFieldId(options: { id: string }): Sublist;
     displayType: SublistDisplayType;
     helpText: string;
     label: string;
     lineCount: number;
-    totallingFieldId: string;
-    uniqueFieldId: string;
 }
 
 export interface Tab {
