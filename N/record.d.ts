@@ -451,9 +451,9 @@ export interface Record extends ClientCurrentRecord {
 }
 
 interface SubmitConfig {
-    /** Enables sourcing during the record update. Defaults to false. */
-    enableSourcing?: boolean;
-    /** Disables mandatory field validation for this save operation. */
+    /** Indicates whether to enable sourcing during the record update. Defaults to true. */
+    enablesourcing?: boolean;
+    /** Indicates whether to ignore mandatory fields during record submission. Default is false. */
     ignoreMandatoryFields?: boolean;
 }
 
@@ -464,8 +464,6 @@ interface SubmitFieldsOptions {
     id: string | number;
     /** The ID-value pairs for each field you want to edit and submit. */
     values: Object;
-    /** Indicates whether to enable sourcing during the record update. */
-    enablesourcing?: boolean;
     /** Additional options to set for the record. */
     options?: SubmitConfig;
 }
