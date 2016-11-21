@@ -437,6 +437,8 @@ export interface Sublist {
     addMarkAllButtons(): Button;
     /** Adds a Refresh button to a LIST type of sublist. */
     addRefreshButton(): Button;
+    /** This isn't documented, but it is a thing, apparently. */
+    getField(options: IDOptions): Field;
     /** Gets a field value on a sublist. */
     getSublistValue(options: SublistGetSublistValueOptions): string;
     /** Sets the value of a sublist field. */
