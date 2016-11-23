@@ -228,7 +228,7 @@ interface ParserObject {
     toString: (options: ParserToStringOptions) => string;
 }
 
-interface XPath {
+interface XPathObject {
     select: (options: SelectOptions) => NSNode[];
 }
 
@@ -238,6 +238,11 @@ interface SelectOptions {
 }
 
 export var Parser: ParserObject;
+export var XPath: XPathObject;
+export var Node: NSNode;
+export var Document: NSXMLDocument;
+export var Element: NSElement;
+export var Attr: NSAttr;
 export function escape(options: EscapeOptions): string;
 export function validate(options: ValidateOptions): void;
 export enum NodeType {
