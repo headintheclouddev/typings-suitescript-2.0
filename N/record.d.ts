@@ -452,7 +452,7 @@ export interface Record extends ClientCurrentRecord {
 
 interface SubmitConfig {
     /** Indicates whether to enable sourcing during the record update. Defaults to true. */
-    enablesourcing?: boolean;
+    enableSourcing?: boolean;
     /** Indicates whether to ignore mandatory fields during record submission. Default is false. */
     ignoreMandatoryFields?: boolean;
 }
