@@ -158,6 +158,7 @@ export namespace EntryPoints {
             form: N_ui_serverWidget.Form;
             type: UserEventType;
             UserEventType: UserEventTypes;
+            request: N_http.ServerRequest;
         }
         type beforeLoad = (scriptContext?: beforeLoadContext) => void;
 
