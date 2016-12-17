@@ -4,7 +4,7 @@ interface RedirectOptions {
     /** The URL of a Suitelet that is available externally. */
     url: string;
     /** Contains additional URL parameters as key/value pairs. */
-    parameters?: Object;
+    parameters?: any;
 }
 
 interface ToRecordOptions {
@@ -15,7 +15,7 @@ interface ToRecordOptions {
     /** Determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode. */
     isEditMode?: boolean;
     /** Contains additional URL parameters as key/value pairs. */
-    parameters?: Object;
+    parameters?: any;
 }
 
 interface ToSavedSearchOptions {
@@ -39,14 +39,14 @@ interface ToSuiteletOptions {
     /** The default value is false – indicates an external Suitelet URL. */
     isExternal?: boolean;
     /** Contains additional URL parameters as key/value pairs. */
-    parameters?: Object;
+    parameters?: any;
 }
 
 interface ToTaskLinkOptions {
     /** The taskId for a tasklink. */
     id: string;
     /** Contains additional URL parameters as key/value pairs. */
-    parameters?: Object;
+    parameters?: any;
 }
 
 /** Method used to set the redirect to the URL of a Suitelet that is available externally (Suitelets set to Available Without Login on the Script Deployment page). */

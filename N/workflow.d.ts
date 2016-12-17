@@ -2,7 +2,7 @@ interface InitiateOptions {
     recordType: string; // Documentation says number, but examples clearly contradict
     recordId: string | number;
     workflowId: string | number;
-    defaultValues?: Object;
+    defaultValues?: any;
 }
 
 interface TriggerOptions {
@@ -13,7 +13,7 @@ interface TriggerOptions {
      */
     workflowId: string | number;
     workflowInstanceId?: number | string;
-    defaultValues?: Object;
+    defaultValues?: any;
     /**
      * Internal ID of a button that appears on the record in the workflow.
      * Use this parameter to trigger the workflow as if the specified button were clicked.

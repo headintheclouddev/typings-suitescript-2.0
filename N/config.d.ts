@@ -18,7 +18,7 @@ interface Config {
     /**
      * Description TBA (5/9/2016)
      */
-    getField(options: ConfigGetOptions): Object;
+    getField(options: ConfigGetOptions): any;
 
     getText(options: ConfigGetOptions): (string | string[]);
     /**

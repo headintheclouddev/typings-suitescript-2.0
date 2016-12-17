@@ -44,7 +44,7 @@ interface SendRedirectOptions {
     /**
      * -optional- Additional URL parameters as name/value pairs.
      */
-    parameters?: Object;
+    parameters?: any;
 }
 
 interface SetHeaderOptions {
@@ -101,7 +101,7 @@ interface WritePageOptions {
     /**
      * A standalone page object in the form of an assistant, form or list.
      */
-    pageObject: Object;
+    pageObject: any;
 }
 
 interface GetLineCountOptions {
@@ -119,7 +119,7 @@ interface GetOptions {
     /**
      * -optional- The HTTP headers.
      */
-    headers?: Object;
+    headers?: any;
 }
 
 interface DeleteOptions {
@@ -130,7 +130,7 @@ interface DeleteOptions {
     /**
      * -optional- The HTTP headers.
      */
-    headers?: Object;
+    headers?: any;
 }
 
 interface RequestOptions {
@@ -145,11 +145,11 @@ interface RequestOptions {
     /**
      * -optional- The POST data if the method is POST. If method is DELETE, body data is ignored.
      */
-    body?: string | Object;
+    body?: string | any;
     /**
      * -optional- An object containing request headers.
      */
-    headers?: Object;
+    headers?: any;
 }
 
 interface PostOptions {
@@ -160,11 +160,11 @@ interface PostOptions {
     /**
      * The POST data.
      */
-    body: string | Object;
+    body: string | any;
     /**
      * -optional- The HTTP headers.
      */
-    headers?: Object;
+    headers?: any;
 }
 
 interface PutOptions {
@@ -175,11 +175,11 @@ interface PutOptions {
     /**
      * The PUT data.
      */
-    body: string | Object;
+    body: string | any;
     /**
      * The HTTP headers.
      */
-    headers?: Object;
+    headers?: any;
 }
 
 interface HttpDeleteFunction {
@@ -222,7 +222,7 @@ export interface ClientResponse {
     /**
      * The response header or headers.
      */
-    headers: Object;
+    headers: any;
 }
 
 interface GetSublistValueOptions {
@@ -253,11 +253,11 @@ export interface ServerRequest {
     /**
      * The server request files.
      */
-    files: Object;
+    files: any;
     /**
      * The server request headers.
      */
-    headers: Object;
+    headers: any;
     /**
      * The server request http method.
      */
@@ -265,7 +265,7 @@ export interface ServerRequest {
     /**
      * The server request parameters.
      */
-    parameters: Object;
+    parameters: any;
     /**
      * The server request URL.
      */
@@ -333,7 +333,7 @@ export interface ServerResponse {
     /**
      * The server response headers. This property is read-only.
      */
-    headers: Object;
+    headers: any;
 }
 
 /**

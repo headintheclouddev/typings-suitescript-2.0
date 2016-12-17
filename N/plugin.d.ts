@@ -9,4 +9,4 @@ interface LoadImplementationsOptions {
 }
 
 export function findImplementations(options: FindImplementationsOptions): string[];
-export function loadImplementations(options: LoadImplementationsOptions): Object;
+export function loadImplementations(options: LoadImplementationsOptions): any;

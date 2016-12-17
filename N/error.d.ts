@@ -42,7 +42,7 @@ export interface SuiteScriptError {
     /**
      * The cause of the error message.
      */
-    cause: Object|Object[]|string|string[]|number|number[]|boolean|boolean[];
+    cause: any|any[]|string|string[]|number|number[]|boolean|boolean[];
 }
     
 /**

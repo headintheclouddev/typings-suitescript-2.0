@@ -141,7 +141,7 @@ export interface Search {
     searchType: Type | string;
     searchId: number;
     filters: Filter[];
-    filterExpression: Object[];
+    filterExpression: any[];
     columns: (Column[] | string[]);
     title: string;
     id: string;
@@ -177,8 +177,8 @@ interface SearchLookupFieldsOptions {
 }
 
 interface SearchLookupFieldsFunction {
-    promise(options: SearchLookupFieldsOptions): Promise<Object>;
-    (options: SearchLookupFieldsOptions): Object;
+    promise(options: SearchLookupFieldsOptions): Promise<any>;
+    (options: SearchLookupFieldsOptions): any;
 }
 
 interface SearchGlobalOptions {
@@ -221,7 +221,7 @@ interface SearchLoadFunction {
 
 interface SearchCreateOptions {
     type: Type | string;
-    filters?: (Filter[] | Object[]);
+    filters?: (Filter[] | any[]);
     columns?: (Array<Column | string>);
     title?: string;
     id?: string;

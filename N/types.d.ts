@@ -192,7 +192,7 @@ export namespace EntryPoints {
             id: string;
             type: string;
         }
-        type getInputData = () => N_search.Search | Object | Object[] | ObjectReference;
+        type getInputData = () => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
             key: string;

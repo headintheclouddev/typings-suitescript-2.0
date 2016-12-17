@@ -12,7 +12,7 @@ interface CsvImportTask {
     submit(): string;
     toString(): string;
     importFile: File | string;
-    linkedFiles: Object;
+    linkedFiles: any;
     mappingId: number | string;
     name: string;
     queueId: number;
@@ -43,7 +43,7 @@ interface MapReduceScriptTask {
     toString(): string;
     scriptId: string;
     deploymentId: string;
-    params: Object;
+    params: any;
 }
 
 interface MapReduceScriptTaskStatus {
@@ -69,7 +69,7 @@ interface ScheduledScriptTask {
     toString(): string;
     scriptId: string;
     deploymentId: string;
-    params: Object;
+    params: any;
 }
 
 interface ScheduledScriptTaskStatus {
@@ -82,7 +82,7 @@ interface ScheduledScriptTaskStatus {
 interface WorkflowTriggerTask {
     submit(): string;
     toString(): string;
-    params: Object;
+    params: any;
     recordId: number;
     recordType: string;
     workflowId: number | string;

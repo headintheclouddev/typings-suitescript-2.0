@@ -1,25 +1,25 @@
 interface formatOptions {
     domain: string;
-    parameters: Object;
+    parameters: any;
 }
 
 interface resolveRecordOptions {
     recordType: string;
     recordId: string;
     isEditMode?: boolean;
-    params?: Object;
+    params?: any;
 }
 
 interface resolveScriptOptions {
     scriptId: string;
     deploymentId: string;
     returnExternalUrl?: boolean;
-    params?: Object;
+    params?: any;
 }
 
 interface resolveTaskLinkOptions {
     id: string;
-    parameters?: Object;
+    parameters?: any;
 }
 
 export function format(options: formatOptions): string;

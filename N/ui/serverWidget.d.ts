@@ -281,7 +281,7 @@ export interface Assistant {
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
     /** Sets the default values of an array of fields that are specific to the assistant. */
-    updateDefaultValues(values: Object);
+    updateDefaultValues(values: any);
     /** The file cabinet ID of client script file to be used in this assistant. */
     clientScriptFileId: number;
     /** Identifies the current step. You can set any step as the current step. */
@@ -338,7 +338,7 @@ export interface Field {
     /** Adds the select options that appears in the dropdown of a field. */
     addSelectOption(options: AddSelectOptionOptions): void;
     /** Obtains a list of available options on a select field. */
-    getSelectOptions(options: GetSelectOptionsOpts): Object[];
+    getSelectOptions(options: GetSelectOptionsOpts): any[];
     /** Sets the help text for the field. */
     setHelpText(options: SetHelpTextOptions): Field;
     /**
@@ -424,7 +424,7 @@ export interface Form extends BaseForm {
     insertSubtab(options: InsertSubtabOptions): Tab;
     insertTab(options: InsertSubtabOptions): Tab;
     /** Updates the default values of multiple fields on the form. */
-    updateDefaultValues(values: Object): void;
+    updateDefaultValues(values: any): void;
     removeButton(options: IDOptions): void;
 }
 

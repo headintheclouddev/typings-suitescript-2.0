@@ -19,7 +19,7 @@ interface AttachOptions {
     /**
      * The name-value pairs containing attributes for the attachment.
      */
-    attributes?: Object;
+    attributes?: any;
 }
 
 interface AttachRecordOptions {
@@ -76,7 +76,7 @@ interface CopyLoadOptions {
     /**
      * Name-value pairs containing default values of fields in the new record.
      */
-    defaultValue?: Object;
+    defaultValue?: any;
 }
 
 interface DetachOptions {
@@ -85,7 +85,7 @@ interface DetachOptions {
     /** The destination record that options.record should be detached from. */
     from: AttachRecordOptions;
     /** Name-value pairs containing default values of fields in the new record. */
-    attributes?: Object;
+    attributes?: any;
 }
 
 interface FindSublistLineWithValueOptions {
@@ -297,7 +297,7 @@ export interface Field {
     /**
      * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
      */
-    getSelectOptions(options: GetSelectOptionsOpts): Object[];
+    getSelectOptions(options: GetSelectOptionsOpts): any[];
     /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
     /** Returns the internal ID of a standard or custom body or sublist field. */
@@ -463,7 +463,7 @@ interface SubmitFieldsOptions {
     /** The internal ID of the existing record instance in NetSuite. */
     id: string | number;
     /** The ID-value pairs for each field you want to edit and submit. */
-    values: Object;
+    values: any;
     /** Additional options to set for the record. */
     options?: SubmitConfig;
 }
@@ -503,7 +503,7 @@ interface RecordCreateOptions {
     /**
      * Name-value pairs containing default values of fields in the new record.
      */
-    defaultValues?: Object;
+    defaultValues?: any;
 }
 
 interface RecordCreateFunction {
@@ -552,7 +552,7 @@ interface RecordTransformOptions {
     /** If set to true, the new record is created in dynamic mode. If set to false, the new record is created in standard mode. */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */
-    defaultValues?: Object;
+    defaultValues?: any;
 }
 
 /** Attaches a record to another record. */

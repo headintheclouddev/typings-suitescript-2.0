@@ -31,13 +31,13 @@ interface FormatDateTimeOptions {
  * Use format to convert an Object (like a Date) into a specific NS string format. 
  * Options: value (Date|string|number), type (format.FormatType).
  */
-export function format(options: FormatOptions): string | Object;
+export function format(options: FormatOptions): string | any;
 
 /**
  * Use format to convert an Object (like a Date) into a specific NS string format. 
  * Options: value (Date|string), type (format.FormatType), timezone (enum).
  */
-export function format(options: FormatDateTimeOptions): string | Object;
+export function format(options: FormatDateTimeOptions): string | any;
 
 /**
  * Use parse to convert a string into an object, like a Date.

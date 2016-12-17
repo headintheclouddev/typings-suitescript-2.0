@@ -10,7 +10,7 @@ interface AddCustomDataSourceOptions {
     /** Data format, uses the render.DataSource enum. */
     format: DataSource;
     /** Object, document, or string. */
-    data: Object | NSXMLDocument | string;
+    data: any | NSXMLDocument | string;
 }
 
 interface AddRecordOptions {
