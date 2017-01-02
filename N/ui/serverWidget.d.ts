@@ -76,6 +76,13 @@ interface AddPageLinkOptions {
     url: string;
 }
 
+interface AddParamToURLOptions {
+    param: string;
+    value: string;
+    /** If true, then the parameter value is actually an alias that is calculated per row. */
+    dynamic?: boolean;
+}
+
 interface AddResetButtonOptions {
     /** The label used for this button. If no label is provided, the label defaults to Reset. */
     label: string;
@@ -208,6 +215,13 @@ interface SetSplashOptions {
     text1: string;
     /** Text for a second column on the splash screen, if desired. */
     text2?: string;
+}
+
+interface SetURLOptions {
+    /** The base URL or a column in the data source that returns the base URL for each row. */
+    url: string;
+    /** If true, then the URL is actually an alias that is calculated per row. */
+    dynamic?: boolean;
 }
 
 interface UpdateBreakTypeOptions {
@@ -426,6 +440,18 @@ export interface Form extends BaseForm {
     /** Updates the default values of multiple fields on the form. */
     updateDefaultValues(values: any): void;
     removeButton(options: IDOptions): void;
+}
+
+interface List { /** TODO: Document this object? */
+
+}
+
+interface ListColumn {
+    /** Adds a URL parameter (optionally defined per row) to the list column's URL. Use in a Suitelet only. */
+    addParamToURL(options: AddParamToURLOptions): ListColumn;
+    /** Sets the base URL for the list column. */
+    setURL(options: SetURLOptions): ListColumn;
+    label: string;
 }
 
 export interface Sublist {
