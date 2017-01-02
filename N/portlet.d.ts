@@ -1,4 +1,4 @@
-import {BaseForm, Button, Field, FieldType, LayoutJustification} from './ui/serverWidget';
+import {BaseForm, Button, Field, FieldType, LayoutJustification, ListColumn} from './ui/serverWidget';
 import {Result} from './search';
 
 interface SetSubmitButtonOptions {
@@ -34,14 +34,24 @@ interface AddLineOptions {
     align?: number;
 }
 
+interface AddRowOptions {
+    /** A row that consists of either a search.Result, or name/value pairs. Each pair should contain the value for the corresponding Column object in the list. */
+    row: Result|Object;
+}
+
+interface AddRowsOptions {
+    /** An array of rows that consist of either a search.Result array, or an array of name/value pairs. Each pair should contain the value for the corresponding Column object in the list. */
+    rows: Result[]|Object[];
+}
+
 //TODO: Complete function definitions
 export interface Portlet extends BaseForm {
-    addColumn(options: AddColumnOptions): any;
-    addEditColumn(options: AddEditColumnOptions): any;
+    addColumn(options: AddColumnOptions): ListColumn;
+    addEditColumn(options: AddEditColumnOptions): ListColumn;
     addField(options: AddFieldOptions): Field
     addLine(options: AddLineOptions): Object;
-    addRow(row: Result|Object): Object;
-    addRows(rows: Result[]|Object[]): Object;
+    addRow(options: AddRowOptions): Object;
+    addRows(options: AddRowsOptions): Object;
     setSubmitButton(options: SetSubmitButtonOptions): Button;
     /** The script file ID to be used in the portlet. */
     clientScriptFileId: number;
