@@ -1,6 +1,4 @@
-/**
- * UI Object page type used to build multi-step "assistant" pages to simplify complex workflows. All data and state for an assistant is tracked automatically throughout the user's session up until completion of the assistant.
- */
+/** UI Object page type used to build multi-step "assistant" pages to simplify complex workflows. All data and state for an assistant is tracked automatically throughout the user's session up until completion of the assistant. */
 interface NLObjAssistant {
     /**
      * Add a field to this page and return it.
@@ -155,9 +153,7 @@ interface NLObjAssistant {
     setTitle(title: string): void;
 }
 
-/**
- * Assistant Step Definition. Used to define individual steps/pages in multi-step workflows.
- */
+/** Assistant Step Definition. Used to define individual steps/pages in multi-step workflows. */
 interface NLObjAssistantStep {
     /**
      * Return an array of the names of all fields entered by the user during this step.
@@ -211,9 +207,7 @@ interface NLObjAssistantStep {
     
 }
 
-/**
- * Buttons used for triggering custom behaviors on pages.
- */
+/** Buttons used for triggering custom behaviors on pages. */
 interface NLObjButton {
     /**
      * Disable or enable button.
@@ -243,9 +237,7 @@ interface NLObjCache {
     remove(key: string): Object;
 }
 
-/**
- * For columns used on scriptable lists and list portlets.
- */
+/** For columns used on scriptable lists and list portlets. */
 interface NLObjColumn {
     /**
      * Add a URL parameter (optionally defined per row) to this column's URL.
@@ -270,9 +262,7 @@ interface NLObjColumn {
     setURL(value: string, perRow: boolean): void;
 }
 
-/**
- * For interacting with setup/configuration pages.
- */
+/** For interacting with setup/configuration pages. */
 interface NLObjConfiguration {
     /**
      * Return an Array of all field names on the record.
@@ -346,9 +336,7 @@ interface NLObjConfiguration {
     setFieldTexts(name: string, texts: string[]): void;
 }
 
-/**
- * Utility class providing information about the current user and the script runtime.
- */
+/** Utility class providing information about the current user and the script runtime. */
 interface NLObjContext {
     /**
      * Return the account ID of the current user.
@@ -1796,9 +1784,7 @@ interface NLObjRequest {
     getURL(): string;
 }
 
-/**
- * Accessor to Http response made available to Suitelets.
- */
+/** Accessor to Http response made available to Suitelets. */
 interface NLObjResponse {
     /**
      * Add a value for a response header.
@@ -2181,9 +2167,7 @@ interface NLObjSelectOption {
     getText(): string;
 }
 
-/**
- * Contains the results of a server response to an outbound Http(s) call.
- */
+/** Contains the results of a server response to an outbound Http(s) call. */
 interface NLObjServerResponse {
     /**
      * Return an Array of all headers returned.
@@ -2302,15 +2286,38 @@ interface NLObjSubList {
     setUniqueField(fldnam: string): NLObjField;
 }
 
+/** Primary object used to encapsulate a NetSuite subrecord. To create a subrecord, you must first create or load a parent record. You can then create or access a subrecord from a body field or from a sublist field on the parent record. */
 interface NLObjSubrecord {
-    /**
-     * Commit the subrecord after you finish modifying it.
-     */
+    /** Cancel the current processing of the subrecord and revert subrecord data to the last committed change (submitted in the last commit() call). */
+    cancel(): void;
+    /** Commit the subrecord after you finish modifying it. */
     commit(): void;
     /**
-     * Cancel any modification on a subrecord.
+     * Commit the current line in a sublist.
+     *
+     * @param {string} 	group sublist name
      */
-    cancel(): void;
+    commitLineItem(group: string): void;
+    /**
+     * Select an existing line in a sublist.
+     *
+     * @param {string} group Sublist name.
+     * @param {number} line Line number to select.
+     */
+    selectLineItem(group: string, line: number): void;
+    /**
+     * Insert and select a new line in a sublist.
+     *
+     * @param {string} group sublist name
+     */
+    selectNewLineItem(group: string): void;
+    /**
+     * Set the current value of a sublist field.
+     * @param {string} 	group sublist name
+     * @param {string} 	name sublist field name
+     * @param {string} 	value sublist field value
+     */
+    setCurrentLineItemValue(group: string, name: string, value: string): void;
 }
 
 interface NLObjTab {
