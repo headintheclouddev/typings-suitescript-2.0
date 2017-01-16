@@ -21,10 +21,10 @@ interface AddEditColumnOptions {
 }
 
 interface AddFieldOptions {
-    id:     string;
-    label:  string;
-    type:   string|FieldType;
-    source: string;
+    id:      string;
+    label:   string;
+    type:    string|FieldType;
+    source?: string;
 }
 
 interface AddLineOptions {
