@@ -352,7 +352,7 @@ export interface Field {
     /** Adds the select options that appears in the dropdown of a field. */
     addSelectOption(options: AddSelectOptionOptions): void;
     /** Obtains a list of available options on a select field. */
-    getSelectOptions(options: GetSelectOptionsOpts): any[];
+    getSelectOptions(options?: GetSelectOptionsOpts): any[];
     /** Sets the help text for the field. */
     setHelpText(options: SetHelpTextOptions): Field;
     /**
