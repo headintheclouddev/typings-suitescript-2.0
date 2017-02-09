@@ -1987,7 +1987,7 @@ interface NLObjSearch {
  * @param {string} join internal ID for joined search where this column is defined
  * @param {string} summary
  */
-declare function nlobjSearchColumn(name: string, join: string, summary: string): NLObjSearchColumn;
+declare function nlobjSearchColumn(name: string, join?: string, summary?: string): void;
 interface NLObjSearchColumn {
     /**
      * Return formula for this search column.
