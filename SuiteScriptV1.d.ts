@@ -2061,7 +2061,7 @@ interface NLObjSearchColumn {
  * @param {string|string[]} value
  * @param {string} value2
  */
-declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2: string): NLObjSearchFilter;
+declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2?: string): void;
 interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
