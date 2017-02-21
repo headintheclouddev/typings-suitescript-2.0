@@ -290,14 +290,14 @@ interface GetSelectOptionsOpts {
     /** The search string to filter the select options that are returned. */
     filter: string;
     /** The following operators are supported: contains, is, startswith. Default is contains. */
-    filteroperator: Operator;
+    operator: "contains" | "is" | "startswith";
 }
 
 export interface Field {
     /**
      * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
      */
-    getSelectOptions(options: GetSelectOptionsOpts): any[];
+    getSelectOptions(options: GetSelectOptionsOpts): { value: any, text: string }[];
     /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
     /** Returns the internal ID of a standard or custom body or sublist field. */

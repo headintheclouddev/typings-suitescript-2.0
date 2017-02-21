@@ -1,7 +1,7 @@
 export interface File {
     description: string;
     encoding: string;
-    fileType: string;
+    fileType: Type;
     folder: number;
     id: number;
     isInactive: boolean;

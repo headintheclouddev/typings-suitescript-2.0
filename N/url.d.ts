@@ -19,7 +19,7 @@ interface resolveScriptOptions {
 
 interface resolveTaskLinkOptions {
     id: string;
-    parameters?: any;
+    params?: any;
 }
 
 export function format(options: formatOptions): string;
