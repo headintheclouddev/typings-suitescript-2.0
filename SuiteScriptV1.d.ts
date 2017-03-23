@@ -3352,6 +3352,15 @@ declare function nlapiSetMatrixValue(type: string, fldnam: string, column: numbe
  */
 declare function nlapiSetRecoveryPoint(): Object;
 /**
+ * 
+ * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
+ * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
+ * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
+ * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
+ * @param {Object} parameters Additional URL parameters as name/value pairs
+ */
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
+/**
  * Convert a String into a Date object.
  *
  * @param {string} str Date string in the user's date format, timeofday format, or datetime format.
