@@ -1,5 +1,5 @@
 
-import { Sublist } from './ui/serverWidget';
+import { AddSelectOptionOptions, Sublist } from './ui/serverWidget';
 import { Operator } from './search';
 
 interface RecordSaveFunction {
@@ -294,6 +294,8 @@ interface GetSelectOptionsOpts {
 }
 
 export interface Field {
+    /** Adds the select options that appears in the dropdown of a field. */
+    addSelectOption(options: AddSelectOptionOptions): void;
     /**
      * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
      */
