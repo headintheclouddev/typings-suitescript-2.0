@@ -1,7 +1,7 @@
 import {File} from './file';
 
 interface CheckStatusOptions {
-    taskId: ScheduledScriptTask | MapReduceScriptTask | CsvImportTask | EntityDeduplicationTask | WorkflowTriggerTask;
+    taskId: string;
 }
 
 interface TaskCreateOptions {
@@ -94,7 +94,7 @@ interface WorkflowTriggerTaskStatus {
 }
 
 export function create(options: TaskCreateOptions): ScheduledScriptTask | MapReduceScriptTask | CsvImportTask | EntityDeduplicationTask | WorkflowTriggerTask;
-export function checkStatus(options: CheckStatusOptions): ScheduledScriptTask | MapReduceScriptTask | CsvImportTask | EntityDeduplicationTask | WorkflowTriggerTask;
+export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus;
 export enum DedupeEntityType {
     CUSTOMER,
     CONTACT,
