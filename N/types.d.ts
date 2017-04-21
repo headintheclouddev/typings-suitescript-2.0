@@ -204,7 +204,7 @@ export namespace EntryPoints {
         interface reduceContext {
             key: string;
             values: string[];
-            write: (key: string, value: string[]) => void;
+            write: (key: string, value: any) => void;
         }
         type reduce = (scriptContext?: reduceContext) => void;
 
