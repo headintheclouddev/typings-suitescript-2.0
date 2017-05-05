@@ -41,15 +41,15 @@ export interface Column {
 
 interface SearchResultGetValueTextOptions {
     name: string;
-    join: string;
+    join?: string;
     summary?: Summary;
 }
 
 export interface Result {
-    getValue(options: SearchResultGetValueTextOptions): boolean | string | string[];
-    getValue(column: SearchColumn): boolean | string | string[];
-    getText(options: SearchResultGetValueTextOptions): string;
-    getValue(column: SearchColumn): string;
+    getValue(column: Column): boolean | string | string[];
+    getValue(column: string): boolean | string | string[];
+    getText(options: Column): string;
+    getText(column: string): string;
     recordType: Type | string;
     id: string;
     columns: Column[];
