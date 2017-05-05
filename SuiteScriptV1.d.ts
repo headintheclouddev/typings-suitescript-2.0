@@ -3430,7 +3430,7 @@ declare function nlapiTransformRecord(type: string, id: number, transformType: s
  * @param {string|number} actionid Internal ID or script ID of the action script
  * @param {string|number} stateid Internal ID or script ID of the state contains the referenced add button action
  */
-declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid: string|number, actionid: string|number, stateid: string|number): number;
+declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid: string|number, actionid?: string|number, stateid?: string|number): number;
 /**
  * Validate that a given XML document conforms to a given XML schema. XML Schema Definition (XSD) is the expected schema format.
  *
