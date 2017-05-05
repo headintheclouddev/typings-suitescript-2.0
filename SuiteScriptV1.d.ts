@@ -1517,28 +1517,28 @@ interface NLObjRecord {
     selectNewLineItem(group: string): void;
     /**
      * Set the current value of a sublist field.
-     * @param {string} 	group sublist name
-     * @param {string} 	name sublist field name
-     * @param {string} 	value sublist field value
-     * @param {string} 	timezone 
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string} value sublist field value
+     * @param {string} timezone 
      */
     setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone?: string): void;
     /**
      * Set the current value of a sublist matrix field.
      *
-     * @param {string} 	group matrix sublist name
-     * @param {string} 	name matrix field name
-     * @param {number} 	column matrix field column index (1-based)
-     * @param {string} 	value matrix field value
+     * @param {string} group matrix sublist name
+     * @param {string} name matrix field name
+     * @param {number} column matrix field column index (1-based)
+     * @param {string} value matrix field value
      */
     setCurrentLineItemMatrixValue(group: string, name: string, column: number, value: string): void;
     /**
      * Set the current value of a sublist field.
-     * @param {string} 	group sublist name
-     * @param {string} 	name sublist field name
-     * @param {string} 	value sublist field value
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string|number} value sublist field value
      */
-    setCurrentLineItemValue(group: string, name: string, value: string): void;
+    setCurrentLineItemValue(group: string, name: string, value: string|number): void;
     /**
      * Set the value of a field.
      *
@@ -2650,9 +2650,9 @@ declare function nlapiFindLineItemValue(type: string, fldnam: string, val: strin
 /**
  * Format a number for data entry into a currency field.
  *
- * @param {string} str Numeric string used to format for display as currency using user's locale.
+ * @param {string|number} str Numeric string used to format for display as currency using user's locale.
  */
-declare function nlapiFormatCurrency(str: string): string;
+declare function nlapiFormatCurrency(str: string|number): string;
 /**
  * Return context information about the current user/script.
  */
@@ -2957,11 +2957,11 @@ declare function nlapiLogExecution(type: string, title: string, details?: string
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
  * @param {string} type The record type name.
- * @param {number} id The internal ID for the record.
+ * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields to look up.
  * @param {boolean} text If true then the display value is returned instead for select fields.
  */
-declare function nlapiLookupField(type: string, id: number, fields: string|string[], text?: boolean): string|Object;
+declare function nlapiLookupField(type: string, id: number|string, fields: string|string[], text?: boolean): string|Object;
 /**
  * Perform a mail merge operation using any template and up to 2 records and returns an nlobjFile with the results.
  * @restriction only supported for record types that are available in mail merge: transactions, entities, custom records, and cases
@@ -3086,7 +3086,7 @@ declare function nlapiResizePortlet(): void;
  * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a.
  * @param {string} pagemode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
-declare function nlapiResolveURL(type: string, subtype: string, id: string, pagemode?: string): string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pagemode?: string): string;
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successfull.
  * @restriction Server SuiteScript only
@@ -3120,7 +3120,7 @@ declare function nlapiSearchGlobal(keywords: string): NLObjSearchResult[];
 declare function nlapiSearchRecord(
     type:     string,
     id?:      number|string,
-    filters?: NLObjSearchFilter|NLObjSearchFilter[],
+    filters?: NLObjSearchFilter|NLObjSearchFilter[]|(string|string[])[],
     columns?: NLObjSearchColumn|NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
@@ -3249,11 +3249,11 @@ declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: 
  *
  * @param {string} type Sublist name
  * @param {string} fldnam Sublist field name
- * @param {string} value Field value
+ * @param {string|number} value Field value
  * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string|number, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
  * Set the value of a multi-select field on the currently selected line.
  * @restriction synchronous arg is only supported in client SuiteScript
