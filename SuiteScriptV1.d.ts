@@ -2950,9 +2950,9 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
  *
  * @param {string} type	Log type: debug|audit|error|emergency
  * @param {string} title Log title (up to 90 characters supported)
- * @param {string} details Log details (up to 3000 characters supported)
+ * @param {string|number} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: string, title: string, details?: string): void;
+declare function nlapiLogExecution(type: string, title: string, details?: string|number): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
@@ -3329,9 +3329,9 @@ declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boo
  * @param {string} 	type Sublist name
  * @param {string} 	fldnam Sublist field name
  * @param {number} 	linenum Line number (1-based)
- * @param {string} value
+ * @param {string|number} value
  */
-declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string): void;
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string|number): void;
 /**
  * Set the value of a matrix header field.
  * @restriction synchronous arg is only supported in client SuiteScript
