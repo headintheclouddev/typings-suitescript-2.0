@@ -3391,12 +3391,12 @@ declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
 /**
  * Submit the values of a field or set of fields for an existing record.
  * @param {string} type The record type name.
- * @param {number} id The internal ID for the record.
+ * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields being updated.
  * @param {string|string[]} values Field value or field values for updating.
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
-declare function nlapiSubmitField(type: string, id: number, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
+declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
 /**
  * Add/update a file in the file cabinet.
  * @governance 20 units
