@@ -88,7 +88,7 @@ interface AddResetButtonOptions {
     label: string;
 }
 
-interface AddSelectOptionOptions {
+export interface AddSelectOptionOptions {
     value: string;
     text: string;
     isSelected?: boolean;
@@ -432,6 +432,7 @@ export interface Form extends BaseForm {
     getField(options: IDOptions): Field;
     getSublist(options: IDOptions): Sublist;
     getSubtab(options: IDOptions): Tab;
+    getTab(options: { id: string }): Tab;
     getTabs(): Tab[];
     insertField(options: InsertFieldOptions): Field;
     insertSublist(options: InsertSublistOptions): Sublist;

@@ -22,7 +22,7 @@ interface SearchColumnSetWhenOrderedByOptions {
 /** Encapsulates a single search column in a search.Search. Use the methods and properties available to the Column object to get or set Column properties. */
 export interface Column {
     /** Returns the search column for which the minimal or maximal value should be found when returning the search.Column value. */
-    setWhenOrderedBy?(SearchColumnSetWhenOrderedByOptions): Column;
+    setWhenOrderedBy?(options: SearchColumnSetWhenOrderedByOptions): Column;
     /** Name of a search column as a string. */
     name: string;
     /** Join ID for a search column as a string. */
@@ -41,15 +41,15 @@ export interface Column {
 
 interface SearchResultGetValueTextOptions {
     name: string;
-    join: string;
+    join?: string;
     summary?: Summary;
 }
 
 export interface Result {
-    getValue(options: SearchResultGetValueTextOptions): boolean | string | string[];
-    getValue(SearchColumn): boolean | string | string[];
-    getText(options: SearchResultGetValueTextOptions): string;
-    getText(SearchColumn): string;
+    getValue(column: Column): boolean | string | string[];
+    getValue(column: string): boolean | string | string[];
+    getText(options: Column): string;
+    getText(column: string): string;
     recordType: Type | string;
     id: string;
     columns: Column[];

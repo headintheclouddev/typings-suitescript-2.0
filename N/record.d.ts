@@ -1,5 +1,5 @@
 
-import { Sublist } from './ui/serverWidget';
+import { AddSelectOptionOptions, Sublist } from './ui/serverWidget';
 import { Operator } from './search';
 
 interface RecordSaveFunction {
@@ -294,10 +294,15 @@ interface GetSelectOptionsOpts {
 }
 
 export interface Field {
+    /** Adds the select options that appears in the dropdown of a field. */
+    insertSelectOption(options: AddSelectOptionOptions): void;
+    /** Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned. */
+    getSelectOptions(options?: GetSelectOptionsOpts): { value: any, text: string }[];
     /**
-     * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
-     */
-    getSelectOptions(options: GetSelectOptionsOpts): { value: any, text: string }[];
+     * Removes a single select option from a select or multiselect field added via script.
+     * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
+    */
+    removeSelectOption(options?: { value: string }): void;
     /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
     /** Returns the internal ID of a standard or custom body or sublist field. */

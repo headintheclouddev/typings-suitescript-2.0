@@ -1517,28 +1517,28 @@ interface NLObjRecord {
     selectNewLineItem(group: string): void;
     /**
      * Set the current value of a sublist field.
-     * @param {string} 	group sublist name
-     * @param {string} 	name sublist field name
-     * @param {string} 	value sublist field value
-     * @param {string} 	timezone 
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string} value sublist field value
+     * @param {string} timezone 
      */
     setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone?: string): void;
     /**
      * Set the current value of a sublist matrix field.
      *
-     * @param {string} 	group matrix sublist name
-     * @param {string} 	name matrix field name
-     * @param {number} 	column matrix field column index (1-based)
-     * @param {string} 	value matrix field value
+     * @param {string} group matrix sublist name
+     * @param {string} name matrix field name
+     * @param {number} column matrix field column index (1-based)
+     * @param {string} value matrix field value
      */
     setCurrentLineItemMatrixValue(group: string, name: string, column: number, value: string): void;
     /**
      * Set the current value of a sublist field.
-     * @param {string} 	group sublist name
-     * @param {string} 	name sublist field name
-     * @param {string} 	value sublist field value
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string|number} value sublist field value
      */
-    setCurrentLineItemValue(group: string, name: string, value: string): void;
+    setCurrentLineItemValue(group: string, name: string, value: string|number): void;
     /**
      * Set the value of a field.
      *
@@ -2650,9 +2650,9 @@ declare function nlapiFindLineItemValue(type: string, fldnam: string, val: strin
 /**
  * Format a number for data entry into a currency field.
  *
- * @param {string} str Numeric string used to format for display as currency using user's locale.
+ * @param {string|number} str Numeric string used to format for display as currency using user's locale.
  */
-declare function nlapiFormatCurrency(str: string): string;
+declare function nlapiFormatCurrency(str: string|number): string;
 /**
  * Return context information about the current user/script.
  */
@@ -2950,18 +2950,18 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
  *
  * @param {string} type	Log type: debug|audit|error|emergency
  * @param {string} title Log title (up to 90 characters supported)
- * @param {string} details Log details (up to 3000 characters supported)
+ * @param {string|number} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: string, title: string, details?: string): void;
+declare function nlapiLogExecution(type: string, title: string, details?: string|number): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
  * @param {string} type The record type name.
- * @param {number} id The internal ID for the record.
+ * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields to look up.
  * @param {boolean} text If true then the display value is returned instead for select fields.
  */
-declare function nlapiLookupField(type: string, id: number, fields: string|string[], text?: boolean): string|Object;
+declare function nlapiLookupField(type: string, id: number|string, fields: string|string[], text?: boolean): string|Object;
 /**
  * Perform a mail merge operation using any template and up to 2 records and returns an nlobjFile with the results.
  * @restriction only supported for record types that are available in mail merge: transactions, entities, custom records, and cases
@@ -3086,7 +3086,7 @@ declare function nlapiResizePortlet(): void;
  * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a.
  * @param {string} pagemode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
-declare function nlapiResolveURL(type: string, subtype: string, id: string, pagemode?: string): string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pagemode?: string): string;
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successfull.
  * @restriction Server SuiteScript only
@@ -3120,7 +3120,7 @@ declare function nlapiSearchGlobal(keywords: string): NLObjSearchResult[];
 declare function nlapiSearchRecord(
     type:     string,
     id?:      number|string,
-    filters?: NLObjSearchFilter|NLObjSearchFilter[],
+    filters?: NLObjSearchFilter|NLObjSearchFilter[]|(string|string[])[],
     columns?: NLObjSearchColumn|NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
@@ -3249,11 +3249,11 @@ declare function nlapiSetCurrentLineItemText(type: string, fldnam: string, txt: 
  *
  * @param {string} type Sublist name
  * @param {string} fldnam Sublist field name
- * @param {string} value Field value
+ * @param {string|number} value Field value
  * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true)
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetCurrentLineItemValue(type: string, fldnam: string, value: string|number, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
  * Set the value of a multi-select field on the currently selected line.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3329,9 +3329,9 @@ declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boo
  * @param {string} 	type Sublist name
  * @param {string} 	fldnam Sublist field name
  * @param {number} 	linenum Line number (1-based)
- * @param {string} value
+ * @param {string|number} value
  */
-declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string): void;
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string|number): void;
 /**
  * Set the value of a matrix header field.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3351,6 +3351,15 @@ declare function nlapiSetMatrixValue(type: string, fldnam: string, column: numbe
  * Creates a recovery point saving the state of the script's execution.
  */
 declare function nlapiSetRecoveryPoint(): Object;
+/**
+ * 
+ * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
+ * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
+ * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
+ * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
+ * @param {Object} parameters Additional URL parameters as name/value pairs
+ */
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
 /**
  * Convert a String into a Date object.
  *
@@ -3382,12 +3391,12 @@ declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
 /**
  * Submit the values of a field or set of fields for an existing record.
  * @param {string} type The record type name.
- * @param {number} id The internal ID for the record.
+ * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields being updated.
  * @param {string|string[]} values Field value or field values for updating.
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
-declare function nlapiSubmitField(type: string, id: number, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
+declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
 /**
  * Add/update a file in the file cabinet.
  * @governance 20 units
@@ -3421,7 +3430,7 @@ declare function nlapiTransformRecord(type: string, id: number, transformType: s
  * @param {string|number} actionid Internal ID or script ID of the action script
  * @param {string|number} stateid Internal ID or script ID of the state contains the referenced add button action
  */
-declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid: string|number, actionid: string|number, stateid: string|number): number;
+declare function nlapiTriggerWorkflow(recordtype: string, id: number, workflowid: string|number, actionid?: string|number, stateid?: string|number): number;
 /**
  * Validate that a given XML document conforms to a given XML schema. XML Schema Definition (XSD) is the expected schema format.
  *
