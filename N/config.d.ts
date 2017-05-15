@@ -1,15 +1,15 @@
 interface ConfigSetValueOptions {
-    name: string;
-    text: (string | string[]);
+    fieldId: string;
+    value: (string | string[] | boolean | number);
 }
 
 interface ConfigSetTextOptions {
-    name: string;
+    fieldId: string;
     text: (string | string[]);
 }
 
 interface ConfigGetOptions {
-    name: string;
+    fieldId: string;
 }
 
 interface Config {
