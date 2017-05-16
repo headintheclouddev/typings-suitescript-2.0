@@ -1592,10 +1592,10 @@ interface NLObjRecord {
      *
      * @param {string} group sublist name
      * @param {string} name sublist field name
-     * @param {number} line line number (1-based)
-     * @param {string} value sublist field value
+     * @param {number|string} line line number (1-based)
+     * @param {string|number} value sublist field value
      */
-    setLineItemValue(group: string, name: string, line: number, value: string): void;
+    setLineItemValue(group: string, name: string, line: number|string, value: string|number): void;
     /**
      * Set the value of a matrix header field.
      *
@@ -2950,9 +2950,9 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
  *
  * @param {string} type	Log type: debug|audit|error|emergency
  * @param {string} title Log title (up to 90 characters supported)
- * @param {string|number} details Log details (up to 3000 characters supported)
+ * @param {string|number|boolean} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: string, title: string, details?: string|number): void;
+declare function nlapiLogExecution(type: string, title: string, details?: string|number|boolean): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
@@ -3292,11 +3292,11 @@ declare function nlapiSetFieldTexts(fldnam: string, texts: string[], firefieldch
 /**
  * Set the value of a field on the current record on a page.
  * @param {string} fldnam The field name.
- * @param {string} value Value used to set field.
+ * @param {string|number} value Value used to set field.
  * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldValue(fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldValue(fldnam: string, value: string|number, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
  * Set the values of a multiselect field on the current record on a page.
  * @param {string} fldnam The field name.
@@ -3355,11 +3355,11 @@ declare function nlapiSetRecoveryPoint(): Object;
  * 
  * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
- * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
+ * @param {string|number} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
  * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
  * @param {Object} parameters Additional URL parameters as name/value pairs
  */
-declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, pagemode?: string, parameters?: Object): void;
 /**
  * Convert a String into a Date object.
  *
@@ -3393,10 +3393,10 @@ declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields being updated.
- * @param {string|string[]} values Field value or field values for updating.
+ * @param {number|string|string[]} values Field value or field values for updating.
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
-declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
+declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: number|string|string[], doSourcing?: boolean): void;
 /**
  * Add/update a file in the file cabinet.
  * @governance 20 units
