@@ -1567,9 +1567,9 @@ interface NLObjRecord {
      * Set the value of a field.
      *
      * @param {string} name Field name
-     * @param {string} value Field value
+     * @param {string|number} value Field value
      */
-    setFieldValue(name: string, value: string): void;
+    setFieldValue(name: string, value: string|number): void;
     /**
      * Set the values of a multi-select field.
      *
