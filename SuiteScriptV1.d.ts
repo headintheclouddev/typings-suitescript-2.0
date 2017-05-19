@@ -1533,6 +1533,13 @@ interface NLObjRecord {
      */
     setCurrentLineItemMatrixValue(group: string, name: string, column: number, value: string): void;
     /**
+     * Set the current text of a sublist field.
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string|number} value sublist field value
+     */
+    setCurrentLineItemText(group: string, name: string, value: string|number): void;
+    /**
      * Set the current value of a sublist field.
      * @param {string} group sublist name
      * @param {string} name sublist field name
@@ -2276,9 +2283,9 @@ interface NLObjSubList {
     /**
      * Set values for multiple lines (Array of nlobjSearchResults or name-value pair Arrays) in this sublist. Note that this method is only supported on scripted sublists via the UI Object API.
      *
-     * @param {string[][]|nlobjSearchResult[]} values
+     * @param {string[][]|nlobjSearchResult[]|Object} values
      */
-    setLineItemValues(values: string[][]|NLObjSearchResult[]): void;
+    setLineItemValues(values: string[][]|NLObjSearchResult[]|Object): void;
     /**
      * Designate a field on sublist that must be unique across all lines (only supported on sublists of type inlineeditor, editor).
      * @param {string} fldnam the name of a field on this sublist whose value must be unique across all lines
@@ -2423,12 +2430,12 @@ declare function nlapiAddMonths(d: Date, months: number): Date;
 /**
  * Attach a single record to another with optional properties.
  * @param {string} type1 The record type name being attached.
- * @param {number} id1 The internal ID for the record being attached.
+ * @param {number|string} id1 The internal ID for the record being attached.
  * @param {string} type2 The record type name being attached to.
- * @param {number} id2 The internal ID for the record being attached to.
+ * @param {number|string} id2 The internal ID for the record being attached to.
  * @param {Object} properties Object containing name/value pairs used to configure attach operation.
  */
-declare function nlapiAttachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
+declare function nlapiAttachRecord(type1: string, id1: number|string, type2: string, id2: number|string, properties?: Object): void;
 /**
  * Cancel any changes made on the currently selected line.
  * @restriction Only supported for sublists of type inlineeditor and editor
@@ -3174,7 +3181,7 @@ declare function nlapiSendCampaignEmail(campaigneventid: number, recipientid: nu
 /**
  * Send out an email and associate it with records in the system.
  * Supported base types are entity for entities, transaction for transactions, activity for activities and cases, record|recordtype for custom records.
- * @param {number} from Internal ID for employee user on behalf of whom this email is sent
+ * @param {number|string} from Internal ID for employee user on behalf of whom this email is sent
  * @param {string|number} to Email address or internal ID of user that this email is being sent to.
  * @param {string} subject Email Subject.
  * @param {string} body Email body.
@@ -3187,7 +3194,7 @@ declare function nlapiSendCampaignEmail(campaigneventid: number, recipientid: nu
  * @param {string} replyTo Email reply-to address.
  */
 declare function nlapiSendEmail(
-    from: number,
+    from: number|string,
     to: string|number,
     subject: string,
     body: string,
