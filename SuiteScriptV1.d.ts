@@ -3281,6 +3281,12 @@ declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, val
  */
 declare function nlapiSetDateTimeValue(fieldId: string, value: string, timezone?: string|number): void;
 /**
+ * Set whether or not a field is displayed.  This function is not documented but still works as of 2017.1.
+ * @param fieldId 
+ * @param show 
+ */
+declare function nlapiSetFieldDisplay(fieldId: string, show: boolean): void;
+/**
  * Set the value of a field on the current record on a page using it's label.
  * @param {string} fldnam The field name.
  * @param {string} txt Display name used to lookup field value.
