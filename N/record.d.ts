@@ -64,7 +64,7 @@ interface CopyLoadOptions {
     /**
      * The internal ID of the existing record instance in NetSuite.
      */
-    id: number | string;
+    id: number | string ;
     /**
      * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
      * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
