@@ -291,4 +291,33 @@ export namespace EntryPoints {
         type post = (requestBody?: any) => any;
         type put = (requestBody?: any) => any;
     }
+    
+    namespace BundleInstallation {
+        interface onAfterInstallParms {
+            version: number;
+        }
+        type afterInstall = (parms?: onAfterInstallParms) => void;
+
+        interface onAfterUpdateParms {
+            fromVersion: number;
+            toVersion: number;
+        }
+        type afterUpdate = (parms?: onAfterUpdateParms) => void;
+
+        interface onBeforeInstallParms {
+            version: number;
+        }
+        type BeforeInstall = (parms?: onBeforeInstallParms) => void;
+
+        interface onBeforeUninstallParms {
+            version: number;
+        }
+        type beforeUninstall = (parms?: onBeforeUninstallParms) => void;
+
+        interface onBeforeUpdateParms {
+            fromVersion: number;
+            toVersion: number;
+        }
+        type beforeUpdate = (parms?: onBeforeUpdateParms) => void;
+    }
 }
