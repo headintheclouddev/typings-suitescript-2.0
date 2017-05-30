@@ -1,4 +1,5 @@
 import {Operator} from '../search';
+import { ServerResponse } from "N/http";
 
 interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -219,7 +220,7 @@ interface SetSplashOptions {
 
 interface SetRedirectOptions {
     /** The title of the splash screen. */
-    response: any
+    response: ServerResponse
 }
 
 interface SetURLOptions {
