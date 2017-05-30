@@ -298,6 +298,8 @@ export interface Assistant {
     updateDefaultValues(values: any);
     /** The file cabinet ID of client script file to be used in this assistant. */
     clientScriptFileId: number;
+    /** The relative path to the client script file to be used in this assistant. */
+    clientScriptModulePath: string;
     /** Identifies the current step. You can set any step as the current step. */
     currentStep: AssistantStep;
     /** Error message text for the current step. Optionally, you can use HTML tags to format the message. */
