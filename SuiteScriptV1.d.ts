@@ -1961,6 +1961,11 @@ interface NLObjSearch {
     setColumns(columns: NLObjSearchColumn[]): void;
     /**
      * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
+     * @param {(string|string[])[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
+     */
+    setFilterExpression(filterExpression: (string|string[])[]): void;
+    /**
+     * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
      *
      * @param {Object[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
      */
