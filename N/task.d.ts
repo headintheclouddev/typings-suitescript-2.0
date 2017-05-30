@@ -6,6 +6,8 @@ interface CheckStatusOptions {
 
 interface TaskCreateOptions {
     taskType: TaskType;
+    scriptId: string;
+    deploymentId: string;
 }
 
 interface CsvImportTask {
