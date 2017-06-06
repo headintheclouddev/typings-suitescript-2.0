@@ -41,11 +41,27 @@ interface FileCreateOptions {
     /**
      * The file content.
      */
-    contents: string;
+    contents?: string;
+    /**
+     * The file content.
+     */
+    description?: string;
     /**
      * The internal ID of the folder used when the file is saved.
      */
-    folder?: number
+    folder?: number;
+    /**
+     * The file encoding.
+     */
+    encoding: Encoding;
+    /**
+     * The file status.
+     */
+    isInactive?: boolean;
+    /**
+     * The file status.
+     */
+    isOnline?: boolean;
 }
 
 /**
