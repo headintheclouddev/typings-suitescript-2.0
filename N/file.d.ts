@@ -16,7 +16,7 @@ export interface File {
     resetStream: () => void;
     appendLine: (option: FileAppendLineOptions) => File;
     lines: {
-        iterator: () => void;
+        iterator: () => boolean;
     }
 }
 
