@@ -13,6 +13,18 @@ export interface File {
     url: string;
     save: () => number;
     getContents: () => string;
+    resetStream: () => void;
+    appendLine: (option: FileAppendLineOptions) => File;
+    lines: {
+        iterator: () => void;
+    }
+}
+
+interface FileAppendLineOptions {
+    /**
+     * Internal ID of the file as a number or a string, or the relative file path to the file in the file cabinet.
+     */
+    value: string;
 }
 
 interface FileLoadOptions {
