@@ -53,7 +53,7 @@ interface FileCreateOptions {
     /**
      * The file encoding.
      */
-    encoding: Encoding;
+    encoding?: Encoding;
     /**
      * The file status.
      */
