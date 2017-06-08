@@ -329,7 +329,7 @@ export interface ServerResponse {
      * Another method used to generate a page.
      * This isn't documented and shouldn't work, but does.
      */
-    //writePage(form: Form): void;
+    writePage(form: Form): void;
     /**
      * The server response headers. This property is read-only.
      */
