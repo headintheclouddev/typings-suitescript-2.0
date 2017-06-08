@@ -8,7 +8,7 @@ interface TaskCreateOptions {
     taskType: TaskType;
     scriptId: string;
     deploymentId: string;
-    params: {};
+    params?: {};
 }
 
 interface CsvImportTask {
