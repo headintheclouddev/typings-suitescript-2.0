@@ -52,7 +52,7 @@ interface AddFieldOptions {
      */
     id: string;
     /** The label for this field. */
-    label?: string;
+    label: string;
     /** The field type for the field. Use the serverWidget.FieldType enum to define the field type. */
     type: FieldType|string;
     /**
