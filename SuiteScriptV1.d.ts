@@ -2330,6 +2330,13 @@ interface NLObjSubrecord {
      * @param {string} 	value sublist field value
      */
     setCurrentLineItemValue(group: string, name: string, value: string): void;
+    /**
+     * Set the value of a field.
+     *
+     * @param {string} name Field name
+     * @param {string|number} value Field value
+     */
+    setFieldValue(name: string, value: string|number): void;
 }
 
 interface NLObjTab {
