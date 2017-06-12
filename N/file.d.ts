@@ -13,6 +13,18 @@ export interface File {
     url: string;
     save: () => number;
     getContents: () => string;
+    resetStream: () => void;
+    appendLine: (option: FileAppendLineOptions) => File;
+    lines: {
+        iterator: () => boolean;
+    }
+}
+
+interface FileAppendLineOptions {
+    /**
+     * Internal ID of the file as a number or a string, or the relative file path to the file in the file cabinet.
+     */
+    value: string;
 }
 
 interface FileLoadOptions {
@@ -41,11 +53,27 @@ interface FileCreateOptions {
     /**
      * The file content.
      */
-    contents: string;
+    contents?: string;
+    /**
+     * The file content.
+     */
+    description?: string;
     /**
      * The internal ID of the folder used when the file is saved.
      */
-    folder?: number
+    folder?: number;
+    /**
+     * The file encoding.
+     */
+    encoding?: Encoding;
+    /**
+     * The file status.
+     */
+    isInactive?: boolean;
+    /**
+     * The file status.
+     */
+    isOnline?: boolean;
 }
 
 /**
