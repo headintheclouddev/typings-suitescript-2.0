@@ -137,7 +137,7 @@ interface RequestOptions {
     /**
      * The HTTP request method. Set using the http.Method enum.
      */
-    method: string;
+    method: Method;
     /**
      * The HTTP URL being requested.
      */
@@ -261,7 +261,7 @@ export interface ServerRequest {
     /**
      * The server request http method.
      */
-    method: string;
+    method: Method;
     /**
      * The server request parameters.
      */
