@@ -136,8 +136,10 @@ interface DeleteOptions {
 interface RequestOptions {
     /**
      * The HTTP request method. Set using the http.Method enum.
+     * Allow usage as string here as N/http is a heavy import just
+     * to get an enum.
      */
-    method: Method;
+    method: Method | string;
     /**
      * The HTTP URL being requested.
      */
@@ -260,8 +262,10 @@ export interface ServerRequest {
     headers: any;
     /**
      * The server request http method.
+     * Allow usage as string here as N/http is a heavy import just
+     * to get an enum.
      */
-    method: Method;
+    method: Method | string;
     /**
      * The server request parameters.
      */
