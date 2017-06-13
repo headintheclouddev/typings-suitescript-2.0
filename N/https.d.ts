@@ -122,5 +122,5 @@ export var createSecureKey: HttpsCreateSecureKeyFunction;
  */
 export var createSecureString: HttpsCreateSecureStringFunction;
 
-export {get, delete, request, post, put, CacheDuration, Method} from './http';
+export {get, delete as delete, request, post, put, CacheDuration, Method} from './http';
 export {Encoding} from './encode';
