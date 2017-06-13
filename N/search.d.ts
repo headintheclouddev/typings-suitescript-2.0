@@ -46,10 +46,8 @@ interface SearchResultGetValueTextOptions {
 }
 
 export interface Result {
-    getValue(column: Column): boolean | string | string[];
-    getValue(column: string): boolean | string | string[];
-    getText(options: Column): string;
-    getText(column: string): string;
+    getValue(column: Column | string): boolean | string | string[];
+    getText(options: Column | string): string;
     recordType: Type | string;
     id: string;
     columns: Column[];
