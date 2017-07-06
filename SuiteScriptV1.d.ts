@@ -2563,11 +2563,8 @@ declare function nlapiCreateSubrecord(fldnam: string): NLObjSubrecord;
  * Create a template renderer used to generate various outputs based on a template.
  * @restriction Server SuiteScript only
  * @governance 10 units
- *
- * @param {string} type	Media type: pdf|html
- * @param {string} engineType Default is freemarker/html
  */
-declare function nlapiCreateTemplateRenderer(type: string, engineType?: string): NLObjTemplateRenderer;
+declare function nlapiCreateTemplateRenderer(): NLObjTemplateRenderer;
 /**
  * Convert a Date object into a String
  *
