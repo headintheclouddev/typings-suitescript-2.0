@@ -23,8 +23,8 @@ interface AddRecordOptions {
 interface AddSearchResultsOptions {
     /** Name of the template. */
     templateName: string;
-    /** The search result to add. */
-    searchResult: Result;
+    /** The search results to add. Note: Documentation says this is a single result, but it's actually an array of results. */
+    searchResult: Result[];
 }
 
 interface BOMOptions {
