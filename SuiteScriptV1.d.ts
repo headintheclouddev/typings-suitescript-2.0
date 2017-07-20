@@ -3437,11 +3437,11 @@ declare function nlapiSubmitRecord(record: NLObjRecord, doSourcing?: boolean, ig
 /**
  * Create a new record using values from an existing record of a different type.
  * @param {string} type The record type name to transform from.
- * @param {number} id The internal ID for the record.
+ * @param {string|number} id The internal ID for the record.
  * @param {string} transformType The recordType you are transforming the existing record into.
  * @param {Object} transformValues An object containing transform default option/value pairs used to pre-configure transformed record.
  */
-declare function nlapiTransformRecord(type: string, id: number, transformType: string, transformValues?: Object): NLObjRecord;
+declare function nlapiTransformRecord(type: string, id: string|number, transformType: string, transformValues?: Object): NLObjRecord;
 /**
  * Triggers a workflow on a record.
  * @governance 20 units
