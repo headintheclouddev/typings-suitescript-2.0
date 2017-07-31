@@ -146,7 +146,7 @@ interface NSXMLDocument extends NSNode {
     getElementById: (options: GetElementByIdOptions) => NSElement;
     getElementsByTagName: (options: GetElementsByTagNameOptions) => NSElement[];
     getElementsByTagNameNS: (options: GetElementsByTagNameNSOpts) => NSElement[];
-    importNodes: (options: ImportNodeOptions) => NSNode;
+    importNode: (options: ImportNodeOptions) => NSNode;
     doctype: NSElement;
     documentElement: NSElement;
     documentURI: string;

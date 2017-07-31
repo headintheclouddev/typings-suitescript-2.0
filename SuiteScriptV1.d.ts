@@ -1533,6 +1533,13 @@ interface NLObjRecord {
      */
     setCurrentLineItemMatrixValue(group: string, name: string, column: number, value: string): void;
     /**
+     * Set the current text of a sublist field.
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     * @param {string|number} value sublist field value
+     */
+    setCurrentLineItemText(group: string, name: string, value: string|number): void;
+    /**
      * Set the current value of a sublist field.
      * @param {string} group sublist name
      * @param {string} name sublist field name
@@ -1567,9 +1574,9 @@ interface NLObjRecord {
      * Set the value of a field.
      *
      * @param {string} name Field name
-     * @param {string} value Field value
+     * @param {string|number} value Field value
      */
-    setFieldValue(name: string, value: string): void;
+    setFieldValue(name: string, value: string|number): void;
     /**
      * Set the values of a multi-select field.
      *
@@ -1592,10 +1599,10 @@ interface NLObjRecord {
      *
      * @param {string} group sublist name
      * @param {string} name sublist field name
-     * @param {number} line line number (1-based)
-     * @param {string} value sublist field value
+     * @param {number|string} line line number (1-based)
+     * @param {string|number} value sublist field value
      */
-    setLineItemValue(group: string, name: string, line: number, value: string): void;
+    setLineItemValue(group: string, name: string, line: number|string, value: string|number): void;
     /**
      * Set the value of a matrix header field.
      *
@@ -1954,6 +1961,11 @@ interface NLObjSearch {
     setColumns(columns: NLObjSearchColumn[]): void;
     /**
      * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
+     * @param {(string|string[])[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
+     */
+    setFilterExpression(filterExpression: (string|string[])[]): void;
+    /**
+     * Sets the search filter expression, overwriting any prior filters. If null is passed in, it is treated as if it was an empty array and removes any existing filters on this search.
      *
      * @param {Object[]} filterExpression The filter expression you want to set in the search. Passing in null or [] removes all filters from the search.
      */
@@ -2276,9 +2288,9 @@ interface NLObjSubList {
     /**
      * Set values for multiple lines (Array of nlobjSearchResults or name-value pair Arrays) in this sublist. Note that this method is only supported on scripted sublists via the UI Object API.
      *
-     * @param {string[][]|nlobjSearchResult[]} values
+     * @param {string[][]|nlobjSearchResult[]|Object} values
      */
-    setLineItemValues(values: string[][]|NLObjSearchResult[]): void;
+    setLineItemValues(values: string[][]|NLObjSearchResult[]|Object): void;
     /**
      * Designate a field on sublist that must be unique across all lines (only supported on sublists of type inlineeditor, editor).
      * @param {string} fldnam the name of a field on this sublist whose value must be unique across all lines
@@ -2318,6 +2330,13 @@ interface NLObjSubrecord {
      * @param {string} 	value sublist field value
      */
     setCurrentLineItemValue(group: string, name: string, value: string): void;
+    /**
+     * Set the value of a field.
+     *
+     * @param {string} name Field name
+     * @param {string|number} value Field value
+     */
+    setFieldValue(name: string, value: string|number): void;
 }
 
 interface NLObjTab {
@@ -2423,12 +2442,12 @@ declare function nlapiAddMonths(d: Date, months: number): Date;
 /**
  * Attach a single record to another with optional properties.
  * @param {string} type1 The record type name being attached.
- * @param {number} id1 The internal ID for the record being attached.
+ * @param {number|string} id1 The internal ID for the record being attached.
  * @param {string} type2 The record type name being attached to.
- * @param {number} id2 The internal ID for the record being attached to.
+ * @param {number|string} id2 The internal ID for the record being attached to.
  * @param {Object} properties Object containing name/value pairs used to configure attach operation.
  */
-declare function nlapiAttachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
+declare function nlapiAttachRecord(type1: string, id1: number|string, type2: string, id2: number|string, properties?: Object): void;
 /**
  * Cancel any changes made on the currently selected line.
  * @restriction Only supported for sublists of type inlineeditor and editor
@@ -2544,11 +2563,8 @@ declare function nlapiCreateSubrecord(fldnam: string): NLObjSubrecord;
  * Create a template renderer used to generate various outputs based on a template.
  * @restriction Server SuiteScript only
  * @governance 10 units
- *
- * @param {string} type	Media type: pdf|html
- * @param {string} engineType Default is freemarker/html
  */
-declare function nlapiCreateTemplateRenderer(type: string, engineType?: string): NLObjTemplateRenderer;
+declare function nlapiCreateTemplateRenderer(): NLObjTemplateRenderer;
 /**
  * Convert a Date object into a String
  *
@@ -2950,9 +2966,9 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
  *
  * @param {string} type	Log type: debug|audit|error|emergency
  * @param {string} title Log title (up to 90 characters supported)
- * @param {string|number} details Log details (up to 3000 characters supported)
+ * @param {string|number|boolean} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: string, title: string, details?: string|number): void;
+declare function nlapiLogExecution(type: string, title: string, details?: string|number|boolean): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
@@ -3174,7 +3190,7 @@ declare function nlapiSendCampaignEmail(campaigneventid: number, recipientid: nu
 /**
  * Send out an email and associate it with records in the system.
  * Supported base types are entity for entities, transaction for transactions, activity for activities and cases, record|recordtype for custom records.
- * @param {number} from Internal ID for employee user on behalf of whom this email is sent
+ * @param {number|string} from Internal ID for employee user on behalf of whom this email is sent
  * @param {string|number} to Email address or internal ID of user that this email is being sent to.
  * @param {string} subject Email Subject.
  * @param {string} body Email body.
@@ -3187,7 +3203,7 @@ declare function nlapiSendCampaignEmail(campaigneventid: number, recipientid: nu
  * @param {string} replyTo Email reply-to address.
  */
 declare function nlapiSendEmail(
-    from: number,
+    from: number|string,
     to: string|number,
     subject: string,
     body: string,
@@ -3274,6 +3290,12 @@ declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, val
  */
 declare function nlapiSetDateTimeValue(fieldId: string, value: string, timezone?: string|number): void;
 /**
+ * Set whether or not a field is displayed.  This function is not documented but still works as of 2017.1.
+ * @param fieldId 
+ * @param show 
+ */
+declare function nlapiSetFieldDisplay(fieldId: string, show: boolean): void;
+/**
  * Set the value of a field on the current record on a page using it's label.
  * @param {string} fldnam The field name.
  * @param {string} txt Display name used to lookup field value.
@@ -3292,11 +3314,11 @@ declare function nlapiSetFieldTexts(fldnam: string, texts: string[], firefieldch
 /**
  * Set the value of a field on the current record on a page.
  * @param {string} fldnam The field name.
- * @param {string} value Value used to set field.
+ * @param {string|number} value Value used to set field.
  * @param {boolean} firefieldchanged If false then the field change event is suppressed (defaults to true).
  * @param {boolean} synchronous If true then sourcing and field change execution happens synchronously (defaults to false).
  */
-declare function nlapiSetFieldValue(fldnam: string, value: string, firefieldchanged?: boolean, synchronous?: boolean): void;
+declare function nlapiSetFieldValue(fldnam: string, value: string|number, firefieldchanged?: boolean, synchronous?: boolean): void;
 /**
  * Set the values of a multiselect field on the current record on a page.
  * @param {string} fldnam The field name.
@@ -3355,11 +3377,11 @@ declare function nlapiSetRecoveryPoint(): Object;
  * 
  * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
- * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
+ * @param {string|number} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
  * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
  * @param {Object} parameters Additional URL parameters as name/value pairs
  */
-declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, pagemode?: string, parameters?: Object): void;
 /**
  * Convert a String into a Date object.
  *
@@ -3393,10 +3415,10 @@ declare function nlapiSubmitCSVImport(csvImport: NLObjCSVImport): string;
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID for the record.
  * @param {string|string[]} fields Field or fields being updated.
- * @param {string|string[]} values Field value or field values for updating.
+ * @param {number|string|string[]} values Field value or field values for updating.
  * @param {boolean} doSourcing If not set, this argument defaults to false and field sourcing does not occur.
  */
-declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: string|string[], doSourcing?: boolean): void;
+declare function nlapiSubmitField(type: string, id: number|string, fields: string|string[], values: number|string|string[], doSourcing?: boolean): void;
 /**
  * Add/update a file in the file cabinet.
  * @governance 20 units
@@ -3415,11 +3437,11 @@ declare function nlapiSubmitRecord(record: NLObjRecord, doSourcing?: boolean, ig
 /**
  * Create a new record using values from an existing record of a different type.
  * @param {string} type The record type name to transform from.
- * @param {number} id The internal ID for the record.
+ * @param {string|number} id The internal ID for the record.
  * @param {string} transformType The recordType you are transforming the existing record into.
  * @param {Object} transformValues An object containing transform default option/value pairs used to pre-configure transformed record.
  */
-declare function nlapiTransformRecord(type: string, id: number, transformType: string, transformValues?: Object): NLObjRecord;
+declare function nlapiTransformRecord(type: string, id: string|number, transformType: string, transformValues?: Object): NLObjRecord;
 /**
  * Triggers a workflow on a record.
  * @governance 20 units
