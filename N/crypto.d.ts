@@ -1,142 +1,99 @@
 import {Encoding} from './encode';
 
-/**
- * Encapsulates a cipher.
- */
+/** Encapsulates a cipher. */
 interface Cipher {
-  /**
-   * Description TBA (5/9/2016)
-   */
+  /** Method used to return the cipher data. Sets the output encoding for the crypto.CipherPayload object. */
   final(options: FinalOptions): CipherPayload;
-  /**
-   * Description TBA (5/9/2016)
-   */
+  /** Method used to update the clear data with the specified encoding. */
   update(options: UpdateOptions): void;
 }
 
-/**
- * Encapsulates a cipher payload.
- */
+/** Encapsulates a cipher payload. */
 interface CipherPayload {
-  encoding: string;
+  /** The result of the ciphering process. For example, to take the cipher payload and send it to another system. */
+  ciphertext: string;
+  /** Initialization vector for the cipher payload. You can pass in the iv value to crypto.createDecipher(options). */
   iv: number;
 }
 
+/** Encapsulates a decipher. This object has methods that decrypt. */
 interface Decipher {
-  /**
-   * Description TBA (5/9/2016)
-   */
+  /** Method used to return the clear data. */
   final(options: FinalOptions): string;
-  /**
-   * Method used to update decipher data with the specified encoding.
-   */
+  /** Method used to update decipher data with the specified encoding. */
   update(options: UpdateOptions): void;
 }
 
 interface Hash {
-  /**
-   * Calculates the digest of the data to be hashed.
-   */
+  /** Calculates the digest of the data to be hashed. */
   digest(options: FinalOptions): string;
-  /**
-   * Method used to update hash data with the encoding specified.
-   */
+  /** Method used to update hash data with the encoding specified. */
   update(options: UpdateOptions): void;
 }
 
 interface Hmac {
-  /**
-   * Gets the computed digest.
-   */
+  /** Gets the computed digest. */
   digest(options: FinalOptions): string;
-  /**
-   * Method used to update the hmac data with the encoding specified.
-   */
+  /** Method used to update the hmac data with the encoding specified. */
   update(options: UpdateOptions): void;
 }
 
 interface SecretKey {
+  /** The GUID associated with the secret key. */
   guid: string;
+  /** The encoding used for the clear text value of the secret key. */
   encoding: string;
 }
 
 interface FinalOptions {
-  /**
-   * The output encoding for a crypto.CipherPayload object.
-   */
+  /** The output encoding for a crypto.CipherPayload object. */
   outputEncoding: string;
 }
 
 interface UpdateOptions {
-  /** 
-   * The cipher data to be updated.
-   */
+  /** The cipher data to be updated. */
   input: string;
-  /**
-   * The input encoding using encode.Encoding enum. Default: UTF_8.
-   */
+  /** The input encoding using encode.Encoding enum. Default: UTF_8. */
   inputEncoding?: Encoding;
 }
 
 interface CreateCipherOptions {
-  /**
-   * The hash algorithm. Set the value using thecrypto.Hash enum.
-   */
+  /** The hash algorithm. Set the value using thecrypto.Hash enum. */
   algorithm: HashAlg;
-  /**
-   * The crypto.SecretKey object.
-   */
+  /** The crypto.SecretKey object. */
   key: SecretKey;
-  /**
-   * The encryption mode for the cipher block.
-   */
-  blockCipherMode: string;
-  /**
-   * The padding for the cipher. Set the value using the crypto.Padding enum.
-   */
-  padding: Padding;
+  /** The padding for the cipher. Set the value using the crypto.Padding enum. By default, the value is set to PKCS5Padding. */
+  padding?: Padding;
 }
 
 interface CreateDecipherOptions {
-  /**
-   * The hash algorithm. Set by the crypto.Hash enum.
-   */
+  /** The hash algorithm. Set by the crypto.Hash enum. */
   algorithm: HashAlg;
-  /**
-   * The crypto.SecretKey object.
-   */
+  /** The crypto.SecretKey object. */
   key: SecretKey;
-  /**
-   * The padding for the cipher. Set the value using the crypto.Padding enum.
-   */
+  /** The padding for the cipher. Set the value using the crypto.Padding enum. */
   padding: Padding;
-  /**
-   * The initialization vector that was used for encryption.
-   */
+  /** The initialization vector that was used for encryption. */
   iv: string;
 }
 
 interface CreateHashOptions {
-  /**
-   * The hash algorithm. Set by the crypto.Hash enum.
-   */
+  /** The hash algorithm. Set by the crypto.Hash enum. */
   algorithm: HashAlg;
 }
 
 interface CreateHmacOptions {
-  /**
-   * The hash algorithm. Set by the crypto.Hash enum.
-   */
+  /** The hash algorithm. Set by the crypto.Hash enum. */
   algorithm: HashAlg;
-  /**
-   * The crypto.SecretKey object.
-   */
+  /** The crypto.SecretKey object. */
   key: SecretKey;
 }
 
 interface CreateSecretKeyOptions {
+  /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. */
   guid: string;
-  encoding: string;
+  /** Specifies the encoding for the SecureKey. Set this value using the encode.Encoding enum. The default value is HEX. */
+  encoding?: Encoding;
 }
 
 export declare enum EncryptionAlg {
