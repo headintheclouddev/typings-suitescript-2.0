@@ -32,8 +32,8 @@ interface Hash {
 }
 
 interface Hmac {
-  /** Gets the computed digest. */
-  digest(options: FinalOptions): string;
+  /** Calculates the digest of the data to be hashed. Default output encoding is HEX. */
+  digest(options?: { outputEncoding: Encoding }): string;
   /** Method used to update the hmac data with the encoding specified. */
   update(options: UpdateOptions): void;
 }
