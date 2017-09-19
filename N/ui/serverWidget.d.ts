@@ -24,9 +24,9 @@ interface AddCredentialFieldOptions {
      * The domain that the credentials can be sent to, such as 'www.mysite.com'. Credentials cannot be sent to a domain that is not specified here.
      * This value can be a domain or a list of domains to which the credentials can be sent.
      */
-    restrictToDomains?: string | string[];
+    restrictToDomains: string | string[];
     /** The ID of the script that is allowed to use this credential field. For example, 'customscript_my_script'. */
-    restrictToScriptIds?: string | string[];
+    restrictToScriptIds: string | string[];
     /** The internal ID of the tab or field group to add the credential field to. By default, the field is added to the main section of the form. */
     container?: string;
 }
