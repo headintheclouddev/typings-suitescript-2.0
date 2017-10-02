@@ -326,7 +326,7 @@ export interface Field {
     isReadOnly: boolean;
 }
 
-type FieldValue = Date | number | string | string[] | boolean;
+type FieldValue = Date | number | number[] | string | string[] | boolean;
 
 /** Almost like a full Record, except without things like save(). */
 export interface ClientCurrentRecord {
