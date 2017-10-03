@@ -3100,9 +3100,9 @@ declare function nlapiResizePortlet(): void;
  * @param {string} type Type specifier for URL: SUITELET|TASKLINK|RECORD|MEDIAITEM.
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid.
  * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a.
- * @param {string} pagemode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
+ * @param {string|boolean} pagemode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
-declare function nlapiResolveURL(type: string, subtype: string, id?: string, pagemode?: string): string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pagemode?: string|boolean): string;
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successfull.
  * @restriction Server SuiteScript only
