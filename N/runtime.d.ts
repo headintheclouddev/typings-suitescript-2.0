@@ -64,7 +64,7 @@ interface User {
 
 interface FeatureOptions {
     /** The internal ID of the feature to check. */
-    name: string;
+    feature: string;
 }
 
 /** The NetSuite account ID for the currently logged-in user. */
