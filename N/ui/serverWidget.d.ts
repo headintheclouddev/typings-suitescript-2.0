@@ -295,7 +295,7 @@ export interface Assistant {
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
     /** Sets the default values of an array of fields that are specific to the assistant. */
-    updateDefaultValues(values: any);
+    updateDefaultValues(values: any): void;
     /** The file cabinet ID of client script file to be used in this assistant. */
     clientScriptFileId: number;
     /** The relative path to the client script file to be used in this assistant. */
