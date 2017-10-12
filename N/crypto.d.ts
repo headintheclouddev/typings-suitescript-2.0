@@ -47,7 +47,7 @@ interface SecretKey {
 
 interface FinalOptions {
   /** The output encoding for a crypto.CipherPayload object. */
-  outputEncoding: string;
+  outputEncoding: Encoding;
 }
 
 interface UpdateOptions {
