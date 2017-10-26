@@ -3081,7 +3081,7 @@ declare function nlapiRemoveSubrecord(fldnam: string): void;
  * @param {function} callback Available on the Client to support asynchronous requests. Function is passed an nlobjServerResponse with the results.
  * @param {string} method HTTP method: GET, POST, PUT, DELETE, etc.
  */
-declare function nlapiRequestURL(url: string, postdata: string|Object, headers: Object, callback: Function, method: string): NLObjServerResponse;
+declare function nlapiRequestURL(url: string, postdata?: string|Object, headers?: Object, callback?: Function, method?: string): NLObjServerResponse;
 /**
  * Allows you to send credentials outside of NetSuite. This API securely accesses a handle to credentials that users specify in a NetSuite credential field.
  * @param {string[]} credentials List of credential handles.
