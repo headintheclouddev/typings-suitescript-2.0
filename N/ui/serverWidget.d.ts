@@ -88,6 +88,18 @@ interface AddResetButtonOptions {
     label: string;
 }
 
+interface AddSecretKeyFieldOptions {
+    /** The internal ID of the secret key field. The internal ID must be in lowercase, contain no spaces, and include the prefix custpage if you are adding the field to an existing page. */
+    id: string;
+    label: string;
+    /** Controls whether use of this secret key is restricted to the same user that originally entered the key. By default, the value is false – multiple users can use the key. */
+    restrictToCurrentUser?: boolean;
+    /** The script ID of the script that is allowed to use this field. */
+    restrictToScriptIds?: string|string[];
+    /** The internal ID of the tab or field group to add the field to. By default, the field is added to the main section of the form. */
+    container?: string;
+}
+
 export interface AddSelectOptionOptions {
     value: string;
     text: string;
@@ -426,6 +438,7 @@ export interface Form extends BaseForm {
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options: AddResetButtonOptions): Button;
+    addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
     addSublist(options: AddSublistOptions): Sublist;
     addSubmitButton(options?: AddSubmitButtonOptions): void;
     addSubtab(options: AddSubtabOptions): Tab;
