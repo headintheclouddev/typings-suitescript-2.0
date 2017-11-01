@@ -25,9 +25,9 @@ interface AddCredentialFieldOptions {
      * The domain that the credentials can be sent to, such as 'www.mysite.com'. Credentials cannot be sent to a domain that is not specified here.
      * This value can be a domain or a list of domains to which the credentials can be sent.
      */
-    restrictToDomains?: string | string[];
+    restrictToDomains: string | string[];
     /** The ID of the script that is allowed to use this credential field. For example, 'customscript_my_script'. */
-    restrictToScriptIds?: string | string[];
+    restrictToScriptIds: string | string[];
     /** The internal ID of the tab or field group to add the credential field to. By default, the field is added to the main section of the form. */
     container?: string;
 }
@@ -87,6 +87,18 @@ interface AddParamToURLOptions {
 interface AddResetButtonOptions {
     /** The label used for this button. If no label is provided, the label defaults to Reset. */
     label: string;
+}
+
+interface AddSecretKeyFieldOptions {
+    /** The internal ID of the secret key field. The internal ID must be in lowercase, contain no spaces, and include the prefix custpage if you are adding the field to an existing page. */
+    id: string;
+    label: string;
+    /** Controls whether use of this secret key is restricted to the same user that originally entered the key. By default, the value is false – multiple users can use the key. */
+    restrictToCurrentUser?: boolean;
+    /** The script ID of the script that is allowed to use this field. */
+    restrictToScriptIds?: string|string[];
+    /** The internal ID of the tab or field group to add the field to. By default, the field is added to the main section of the form. */
+    container?: string;
 }
 
 export interface AddSelectOptionOptions {
@@ -301,7 +313,7 @@ export interface Assistant {
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
     /** Sets the default values of an array of fields that are specific to the assistant. */
-    updateDefaultValues(values: any);
+    updateDefaultValues(values: any): void;
     /** The file cabinet ID of client script file to be used in this assistant. */
     clientScriptFileId: number;
     /** The relative path to the client script file to be used in this assistant. */
@@ -432,6 +444,7 @@ export interface Form extends BaseForm {
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options: AddResetButtonOptions): Button;
+    addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
     addSublist(options: AddSublistOptions): Sublist;
     addSubmitButton(options?: AddSubmitButtonOptions): void;
     addSubtab(options: AddSubtabOptions): Tab;
