@@ -3378,10 +3378,10 @@ declare function nlapiSetRecoveryPoint(): Object;
  * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
  * @param {string|number} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
- * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
+ * @param {boolean} editmode For RECORD calls, this determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode.
  * @param {Object} parameters Additional URL parameters as name/value pairs
  */
-declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, pagemode?: string, parameters?: Object): void;
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, editmode?: boolean, parameters?: Object): void;
 /**
  * Convert a String into a Date object.
  *
