@@ -18,13 +18,25 @@ interface FormatDateTimeOptions {
     /**
      * The field type (either DATETIME or DATETIMETX). Set using the format.Type enum.
      */
-    type: Type;
+    type: Type.DATETIME | Type.DATETIMETZ | Type.MMYYDATE;
     /**
      * -optional- The time zone specified for the returned string. Set using the format.Timezone enum or key.
      * If a time zone is not specified, the time zone is set based on user preference.
      * If the time zone is invalid, the time zone is set to GMT.
      */
     timezone?: Timezone;
+}
+
+interface FormatNumberOptions {
+    /**
+     * The input data to format.
+     */
+    value: string | number;
+    /**
+     * The field type (for example, DATE, CURRENCY, INTEGER). Set using the format.Type enum.
+     */
+    type: Type.CURRENCY | Type.CURRENCY2 | Type.FLOAT | Type.INTEGER | Type.NONNEGCURRENCY | Type.NONNEGFLOAT
+    | Type.PERCENT | Type.POSCURRENCY | Type.POSFLOAT | Type.POSINTEGER | Type.RATE | Type.RATEHIGHPRECISION;
 }
 
 /**
@@ -52,39 +64,53 @@ export function parse(options: FormatOptions): Date | string | number;
 export function parse(options: FormatDateTimeOptions): Date | string | number;
 
 /**
+ * Use parse to convert a string into a number.
+ * Options: value (number|string), type (format.FormatType).
+ */
+export function parse(options: FormatNumberOptions): number;
+
+/**
  * -enum- Holds the string values for the supported field types. 
  * Used to set the value of the options.type parameter.
  */
 export enum Type {
-    CCEXPDATE,
-    CCNUMBER,
-    CCVALIDFROM,
-    CHECKBOX,
-    COLOR,
-    CURRENCY,
-    CURRENCY2,
-    DATE,
-    DATETIME,
-    DATETIMETZ,
-    FLOAT,
-    FULLPHONE,
-    FUNCTION,
-    IDENTIFIER,
-    INTEGER,
-    MMYYDATE,
-    NONNEGCURRENCY,
-    NONNEGFLOAT,
-    PERCENT,
-    PHONE,
-    POSCURRENCY,
-    POSFLOAT,
-    POSINTEGER,
-    RATE,
-    RATEHIGHPRECISION,
-    TIME,
-    TIMEOFDAY,
-    TIMETRACK,
-    URL,
+    ADDRESS = "address",
+    CCEXPDATE = "ccexpdate",
+    CCNUMBER = "ccnumber",
+    CCVALIDFROM = "ccvalidfrom",
+    CHECKBOX = "checkbox",
+    COLOR = "color",
+    CURRENCY = "currency",
+    CURRENCY2 = "currency2",
+    DATE = "date",
+    DATETIME = "datetime",
+    DATETIMETZ = "datetimetz",
+    EMAIL = "email",
+    EMAILS = "emails",
+    FLOAT = "float",
+    FULLPHONE = "fullphone",
+    FUNCTION = "function",
+    FURIGANA = "furigana",
+    IDENTIFIER = "identifier",
+    INTEGER = "integer",
+    MMYYDATE = "mmyydate",
+    NONNEGCURRENCY = "nonnegcurrency",
+    NONNEGFLOAT = "nonnegfloat",
+    PACKAGE = "package",
+    PERCENT = "percent",
+    PHONE = "phone",
+    POSCURRENCY = "poscurrency",
+    POSFLOAT = "posfloat",
+    POSINTEGER = "posinteger",
+    QUOTEDFUNCTION = "'function'",
+    RADIO = "radio",
+    RATE = "rate",
+    RATEHIGHPRECISION = "ratehighprecision",
+    TEXT = "text",
+    TIME = "time",
+    TIMEOFDAY = "timeofday",
+    TIMETRACK = "timetrack",
+    URL = "url",
 }
 
 /**
