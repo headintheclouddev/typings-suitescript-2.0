@@ -259,7 +259,7 @@ interface NLObjColumn {
      * @param {string} value the base URL or a column in the datasource that returns the base URL for each row
      * @param {boolean} perRow if true then the 1st arg is expected to be a column in the datasource
      */
-    setURL(value: string, perRow: boolean): void;
+    setURL(value: string, perRow?: boolean): void;
 }
 
 /** For interacting with setup/configuration pages. */
@@ -1175,7 +1175,7 @@ interface NLObjPortlet {
      * @param {string} label column label
      * @param {string} align column alignment
      */
-    addColumn(name: string, type: string, label: string, align?: string): void;
+    addColumn(name: string, type: string, label: string, align?: string): NLObjColumn;
     /**
      * Add an Edit column (nlobjColumn) to the left of the column specified (supported on LIST portlets only).
      *
@@ -2073,7 +2073,7 @@ interface NLObjSearchColumn {
  * @param {string|string[]} value
  * @param {string} value2
  */
-declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2?: string): void;
+declare function nlobjSearchFilter(name: string, join: string, operator: string, value?: string|string[], value2?: string): void;
 interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
