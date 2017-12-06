@@ -1,7 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-  "editor.tabSize": 4,
-  "editor.insertSpaces": true,
-  "editor.minimap.enabled": true,
-  "workbench.iconTheme": "vs-seti"
-}
