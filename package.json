@@ -9,5 +9,18 @@
   "version": "2017.2.14",
   "main": "index.d.ts",
   "author": "Head in the Cloud Development",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/esprima": "^4.0.1",
+    "@types/jasmine": "^2.8.2",
+    "@types/node": "^8.0.55",
+    "@types/shelljs": "^0.7.6",
+    "esprima": "^4.0.0",
+    "jasmine": "^2.8.0",
+    "shelljs": "^0.7.8",
+    "typescript": "^2.6.2"
+  },
+  "scripts": {
+    "test": "node node_modules/typescript/bin/tsc spec/*.ts && node node_modules/jasmine/bin/jasmine.js"
+  }
 }
