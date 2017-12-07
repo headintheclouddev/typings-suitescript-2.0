@@ -84,6 +84,104 @@ export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
 
 Then if you're using a TypeScript-aware text editor (for instance the free [VSCode](https://code.visualstudio.com/) from Microsoft) you'll get syntax highlighting, error detection, and autocomplete for all of the SuiteScript 2.0 modules and types.
 
+### Map/Reduce Example
+
+Map/Reduce examples can be somewhat more complex. A potential skeleton structure could be somethink like the following:
+
+```typescript
+/**
+ * @NAPIVersion 2.x
+ * @NScriptType MapReduceScript
+ */
+
+import * as log from 'N/log';
+
+import { EntryPoints } from 'N/types'
+
+import MapContext = EntryPoints.MapReduce.mapContext;
+import ReduceContext = EntryPoints.MapReduce.reduceContext;
+import SummarizeContext = EntryPoints.MapReduce.summarizeContext;
+
+class GetInputData {
+
+  run(): object {
+    return [];
+  }
+}
+
+class Map {
+
+  value: any;
+
+  constructor(private context: MapContext) {
+    this.value = JSON.parse(context.value);
+    log.debug('MAP VALUE', this.value);
+  }
+
+  run() {
+    this.context.write('true', 'true');
+  }
+}
+
+class Reduce {
+
+  values: any[];
+
+  constructor(private context: ReduceContext) {
+    this.values = context.values;
+    log.debug('REDUCE VALUES', this.values);
+  }
+
+  run() {
+    this.context.write('true', 'true');
+  }
+
+}
+
+class Summarize {
+
+  constructor(private summary: SummarizeContext) { }
+
+  run() {
+    let contents = '';
+    const type = this.summary.toString();
+    log.debug(type + ' Usage Consumed', this.summary.usage);
+    log.debug(type + ' Number of Queues', this.summary.concurrency);
+    log.debug(type + ' Number of Yields', this.summary.yields);
+    this.summary.output.iterator().each(function (key, value) {
+      contents += (key + ' ' + value + '\n');
+      return true;
+    });
+    log.debug('Contents', contents);
+  }
+
+}
+
+/***********************************************************************************/
+/* This shouldn't need to be modified below here unless you want to remove a stage */
+/***********************************************************************************/
+
+export const getInputData: EntryPoints.MapReduce.getInputData = () => {
+  const getInput = new GetInputData();
+  return getInput.run();
+};
+
+export const map: EntryPoints.MapReduce.map = (context: MapContext) => {
+  const map = new Map(context);
+  return map.run();
+};
+
+export const reduce: EntryPoints.MapReduce.reduce = (context: ReduceContext) => {
+  const reduce = new Reduce(context);
+  return reduce.run();
+};
+
+export const summarize: EntryPoints.MapReduce.summarize = (summary: SummarizeContext) => {
+  const summarize = new Summarize(summary);
+  return summarize.run();
+};
+```
+
 ## Updates
 
 You can download the latest published typings library at any time by simply running the command:
