@@ -86,7 +86,7 @@ Then if you're using a TypeScript-aware text editor (for instance the free [VSCo
 
 ### Map/Reduce Example
 
-Map/Reduce examples can be somewhat more complex. A potential skeleton structure could be somethink like the following:
+Map/Reduce examples can be somewhat more complex. A potential skeleton structure could be something like the following:
 
 ```typescript
 /**
