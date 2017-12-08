@@ -1326,6 +1326,13 @@ interface NLObjRecord {
      */
     getCurrentLineItemMatrixValue(group: string, name: string, column: number): string;
     /**
+     * Return the current text of a sublist field. This isn't documented, but it works as of 2017.2.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     */
+    getCurrentLineItemText(group: string, name: string): string;
+    /**
      * Return the current value of a sublist field.
      *
      * @param {string} 	group sublist name
