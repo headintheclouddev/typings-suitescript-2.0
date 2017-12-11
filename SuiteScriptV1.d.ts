@@ -1856,7 +1856,7 @@ interface NLObjResponse {
      * @param {string} filename the file name
      * @param {string} disposition Content Disposition used for streaming attachments: inline|attachment
      */
-    setContentType(type: string, filename: string, disposition: string): void;
+    setContentType(type: string, filename?: string, disposition?: string): void;
     /**
      * Sets the character encoding for the response.
      * @param {String} encoding
@@ -2559,7 +2559,7 @@ declare function nlapiCreateReportForm(title: string): NLObjReportForm;
  * @param {NLObjSearchFilter|NLObjSearchFilter[]|Object[]} filters A single nlobjSearchFilter object or an array of nlobjSearchFilter objects or a search filter expression
  * @param {NLObjSearchColumn|NLObjSearchColumn[]} columns A single nlobjSearchColumn object or an array of nlobjSearchColumn objects.
  */
-declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|NLObjSearchFilter[]|Object[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
+declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|any[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
 /**
  * Create a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3143,7 +3143,7 @@ declare function nlapiSearchGlobal(keywords: string): NLObjSearchResult[];
 declare function nlapiSearchRecord(
     type:     string,
     id?:      number|string,
-    filters?: NLObjSearchFilter|NLObjSearchFilter[]|(string|string[])[],
+    filters?: NLObjSearchFilter|any[],
     columns?: NLObjSearchColumn|NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
