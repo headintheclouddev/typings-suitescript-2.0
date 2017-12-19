@@ -190,6 +190,13 @@ interface InsertSublistOptions {
     nextsublist: string;
 }
 
+interface InsertTabOptions {
+    /** The Tab object to insert. */
+    tab: Tab;
+    /** The internal ID name of the tab you are inserting a tab in front of. */
+    nexttab: string;
+}
+
 interface InsertSubtabOptions {
     /** The Subtab object to insert. */
     subtab: Tab;
@@ -298,7 +305,7 @@ export interface Assistant {
     hasErrorHtml(): boolean;
     /** Indicates whether all steps in an assistant are completed. */
     isFinished(): boolean;
-    /** 
+    /**
       * Manages redirects in an assistant.
       * This method also addresses the case in which one assistant redirects to another assistant.
       * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
@@ -452,7 +459,7 @@ export interface Form extends BaseForm {
     insertField(options: InsertFieldOptions): Field;
     insertSublist(options: InsertSublistOptions): Sublist;
     insertSubtab(options: InsertSubtabOptions): Tab;
-    insertTab(options: InsertSubtabOptions): Tab;
+    insertTab(options: InsertTabOptions): Tab;
     /** Updates the default values of multiple fields on the form. */
     updateDefaultValues(values: any): void;
     removeButton(options: IDOptions): void;
