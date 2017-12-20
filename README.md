@@ -60,7 +60,7 @@ import {EntryPoints} from 'N/types';
 
 ```typescript
 import {EntryPoints} from 'N/types';
-export var pageInit: EntryPoints.Client.pageInit = (ctx) => {
+export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
   //Your IDE will now autocomplete from the ctx argument. For instance use this to access ctx.mode and ctx.currentRecord in this pageInit example
 }
 ```
@@ -79,13 +79,13 @@ Full example for a User Event Script might look something like this:
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/types'
-import * as log from 'N/log'
+import {EntryPoints} from 'N/types';
+import * as log from 'N/log';
 
-export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
-    let x = ctx.newRecord.getValue({fieldId: 'companyname'})
-    log.audit('value', `companyname is: ${x}`)
-}
+export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
+    let x = context.newRecord.getValue({fieldId: 'companyname'});
+    log.audit('value', `companyname is: ${x}`);
+};
 ```
 
 ## Suitelet Example
@@ -96,13 +96,14 @@ export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
  * @NScriptType Suitelet
  */
 
-import { EntryPoints } from 'N/types'
-import { load } from 'N/record'
-export var onRequest: EntryPoints.Suitelet.onRequest = (ctx) => {
-    var folder = load({ type: 'folder', id: 36464 })
-    var allfields = folder.getFields().join(', ')
-    ctx.response.write(`<br>all fields: ${allfields}`) 
-}
+import {EntryPoints} from 'N/types';
+import * as record from 'N/record';
+
+export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
+    let folder = record.load({type: 'folder', id: 36464});
+    let allfields = folder.getFields().join(', ');
+    context.response.write(`<br>all fields: ${allfields}`);
+};
 ```
 
 This example exports the function `onRequest` that needs to be referenced in the script record.
