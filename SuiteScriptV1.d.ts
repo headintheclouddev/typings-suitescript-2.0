@@ -674,7 +674,7 @@ interface NLObjField {
      * @param {number} width
      * @param {number} height
      */
-    setDisplaySize(width: number, height: number): NLObjField;
+    setDisplaySize(width: number, height?: number): NLObjField;
     /**
      * Set the display type for this field. This method is only supported on scripted fields via the UI Object API
      *
