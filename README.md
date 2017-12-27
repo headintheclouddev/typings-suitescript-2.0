@@ -61,7 +61,7 @@ import {EntryPoints} from 'N/types';
 ```typescript
 import {EntryPoints} from 'N/types';
 export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
-  //Your IDE will now autocomplete from the ctx argument. For instance use this to access ctx.mode and ctx.currentRecord in this pageInit example
+  //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
 }
 ```
 
