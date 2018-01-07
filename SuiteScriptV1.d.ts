@@ -259,7 +259,7 @@ interface NLObjColumn {
      * @param {string} value the base URL or a column in the datasource that returns the base URL for each row
      * @param {boolean} perRow if true then the 1st arg is expected to be a column in the datasource
      */
-    setURL(value: string, perRow: boolean): void;
+    setURL(value: string, perRow?: boolean): void;
 }
 
 /** For interacting with setup/configuration pages. */
@@ -674,7 +674,7 @@ interface NLObjField {
      * @param {number} width
      * @param {number} height
      */
-    setDisplaySize(width: number, height: number): NLObjField;
+    setDisplaySize(width: number, height?: number): NLObjField;
     /**
      * Set the display type for this field. This method is only supported on scripted fields via the UI Object API
      *
@@ -1175,7 +1175,7 @@ interface NLObjPortlet {
      * @param {string} label column label
      * @param {string} align column alignment
      */
-    addColumn(name: string, type: string, label: string, align?: string): void;
+    addColumn(name: string, type: string, label: string, align?: string): NLObjColumn;
     /**
      * Add an Edit column (nlobjColumn) to the left of the column specified (supported on LIST portlets only).
      *
@@ -1325,6 +1325,13 @@ interface NLObjRecord {
      * @param {number} 	column matrix field column index (1-based)
      */
     getCurrentLineItemMatrixValue(group: string, name: string, column: number): string;
+    /**
+     * Return the current text of a sublist field. This isn't documented, but it works as of 2017.2.
+     *
+     * @param {string} group sublist name
+     * @param {string} name sublist field name
+     */
+    getCurrentLineItemText(group: string, name: string): string;
     /**
      * Return the current value of a sublist field.
      *
@@ -1849,7 +1856,7 @@ interface NLObjResponse {
      * @param {string} filename the file name
      * @param {string} disposition Content Disposition used for streaming attachments: inline|attachment
      */
-    setContentType(type: string, filename: string, disposition: string): void;
+    setContentType(type: string, filename?: string, disposition?: string): void;
     /**
      * Sets the character encoding for the response.
      * @param {String} encoding
@@ -2073,7 +2080,7 @@ interface NLObjSearchColumn {
  * @param {string|string[]} value
  * @param {string} value2
  */
-declare function nlobjSearchFilter(name: string, join: string, operator: string, value: string|string[], value2?: string): void;
+declare function nlobjSearchFilter(name: string, join: string, operator: string, value?: string|string[], value2?: string): void;
 interface NLObjSearchFilter {
     /**
      * Returns the formula used for this filter.
@@ -2552,7 +2559,7 @@ declare function nlapiCreateReportForm(title: string): NLObjReportForm;
  * @param {NLObjSearchFilter|NLObjSearchFilter[]|Object[]} filters A single nlobjSearchFilter object or an array of nlobjSearchFilter objects or a search filter expression
  * @param {NLObjSearchColumn|NLObjSearchColumn[]} columns A single nlobjSearchColumn object or an array of nlobjSearchColumn objects.
  */
-declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|NLObjSearchFilter[]|Object[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
+declare function nlapiCreateSearch(type: string, filters?: NLObjSearchFilter|any[], columns?: NLObjSearchColumn|NLObjSearchColumn[]): NLObjSearch;
 /**
  * Create a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3136,7 +3143,7 @@ declare function nlapiSearchGlobal(keywords: string): NLObjSearchResult[];
 declare function nlapiSearchRecord(
     type:     string,
     id?:      number|string,
-    filters?: NLObjSearchFilter|NLObjSearchFilter[]|(string|string[])[],
+    filters?: NLObjSearchFilter|any[],
     columns?: NLObjSearchColumn|NLObjSearchColumn[]
 ): NLObjSearchResult[];
 /**
@@ -3378,10 +3385,10 @@ declare function nlapiSetRecoveryPoint(): Object;
  * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
  * @param {string|number} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
- * @param {string} pagemode Specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
+ * @param {boolean} editmode For RECORD calls, this determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode.
  * @param {Object} parameters Additional URL parameters as name/value pairs
  */
-declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, pagemode?: string, parameters?: Object): void;
+declare function nlapiSetRedirectURL(type: string, subtype: string, id?: string|number, editmode?: boolean, parameters?: Object): void;
 /**
  * Convert a String into a Date object.
  *

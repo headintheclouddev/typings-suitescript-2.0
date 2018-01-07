@@ -78,7 +78,7 @@ interface CreateDecipherOptions {
 }
 
 interface CreateHashOptions {
-  /** The hash algorithm. Set by the crypto.Hash enum. */
+  /** The hash algorithm. Set by the crypto.Hash enum. Default value is HEX. */
   algorithm: HashAlg;
 }
 
@@ -117,19 +117,11 @@ export declare enum Padding {
  * NOTE: we are NOT returning an EncryptionAlg, as it is not a real object. (5/9/2016)
  */
 export declare function createCipher(options: CreateCipherOptions): Cipher;
-/**
- * Method used to create a new crypto.Decipher object.
- */
+/** Method used to create a new crypto.Decipher object. */
 export declare function createDecipher(options: CreateDecipherOptions): Decipher;
-/**
- * Method used to create a new crypto.Hash object.
- */
-export declare function createHash(options: CreateHashOptions): Hash;
-/**
- * Method used to create a new crypto.Hmac object.
- */
+/** Method used to create a new crypto.Hash object. */
+export declare function createHash(options?: CreateHashOptions): Hash;
+/** Method used to create a new crypto.Hmac object. */
 export declare function createHmac(options: CreateHmacOptions): Hmac;
-/**
- * Method used to create a new crypto.SecretKey object.
- */
+/** Method used to create a new crypto.SecretKey object. */
 export declare function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
