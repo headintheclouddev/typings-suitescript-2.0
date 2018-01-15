@@ -192,9 +192,14 @@ export namespace EntryPoints {
             id: string;
             type: string;
         }
-        type getInputData = () => N_search.Search | any | any[] | ObjectReference;
+        interface getInputDataContext {
+            readonly isRestarted: boolean;
+            ObjectRef: ObjectReference;
+        }
+        type getInputData = (scriptContext?: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
+            readonly isRestarted: boolean;
             key: string;
             value: string;
             write: (key: string, value: string) => void;
@@ -202,6 +207,7 @@ export namespace EntryPoints {
         type map = (scriptContext?: mapContext) => void;
 
         interface reduceContext {
+            readonly isRestarted: boolean;
             key: string;
             values: string[];
             write: (key: string, value: any) => void;
@@ -216,9 +222,9 @@ export namespace EntryPoints {
         }
         interface InputSummary {
             dateCreated: Date;
+            error: string;
             seconds: number;
             usage: number;
-            error: string;
         }
         interface MapSummary {
             dateCreated: Date;
@@ -239,6 +245,7 @@ export namespace EntryPoints {
             errors: MapReduceIteratorContainer;
         }
         interface summarizeContext {
+            readonly isRestarted: boolean;
             dateCreated: Date;
             seconds: number;
             usage: number;
@@ -247,7 +254,7 @@ export namespace EntryPoints {
             inputSummary: InputSummary;
             mapSummary: MapSummary;
             reduceSummary: ReduceSummary;
-            output: MapReduceIteratorContainer;
+            Iterator: MapReduceIteratorContainer;
         }
         type summarize = (summary?: summarizeContext) => void;
     }
