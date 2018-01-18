@@ -328,7 +328,7 @@ export interface ServerResponse {
     /**
      * Method used to generate a page.
      */
-    writePage(options: any | WritePageOptions): void;
+    writePage(options: WritePageOptions): void;
     /**
      * Another method used to generate a page.
      * This isn't documented and shouldn't work, but does.
