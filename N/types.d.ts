@@ -254,7 +254,7 @@ export namespace EntryPoints {
             inputSummary: InputSummary;
             mapSummary: MapSummary;
             reduceSummary: ReduceSummary;
-            Iterator: MapReduceIteratorContainer;
+            output: MapReduceIteratorContainer;
         }
         type summarize = (summary?: summarizeContext) => void;
     }
