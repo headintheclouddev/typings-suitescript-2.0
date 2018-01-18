@@ -71,6 +71,8 @@ interface FeatureOptions {
     feature: string;
 }
 
+/** The users can determine the processor count for the currently logged in account. */
+export var processorCount: number;
 /** The NetSuite account ID for the currently logged-in user. */
 export var accountId: string;
 /** The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration. */
