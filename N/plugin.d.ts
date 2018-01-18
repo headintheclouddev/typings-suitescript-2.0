@@ -3,10 +3,10 @@ interface FindImplementationsOptions {
     includeDefault?: boolean;
 }
 
-interface LoadImplementationsOptions {
+interface LoadImplementationOptions {
     type: string;
     implementation?: string;
 }
 
 export function findImplementations(options: FindImplementationsOptions): string[];
-export function loadImplementations(options: LoadImplementationsOptions): any;
+export function loadImplementation(options: LoadImplementationOptions): any;
