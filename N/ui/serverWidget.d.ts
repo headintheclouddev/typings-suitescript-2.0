@@ -1,5 +1,5 @@
 import {Operator} from '../search';
-import { ServerResponse } from "N/http";
+import {ServerResponse} from 'N/http';
 
 interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -237,11 +237,6 @@ interface SetSplashOptions {
     text2?: string;
 }
 
-interface SetRedirectOptions {
-    /** The title of the splash screen. */
-    response: ServerResponse
-}
-
 interface SetURLOptions {
     /** The base URL or a column in the data source that returns the base URL for each row. */
     url: string;
@@ -269,6 +264,11 @@ interface UpdateDisplayTypeOptions {
 interface UpdateLayoutTypeOptions {
     /** The new layout type of the field. Set this value with the serverWidget.FieldLayoutType enum. */
     layoutType: FieldLayoutType;
+}
+
+interface SendRedirectOptions {
+    /** Set a redirect for the assistant to go back to */
+    response: ServerResponse;
 }
 
 /** Encapsulates a scriptable, multi-step NetSuite assistant. Each page of the assistant is defined by a step. */
@@ -316,7 +316,7 @@ export interface Assistant {
       * This method also addresses the case in which one assistant redirects to another assistant.
       * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
       */
-    sendRedirect(options: SetRedirectOptions): void;
+    sendRedirect(options: SendRedirectOptions): void;
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
     /** Sets the default values of an array of fields that are specific to the assistant. */
