@@ -249,6 +249,10 @@ export interface ServerRequest {
      */
     getSublistValue(options: GetSublistValueOptions): string;
     /**
+     * Lets you access remote client IP addresses.
+     */
+    readonly clientIpAddress: string;
+    /**
      * The server request body.
      */
     body: string;
