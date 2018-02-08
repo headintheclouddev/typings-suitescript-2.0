@@ -116,7 +116,7 @@ export interface PagedData {
     count: number; // Read only
     pageRanges: PageRange[];
     pageSize: number; /** Read Only */
-    searchDefinition: Search; // Read only    
+    searchDefinition: Search; // Read only
 }
 
 interface RunPagedOptions {
@@ -140,7 +140,7 @@ export interface Search {
     searchId: number;
     filters: Filter[];
     filterExpression: any[];
-    columns: (Column[] | string[]);
+    columns: Array<Column | string>;
     title: string;
     id: string;
     isPublic: boolean;
