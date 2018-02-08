@@ -22,7 +22,7 @@ interface CreateSecureStringOptions {
     /**
      * Identifies the encoding that the input string uses. The default value is UTF_8
      */
-    inputEncoding: Encoding;
+    inputEncoding?: Encoding;
 }
 
 interface AppendStringOptions {
@@ -40,7 +40,7 @@ interface AppendSecureStringOptions {
     /**
      * The https.SecureString to append.
      */
-    token: SecureString;
+    secureString: SecureString;
 }
 
 interface ConvertEncodingOptions {
