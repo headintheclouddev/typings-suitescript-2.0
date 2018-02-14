@@ -88,31 +88,31 @@ export namespace EntryPoints {
             line: number;
             column: number;
         }
-        type fieldChanged = (scriptContext?: fieldChangedContext) => void;
+        type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
         interface lineInitContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
-        type lineInit = (scriptContext?: lineInitContext) => void;
+        type lineInit = (scriptContext: lineInitContext) => void;
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
             mode: string;
         }
-        type pageInit = (scriptContext?: pageInitContext) => void;
+        type pageInit = (scriptContext: pageInitContext) => void;
 
         interface postSourcingContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
             fieldId: string;
         }
-        type postSourcing = (scriptContext?: postSourcingContext) => void;
+        type postSourcing = (scriptContext: postSourcingContext) => void;
 
         interface saveRecordContext {
             currentRecord: N_record.ClientCurrentRecord;
         }
-        type saveRecord = (scriptContext?: saveRecordContext) => boolean;
+        type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
         interface sublistChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -122,13 +122,13 @@ export namespace EntryPoints {
              */
             operation: string;
         }
-        type sublistChanged = (scriptContext?: sublistChangedContext) => void;
+        type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
         interface validateDeleteContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
-        type validateDelete = (scriptContext?: validateDeleteContext) => boolean;
+        type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
@@ -137,19 +137,19 @@ export namespace EntryPoints {
             line?: number;
             column?: number;
         }
-        type validateField = (scriptContext?: validateFieldContext) => boolean;
+        type validateField = (scriptContext: validateFieldContext) => boolean;
 
         interface validateInsertContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
-        type validateInsert = (scriptContext?: validateInsertContext) => boolean;
+        type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
         interface validateLineContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
-        type validateLine = (scriptContext?: validateLineContext) => boolean;
+        type validateLine = (scriptContext: validateLineContext) => boolean;
     }
 
     namespace UserEvent {
@@ -160,7 +160,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
             request: N_http.ServerRequest;
         }
-        type beforeLoad = (scriptContext?: beforeLoadContext) => void;
+        type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
         interface beforeSubmitContext {
             newRecord: N_record.Record;
@@ -168,7 +168,7 @@ export namespace EntryPoints {
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
-        type beforeSubmit = (scriptContext?: beforeSubmitContext) => void;
+        type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
             newRecord: N_record.Record;
@@ -176,7 +176,7 @@ export namespace EntryPoints {
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
-        type afterSubmit = (scriptContext?: afterSubmitContext) => void;
+        type afterSubmit = (scriptContext: afterSubmitContext) => void;
     }
 
     namespace Scheduled {
@@ -184,7 +184,7 @@ export namespace EntryPoints {
             type: ScheduledInvocationType;
             InvocationType: ScheduledInvocationTypes;
         }
-        type execute = (scriptContext?: executeContext) => void;
+        type execute = (scriptContext: executeContext) => void;
     }
 
     namespace MapReduce {
@@ -196,7 +196,7 @@ export namespace EntryPoints {
             readonly isRestarted: boolean;
             ObjectRef: ObjectReference;
         }
-        type getInputData = (scriptContext?: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
+        type getInputData = (scriptContext: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
             readonly isRestarted: boolean;
@@ -204,7 +204,7 @@ export namespace EntryPoints {
             value: string;
             write: (key: string, value: string) => void;
         }
-        type map = (scriptContext?: mapContext) => void;
+        type map = (scriptContext: mapContext) => void;
 
         interface reduceContext {
             readonly isRestarted: boolean;
@@ -212,7 +212,7 @@ export namespace EntryPoints {
             values: string[];
             write: (key: string, value: any) => void;
         }
-        type reduce = (scriptContext?: reduceContext) => void;
+        type reduce = (scriptContext: reduceContext) => void;
 
         interface MapReduceIterator {
             each(callback: (key: string, value: string) => boolean): void;
@@ -256,7 +256,7 @@ export namespace EntryPoints {
             reduceSummary: ReduceSummary;
             output: MapReduceIteratorContainer;
         }
-        type summarize = (summary?: summarizeContext) => void;
+        type summarize = (summary: summarizeContext) => void;
     }
 
     namespace Portlet {
@@ -265,7 +265,7 @@ export namespace EntryPoints {
             column: number;
             entityid: string;
         }
-        type render = (scriptContext?: renderContext) => void;
+        type render = (scriptContext: renderContext) => void;
     }
 
     namespace Suitelet {
@@ -273,7 +273,7 @@ export namespace EntryPoints {
             request: N_http.ServerRequest;
             response: N_http.ServerResponse;
         }
-        type onRequest = (scriptContext?: onRequestContext) => void;
+        type onRequest = (scriptContext: onRequestContext) => void;
     }
 
     namespace MassUpdate {
@@ -281,7 +281,7 @@ export namespace EntryPoints {
             id: number;
             type: string;
         }
-        type each = (scriptContext?: eachContext) => void;
+        type each = (scriptContext: eachContext) => void;
     }
 
     namespace WorkflowAction {
@@ -289,42 +289,42 @@ export namespace EntryPoints {
             newRecord: N_record.Record;
             oldRecord: N_record.Record;
         }
-        type onAction = (scriptContext?: onActionContext) => void;
+        type onAction = (scriptContext: onActionContext) => void;
     }
 
     namespace RESTlet {
-        type get = (requestParams?: any) => any;
-        type delete_ = (requestParams?: any) => any;
-        type post = (requestBody?: any) => any;
-        type put = (requestBody?: any) => any;
+        type get = (requestParameters: any) => any;
+        type delete_ = (requestParameters: any) => any;
+        type post = (requestBody: any) => any;
+        type put = (requestBody: any) => any;
     }
     
     namespace BundleInstallation {
-        interface onAfterInstallParms {
+        interface onAfterInstallContext {
             version: number;
         }
-        type afterInstall = (parms?: onAfterInstallParms) => void;
+        type afterInstall = (scriptContext: onAfterInstallContext) => void;
 
-        interface onAfterUpdateParms {
+        interface onAfterUpdateContext {
             fromVersion: number;
             toVersion: number;
         }
-        type afterUpdate = (parms?: onAfterUpdateParms) => void;
+        type afterUpdate = (scriptContext: onAfterUpdateContext) => void;
 
-        interface onBeforeInstallParms {
+        interface onBeforeInstallContext {
             version: number;
         }
-        type BeforeInstall = (parms?: onBeforeInstallParms) => void;
+        type BeforeInstall = (scriptContext: onBeforeInstallContext) => void;
 
-        interface onBeforeUninstallParms {
+        interface onBeforeUninstallContext {
             version: number;
         }
-        type beforeUninstall = (parms?: onBeforeUninstallParms) => void;
+        type beforeUninstall = (scriptContext: onBeforeUninstallContext) => void;
 
-        interface onBeforeUpdateParms {
+        interface onBeforeUpdateContext {
             fromVersion: number;
             toVersion: number;
         }
-        type beforeUpdate = (parms?: onBeforeUpdateParms) => void;
+        type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
     }
 }
