@@ -387,3 +387,11 @@ export enum Method {
     PUT,
     POST,
 }
+
+export enum RedirectType {
+    MEDIA_ITEM,
+    RECORD,
+    RESTLET,
+    SUITELET,
+    TASK_LINK
+}
