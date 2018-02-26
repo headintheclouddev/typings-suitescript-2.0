@@ -24,7 +24,7 @@ interface SendRedirectOptions {
      * The base type for this resource. 
      * Use one of the following values: RECORD | TASKLINK | SUITELET
      */
-    type: string;
+    type: RedirectType;
     /**
      * The primary ID for this resource.
      * If the base type is RECORD, pass in the record type as listed on the Records Browser.
