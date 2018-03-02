@@ -1,5 +1,5 @@
 import {Encoding} from './encode';
-import {ClientResponse, ServerRequest, ServerResponse} from './http'
+import {ClientResponse, ServerRequest, ServerResponse, RedirectType} from './http'
 import {Hash, SecretKey} from './crypto';
 
 interface CreateSecureKeyOptions {
@@ -124,3 +124,4 @@ export var createSecureString: HttpsCreateSecureStringFunction;
 
 export {get, delete as delete, request, post, put, CacheDuration, Method} from './http';
 export {Encoding} from './encode';
+export {RedirectType} from './http';
