@@ -98,7 +98,7 @@ export namespace EntryPoints {
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
-            mode: string;
+            mode: 'create'|'copy'|'edit';
         }
         type pageInit = (scriptContext: pageInitContext) => void;
 
