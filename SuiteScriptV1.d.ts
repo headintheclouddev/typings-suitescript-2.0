@@ -204,7 +204,7 @@ interface NLObjAssistantStep {
      * @param {string} label display label used for this assistant step
      */
     setLabel(label: string): void;
-    
+
 }
 
 /** Buttons used for triggering custom behaviors on pages. */
@@ -325,7 +325,7 @@ interface NLObjConfiguration {
      * @param {string} name field name
      * @param {string} text field display text
      */
-    setFieldText(name: string, text: string): void; 
+    setFieldText(name: string, text: string): void;
     /**
      * Set the values (via display values) of a multi-select field.
      * @restriction only supported for multi-select fields
@@ -427,7 +427,7 @@ interface NLObjContext {
      *
      * @param {string} type
      * @param {string} name
-     * 
+     *
      * @deprecated
      */
     getSetting(type: string, name: string): string;
@@ -460,7 +460,7 @@ interface NLObjContext {
      * @param {string} type
      * @param {string} name
      * @param {string} value
-     * 
+     *
      * @deprecated
      */
     setSetting(type: string, name: string, value: string): void;
@@ -472,7 +472,7 @@ interface NLObjContext {
  * @classDescription The nlobjCredentialBuilder object encapsulates a request string that can be passed to nlapiRequestURLWithCredentials(credentials, url, postdata, headers, httpsMethod).
  * @param {string} request can include an embedded GUID (globally unique string).
  * @param {string} domain URL’s host name. Host name must exactly match the host name in your URL.
- * 
+ *
  * @constructor
  */
 declare function nlobjCredentialBuilder(request: string, domain: string): NLObjCredentialBuilder;
@@ -591,7 +591,7 @@ interface NLObjEmailMerger {
  * Return a new instance of nlobjError used system or user-defined error object.
  *
  * @classDescription Encapsulation of errors thrown during script execution.
- * 
+ *
  * @constructor
  */
 declare function nlobjError(): NLObjError;
@@ -825,7 +825,7 @@ interface NLObjFile {
      * @param {string} name the name of the file.
      */
     setName(name: string): void;
-    
+
 }
 
 interface NLObjForm {
@@ -1045,7 +1045,7 @@ interface NLObjList {
      *
      * @param {string[]|nlobjSearchResult} row data used to add a single row
      */
-    addRow(row: string[], NLObjSearchResult): void;
+    addRow(row: string[]|NLObjSearchResult): void;
     /**
      * Add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this portlet.
      *
@@ -1091,7 +1091,7 @@ interface NLObjMergeResult {
      * Use this method to get the body of the email distribution in string format.
      */
     getBody(): string;
-    
+
     /**
      * Use this method to get the subject of the email distribution in string format.
      */
@@ -1527,7 +1527,7 @@ interface NLObjRecord {
      * @param {string} group sublist name
      * @param {string} name sublist field name
      * @param {string} value sublist field value
-     * @param {string} timezone 
+     * @param {string} timezone
      */
     setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone?: string): void;
     /**
@@ -1962,7 +1962,7 @@ interface NLObjSearch {
     saveSearch(title?: string, scriptId?: string): number;
     /**
      * Sets the return columns for this search, overwriting any prior columns. If null is passed in it is treated as if it were an empty array and removes any existing columns on the search.
-     * 
+     *
      * @param {NLObjSearchColumn[]} columns The nlobjSearchColumn[] you want to set in the search. Passing in null or [] removes all columns from the search.
      */
     setColumns(columns: NLObjSearchColumn[]): void;
@@ -2406,7 +2406,7 @@ interface NLObjTemplateRenderer {
      * @param  {string} recipientType type of the entity (customer/contact/partner/vendor/employee)
      * @param  {number} recipientId ID of the entity to be associated with the merger
      */
-    setRecipient(recipientType: string, recipientId): void;
+    setRecipient(recipientType: string, recipientId: number): void;
     /**
      * Associate a support case to the merger.
      * @param  {number} caseId ID of the support case to be associated with the merger
@@ -2502,7 +2502,7 @@ declare function nlapiCreateCurrentLineItemSubrecord(type: string, fldnam: strin
  *
  * @param {number} templateId Internal ID of the template
  */
-declare function nlapiCreateEmailMerger(templateId): NLObjEmailMerger;
+declare function nlapiCreateEmailMerger(templateId: number): NLObjEmailMerger;
 /**
  * Create an nlobjError object that can be used to abort script execution and configure error notification
  *
@@ -2693,7 +2693,7 @@ declare function nlapiGetCurrentLineItemDateTimeValue(type: string, fldnam: stri
  *
  * @param {string} type Sublist name
  */
-declare function nlapiGetCurrentLineItemIndex(type): number;
+declare function nlapiGetCurrentLineItemIndex(type: string): number;
 /**
  * Return the label of a select field's current selection on the currently selected line.
  *
@@ -2769,7 +2769,7 @@ declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, lin
 /**
  * Return the number of sublists in a sublist on the current record on a page.
  * @restriction supported in client and user event scripts only.
- * 
+ *
  * @param {string} type Sublist name
  */
 declare function nlapiGetLineItemCount(type: string): number;
@@ -3008,7 +3008,7 @@ declare function nlapiMergeRecord(id: number, baseType: string, baseId: number, 
  * @param {string} altType Secondary record type
  * @param {number} altId Internal ID of secondary record
  * @param {Object} fields Object of merge field values to use in the mail merge (by default all field values are obtained from records) which overrides those from the record.
- * 
+ *
  * @deprecated
  */
 declare function nlapiMergeTemplate(id: number, baseType: string, baseId: number, altType?: string, altId?: number, fields?: Object): NLObjFile;
@@ -3298,8 +3298,8 @@ declare function nlapiSetCurrentLineItemValues(type: string, fldnam: string, val
 declare function nlapiSetDateTimeValue(fieldId: string, value: string, timezone?: string|number): void;
 /**
  * Set whether or not a field is displayed.  This function is not documented but still works as of 2017.1.
- * @param fieldId 
- * @param show 
+ * @param fieldId
+ * @param show
  */
 declare function nlapiSetFieldDisplay(fieldId: string, show: boolean): void;
 /**
@@ -3349,7 +3349,7 @@ declare function nlapiSetLineItemDateTimeValue(type: string, fldnam: string, lin
  * @param {string} type Sublist Id.
  * @param {string} fldnam Column Id.
  * @param {boolean} val True to disable, false to enable.
- * @param {number} linenum 
+ * @param {number} linenum
  */
 declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boolean, linenum?: number): void;
 /**
@@ -3381,7 +3381,7 @@ declare function nlapiSetMatrixValue(type: string, fldnam: string, column: numbe
  */
 declare function nlapiSetRecoveryPoint(): Object;
 /**
- * 
+ *
  * @param {string} type Type specifier for URL: suitelet|tasklink|record|mediaitem
  * @param {string} subtype Subtype specifier for URL (corresponding to type): scriptid|taskid|recordtype|mediaid
  * @param {string|number} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a
