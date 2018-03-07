@@ -10,8 +10,8 @@ interface LogOptions {
 }
 
 interface LogFunction {
-    (title: string, details: any);
-    (options: LogOptions);
+    (title: string, details: any): void;
+    (options: LogOptions): void;
 }
 
 export var debug: LogFunction;

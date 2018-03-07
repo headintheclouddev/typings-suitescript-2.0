@@ -21,6 +21,9 @@
     "typescript": "^2.6.2"
   },
   "scripts": {
-    "test": "node node_modules/typescript/bin/tsc spec/*.ts && node node_modules/jasmine/bin/jasmine.js"
+    "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
+    "pretest": "npm run cleanup",
+    "test": "node node_modules/typescript/bin/tsc -p spec/specs_specs_tsconfig.json && node node_modules/jasmine/bin/jasmine.js",
+    "posttest": "npm run cleanup"
   }
 }

@@ -1,23 +1,15 @@
 {
   "compilerOptions": {
-    "module": "amd",
+    "module": "commonjs",
     "target": "es5",
     "moduleResolution": "node",
     "sourceMap": false,
     "newLine": "LF",
     "experimentalDecorators": true,
-    "noImplicitUseStrict": true,
-    "baseUrl": ".",
+    "strict": true,
     "lib": [
-      "es5",
-      "es2015.promise",
-      "dom"
-    ],
-    "paths": {
-      "N/*": [
-        "../../N/*"
-      ]
-    }
+      "es5"
+    ]
   },
   "exclude": [
     "node_modules",

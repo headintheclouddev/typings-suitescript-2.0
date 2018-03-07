@@ -6,13 +6,13 @@
     "sourceMap": false,
     "newLine": "LF",
     "experimentalDecorators": true,
-    "noImplicitUseStrict": true,
+    "strict": true,
     "baseUrl": ".",
     "lib": ["es5", "es2015.promise", "dom"],
     "paths": {
       "N/*": ["../../N/*"]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["./*Sample.ts"]
+  "include": ["../../N/*", "../../SuiteScriptV1.d.ts"],
+  "exclude": ["node_modules"]
 }
