@@ -450,7 +450,7 @@ export interface Form extends BaseForm {
     addCredentialField(options: AddCredentialFieldOptions): Field;
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
     addPageLink(options: AddPageLinkOptions): void;
-    addResetButton(options: AddResetButtonOptions): Button;
+    addResetButton(options?: AddResetButtonOptions): Button;
     addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
     addSublist(options: AddSublistOptions): Sublist;
     addSubmitButton(options?: AddSubmitButtonOptions): void;
