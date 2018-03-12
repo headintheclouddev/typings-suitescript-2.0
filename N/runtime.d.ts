@@ -91,16 +91,30 @@ export function getCurrentUser(): User;
 export function isFeatureInEffect(options: FeatureOptions): boolean;
 /** Enumeration that holds the context information about what triggered the current script. Returned by the runtime.executionContext property of the N/runtime Module. */
 export enum ContextType {
+    ACTION,
+    BUNDLE_INSTALLATION,
+    CLIENT,
+    CONSOLRATEADJUSTOR,
+    CSV_IMPORT,
+    CUSTOMGLLINES,
+    CUSTOM_MASSUPDATE,
+    DEBUGGER,
+    EMAIL_CAPTURE,
+    MAP_REDUCE,
+    PAYMENTGATEWAY,
+    PORTLET,
+    PROMOTIONS,
+    RESTLET,
+    SCHEDULED,
+    SHIPPING_PARTNERS,
+    SUITELET,
+    TAX_CALCULATION,
+    USEREVENT,
     USER_INTERFACE,
+    WEBAPPLICATION,
     WEBSERVICES,
     WEBSTORE,
-    PORTLET,
-    SCHEDULED,
-    SUITELET,
-    CSV_IMPORT,
-    CUSTOM_MASSUPDATE,
-    WORKFLOW,
-    USEREVENT,
+    WORKFLOW
 }
 /** Enumeration that holds all possible environment types that the current script can execute in. */
 export enum EnvType {
