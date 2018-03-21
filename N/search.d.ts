@@ -220,7 +220,6 @@ interface SearchLoadFunction {
 interface SearchCreateOptions {
     type: Type | string;
     filters?: (Filter[] | any[]);
-    filterExpression?: any[];
     columns?: (Array<Column | string>);
     title?: string;
     id?: string;
