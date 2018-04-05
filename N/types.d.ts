@@ -314,7 +314,7 @@ export namespace EntryPoints {
         interface onBeforeInstallContext {
             version: number;
         }
-        type BeforeInstall = (scriptContext: onBeforeInstallContext) => void;
+        type beforeInstall = (scriptContext: onBeforeInstallContext) => void;
 
         interface onBeforeUninstallContext {
             version: number;
