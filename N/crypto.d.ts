@@ -1,4 +1,5 @@
 import {Encoding} from './encode';
+export {Encoding} from './encode';
 
 /** Encapsulates a cipher. */
 interface Cipher {
@@ -47,7 +48,7 @@ interface SecretKey {
 
 interface FinalOptions {
   /** The output encoding for a crypto.CipherPayload object. */
-  outputEncoding: Encoding;
+  outputEncoding?: Encoding;
 }
 
 interface UpdateOptions {
@@ -58,21 +59,21 @@ interface UpdateOptions {
 }
 
 interface CreateCipherOptions {
-  /** The hash algorithm. Set the value using thecrypto.Hash enum. */
-  algorithm: HashAlg;
-  /** The crypto.SecretKey object. */
+  /** The hash algorithm. Set the value using the crypto.EncryptionAlg enum. */
+  algorithm: EncryptionAlg;
+  /** The crypto.SecretKey object. When using the crypto.SecretKey object for an AES algorithm, the length of the text (secret key) that is used to generate the GUID must be 16, 24, or 32 characters.*/
   key: SecretKey;
   /** The padding for the cipher. Set the value using the crypto.Padding enum. By default, the value is set to PKCS5Padding. */
   padding?: Padding;
 }
 
 interface CreateDecipherOptions {
-  /** The hash algorithm. Set by the crypto.Hash enum. */
-  algorithm: HashAlg;
+  /** The hash algorithm. Set by the crypto.EncryptionAlg enum. */
+  algorithm: EncryptionAlg;
   /** The crypto.SecretKey object. */
   key: SecretKey;
   /** The padding for the cipher. Set the value using the crypto.Padding enum. */
-  padding: Padding;
+  padding?: Padding;
   /** The initialization vector that was used for encryption. */
   iv: string;
 }
