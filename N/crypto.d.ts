@@ -25,7 +25,7 @@ interface Decipher {
   update(options: UpdateOptions): void;
 }
 
-interface Hash {
+export interface Hash {
   /** Calculates the digest of the data to be hashed. */
   digest(options: FinalOptions): string;
   /** Method used to update hash data with the encoding specified. */
@@ -39,7 +39,7 @@ interface Hmac {
   update(options: UpdateOptions): void;
 }
 
-interface SecretKey {
+export interface SecretKey {
   /** The GUID associated with the secret key. */
   guid: string;
   /** The encoding used for the clear text value of the secret key. */
