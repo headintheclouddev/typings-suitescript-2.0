@@ -1,43 +1,4 @@
-interface ConfigSetValueOptions {
-    fieldId: string;
-    value: (string | string[] | boolean | number);
-}
-
-interface ConfigSetTextOptions {
-    fieldId: string;
-    text: (string | string[]);
-}
-
-interface ConfigGetOptions {
-    fieldId: string;
-}
-
-interface Config {
-    names: string;
-    type: Type;
-    /**
-     * Description TBA (5/9/2016)
-     */
-    getField(options: ConfigGetOptions): any;
-
-    getText(options: ConfigGetOptions): (string | string[]);
-    /**
-     * Description TBA (5/9/2016)
-     */
-    getValue(options: ConfigGetOptions): (string | string[] | boolean);
-    /**
-     * Description TBA (5/9/2016)
-     */
-    save(): void;
-    /**
-     * Description TBA (5/9/2016)
-     */
-    setText(options: ConfigSetTextOptions): Config;
-    /**
-     * Description TBA (5/9/2016)
-     */
-    setValue(options: ConfigSetValueOptions): Config;
-}
+import {Record} from './record';
 
 interface LoadOptions {
     /**
@@ -49,7 +10,7 @@ interface LoadOptions {
 /**
  * Method used to load a record.Record object that encapsulates the specified NetSuite configuration page.
  */
-export declare function load(options: LoadOptions): Config;
+export declare function load(options: LoadOptions): Record;
 
 /**
  * Enumeration that holds the string values for supported configuration pages. 
