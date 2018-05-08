@@ -188,6 +188,12 @@ export namespace EntryPoints {
     }
 
     namespace MapReduce {
+        interface Configuration {
+            retryCount?: 0|1|2|3;
+            exitOnError?: boolean;
+        }
+        type config = Configuration;
+        
         interface ObjectReference {
             id: string;
             type: string;
