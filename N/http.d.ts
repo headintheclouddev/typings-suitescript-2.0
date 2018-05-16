@@ -40,7 +40,7 @@ interface SendRedirectOptions {
      * -optional- If the base type is RECORD, this value determines whether to return a URL for the record in EDIT or VIEW mode.
      * The default value is false.
      */
-    editmode?: boolean;
+    editMode?: boolean;
     /**
      * -optional- Additional URL parameters as name/value pairs.
      */
