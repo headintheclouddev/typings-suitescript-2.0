@@ -158,7 +158,7 @@ interface CreateSearchFilterOptions {
     summary?: Summary;
 }
 
-interface CreateSearchColumnOptions {
+export interface CreateSearchColumnOptions {
     name: string;
     join?: string;
     summary?: Summary;
@@ -217,7 +217,7 @@ interface SearchLoadFunction {
     (options: SearchLoadOptions): Search;
 }
 
-interface SearchCreateOptions {
+export interface SearchCreateOptions {
     type: Type | string;
     filters?: (Filter[] | any[]);
     columns?: (Array<Column | string>);
