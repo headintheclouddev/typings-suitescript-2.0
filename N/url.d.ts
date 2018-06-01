@@ -1,6 +1,6 @@
 interface formatOptions {
     domain: string;
-    parameters: any;
+    params: any;
 }
 
 interface resolveHostOptions {
