@@ -38,24 +38,6 @@ interface CancelCommitLineOptions {
     sublistId: string;
 }
 
-interface ClientSetValueOptions {
-    /** The internal ID of a standard or custom body field. */
-    fieldId: string;
-    /**
-     * The value to set the field to.
-     * The value type must correspond to the field type being set. For example:
-     * - Text, Radio and Select fields accept string values.
-     * - Checkbox fields accept Boolean values.
-     * - Date and DateTime fields accept Date values.
-     * - Integer, Float, Currency and Percent fields accept number values.
-     */
-    value: boolean | string | number | Date | string[];
-    /** If set to true, the field change and slaving event is ignored. */
-    ignoreFieldChange?: boolean;
-    /** Documented in N/currentRecord. Set to true to synchronously set this value and its sourced values before returning. */
-    fireSlavingSync?: boolean;
-}
-
 interface CopyLoadOptions {
     /**
      * The record type.
@@ -186,7 +168,7 @@ interface SetCurrentMatrixSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: boolean | string | number | Date | string[];
+    value: FieldValue;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
     /** Indicates whether to perform slaving synchronously. */
@@ -273,7 +255,7 @@ interface SetSublistValueOptions {
     fieldId: string;
     /** The internal ID of a standard or custom sublist field. */
     line: number;
-    /** 
+    /**
      * The value to set the sublist field to.
      * The value type must correspond to the field type being set. For example:
      * - Text, Radio and Select fields accept string values.
@@ -428,7 +410,7 @@ export interface ClientCurrentRecord {
     setText(options: SetFieldTextOptions): void;
     setText(fieldId: string, value: string): void;
     /** Sets the value of a field. */
-    setValue(options: ClientSetValueOptions): void;
+    setValue(options: SetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
     /** The record type. */
     type: Type | string;
