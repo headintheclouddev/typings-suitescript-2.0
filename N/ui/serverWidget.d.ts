@@ -1,6 +1,6 @@
 import {Operator} from '../search';
 import {ServerResponse} from 'N/http';
-import { AddColumnOptions, AddEditColumnOptions, AddRowOptions } from 'N/portlet';
+import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from 'N/portlet';
 
 interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -484,7 +484,7 @@ export interface List {
     /** Adds a single row to a list */
     addRow(options: AddRowOptions): void;
     /** Adds multiple rows to a list */
-    addRows(options: AddRowOptions): void;
+    addRows(options: AddRowsOptions): void;
     /** The file cabinet ID of client script file to be used in this list */
     clientScriptField: number;
     /** The relative path to the client script file to be used in this list */
