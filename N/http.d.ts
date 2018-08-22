@@ -21,7 +21,7 @@ interface GetHeaderOptions {
 
 interface SendRedirectOptions {
     /**
-     * The base type for this resource. 
+     * The base type for this resource.
      * Use one of the following values: RECORD | TASKLINK | SUITELET
      */
     type: RedirectType;
@@ -253,6 +253,10 @@ export interface ServerRequest {
      */
     body: string;
     /**
+     * The remote IP address that made this request.
+     */
+    clientIpAddress: string;
+    /**
      * The server request files.
      */
     files: any;
@@ -286,7 +290,7 @@ export interface ServerResponse {
      */
     addHeader(options: AddHeaderOptions): void;
     /**
-     * Method used to return the value or values of a response header. 
+     * Method used to return the value or values of a response header.
      * If multiple values are assigned to the header name, the values are returned as an Array.
      */
     getHeader(options: GetHeaderOptions): string | string[];
@@ -367,7 +371,7 @@ export var post: HttpPostFunction;
 export var put: HttpPutFunction;
 
 /**
- * Holds the string values for supported cache durations. 
+ * Holds the string values for supported cache durations.
  * This enum is used to set the value of the ServerResponse.setCdnCacheable(options) property.
  */
 export enum CacheDuration {
@@ -378,7 +382,7 @@ export enum CacheDuration {
 }
 
 /**
- * Holds the string values for supported HTTP requests. 
+ * Holds the string values for supported HTTP requests.
  * This enum is used to set the value of http.request(options) and ServerRequest.method.
  */
 export enum Method {
