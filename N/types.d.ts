@@ -226,6 +226,12 @@ export namespace EntryPoints {
         interface MapReduceIteratorContainer {
             iterator(): MapReduceIterator;
         }
+        interface MapReduceErrorIterator {
+            each(callback: (key: string, error: string, executionNo: number) => boolean): void;
+        }
+        interface MapReduceErrorIteratorContainer {
+            iterator(): MapReduceErrorIterator;
+        }
         interface InputSummary {
             dateCreated: Date;
             error: string;
@@ -239,7 +245,7 @@ export namespace EntryPoints {
             concurrency: number;
             yields: number;
             keys: MapReduceIteratorContainer;
-            errors: MapReduceIteratorContainer;
+            errors: MapReduceErrorIteratorContainer;
         }
         interface ReduceSummary {
             dateCreated: Date;
@@ -248,7 +254,7 @@ export namespace EntryPoints {
             concurrency: number;
             yields: number;
             keys: MapReduceIteratorContainer;
-            errors: MapReduceIteratorContainer;
+            errors: MapReduceErrorIteratorContainer;
         }
         interface summarizeContext {
             readonly isRestarted: boolean;
