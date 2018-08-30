@@ -3,10 +3,15 @@ interface Message {
     show(options?: MessageShowOptions): void;
 }
 
-interface MessageCreateOptions {
+export interface MessageCreateOptions {
     message?: string;
     title?: string;
     type: Type;
+    /**
+     * The amount of time, in milliseconds, to show the message. The default is 0, which shows the message until Message.hide() is called.
+     * If you specify a duration for message.create() and message.show(), the value from the message.show() method call takes precedence.
+     */
+    duration?: number;
 }
 
 interface MessageShowOptions {
