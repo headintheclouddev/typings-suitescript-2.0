@@ -1,6 +1,4 @@
-/// <reference path="../node_modules/@hitc/netsuite-types/SuiteScriptV1.d.ts" />
-
-/** 
+/**
  * Represents the accounting book passed to a Custom GL Lines plug-in implementation when you save a transaction.
  * Use the methods available to the book object to determine if the book is a primary or secondary book or get
  * the internal NetSuite ID of the accounting book.  If you use the Multi-Book Accounting feature, the
