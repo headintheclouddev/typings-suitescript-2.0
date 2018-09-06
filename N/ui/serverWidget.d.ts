@@ -1,5 +1,6 @@
-import {ServerResponse}       from 'N/http';
-import {Operator}             from 'N/search';
+import {Operator} from '../search';
+import {ServerResponse} from 'N/http';
+import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from 'N/portlet';
 import {MessageCreateOptions} from 'N/ui/message';
 
 interface AddButtonOptions {
@@ -472,8 +473,27 @@ export interface Form extends BaseForm {
     removeButton(options: IDOptions): void;
 }
 
-interface List { /** TODO: Document this object? */
-
+export interface List { 
+    /** Adds a button to a list */
+    addButton(options: AddButtonOptions): Button;
+    /** Adds a column to a list */
+    addColumn(options: AddColumnOptions): ListColumn;
+    /** Adds a column containing Edit or Edit/view links to a Suitelet or Portlet list */
+    addEditColumn(options: AddEditColumnOptions): ListColumn;
+    /** Adds a link to a list */
+    addPageLink(options: AddPageLinkOptions): void;
+    /** Adds a single row to a list */
+    addRow(options: AddRowOptions): void;
+    /** Adds multiple rows to a list */
+    addRows(options: AddRowsOptions): void;
+    /** The file cabinet ID of client script file to be used in this list */
+    clientScriptField: number;
+    /** The relative path to the client script file to be used in this list */
+    clientScriptModulePath: string;
+    /** Sets the display style for this list */
+    style: string;
+    /** Sets the List title. */
+    title: string;
 }
 
 interface ListColumn {
@@ -513,6 +533,8 @@ export interface Tab {
     helpText: string;
     label: string;
 }
+
+export function createList(options: CreateAssistantOptions): List;
 
 export function createAssistant(options: CreateAssistantOptions): Assistant;
 
