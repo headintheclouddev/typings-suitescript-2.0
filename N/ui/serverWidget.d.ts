@@ -1,6 +1,7 @@
 import {Operator} from '../search';
 import {ServerResponse} from 'N/http';
-import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from 'N/portlet';
+import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from 'N/portlet';
+import {MessageCreateOptions} from 'N/ui/message';
 
 interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -353,7 +354,7 @@ export interface AssistantStep {
     getSubmittedSublistIds(): string[];
     /** Gets the current value of a sublist field (line item) in a step. */
     getSublistValue(options: GetSublistValueOptions): string;
-    /** Gets the current value(s) of a field or mult-select field. */
+    /** Gets the current value(s) of a field or multi-select field. */
     getValue(options: IDOptions): string | string[];
     /** The help text for a step. */
     helpText: string;
@@ -437,8 +438,7 @@ export interface BaseForm {
     addField(options: AddFieldOptions): Field;
     /** The file cabinet ID of client script file to be used in this form. */
     clientScriptFileId: number;
-    /** The relative path to the client script file to be used in this form.
-        Use this property when attaching an ad-hoc client script to a server-side script. */
+    /** The relative path to the client script file to be used in this form. Use this property when attaching an ad-hoc client script to a server-side script. */
     clientScriptModulePath: string;
     /** The title used for the form. */
     title: string;
@@ -450,6 +450,7 @@ export interface Form extends BaseForm {
     addButton(options: AddButtonOptions): Button;
     addCredentialField(options: AddCredentialFieldOptions): Field;
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
+    addPageInitMessage(options: MessageCreateOptions): void;
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options?: AddResetButtonOptions): Button;
     addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
@@ -536,9 +537,8 @@ export interface Tab {
 export function createList(options: CreateAssistantOptions): List;
 
 export function createAssistant(options: CreateAssistantOptions): Assistant;
-/**
- * Creates a form object.
- */
+
+/** Creates a form object. */
 export function createForm(options: CreateAssistantOptions): Form;
 export enum AssistantSubmitAction {
     BACK,
