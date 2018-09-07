@@ -9,7 +9,33 @@ type TaskCreateOptions =
     | EntityDeduplicationTaskCreateOptions
     | MapReduceScriptTaskCreateOptions
     | ScheduledScriptTaskCreateOptions
-    | WorkflowTriggerTaskCreateOptions;
+    | WorkflowTriggerTaskCreateOptions
+    | SearchTaskCreateOptions;
+
+
+interface SearchTaskCreateOptions {
+    taskType: TaskType.SEARCH
+    savedSearchId?: number;
+    fileId?: number;
+    filePath?: string;
+}
+
+interface SearchTask {
+    submit(): string;
+    addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
+    toString(): string;
+    savedSearchId: number;
+    fileId: number;
+    filePath: string;
+}
+
+interface SearchTaskStatus {
+    toString(): string;
+    savedSearchId: number;
+    fileId: number;
+    status: TaskStatus;
+    taskId: number;
+}
 
 interface CsvImportTaskCreateOptions {
     taskType: TaskType.CSV_IMPORT;
@@ -141,6 +167,7 @@ export function create(options: EntityDeduplicationTaskCreateOptions): EntityDed
 export function create(options: MapReduceScriptTaskCreateOptions): MapReduceScriptTask;
 export function create(options: ScheduledScriptTaskCreateOptions): ScheduledScriptTask;
 export function create(options: WorkflowTriggerTaskCreateOptions): WorkflowTriggerTask;
+export function create(options: SearchTaskCreateOptions): SearchTask;
 export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus;
 export enum DedupeEntityType {
     CUSTOMER,
@@ -181,4 +208,5 @@ export enum TaskType {
     CSV_IMPORT = "CSV_IMPORT",
     ENTITY_DEDUPLICATION = "ENTITY_DEDUPLICATION",
     WORKFLOW_TRIGGER = "WORKFLOW_TRIGGER",
+    SEARCH = "SEARCH"
 }
