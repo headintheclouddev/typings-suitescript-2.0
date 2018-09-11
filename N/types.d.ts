@@ -275,7 +275,8 @@ export namespace EntryPoints {
         interface renderContext {
             portlet: N_portlet.Portlet;
             column: number;
-            entityid: string;
+            /** This is entityid in the docs, but entity in practice */
+            entity: string;
         }
         type render = (scriptContext: renderContext) => void;
     }
