@@ -110,6 +110,7 @@ interface MapReduceScriptTaskStatus {
     getPendingReduceSize(): number;
     getPercentageCompleted(): number;
     getTotalMapCount(): number;
+    getTotalReduceCount(): number;
     getTotalOutputCount(): number;
     toString(): string;
     scriptId: string;
