@@ -206,17 +206,21 @@ export namespace EntryPoints {
 
         interface mapContext {
             readonly isRestarted: boolean;
-            key: string;
-            value: string;
-            write: (key: string, value: string) => void;
+            readonly executionNo: number;
+            readonly errors: MapReduceErrorIteratorContainer;
+            readonly key: string;
+            readonly value: string;
+            readonly write: (key: string, value: string) => void;
         }
         type map = (scriptContext: mapContext) => void;
 
         interface reduceContext {
             readonly isRestarted: boolean;
-            key: string;
-            values: string[];
-            write: (key: string, value: any) => void;
+            readonly executionNo: number;
+            readonly errors: MapReduceErrorIteratorContainer;
+            readonly key: string;
+            readonly values: string[];
+            readonly write: (key: string, value: string) => void;
         }
         type reduce = (scriptContext: reduceContext) => void;
 
