@@ -1,6 +1,4 @@
-
 import { AddSelectOptionOptions, Sublist } from './ui/serverWidget';
-import { Operator } from './search';
 
 interface RecordSaveFunction {
     (options?: SubmitConfig): number;
@@ -337,6 +335,10 @@ export interface ClientCurrentRecord {
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
+    /** Provides a macro to be executed. */
+    getMacro(options: { id: string }): Function; // TODO: Test this!
+    /** Provides a plain JavaScript object of available macro objects defined for a record type, indexed by the Macro ID. */
+    getMacros(): { [macroId: string]: Macro }; // TODO: Test this!
     /** Returns the number of columns for the specified matrix. */
     getMatrixHeaderCount(options: GetMatrixHeaderCountOptions): number;
     /** Gets the field for the specified header in the matrix. */
@@ -435,6 +437,20 @@ export interface Record extends ClientCurrentRecord {
     /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
+}
+
+
+interface MacroExecuteFunction {
+    (options?: { params?: Object }): { notifications: any[], response: Object };
+    promise(options?: { params?: Object }): Promise<{ notifications: any[], response: Object }>;
+}
+
+interface Macro {
+    execute: MacroExecuteFunction;
+    id: string;
+    label: string;
+    description: string;
+    attributes: Object;
 }
 
 interface SubmitConfig {
@@ -547,7 +563,7 @@ export var attach: RecordAttachFunction;
 /** Creates a new record by copying an existing record in NetSuite. */
 export var copy: RecordCopyFunction;
 /** Creates a new record. */
-export var create: RecordCreateFunction
+export var create: RecordCreateFunction;
 /** Deletes a record. */
 declare var deleteFunc: RecordDeleteFunction;
 export { deleteFunc as delete };
