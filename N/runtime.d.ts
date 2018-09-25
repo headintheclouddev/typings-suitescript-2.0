@@ -77,6 +77,12 @@ export var accountId: string;
 export var envType: EnvType;
 /** Returns a runtime.ContextType enumeration that represents what triggered the current script. */
 export var executionContext: ContextType;
+/** The number of processors available to the currently logged in account.
+ SuiteCloud Processors is the current system used to execute (process) scheduled scripts and map/reduce scripts. This property is helpful if you are a SuiteApp developer and your script needs to know the total number of processors available to a deployment.
+ For scheduled script deployments that continue to use queues, use runtime.queueCount. With the introduction of SuiteCloud Processors, map/reduce script deployments and new scheduled script deployments no longer use queues, but pre-existing scheduled script deployments continue to use queues until the queues are removed (see SuiteCloud Processors – Supported Task Types).
+ Be aware that the number of processors available may not be the same as the number of queues available. For more information, see SuiteCloud Plus Settings.
+ */
+export var processorCount: number;
 /** Returns the number of scheduled script queues in a given account. */
 export var queueCount: number;
 /** Returns the version of NetSuite that the method is called in. For example, the  runtime.version property in an account running NetSuite 2015.2 is 2015.2. */
