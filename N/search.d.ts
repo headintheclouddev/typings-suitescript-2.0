@@ -75,9 +75,7 @@ export interface ResultSet {
 }
 
 interface FetchOptions {
-    /**
-     * The index of the page range that bounds the desired data.
-     */
+    /** The index of the page range that bounds the desired data. */
     index: number;
 }
 
@@ -209,7 +207,53 @@ interface SearchDeleteFunction {
 }
 
 interface SearchLoadOptions {
+    /** Internal ID or script ID of a saved search. The script ID starts with customsearch. */
     id: string;
+    /**
+     * The search type of the saved search to load. Use a value from the search.Type enum for this parameter.
+     * This parameter is required if the saved search to load uses a standalone search type.
+     * A standalone search type is a search type that does not have a corresponding record type.
+     * Typically, the search type of the saved search can be determined automatically based on the corresponding record type.
+     * In this case, this parameter is not required. For standalone search types, you must specify the search type explicitly using this parameter.
+     *
+     * The following is a list of standalone search types:
+     * - DeletedRecord
+     * - EndToEndTime
+     * - ExpenseAmortPlanAndSchedule
+     * - RevRecPlanAndSchedule
+     * - GlLinesAuditLog
+     * - Crosschargeable
+     * - FinRptAggregateFR
+     * - BillingAccountBillCycle
+     * - BillingAccountBillRequest
+     * - BinItemBalance
+     * - PaymentEvent
+     * - Permission
+     * - GatewayNotification
+     * - TimeApproval
+     * - RecentRecord
+     * - Role
+     * - SavedSearch
+     * - ShoppingCart
+     * - SubscriptionRenewalHistory
+     * - SuiteScriptDetail
+     * - SupplyChainSnapshotDetails
+     * - SystemNote
+     * - TaxDetail
+     * - TimesheetApproval
+     * - Uber
+     * - ResAllocationTimeOffConflict
+     * - ComSearchOneWaySyn
+     * - ComSearchGroupSyn
+     * - Installment
+     * - InventoryBalance
+     * - InventoryNumberBin
+     * - InventoryNumberItem
+     * - InventoryStatusLocation
+     * - InvtNumberItemBalance
+     * - ItemBinNumber
+     */
+    type?: string;
 }
 
 interface SearchLoadFunction {
