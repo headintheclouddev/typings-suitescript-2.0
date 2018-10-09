@@ -19,11 +19,10 @@ interface AutoJoinOptions {
 
 interface JoinOptions {
     /**
-     * The name of the relationship that will be used to determine the query type of the
-     * newly joined component and also the columns on which the query types will be joined
-     * together. For example "salesrep".
+     * The column type (field type) that joins the parent component to the new component.
+     * This value determines the columns on which the components are joined and the type of the newly joined component. For example "salesrep".
      */
-    name: string;
+    fieldId: string;
 }
 
 interface JoinToOptions {
