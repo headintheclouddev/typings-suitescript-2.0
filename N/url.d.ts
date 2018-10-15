@@ -12,7 +12,7 @@ interface resolveHostOptions {
 
 interface resolveRecordOptions {
     recordType: string;
-    recordId: string;
+    recordId: string | number;
     isEditMode?: boolean;
     params?: any;
 }
