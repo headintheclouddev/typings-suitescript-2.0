@@ -168,7 +168,7 @@ export interface CreateSearchColumnOptions {
 
 interface SearchLookupFieldsOptions {
     type: Type | string;
-    id: string;
+    id: string | number;
     columns: (string | string[]);
 }
 
