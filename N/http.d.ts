@@ -133,7 +133,7 @@ interface DeleteOptions {
     headers?: any;
 }
 
-interface RequestOptions {
+export interface RequestOptions {
     /**
      * The HTTP request method. Set using the http.Method enum.
      * Allow usage as string here as N/http is a heavy import just
