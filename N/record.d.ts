@@ -186,6 +186,11 @@ interface SetCurrentSublistTextOptions {
     text: string | string[];
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
+    /** Indicates whether to perform field sourcing synchronously.
+     * If set to true, sources dependent field information for empty fields synchronously.
+     * Defaults to false – dependent field values are not sourced synchronously.
+     */
+    fireSlavingSync?: boolean;
 }
 
 interface SetValueOptions {
