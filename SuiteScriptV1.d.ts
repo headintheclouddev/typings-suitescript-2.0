@@ -1394,7 +1394,7 @@ interface NLObjRecord {
      *
      * @param {string} group sublist name
      */
-    getLineItemCount(group: string): number;
+    getLineItemCount(group: string): number | string;
     /**
      * Return the value of a sublist field.
      *
@@ -1848,7 +1848,7 @@ interface NLObjResponse {
      * @param {string} pagemode string specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
      * @param {Object} parameters Object used to specify additional URL parameters as name/value pairs
      */
-    sendRedirect(type: string, subtype: string, id?: string, pagemode?: string, parameters?: Object): void;
+    sendRedirect(type: string, subtype: string, id?: string, pagemode?: boolean, parameters?: Object): void;
     /**
      * Sets the content type for the response (and an optional filename for binary output).
      *
@@ -2652,7 +2652,7 @@ declare function nlapiEscapeXML(text: string): string;
  * @param {string|number} toCurrency Internal ID or currency code of currency we are converting to.
  * @param {string} date String containing date of effective exchange rate. defaults to today.
  */
-declare function nlapiExchangeRate(fromCurrency: string|number, toCurrency: string|number, date?: string): number;
+declare function nlapiExchangeRate(fromCurrency: string|number, toCurrency: string|number, date?: string): number | string;
 /**
  * Return the first line number that a matrix field value appears in.
  *
@@ -2772,7 +2772,7 @@ declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, lin
  *
  * @param {string} type Sublist name
  */
-declare function nlapiGetLineItemCount(type: string): number;
+declare function nlapiGetLineItemCount(type: string): number | string;
 /**
  * Return field definition for a sublist field.
  * @param {string} type Sublist name.
@@ -2867,7 +2867,7 @@ declare function nlapiGetOldRecord(): NLObjRecord;
 /**
  * Return the internal ID corresponding to the current page or userevent script.
  */
-declare function nlapiGetRecordId(): number;
+declare function nlapiGetRecordId(): number | string;
 /**
  * Return the recordtype corresponding to the current page or userevent script.
  */
@@ -2959,7 +2959,7 @@ declare function nlapiLoadFile(id: string|number): NLObjFile;
  * @param {string} type The record type name.
  * @param {number|string} id The internal ID of the record to copy.
  */
-declare function nlapiLoadRecord(type: string, id: number|string): NLObjRecord;
+declare function nlapiLoadRecord(type: string, id: number|string, initializeValues?: any): NLObjRecord;
 /**
  * Loads an existing saved search.
  *
