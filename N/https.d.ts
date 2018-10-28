@@ -109,7 +109,7 @@ export interface SecureString {
     toString(): string;
 }
 
-export {ClientResponse, ServerRequest, ServerResponse, RequestOptions} from './http';
+export {ClientResponse, ServerRequest, ServerResponse, GetOptions, DeleteOptions, PostOptions, PutOptions, RequestOptions} from './http';
 
 // METHODS \\
 /**
