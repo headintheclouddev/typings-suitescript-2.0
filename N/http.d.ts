@@ -111,7 +111,7 @@ interface GetLineCountOptions {
     group: string;
 }
 
-interface GetOptions {
+export interface GetOptions {
     /**
      * The HTTP URL being requested.
      */
@@ -122,18 +122,18 @@ interface GetOptions {
     headers?: any;
 }
 
-interface DeleteOptions {
+export interface DeleteOptions extends GetOptions {}
+
+export interface PostOptions extends GetOptions {
     /**
-     * The HTTP URL being requested.
+     * The POST data.
      */
-    url: string;
-    /**
-     * -optional- The HTTP headers.
-     */
-    headers?: any;
+    body: string | any;
 }
 
-export interface RequestOptions {
+export interface PutOptions extends PostOptions {}
+
+export interface RequestOptions  extends GetOptions {
     /**
      * The HTTP request method. Set using the http.Method enum.
      * Allow usage as string here as N/http is a heavy import just
@@ -141,47 +141,9 @@ export interface RequestOptions {
      */
     method: Method | string;
     /**
-     * The HTTP URL being requested.
-     */
-    url: string;
-    /**
      * -optional- The POST data if the method is POST. If method is DELETE, body data is ignored.
      */
     body?: string | any;
-    /**
-     * -optional- An object containing request headers.
-     */
-    headers?: any;
-}
-
-interface PostOptions {
-    /**
-     * The HTTP URL being requested.
-     */
-    url: string;
-    /**
-     * The POST data.
-     */
-    body: string | any;
-    /**
-     * -optional- The HTTP headers.
-     */
-    headers?: any;
-}
-
-interface PutOptions {
-    /**
-     * The HTTP URL being requested.
-     */
-    url: string;
-    /**
-     * The PUT data.
-     */
-    body: string | any;
-    /**
-     * The HTTP headers.
-     */
-    headers?: any;
 }
 
 interface HttpDeleteFunction {
