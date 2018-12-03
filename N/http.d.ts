@@ -69,7 +69,7 @@ interface SetCDNCacheableOptions {
     /**
      * The value of the caching duration. Set using the http.CacheDuration enum.
      */
-    type: string;
+    type: CacheDuration;
 }
 
 interface WriteOptions {
