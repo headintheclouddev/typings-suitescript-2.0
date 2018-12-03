@@ -174,9 +174,9 @@ interface GetSublistValueOptions {
     /** The internal ID of the sublist. */
     group: string;
     /** The internal ID of the sublist field. */
-    id: number;
+    id: string;
     /** The line number for the sublist field (starts at 0). */
-    line: string;
+    line: number;
 }
 
 interface InsertFieldOptions {
