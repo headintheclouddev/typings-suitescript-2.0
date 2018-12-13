@@ -1,5 +1,6 @@
 import {File} from './file';
 import {Form} from './ui/serverWidget';
+import {SecureString} from 'N/https';
 
 interface AddHeaderOptions {
     /**
@@ -115,11 +116,13 @@ export interface GetOptions {
     /**
      * The HTTP URL being requested.
      */
-    url: string;
+    url: string | SecureString;
     /**
      * -optional- The HTTP headers.
      */
     headers?: any;
+    
+    credentials?: string[];
 }
 
 export interface DeleteOptions extends GetOptions {}
