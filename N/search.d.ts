@@ -253,7 +253,7 @@ interface SearchLoadOptions {
      * - InvtNumberItemBalance
      * - ItemBinNumber
      */
-    type?: string;
+    type?: string | Type;
 }
 
 interface SearchLoadFunction {
