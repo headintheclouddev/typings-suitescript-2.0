@@ -6,7 +6,7 @@
     "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
   },
   "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
-  "version": "2018.2.13",
+  "version": "2018.2.14",
   "main": "index.d.ts",
   "author": "Head in the Cloud Development",
   "license": "MIT",
