@@ -26,23 +26,28 @@ export interface SuiteScriptError {
     /**
      * Error ID that is automatically generated when a new error is created.
      */
-    id: string;
+    readonly id: string;
     /**
      * Text that displays on the SuiteScript Execution Log, in the Details column.
      */
-    message: string;
+    readonly message: string;
     /**
      * A user-defined name (error code).
      */
-    name: string;
+    readonly name: string;
     /**
      * A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top.
      */
-    stack: string[];
+    readonly stack: string[];
     /**
      * The cause of the error message.
      */
-    cause: any|any[]|string|string[]|number|number[]|boolean|boolean[];
+    readonly cause: any;
+    
+    /** 
+     * Whether email notification is suppressed. 
+     */
+    notifyOff?: boolean;
 }
     
 /**
@@ -52,30 +57,30 @@ export interface UserEventError {
     /**
      * The user event type. Holds one of the following values: beforeLoad, beforeSubmit, afterSubmit.
      */
-    eventType: EventType;
+    readonly eventType: EventType;
     /**
      * Error ID that is automatically generated when a new error is created.
      */
-    id: string;
+    readonly id: string;
     /**
      * Text that displays on the SuiteScript Execution Log, in the Details column.
      */
-    message: string;
+    readonly message: string;
     /**
      * A user-defined name (error code).
      */
-    name: string;
+    readonly name: string;
     /**
      * The internal ID of the submitted record that triggered the script. This property only holds a value when the error is thrown by an afterSubmit user event script.
      */
-    recordId: string;
+    readonly recordId: string;
     /**
      * A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top.
      */
-    stack: string[];
+    readonly stack: string[];
 }
 
 /**
  * Creates a new error.SuiteScriptError or error.UserEventError object.
  */
-export function create(options: CreateOptions): SuiteScriptError | UserEventError;
+export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(options: CreateOptions): T;
