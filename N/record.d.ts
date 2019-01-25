@@ -1,5 +1,9 @@
-import { AddSelectOptionOptions, Sublist } from './ui/serverWidget';
-
+/** 
+ * Submits a new record or saves edits to an existing record. 
+ * 
+ * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+ * @return id of submitted record
+ */
 interface RecordSaveFunction {
     (options?: SubmitConfig): number;
     promise(options?: SubmitConfig): Promise<number>;
@@ -40,7 +44,7 @@ interface CopyLoadOptions {
      */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */
-    defaultValue?: any;
+    defaultValue?: {[fieldId: string]: any};
 }
 
 interface DetachOptions {
@@ -99,13 +103,37 @@ interface GetMatrixSublistFieldOptions {
     sublistId: string;
     /** The internal ID of the matrix field. */
     fieldId: string;
-    /** The column number for the field. */
-    column: number;
+    /** The line number for the field. */
+    line: number;
+}
+interface GetMatrixSublistValueOptions {
+    /** The internal ID of the sublist that contains the matrix. */
+    sublistId: string;
+    /** The internal ID of the matrix field. */
+    fieldId: string;
+    /** The line number for the field. */
+    line: number;
+    /** the column number for the field */
+    column: number; 
+}
+
+interface GetSublistValueOptions {
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string;
     /** The line number for the field. */
     line: number;
 }
 
-interface GetSublistValueOptions {
+interface GetCurrentSublistFieldOptions {
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string;
+}
+
+interface GetSublistFieldOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
     /** The internal ID of a standard or custom sublist field. */
@@ -262,37 +290,35 @@ interface GetSelectOptionsOpts {
     operator: "contains" | "is" | "startswith";
 }
 
+export interface Sublist {
+
+}
+
 export interface Field {
-    /** Adds the select options that appears in the dropdown of a field. */
-    insertSelectOption(options: AddSelectOptionOptions): void;
-    /** Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned. */
-    getSelectOptions(options?: GetSelectOptionsOpts): { value: any, text: string }[];
-    /**
-     * Removes a single select option from a select or multiselect field added via script.
-     * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
-    */
-    removeSelectOption(options?: { value: string }): void;
     /** Returns the UI label for a standard or custom field body or sublist field. */
-    label: string;
-    /** Returns the internal ID of a standard or custom body or sublist field. */
-    id: string;
+    readonly label: string;
+    /** Return id of the field */
+    readonly id: string;
     /** Returns the type of a body or sublist field. */
-    type: string;
+    readonly type: string;
     /** Returns true if the standard or custom field is mandatory on the record form, or false otherwise. */
-    isMandatory: boolean;
+    readonly isMandatory: boolean;
     /** Returns true if the standard or custom field is disabled on the record form, or false otherwise. */
-    isDisabled: boolean;
+    readonly isDisabled: boolean;
     /** Returns true if the field is a popup list field, or false otherwise. */
-    isPopup: boolean;
+    readonly isPopup: boolean;
     /** Returns true if the field is set to display on the record form, or false otherwise. */
-    isDisplay: boolean;
+    readonly isDisplay: boolean;
     /** Returns true if the field is visible on the record form, or false otherwise. */
-    isVisible: boolean;
-    /**
-     * Returns true if the field on the record form cannot be edited, or false otherwise.
-     * For textarea fields, this property can be read or written to. For all other fields, this property is read-only.
-     */
-    isReadOnly: boolean;
+    readonly isVisible: boolean;
+    /** Read Only state of the field. */
+    readonly isReadOnly: boolean;
+    /** Return the sublistId of the field */
+    readonly sublistId: string;
+    /** get JSON format of the object */    
+    toJSON (options?:any): {id: string, label: string, type: string};
+ 
+    toString(options?: any): string;
 }
 
 type FieldValue = Date | number | number[] | string | string[] | boolean | null;
@@ -304,6 +330,7 @@ export interface ClientCurrentRecord {
     cancelLine(sublistId: string): Record;
     /** Commits the currently selected line on a sublist. */
     commitLine(options: CancelCommitLineOptions): Record;
+    copy: RecordCopyFunction;
     /** Performs macro operation and returns its result in a plain JavaScript object. */
     executeMacro: ExecuteMacroFunction;
     /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
@@ -312,7 +339,14 @@ export interface ClientCurrentRecord {
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
     getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions): number | Date | string | string[] | boolean;
-    /** Returns the line number of the currently selected line. */
+    /** Returns the line number of the currently selected line. */  
+    
+    /**
+     * return field object from record's sublist current line. Only available in dynamic record
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
+     * @restriction only available in dynamic record
+     */    
+    getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field;
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     /** Gets the subrecord for the associated sublist field on the current line. */
     getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
@@ -321,7 +355,13 @@ export interface ClientCurrentRecord {
     /** Returns the value of a sublist field on the currently selected sublist line. */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
-    /** Returns a field object from a record. */
+
+    
+    /** 
+     * Returns a field object from a record. 
+     * 
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.fieldId is missing or undefined
+     */
     getField(options: GetFieldOptions): Field;
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
@@ -332,18 +372,24 @@ export interface ClientCurrentRecord {
     getMacros(): { [macroId: string]: Macro };
     /** Returns the number of columns for the specified matrix. */
     getMatrixHeaderCount(options: GetMatrixHeaderCountOptions): number;
-    /** Gets the field for the specified header in the matrix. */
+    /** Gets the field for the specified header in the matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if any required values are missing
+     */
     getMatrixHeaderField(options: GetMatrixHeaderFieldOptions): Field;
     /** Gets the value for the associated header in the matrix. */
     getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions): FieldValue;
     /** Gets the field for the specified sublist in the matrix. */
     getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field;
     /** Gets the value for the associated field in the matrix. */
-    getMatrixSublistValue(options: GetMatrixSublistFieldOptions): FieldValue;
+    getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
     /** Returns the specified sublist. */
     getSublist(options: RecordGetLineCountOptions): Sublist;
-    /** Returns a field object from a sublist. */
-    getSublistField(options: GetSublistValueOptions): Field;
+    /** 
+     * Return field object from record's sublist
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if line number is invalid
+     */
+    getSublistField(options: GetSublistFieldOptions): Field;
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: GetSublistValueOptions): string;
     /** Returns the value of a sublist field. */
@@ -377,12 +423,21 @@ export interface ClientCurrentRecord {
      * This value is set when the record is created or accessed.
      */
     isDynamic: boolean;
-    /** Removes the subrecord for the associated sublist field on the current line. */
-    removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): void;
-    /** Removes a sublist line. */
-    removeLine(options: InsertLineOptions): void;
-    /** Removes the subrecord for the associated field. */
-    removeSubrecord(options: RecordGetLineCountOptions): void;
+    /** 
+     * Removes the subrecord for the associated sublist field on the current line. 
+     * @return {Record} same record, for chaining
+     */
+    removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): this;
+    /** 
+     * Removes a sublist line.
+     * @return {Record} same record, for chaining 
+     */
+    removeLine(options: InsertLineOptions): this;
+    /** 
+     * Removes the subrecord for the associated field. 
+     * @return {Record} same record, for chaining
+     */
+    removeSubrecord(options: RecordGetLineCountOptions): this;
     /** Selects an existing line in a sublist. */
     selectLine(options: SelectLineOptions): void;
     selectLine(sublistId: string, line: number): void;
@@ -405,6 +460,7 @@ export interface ClientCurrentRecord {
     /** Sets the value of a field. */
     setValue(options: SetValueOptions): void;
     setValue(fieldId: string, value: FieldValue): void;
+    
     /** The record type. */
     type: Type | string;
 }
@@ -419,9 +475,18 @@ export interface Record extends ClientCurrentRecord {
     getSublistFields(options: RecordGetLineCountOptions): string[];
     /** Gets the subrecord associated with a sublist field. */
     getSublistSubrecord(options: GetSublistValueOptions): Record;
-    /** Removes the subrecord for the associated sublist field. */
-    removeSublistSubrecord(options: GetSublistValueOptions): Record;
-    /** Submits a new record or saves edits to an existing record. */
+    /** 
+     * Removes the subrecord for the associated sublist field. 
+     * @restriction only available in deferred dynamic record
+     * @return {Record} same record, for chaining
+     */
+    removeSublistSubrecord(options: GetSublistValueOptions): this;
+    /** 
+     * Submits a new record or saves edits to an existing record. 
+     * 
+     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     * @return id of submitted record
+    */
     save: RecordSaveFunction;
     /** Sets the value of a sublist field by a text representation. */
     setSublistText(options: SetSublistTextOptions): Record;
@@ -505,6 +570,14 @@ interface RecordCreateOptions {
     defaultValues?: any;
 }
 
+
+/**
+ * Create a new record object based on provided type
+ *
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ *
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type is missing
+ */
 interface RecordCreateFunction {
     (options: RecordCreateOptions): Record;
     promise(options: RecordCreateOptions): Promise<Record>;
@@ -526,16 +599,38 @@ interface RecordDetachFunction {
     promise(options: DetachOptions): Promise<void>;
 }
 
+/**
+ * Loads an existing nlobjRecord from the database based on provided type, id
+ *
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * 
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
+ */
 interface RecordLoadFunction {
     (options: CopyLoadOptions): Record;
     promise(options: CopyLoadOptions): Promise<Record>;
 }
-
+/**
+ * Delete a record object based on provided type, id and return the id of deleted record
+ *
+ * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+ *
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if type or id is missing
+ *
+ * @since 2015.2
+ */
 interface RecordDeleteFunction {
     (options: RecordDeleteOptions): void;
     promise(options: RecordDeleteOptions): Promise<void>;
 }
 
+/**
+ * Transform a record into another type (i.e. salesOrder -> invoice -or- opportunity -> estimate)
+ *
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ *
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
+ */
 interface RecordTransformFunction {
     (options: RecordTransformOptions): Record;
     promise(options: RecordTransformOptions): Promise<Record>;
@@ -565,9 +660,17 @@ declare var deleteFunc: RecordDeleteFunction;
 export { deleteFunc as delete };
 /** Detaches a record from another record. */
 export var detach: RecordDetachFunction;
-/** Loads an existing record. */
+/**
+ * Loads an existing nlobjRecord from the database based on provided type, id
+ *
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * 
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
+ */
 export var load: RecordLoadFunction;
 /**
+ * commit record field updates to the system.
+ * 
  * Updates and submits one or more body fields on an existing record in NetSuite, and returns the internal ID of the parent record.
  * When you use this method, you do not need to load or submit the parent record.
  * You can use this method to edit and submit the following:
@@ -577,6 +680,13 @@ export var load: RecordLoadFunction;
  * - Select fields
  * - Sublist line item fields
  * - Subrecord fields (for example, address fields)
+ *
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * @restriction only supported for records and fields where DLE (Direct List Editing) is supported
+ *
+ * @return {number} id of submitted record
+ *
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if type or id is missing
  */
 export var submitFields: SubmitFieldsFunction;
 /** Transforms a record from one type into another, using data from an existing record. */
@@ -587,230 +697,244 @@ export var transform: RecordTransformFunction;
  *
  */
 export declare enum Type {
-    ACCOUNT,
-    ACCOUNTING_BOOK,
-    ACCOUNTING_CONTEXT,
-    ACCOUNTING_PERIOD,
-    ADV_INTER_COMPANY_JOURNAL_ENTRY,
-    ALLOCATION_SCHEDULE,
-    AMORTIZATION_SCHEDULE,
-    AMORTIZATION_TEMPLATE,
-    ASSEMBLY_BUILD,
-    ASSEMBLY_ITEM,
-    ASSEMBLY_UNBUILD,
-    BILLING_ACCOUNT,
-    BILLING_CLASS,
-    BILLING_RATE_CARD,
-    BILLING_REVENUE_EVENT,
-    BILLING_SCHEDULE,
-    BIN,
-    BIN_TRANSFER,
-    BIN_WORKSHEET,
-    BLANKET_PURCHASE_ORDER,
-    BOM,
-    BOM_REVISION,
-    BULK_OWNERSHIP_TRANSFER,
-    BUNDLE_INSTALLATION_SCRIPT,
-    CALENDAR_EVENT,
-    CAMPAIGN,
-    CAMPAIGN_RESPONSE,
-    CAMPAIGN_TEMPLATE,
-    CASH_REFUND,
-    CASH_SALE,
-    CHARGE,
-    CHARGE_RULE,
-    CHECK,
-    CLASSIFICATION,
-    CLIENT_SCRIPT,
-    CMS_CONTENT,
-    CMS_CONTENT_TYPE,
-    COMMERCE_CATEGORY,
-    COMPETITOR,
-    CONSOLIDATED_EXCHANGE_RATE,
-    CONTACT,
-    CONTACT_CATEGORY,
-    CONTACT_ROLE,
-    COST_CATEGORY,
-    COUPON_CODE,
-    CREDIT_CARD_CHARGE,
-    CREDIT_CARD_REFUND,
-    CREDIT_MEMO,
-    CURRENCY,
-    CUSTOMER,
-    CUSTOMER_CATEGORY,
-    CUSTOMER_DEPOSIT,
-    CUSTOMER_MESSAGE,
-    CUSTOMER_PAYMENT,
-    CUSTOMER_PAYMENT_AUTHORIZATION,
-    CUSTOMER_REFUND,
-    CUSTOMER_STATUS,
-    CUSTOMER_SUBSIDIARY_RELATIONSHIP,
-    CUSTOM_RECORD,
-    CUSTOM_TRANSACTION,
-    DEPARTMENT,
-    DEPOSIT,
-    DEPOSIT_APPLICATION,
-    DESCRIPTION_ITEM,
-    DISCOUNT_ITEM,
-    DOWNLOAD_ITEM,
+    ACCOUNT = 'account',
+    ACCOUNTING_BOOK = 'accountingbook',
+    ACCOUNTING_CONTEXT = 'accountingcontext',
+    ACCOUNTING_PERIOD = 'accountingperiod',
+    ADV_INTER_COMPANY_JOURNAL_ENTRY = 'advintercompanyjournalentry',
+    ALLOCATION_SCHEDULE = 'allocationschedule',
+    AMORTIZATION_SCHEDULE = 'amortizationschedule',
+    AMORTIZATION_TEMPLATE = 'amortizationtemplate',
+    ASSEMBLY_BUILD = 'assemblybuild',
+    ASSEMBLY_ITEM = 'assemblyitem',
+    ASSEMBLY_UNBUILD = 'assemblyunbuild',
+    BILLING_ACCOUNT = 'billingaccount',
+    BILLING_CLASS = 'billingclass',
+    BILLING_RATE_CARD = 'billingratecard',
+    BILLING_REVENUE_EVENT = 'billingrevenueevent',
+    BILLING_SCHEDULE = 'billingschedule',
+    BIN = 'bin',
+    BIN_TRANSFER = 'bintransfer',
+    BIN_WORKSHEET = 'binworksheet',
+    BLANKET_PURCHASE_ORDER = 'blanketpurchaseorder',
+    BOM = 'bom',
+    BOM_REVISION = 'bomrevision',
+    BULK_OWNERSHIP_TRANSFER = 'bulkownershiptransfer',
+    BUNDLE_INSTALLATION_SCRIPT = 'bundleinstallationscript',
+    CALENDAR_EVENT = 'calendarevent',
+    CAMPAIGN = 'campaign',
+    CAMPAIGN_RESPONSE = 'campaignresponse',
+    CAMPAIGN_TEMPLATE = 'campaigntemplate',
+    CASH_REFUND = 'cashrefund',
+    CASH_SALE = 'cashsale',
+    CHARGE = 'charge',
+    CHARGE_RULE = 'chargerule',
+    CHECK = 'check',
+    CLASSIFICATION = 'classification',
+    CLIENT_SCRIPT = 'clientscript',
+    CMS_CONTENT = 'cmscontent',
+    CMS_CONTENT_TYPE = 'cmscontenttype',
+    CMS_PAGE = 'cmspage',
+    COMMERCE_CATEGORY = 'commercecategory',
+    COMPETITOR = 'competitor',
+    CONSOLIDATED_EXCHANGE_RATE = 'consolidatedexchangerate',
+    CONTACT = 'contact',
+    CONTACT_CATEGORY = 'contactcategory',
+    CONTACT_ROLE = 'contactrole',
+    COST_CATEGORY = 'costcategory',
+    COUPON_CODE = 'couponcode',
+    CREDIT_CARD_CHARGE = 'creditcardcharge',
+    CREDIT_CARD_REFUND = 'creditcardrefund',
+    CREDIT_MEMO = 'creditmemo',
+    CURRENCY = 'currency',
+    CUSTOMER = 'customer',
+    CUSTOMER_CATEGORY = 'customercategory',
+    CUSTOMER_DEPOSIT = 'customerdeposit',
+    CUSTOMER_MESSAGE = 'customermessage',
+    CUSTOMER_PAYMENT = 'customerpayment',
+    CUSTOMER_PAYMENT_AUTHORIZATION = 'customerpaymentauthorization',
+    CUSTOMER_REFUND = 'customerrefund',
+    CUSTOMER_STATUS = 'customerstatus',
+    CUSTOMER_SUBSIDIARY_RELATIONSHIP = 'customersubsidiaryrelationship',
+    CUSTOM_RECORD = 'customrecord',
+    CUSTOM_TRANSACTION = 'customtransaction',
+    DEPARTMENT = 'department',
+    DEPOSIT = 'deposit',
+    DEPOSIT_APPLICATION = 'depositapplication',
+    DESCRIPTION_ITEM = 'descriptionitem',
+    DISCOUNT_ITEM = 'discountitem',
+    DOWNLOAD_ITEM = 'downloaditem',
     DRIVERS_LICENSE,
-    EMAIL_TEMPLATE,
-    EMPLOYEE,
-    ENTITY_ACCOUNT_MAPPING,
-    ESTIMATE,
-    EXPENSE_CATEGORY,
-    EXPENSE_REPORT,
-    FAIR_VALUE_PRICE,
-    FIXED_AMOUNT_PROJECT_REVENUE_RULE,
-    FOLDER,
-    FULFILLMENT_REQUEST,
-    GENERIC_RESOURCE,
-    GIFT_CERTIFICATE,
-    GIFT_CERTIFICATE_ITEM,
-    GLOBAL_ACCOUNT_MAPPING,
-    GLOBAL_INVENTORY_RELATIONSHIP,
+    EMAIL_TEMPLATE = 'emailtemplate',
+    EMPLOYEE = 'employee',
+    ENTITY_ACCOUNT_MAPPING = 'entityaccountmapping',
+    ESTIMATE = 'estimate',
+    EXPENSE_CATEGORY = 'expensecategory',
+    EXPENSE_REPORT = 'expensereport',
+    FAIR_VALUE_PRICE = 'fairvalueprice',
+    FIXED_AMOUNT_PROJECT_REVENUE_RULE = 'fixedamountprojectrevenuerule',
+    FOLDER = 'folder',
+    FULFILLMENT_REQUEST = 'fulfillmentrequest',
+    GENERAL_TOKEN = 'generaltoken',
+    GENERIC_RESOURCE = 'genericresource',
+    GIFT_CERTIFICATE = 'giftcertificate',
+    GIFT_CERTIFICATE_ITEM = 'giftcertificateitem',
+    GLOBAL_ACCOUNT_MAPPING = 'globalaccountmapping',
+    GLOBAL_INVENTORY_RELATIONSHIP = 'globalinventoryrelationship',
     GOVERNMENT_ISSUED_ID_TYPE,
     HCM_JOB,
-    INBOUND_SHIPMENT,
-    INTERCOMP_ALLOCATION_SCHEDULE,
-    INTER_COMPANY_JOURNAL_ENTRY,
-    INTER_COMPANY_TRANSFER_ORDER,
-    INVENTORY_ADJUSTMENT,
-    INVENTORY_COST_REVALUATION,
-    INVENTORY_COUNT,
-    INVENTORY_DETAIL,
-    INVENTORY_ITEM,
-    INVENTORY_NUMBER,
-    INVENTORY_TRANSFER,
-    INVOICE,
-    ISSUE,
-    ISSUE_PRODUCT,
-    ISSUE_PRODUCT_VERSION,
-    ITEM_ACCOUNT_MAPPING,
-    ITEM_DEMAND_PLAN,
-    ITEM_FULFILLMENT,
-    ITEM_GROUP,
-    ITEM_LOCATION_CONFIGURATION,
-    ITEM_RECEIPT,
-    ITEM_REVISION,
-    ITEM_SUPPLY_PLAN,
-    JOB,
+    INBOUND_SHIPMENT = 'inboundshipment',
+    INTERCOMP_ALLOCATION_SCHEDULE = 'intercompallocationschedule',
+    INTER_COMPANY_JOURNAL_ENTRY = 'intercompanyjournalentry',
+    INTER_COMPANY_TRANSFER_ORDER = 'intercompanytransferorder',
+    INVENTORY_ADJUSTMENT = 'inventoryadjustment',
+    INVENTORY_COST_REVALUATION = 'inventorycostrevaluation',
+    INVENTORY_COUNT = 'inventorycount',
+    INVENTORY_DETAIL = 'inventorydetail',
+    INVENTORY_ITEM = 'inventoryitem',
+    INVENTORY_NUMBER = 'inventorynumber',
+    INVENTORY_STATUS = 'inventorystatus',
+    INVENTORY_STATUS_CHANGE = 'inventorystatuschange',
+    INVENTORY_TRANSFER = 'inventorytransfer',
+    INVOICE = 'invoice',
+    ISSUE = 'issue',
+    ISSUE_PRODUCT = 'issueproduct',
+    ISSUE_PRODUCT_VERSION = 'issueproductversion',
+    ITEM_ACCOUNT_MAPPING = 'itemaccountmapping',
+    ITEM_DEMAND_PLAN = 'itemdemandplan',
+    ITEM_FULFILLMENT = 'itemfulfillment',
+    ITEM_GROUP = 'itemgroup',
+    ITEM_LOCATION_CONFIGURATION = 'itemlocationconfiguration',
+    ITEM_RECEIPT = 'itemreceipt',
+    ITEM_REVISION = 'itemrevision',
+    ITEM_SUPPLY_PLAN = 'itemsupplyplan',
+    JOB = 'job',
     JOB_REQUISITION,
-    JOB_STATUS,
-    JOB_TYPE,
-    JOURNAL_ENTRY,
-    KIT_ITEM,
+    JOB_STATUS = 'jobstatus',
+    JOB_TYPE = 'jobtype',
+    JOURNAL_ENTRY = 'journalentry',
+    KIT_ITEM = 'kititem',
     KUDOS,
-    LABOR_BASED_PROJECT_REVENUE_RULE,
-    LEAD,
-    LOCATION,
-    LOT_NUMBERED_ASSEMBLY_ITEM,
-    LOT_NUMBERED_INVENTORY_ITEM,
-    MANUFACTURING_COST_TEMPLATE,
-    MANUFACTURING_OPERATION_TASK,
-    MANUFACTURING_ROUTING,
-    MAP_REDUCE_SCRIPT,
-    MARKUP_ITEM,
-    MASSUPDATE_SCRIPT,
-    MERCHANDISE_HIERARCHY_LEVEL,
-    MERCHANDISE_HIERARCHY_NODE,
-    MERCHANDISE_HIERARCHY_VERSION,
-    MESSAGE,
-    MFG_PLANNED_TIME,
-    NEXUS,
-    NON_INVENTORY_ITEM,
-    NOTE,
-    NOTE_TYPE,
-    OPPORTUNITY,
-    ORDER_SCHEDULE,
+    LABOR_BASED_PROJECT_REVENUE_RULE = 'laborbasedprojectrevenuerule',
+    LEAD = 'lead',
+    LOCATION = 'location',
+    LOT_NUMBERED_ASSEMBLY_ITEM = 'lotnumberedassemblyitem',
+    LOT_NUMBERED_INVENTORY_ITEM = 'lotnumberedinventoryitem',
+    MANUFACTURING_COST_TEMPLATE = 'manufacturingcosttemplate',
+    MANUFACTURING_OPERATION_TASK = 'manufacturingoperationtask',
+    MANUFACTURING_ROUTING = 'manufacturingrouting',
+    MAP_REDUCE_SCRIPT = 'mapreducescript',
+    MARKUP_ITEM = 'markupitem',
+    MASSUPDATE_SCRIPT = 'massupdatescript',
+    MERCHANDISE_HIERARCHY_LEVEL = 'merchandisehierarchylevel',
+    MERCHANDISE_HIERARCHY_NODE = 'merchandisehierarchynode',
+    MERCHANDISE_HIERARCHY_VERSION = 'merchandisehierarchyversion',
+    MESSAGE = 'message',
+    MFG_PLANNED_TIME = 'mfgplannedtime',
+    NEXUS = 'nexus',
+    NON_INVENTORY_ITEM = 'noninventoryitem',
+    NOTE = 'note',
+    NOTE_TYPE = 'notetype',
+    OPPORTUNITY = 'opportunity',
+    ORDER_SCHEDULE = 'orderschedule',
     ORGANIZATION_VALUE,
-    OTHER_CHARGE_ITEM,
+    OTHER_CHARGE_ITEM = 'otherchargeitem',
     OTHER_GOVERNMENT_ISSUED_ID,
-    OTHER_NAME,
-    PARTNER,
-    PARTNER_CATEGORY,
+    OTHER_NAME = 'othername',
+    OTHER_NAME_CATEGORY = 'othernamecategory',
+    PARTNER = 'partner',
+    PARTNER_CATEGORY = 'partnercategory',
     PASSPORT,
-    PAYCHECK_JOURNAL,
-    PAYMENT_ITEM,
-    PAYMENT_METHOD,
-    PAYROLL_ITEM,
-    PERIOD_END_JOURNAL,
-    PHONE_CALL,
-    PORTLET,
+    PAYCHECK = 'paycheck',
+    PAYCHECK_JOURNAL = 'paycheckjournal',
+    PAYMENT_CARD = 'paymentcard',
+    PAYMENT_CARD_TOKEN = 'paymentcardtoken',
+    PAYMENT_ITEM = 'paymentitem',
+    PAYMENT_METHOD = 'paymentmethod',
+    PAYROLL_ITEM = 'payrollitem',
+    PERIOD_END_JOURNAL = 'periodendjournal',
+    PCT_COMPLETE_PROJECT_REVENUE_RULE = 'pctcompleteprojectrevenuerule',
+    PHONE_CALL = 'phonecall',
+    PORTLET = 'portlet',
     POSITION,
-    PRICE_BOOK,
-    PRICE_LEVEL,
-    PRICE_PLAN,
-    PRICING_GROUP,
-    PROJECT_EXPENSE_TYPE,
-    PROJECT_TASK,
-    PROJECT_TEMPLATE,
-    PROMOTION_CODE,
-    PROSPECT,
-    PURCHASE_CONTRACT,
-    PURCHASE_ORDER,
-    PURCHASE_REQUISITION,
+    PRICE_BOOK = 'pricebook',
+    PRICE_LEVEL = 'pricelevel',
+    PRICE_PLAN = 'priceplan',
+    PRICING_GROUP = 'pricinggroup',
+    PROJECT_EXPENSE_TYPE = 'projectexpensetype',
+    PROJECT_TASK = 'projecttask',
+    PROJECT_TEMPLATE = 'projecttemplate',
+    PROMOTION_CODE = 'promotioncode',
+    PROSPECT = 'prospect',
+    PURCHASE_CONTRACT = 'purchasecontract',
+    PURCHASE_ORDER = 'purchaseorder',
+    PURCHASE_REQUISITION = 'purchaserequisition',
     RATE_PLAN,
-    REALLOCATE_ITEM,
-    RECEIVE_INBOUND_SHIPMENT,
-    RESOURCE_ALLOCATION,
-    RESTLET,
-    RETURN_AUTHORIZATION,
-    REVENUE_ARRANGEMENT,
-    REVENUE_COMMITMENT,
-    REVENUE_COMMITMENT_REVERSAL,
-    REVENUE_PLAN,
-    REV_REC_SCHEDULE,
-    REV_REC_TEMPLATE,
-    SALES_ORDER,
-    SALES_TAX_ITEM,
-    SCHEDULED_SCRIPT,
-    SCHEDULED_SCRIPT_INSTANCE,
-    SCRIPT_DEPLOYMENT,
-    SERIALIZED_ASSEMBLY_ITEM,
-    SERIALIZED_INVENTORY_ITEM,
-    SERVICE_ITEM,
-    SHIP_ITEM,
-    SOLUTION,
-    STATISTICAL_JOURNAL_ENTRY,
-    STORE_PICKUP_FULFILLMENT,
-    SUBSCRIPTION,
-    SUBSCRIPTION_CHANGE_ORDER,
-    SUBSCRIPTION_LINE,
-    SUBSCRIPTION_PLAN,
-    SUBSIDIARY,
-    SUBTOTAL_ITEM,
-    SUITELET,
-    SUPPORT_CASE,
-    TASK,
-    TAX_ACCT,
-    TAX_GROUP,
-    TAX_PERIOD,
-    TAX_TYPE,
-    TERM,
+    REALLOCATE_ITEM = 'reallocateitem',
+    RECEIVE_INBOUND_SHIPMENT = 'receiveinboundshipment',
+    RESOURCE_ALLOCATION = 'resourceallocation',
+    RESTLET = 'restlet',
+    RETURN_AUTHORIZATION = 'returnauthorization',
+    REVENUE_ARRANGEMENT = 'revenuearrangement',
+    REVENUE_COMMITMENT = 'revenuecommitment',
+    REVENUE_COMMITMENT_REVERSAL = 'revenuecommitmentreversal',
+    REVENUE_PLAN = 'revenueplan',
+    REV_REC_SCHEDULE = 'revrecschedule',
+    REV_REC_TEMPLATE = 'revrectemplate',
+    SALES_ORDER = 'salesorder',
+    SALES_ROLE = 'salesrole',
+    SALES_TAX_ITEM = 'salestaxitem',
+    SCHEDULED_SCRIPT = 'scheduledscript',
+    SCHEDULED_SCRIPT_INSTANCE = 'scheduledscriptinstance',
+    SCRIPT_DEPLOYMENT = 'scriptdeployment',
+    SERIALIZED_ASSEMBLY_ITEM = 'serializedassemblyitem',
+    SERIALIZED_INVENTORY_ITEM = 'serializedinventoryitem',
+    SERVICE_ITEM = 'serviceitem',
+    SHIP_ITEM = 'shipitem',
+    SOLUTION = 'solution',
+    STATISTICAL_JOURNAL_ENTRY = 'statisticaljournalentry',
+    STORE_PICKUP_FULFILLMENT = 'storepickupfulfillment',
+    SUBSCRIPTION = 'subscription',
+    SUBSCRIPTION_CHANGE_ORDER = 'subscriptionchangeorder',
+    SUBSCRIPTION_LINE = 'subscriptionline',
+    SUBSCRIPTION_PLAN = 'subscriptionplan',
+    SUBSIDIARY = 'subsidiary',
+    SUBTOTAL_ITEM = 'subtotalitem',
+    SUITELET = 'suitelet',
+    SUPPLY_CHAIN_SNAPSHOT = 'supplychainsnapshot',
+    SUPPORT_CASE = 'supportcase',
+    TASK = 'task',
+    TAX_ACCT = 'taxacct',
+    TAX_GROUP = 'taxgroup',
+    TAX_PERIOD = 'taxperiod',
+    TAX_TYPE = 'taxtype',
+    TERM = 'term',
     TERMINATION_REASON,
-    TIME_BILL,
-    TIME_OFF_CHANGE,
-    TIME_OFF_PLAN,
-    TIME_OFF_REQUEST,
-    TIME_OFF_RULE,
-    TIME_OFF_TYPE,
-    TOPIC,
-    TRANSFER_ORDER,
-    UNITS_TYPE,
-    USAGE,
-    USEREVENT_SCRIPT,
-    VENDOR,
-    VENDOR_BILL,
-    VENDOR_CATEGORY,
-    VENDOR_CREDIT,
-    VENDOR_PAYMENT,
-    VENDOR_RETURN_AUTHORIZATION,
-    WEBSITE,
-    WORKFLOW_ACTION_SCRIPT,
-    WORK_ORDER,
-    WORK_ORDER_CLOSE,
-    WORK_ORDER_COMPLETION,
-    WORK_ORDER_ISSUE,
-    WORKPLACE
+    TIME_BILL = 'timebill',
+    TIME_ENTRY = 'timeentry',
+    TIME_OFF_CHANGE = 'timeoffchange',
+    TIME_OFF_PLAN = 'timeoffplan',
+    TIME_OFF_REQUEST = 'timeoffrequest',
+    TIME_OFF_RULE = 'timeoffrule',
+    TIME_OFF_TYPE = 'timeofftype',
+    TIME_SHEET = 'timesheet',
+    TOPIC = 'topic',
+    TRANSFER_ORDER = 'transferorder',
+    UNITS_TYPE = 'unitstype',
+    USAGE = 'usage',
+    USEREVENT_SCRIPT = 'usereventscript',
+    VENDOR = 'vendor',
+    VENDOR_BILL = 'vendorbill',
+    VENDOR_CATEGORY = 'vendorcategory',
+    VENDOR_CREDIT = 'vendorcredit',
+    VENDOR_PAYMENT = 'vendorpayment',
+    VENDOR_RETURN_AUTHORIZATION = 'vendorreturnauthorization',
+    VENDOR_SUBSIDIARY_RELATIONSHIP = 'vendorsubsidiaryrelationship',
+    WEBSITE = 'website',
+    WORKFLOW_ACTION_SCRIPT = 'workflowactionscript',
+    WORK_ORDER = 'workorder',
+    WORK_ORDER_CLOSE = 'workorderclose',
+    WORK_ORDER_COMPLETION = 'workordercompletion',
+    WORK_ORDER_ISSUE = 'workorderissue',
+    WORKPLACE = 'workplace',
 }
