@@ -162,7 +162,7 @@ interface GetSelectOptionsOpts {
      */
     filter?: string;
     /** Supported operators are contains | is | startswith. If not specified, defaults to the contains operator. */
-    filteroperator?: Operator;
+    filteroperator?: 'contains' | 'is' | 'startswith';
 }
 
 interface GetSublistFieldIdsOptions { // Part of Assistant Step.

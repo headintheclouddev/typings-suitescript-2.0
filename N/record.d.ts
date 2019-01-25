@@ -1,3 +1,5 @@
+import { AddSelectOptionOptions } from './ui/serverWidget';
+
 /** 
  * Submits a new record or saves edits to an existing record. 
  * 
@@ -291,13 +293,95 @@ interface GetSelectOptionsOpts {
 }
 
 export interface Sublist {
-
+    /**
+     * The name of the sublist.
+     */    
+    readonly name: string;   
+    /**
+     * The name of the sublist.
+     */    
+    readonly id: string;     
+    /**
+     * The type of the sublist.
+     */    
+    readonly type: string;    
+    /**
+     * The sublist is changed
+     */    
+    readonly isChanged: boolean;    
+    /**
+     * The sublist is hidden
+     */    
+    readonly isHidden: boolean;    
+    /**
+     * The sublist is display
+     */    
+    readonly isDisplay: boolean;    
+    /**
+     * A flag to indicate whether or not the sublist supports multi-line buffer feature.
+     */    
+    readonly isMultilineEditable: boolean;  
+    /**
+     * Returns a column in the sublist.
+     * Client and server-side scripts
+     */
+    getColumnOptions(options: GetColumnOptions): Column
+    /**
+     * Returns the object type name (sublist.Sublist)
+     */    
+    toString(): string    
+    /**
+     * JSON.stringify() implementation.
+     */    
+    toJSON(): {id: string, type: string, isChanged: boolean, isDisplay: boolean}
+}
+export interface GetColumnOptions {
+    /** The internal ID of the column field in the sublist. */
+    fieldId: string;
+}
+/**
+ * Encapsulates a column of a sublist on a standard or custom record.
+ * For a complete list of this object’s properties, see Column Object Members.
+ * This object does not return a value, it returns information about the sublist column.
+ * Client and server-side scripts
+ */
+export interface Column {
+    /** Client and server-side scripts. Returns the internal ID of the column. */
+    readonly id: string;
+    /** Client and server-side scripts. Returns the column type. */
+    readonly type: string;
+    /** Client and server-side scripts. Returns the UI label for the column. */
+    readonly label: string
+    /** Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column. */
+    readonly sublistId: string
 }
 
+/**
+ * Client and server-side scripts. 
+ * Encapsulates a body or sublist field on a standard or custom record. 
+ */
 export interface Field {
+    /** Adds the select options that appears in the dropdown of a field. */
+    insertSelectOption(options: AddSelectOptionOptions): void;
+    /** 
+     * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned. 
+     * 
+     * Returns only the first 1,000 available options are returned in an array. If there are more than 1,000 available options, an empty array [] is returned. This function returns an array in the following format: `[{value: 5, text: 'abc'},{value: 6, text: '123'}]`.
+     * 
+     * This function returns Type Error if the field is not a supported field for this method.
+     */
+    getSelectOptions(options?: GetSelectOptionsOpts): { value: any, text: string }[];
+    /**
+     * Removes a single select option from a select or multiselect field added via script.
+     * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
+    */
+    removeSelectOption(options?: { value: string }): void;
+    /** get JSON format of the object */    
+    toJSON (options?:any): {id: string, label: string, type: string};
+    toString(options?: any): string;
     /** Returns the UI label for a standard or custom field body or sublist field. */
     readonly label: string;
-    /** Return id of the field */
+    /** Returns the internal ID of a standard or custom body or sublist field. */
     readonly id: string;
     /** Returns the type of a body or sublist field. */
     readonly type: string;
@@ -311,14 +395,13 @@ export interface Field {
     readonly isDisplay: boolean;
     /** Returns true if the field is visible on the record form, or false otherwise. */
     readonly isVisible: boolean;
-    /** Read Only state of the field. */
+    /**
+     * Returns true if the field on the record form cannot be edited, or false otherwise.
+     * For textarea fields, this property can be read or written to. For all other fields, this property is read-only.
+     */
     readonly isReadOnly: boolean;
     /** Return the sublistId of the field */
     readonly sublistId: string;
-    /** get JSON format of the object */    
-    toJSON (options?:any): {id: string, label: string, type: string};
- 
-    toString(options?: any): string;
 }
 
 type FieldValue = Date | number | number[] | string | string[] | boolean | null;
