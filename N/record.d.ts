@@ -296,36 +296,36 @@ export interface Sublist {
     /**
      * The name of the sublist.
      */    
-    readonly name: string;   
+    name: string;   
     /**
      * The name of the sublist.
      */    
-    readonly id: string;     
+    id: string;     
     /**
      * The type of the sublist.
      */    
-    readonly type: string;    
+    type: string;    
     /**
      * The sublist is changed
      */    
-    readonly isChanged: boolean;    
+    isChanged: boolean;    
     /**
      * The sublist is hidden
      */    
-    readonly isHidden: boolean;    
+    isHidden: boolean;    
     /**
      * The sublist is display
      */    
-    readonly isDisplay: boolean;    
+    isDisplay: boolean;    
     /**
      * A flag to indicate whether or not the sublist supports multi-line buffer feature.
      */    
-    readonly isMultilineEditable: boolean;  
+    isMultilineEditable: boolean;  
     /**
      * Returns a column in the sublist.
      * Client and server-side scripts
      */
-    getColumnOptions(options: GetColumnOptions): Column
+    getColumn(options: GetColumnOptions): Column
     /**
      * Returns the object type name (sublist.Sublist)
      */    
@@ -347,13 +347,13 @@ export interface GetColumnOptions {
  */
 export interface Column {
     /** Client and server-side scripts. Returns the internal ID of the column. */
-    readonly id: string;
+    id: string;
     /** Client and server-side scripts. Returns the column type. */
-    readonly type: string;
+    type: string;
     /** Client and server-side scripts. Returns the UI label for the column. */
-    readonly label: string
+    label: string
     /** Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column. */
-    readonly sublistId: string
+    sublistId: string
 }
 
 /**
@@ -380,28 +380,28 @@ export interface Field {
     toJSON (options?:any): {id: string, label: string, type: string};
     toString(options?: any): string;
     /** Returns the UI label for a standard or custom field body or sublist field. */
-    readonly label: string;
+    label: string;
     /** Returns the internal ID of a standard or custom body or sublist field. */
-    readonly id: string;
+    id: string;
     /** Returns the type of a body or sublist field. */
-    readonly type: string;
+    type: string;
     /** Returns true if the standard or custom field is mandatory on the record form, or false otherwise. */
-    readonly isMandatory: boolean;
+    isMandatory: boolean;
     /** Returns true if the standard or custom field is disabled on the record form, or false otherwise. */
-    readonly isDisabled: boolean;
+    isDisabled: boolean;
     /** Returns true if the field is a popup list field, or false otherwise. */
-    readonly isPopup: boolean;
+    isPopup: boolean;
     /** Returns true if the field is set to display on the record form, or false otherwise. */
-    readonly isDisplay: boolean;
+    isDisplay: boolean;
     /** Returns true if the field is visible on the record form, or false otherwise. */
-    readonly isVisible: boolean;
+    isVisible: boolean;
     /**
      * Returns true if the field on the record form cannot be edited, or false otherwise.
      * For textarea fields, this property can be read or written to. For all other fields, this property is read-only.
      */
-    readonly isReadOnly: boolean;
+    isReadOnly: boolean;
     /** Return the sublistId of the field */
-    readonly sublistId: string;
+    sublistId: string;
 }
 
 type FieldValue = Date | number | number[] | string | string[] | boolean | null;
@@ -576,8 +576,17 @@ export interface Record extends ClientCurrentRecord {
     /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
+    /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */  
+    toJSON(): RecordToJSONReturnValue
 }
 
+export type RecordToJSONReturnValue = {
+    id: string,
+    type: string,
+    isDynamic: boolean,
+    fields: {[fieldId: string]: string}
+    sublists: {[sublistId: string]: {[lineDescription: string]: string}}
+}
 
 interface ExecuteMacroFunction {
   (options: { id: string, params: Object }): Object;
