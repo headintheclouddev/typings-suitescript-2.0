@@ -1,13 +1,26 @@
-/** Encapsulates a search filter used in a search. Use the properties for the Filter object to get and set the filter properties. */
+/** 
+ * Encapsulates a search filter used in a search. 
+ * Use the properties for the Filter object to get and set the filter properties. 
+ * 
+ * You create a search filter object with `search.createFilter(options)` and add it to a `search.Search` object that you create with `search.create(options)` or load with search.load(options).
+ * 
+ * Note: NetSuite uses an implicit AND operator with search filters, as opposed to filter expressions which explicitly use either AND and OR operators. Use the following guidelines with the Filter object:
+ * 
+ * * To search for a "none of null" value, meaning do not show results without a value for the specified field, use a value of @NONE@ in the Filter.formula property.
+ * 
+ * * To search on checkbox fields, use the IS operator with a value of T or F to search for checked
+or unchecked fields, respectively.
+ */
 export interface Filter {
     /** Name or internal ID of the search field as a string. */
-    name: string;
+    readonly name: string;
     /** Join ID for the search filter as a string. */
-    join: string;
-    /** Operator used for the search filter. See search.Operator. */
-    operator: Operator;
+    readonly join: string;
+    /** Operator used for the search filter. This value is set with the search.Operator enum. 
+     * The search.Operator enum contains the valid operator values for this property. */
+    readonly operator: Operator;
     /** Summary type for the search filter. Use this property to get or set the value of the summary type. See search.Summary. */
-    summary: Summary;
+    readonly summary: Summary;
     /** Formula used by the search filter. Use this property to get or set the formula used by the search filter. */
     formula: string;
 }
@@ -148,6 +161,7 @@ export interface Search {
 }
 
 interface CreateSearchFilterOptions {
+    /** The search type that you want to base the search on. Use the search.Type enum for this argument. */
     name: string;
     join?: string;
     operator: Operator;
@@ -263,7 +277,7 @@ interface SearchLoadFunction {
 
 export interface SearchCreateOptions {
     type: Type | string;
-    filters?: (Filter[] | any[]);
+    filters?: (CreateSearchFilterOptions[] | any[]);
     columns?: (Array<Column | string>);
     title?: string;
     id?: string;
