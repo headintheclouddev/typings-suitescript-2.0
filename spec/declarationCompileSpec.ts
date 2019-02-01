@@ -1,4 +1,4 @@
-import { exec, rm } from 'shelljs'
+import { exec } from 'shelljs'
 
 describe('declaration files compilation', () => {
 	it('should compile all declaration files without error', () => {
