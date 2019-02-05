@@ -1,15 +1,21 @@
 {
   "name": "@hitc/netsuite-types",
   "description": "TypeScript typings for SuiteScript 2.0",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
+  "scripts": {
+    "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
+    "pretest": "npm run cleanup",
+    "test": "npx tsc && node node_modules/typescript/bin/tsc -p spec/specs_specs_tsconfig.json && node node_modules/jasmine/bin/jasmine.js",
+    "posttest": "npm run cleanup"
   },
   "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
   "version": "2018.2.14",
   "main": "index.d.ts",
   "author": "Head in the Cloud Development",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
+  },
   "devDependencies": {
     "@types/esprima": "^4.0.1",
     "@types/jasmine": "^2.8.2",
@@ -20,11 +26,4 @@
     "shelljs": "^0.7.8",
     "tsd-check": "0.2.1",
     "typescript": "^2.6.2"
-  },
-  "scripts": {
-    "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
-    "pretest": "npm run cleanup",
-    "test": "node node_modules/typescript/bin/tsc -p spec/specs_specs_tsconfig.json && node node_modules/jasmine/bin/jasmine.js",
-    "posttest": "npm run cleanup"
-  }
-}
+  }}
