@@ -12,13 +12,13 @@
   "license": "MIT",
   "devDependencies": {
     "@types/esprima": "^4.0.1",
-    "@types/jasmine": "^2.8.2",
-    "@types/node": "^8.0.55",
-    "@types/shelljs": "^0.7.6",
+    "@types/jasmine": "^3.3.8",
+    "@types/node": "^10.12.21",
+    "@types/shelljs": "^0.8.2",
     "esprima": "^4.0.0",
-    "jasmine": "^2.8.0",
-    "shelljs": "^0.7.8",
-    "typescript": "^2.6.2"
+    "jasmine": "^3.3.1",
+    "shelljs": "^0.8.3",
+    "typescript": "^3.3.1"
   },
   "scripts": {
     "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
