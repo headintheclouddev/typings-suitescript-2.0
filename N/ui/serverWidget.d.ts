@@ -527,6 +527,7 @@ export interface Sublist {
     helpText: string;
     label: string;
     lineCount: number;
+    name: string
 }
 
 export interface Tab {
