@@ -585,7 +585,7 @@ export interface Result {
      * the array exactly matches the ResultSet.types, ResultSet.columns or Result.columns property.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly values: string | number[];
+    readonly values: Array<string | number | null>;
 
     /**
      * The return columns. This is equivalent to ResultSet.columns.
