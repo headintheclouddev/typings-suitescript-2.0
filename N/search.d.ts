@@ -77,8 +77,8 @@ interface SearchResultSetGetRangeFunction {
 }
 
 interface SearchResultSetEachFunction {
-    promise(callback: (result: Result, index: number) => boolean): Promise<boolean>;
-    (callback: (result: Result, index: number) => boolean): void;
+    promise(callback: (result: Result) => boolean): Promise<boolean>;
+    (callback: (result: Result) => boolean): void;
 }
 
 export interface ResultSet {
