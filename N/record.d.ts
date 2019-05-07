@@ -185,6 +185,8 @@ interface SetCurrentMatrixSublistValueOptions {
     ignoreFieldChange?: boolean;
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetCurrentSublistValueOptions {
@@ -205,6 +207,8 @@ interface SetCurrentSublistValueOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetCurrentSublistTextOptions {
@@ -221,6 +225,8 @@ interface SetCurrentSublistTextOptions {
      * Defaults to false – dependent field values are not sourced synchronously.
      */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetValueOptions {
@@ -239,6 +245,8 @@ interface SetValueOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetFieldTextOptions {
@@ -250,6 +258,8 @@ interface SetFieldTextOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetSublistTextOptions {
@@ -263,6 +273,8 @@ interface SetSublistTextOptions {
     text: string;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface SetSublistValueOptions {
@@ -283,6 +295,8 @@ interface SetSublistValueOptions {
     value: FieldValue;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
 }
 
 interface GetSelectOptionsOpts {
