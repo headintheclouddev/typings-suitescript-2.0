@@ -9,16 +9,18 @@ interface FormatOptions {
     type: Type;
 }
 
+import {FieldValue} from 'Record';
+
 interface FormatDateTimeOptions {
     /**
      * The Date Object being converted into a string.
      * If parsing a string to a timezone, the string must include seconds.
      */
-    value: Date | string;
+    value: FieldValue | Date | string;
     /**
-     * The field type (either DATETIME or DATETIMETX). Set using the format.Type enum.
+     * The field type (DATE or DATETIME or DATETIMETZ). Set using the format.Type enum.
      */
-    type: Type.DATETIME | Type.DATETIMETZ | Type.MMYYDATE;
+    type: Type.DATE | Type.DATETIME | Type.DATETIMETZ | Type.MMYYDATE;
     /**
      * -optional- The time zone specified for the returned string. Set using the format.Timezone enum or key.
      * If a time zone is not specified, the time zone is set based on user preference.
@@ -31,7 +33,7 @@ interface FormatNumberOptions {
     /**
      * The input data to format.
      */
-    value: string | number;
+    value: FieldValue | string | number;
     /**
      * The field type (for example, DATE, CURRENCY, INTEGER). Set using the format.Type enum.
      */
