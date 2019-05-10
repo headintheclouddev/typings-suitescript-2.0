@@ -160,6 +160,8 @@ export interface Search {
     runPaged: SearchRunPagedFunction;
 }
 
+import {FieldValue} from 'Record';
+
 interface CreateSearchFilterOptions {
     /** Name or internal ID of the search field. */
     name: string;
@@ -168,7 +170,7 @@ interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?: string | Date | number | string[] | Date[] | number[] | boolean;
+    values?: FieldValue | FieldValue[] | string | Date | number | string[] | Date[] | number[] | boolean;
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
@@ -187,7 +189,7 @@ export interface CreateSearchColumnOptions {
 
 interface SearchLookupFieldsOptions {
     type: Type | string;
-    id: string | number;
+    id: FieldValue | string | number;
     columns: (string | string[]);
 }
 
