@@ -168,7 +168,7 @@ interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?: string | Date | number | string[] | Date[] | number[];
+    values?: string | Date | number | string[] | Date[] | number[] | boolean;
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
