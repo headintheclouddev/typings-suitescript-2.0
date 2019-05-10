@@ -418,7 +418,7 @@ export interface Field {
     sublistId: string;
 }
 
-type FieldValue = Date | number | number[] | string | string[] | boolean | null;
+export type FieldValue = Date | number | number[] | string | string[] | boolean | null;
 
 /** Almost like a full Record, except without things like save(). */
 export interface ClientCurrentRecord {
