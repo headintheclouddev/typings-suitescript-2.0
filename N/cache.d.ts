@@ -23,7 +23,7 @@ interface PutOptions {
     key: string;
 
     /** The value to place in the cache. If the value submitted is not a string, the system uses JSON.stringify() to convert the value before it is placed in the cache. The maximum size of the value is 500KB. */
-    value: string;
+    value: any | number | string;
 
     /** The duration, in seconds, that a value retrieved by the loader should remain in the cache. The default time to live, or TTL, is no limit. The minimum value is 300 (five minutes). */
     ttl?: number;
