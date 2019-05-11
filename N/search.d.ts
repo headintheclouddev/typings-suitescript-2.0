@@ -1,7 +1,9 @@
-/** 
- * Encapsulates a search filter used in a search. 
- * Use the properties for the Filter object to get and set the filter properties. 
- * 
+import {FieldValue} from 'Record';
+
+/**
+ * Encapsulates a search filter used in a search.
+ * Use the properties for the Filter object to get and set the filter properties.
+ *
  * You create a search filter object with `search.createFilter(options)` and add it to a `search.Search` object that you create with `search.create(options)` or load with search.load(options).
  * 
  * Note: NetSuite uses an implicit AND operator with search filters, as opposed to filter expressions which explicitly use either AND and OR operators. Use the following guidelines with the Filter object:
@@ -159,8 +161,6 @@ export interface Search {
     run(): ResultSet;
     runPaged: SearchRunPagedFunction;
 }
-
-import {FieldValue} from 'Record';
 
 interface CreateSearchFilterOptions {
     /** Name or internal ID of the search field. */
