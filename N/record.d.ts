@@ -125,7 +125,7 @@ interface GetSublistValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The line number for the field. */
-    line: number;
+    line: FieldValue | number;
 }
 
 interface GetCurrentSublistFieldOptions {
@@ -283,7 +283,7 @@ interface SetSublistValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The internal ID of a standard or custom sublist field. */
-    line: number;
+    line: FieldValue | number;
     /**
      * The value to set the sublist field to.
      * The value type must correspond to the field type being set. For example:
