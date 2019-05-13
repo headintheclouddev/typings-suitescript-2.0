@@ -1,7 +1,9 @@
-/** 
- * Encapsulates a search filter used in a search. 
- * Use the properties for the Filter object to get and set the filter properties. 
- * 
+import {FieldValue} from 'Record';
+
+/**
+ * Encapsulates a search filter used in a search.
+ * Use the properties for the Filter object to get and set the filter properties.
+ *
  * You create a search filter object with `search.createFilter(options)` and add it to a `search.Search` object that you create with `search.create(options)` or load with search.load(options).
  * 
  * Note: NetSuite uses an implicit AND operator with search filters, as opposed to filter expressions which explicitly use either AND and OR operators. Use the following guidelines with the Filter object:
@@ -168,7 +170,7 @@ interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?: string | Date | number | string[] | Date[] | number[];
+    values?: FieldValue | FieldValue[] | string | Date | number | string[] | Date[] | number[] | boolean;
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
@@ -187,7 +189,7 @@ export interface CreateSearchColumnOptions {
 
 interface SearchLookupFieldsOptions {
     type: Type | string;
-    id: string | number;
+    id: FieldValue | string | number;
     columns: (string | string[]);
 }
 
