@@ -1,4 +1,4 @@
-import {FieldValue} from 'Record';
+import {FieldValue} from './record';
 
 /**
  * Encapsulates a search filter used in a search.
