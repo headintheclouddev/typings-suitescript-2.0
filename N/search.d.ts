@@ -219,7 +219,7 @@ interface SearchDuplicatesFunction {
 }
 
 interface SearchDeleteOptions {
-    id: string;
+    id: string | number;
 }
 
 interface SearchDeleteFunction {
