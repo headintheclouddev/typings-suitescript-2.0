@@ -1654,7 +1654,7 @@ interface NLObjReportColumn {
     /**
      * Returns the measure flag.
      */
-    isMeaure(): boolean;
+    isMeasure(): boolean;
 }
 
 interface NLObjReportColumnHierarchy {
@@ -2267,7 +2267,7 @@ interface NLObjSubList {
      */
     setAmountField(field: string): void;
     /**
-     * Set the displaytype for this sublist: hidden|normal. This method is only supported on scripted or staticlist sublists via the UI Object API.
+     * Set the display type for this sublist: hidden|normal. This method is only supported on scripted or staticlist sublists via the UI Object API.
      *
      * @param {string} type
      */
@@ -2594,7 +2594,7 @@ declare function nlapiDeleteFile(id: number): number;
  */
 declare function nlapiDeleteRecord(type: string, id: number|string): void;
 /**
- * Dettach a single record from another with optional properties.
+ * Detach a single record from another with optional properties.
  * @param {string} type1 The record type name being attached.
  * @param {number} id1 The internal ID for the record being attached.
  * @param {string} type2 The record type name being attached to.
