@@ -45,14 +45,14 @@ interface MergeEmailOptions {
     /** Internal ID of the template. */
     templateId: number;    // One of the below fields must be included.
     /** Entity record reference. For example, an employee. */
-    entity?: RecordRef; 
+    entity?: RecordRef;
     /** Recipient record reference.  For example, a lead. */
-    recipient?: RecordRef; 
+    recipient?: RecordRef;
     /** Custom record reference. */
-    customRecord?: RecordRef; 
+    customRecord?: RecordRef;
     /** Support Case ID. */
     supportCaseId?: number;
-    /** Transaction ID. */ 
+    /** Transaction ID. */
     transactionId?: number;
 }
 
@@ -140,6 +140,8 @@ interface TransactionOptions {
     printMode?: PrintMode|string;
     /** The transaction form number. */
     formId?: number;
+    /** Applies when advanced templates are used. Print the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale. */
+    inCustLocale?: boolean;
 }
 
 /** Use this method to create a PDF or HTML object of a bill of material. */
