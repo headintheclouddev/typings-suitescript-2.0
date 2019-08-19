@@ -54,15 +54,11 @@ export interface Column {
     sort?: Sort;
 }
 
-interface SearchResultGetValueTextOptions {
-    name: string;
-    join?: string;
-    summary?: Summary;
-}
-
 export interface Result {
     getValue(column: Column | string): boolean | string | string[];
     getText(options: Column | string): string;
+    /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.1.  It returns an object containing all column values by name. */
+    getAllValues(): { [fieldId: string]: string };
     recordType: Type | string;
     id: string;
     columns: Column[];
