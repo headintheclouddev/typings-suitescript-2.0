@@ -1,4 +1,5 @@
 import { File } from './file';
+import Search = require('./search');
 
 interface DownloadOptions {
     filename: string;
@@ -27,9 +28,18 @@ interface UploadOptions {
 export interface Connection {
     /** Downloads a file from the remote FTP server */
     download: (options: DownloadOptions) => File;
-
     /** Uploads a file to the remote FTP server */
     upload: (options: UploadOptions) => void;
+    /** Creates an empty directory. */
+    makeDirectory: (options: { path: string }) => void; // TODO: Test this. Documentation is inconsistent on what the return type is.
+    /** Removes an empty directory. */
+    removeDirectory: (options: { path: string }) => void;
+    /** Removes a file. */
+    removeFile: (options: { path: string }) => void;
+    /** Moves a file or directory from one location to another. */
+    move: (options: { from: string, to: string }) => void;
+    /** Lists the remote directory. */
+    list: (options: { path: string, sort: Search.Sort }) => string[]; // TODO: Test this. Documentation is unclear on what the return type is.
 }
 
 interface CreateSFTPConnectionOptions {
