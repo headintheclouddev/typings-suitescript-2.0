@@ -3,6 +3,7 @@ import {Record} from './record';
 import {ServerResponse} from './http';
 import {Result} from './search';
 import {NSXMLDocument} from './xml';
+import query = require('./query');
 
 interface AddCustomDataSourceOptions {
     /** Data source alias. */
@@ -113,6 +114,12 @@ interface XMLToPDFOptions {
 interface TemplateRenderer {
     /** Adds XML or JSON as custom data source to an advanced PDF/HTML template. */
     addCustomDataSource(options: AddCustomDataSourceOptions): void;
+    /**
+     * Uses Query as the renderer’s data source.
+     * You can specify the SuiteAnalytics workbook query either in the query.Query object, or provide a workbook ID to use the query from an existing SuiteAnalytics workbook.
+     * One of options.query or options.id is required in the script.
+     */
+    addQuery(options: AddQueryOptions): void;
     /** Binds a record to a template variable. */
     addRecord(options: AddRecordOptions): void;
     /** Binds a search result to a template variable. */
@@ -131,6 +138,15 @@ interface TemplateRenderer {
     setTemplateByScriptId(options: { scriptId: string; }): void;
     /** Content of template. */
     templateContent: string;
+}
+
+interface AddQueryOptions {
+    /** Template name. */
+    templateName: string;
+    /** Workbook query definition. Required if options.id is not specified. */
+    query?: query.Query;
+    /** Workbook query ID. Required if options.query is not specified. */
+    id?: string;
 }
 
 interface TransactionOptions {
