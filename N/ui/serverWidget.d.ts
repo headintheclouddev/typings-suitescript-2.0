@@ -599,6 +599,7 @@ export enum FieldType {
     TEXTAREA,
     TIMEOFDAY,
     URL,
+    PASSWORD
 }
 
 export enum FormPageLinkType {
