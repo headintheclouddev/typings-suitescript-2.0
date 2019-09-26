@@ -590,6 +590,7 @@ export enum FieldType {
     LONGTEXT,
     MULTISELECT,
     PASSPORT,
+    PASSWORD,
     PERCENT,
     PHONE,
     SELECT,
@@ -598,8 +599,7 @@ export enum FieldType {
     TEXT,
     TEXTAREA,
     TIMEOFDAY,
-    URL,
-    PASSWORD
+    URL
 }
 
 export enum FormPageLinkType {
