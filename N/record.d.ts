@@ -627,7 +627,7 @@ interface SubmitConfig {
     ignoreMandatoryFields?: boolean;
 }
 
-interface SubmitFieldsOptions {
+export interface SubmitFieldsOptions {
     /** The type of record. */
     type: Type | string;
     /** The internal ID of the existing record instance in NetSuite. */
