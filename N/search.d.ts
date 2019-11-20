@@ -62,7 +62,7 @@ export interface Result {
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object representing the search result. */
     toJSON(): { recordType?: string, id?: string, values: { [columnName: string]: string|boolean } };
     recordType: Type | string;
-    id: string;
+    id: string | number;
     columns: Column[];
 }
 
