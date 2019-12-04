@@ -595,6 +595,37 @@ export interface Result {
 }
 
 /**
+ * One page of the paged query results.
+ * @since 2018.1
+ */
+export interface Page {
+    /**
+     * References the query results contained in this page.
+     */
+    readonly data: ResultSet;
+
+    /**
+     * Indicates whether this page is the first of the paged query results.
+     */
+    readonly isFirst: boolean;
+
+    /**
+     * Indicates whether this page is the last of the paged query results.
+     */
+    readonly isLast: boolean;
+
+    /**
+     * References the set of paged query results that this page is from.
+     */
+    readonly pagedData: PagedData;
+
+    /**
+     * The range of query results for this page.
+     */
+    readonly pageRange: PageRange;
+}
+
+/**
  * Encapsulates a set of paged query results. This object also contains information about the set of paged results
  * it encapsulates.
  */
@@ -619,7 +650,7 @@ export interface PagedData {
      */
     iterator(): Iterator;
 
-    fetch(index: number): PagedData;
+    fetch(index: number): Page;
 }
 
 /**
