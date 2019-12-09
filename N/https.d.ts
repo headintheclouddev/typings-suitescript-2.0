@@ -1,6 +1,6 @@
 import {Encoding} from './encode';
 import {ClientResponse, ServerRequest, ServerResponse, RedirectType} from './http'
-import {Hash, SecretKey} from './crypto';
+import {HashAlg, SecretKey} from './crypto';
 
 interface CreateSecureKeyOptions {
     /**
@@ -54,14 +54,14 @@ interface HashOptions {
     /**
      * The hash algorithm. Set the value using the crypto.Hash enum.
      */
-    algorithm: Hash;
+    algorithm: HashAlg;
 }
 
 interface HmacOptions {
     /**
      * The hash algorithm. Set by the crypto.Hash enum.
      */
-    algorithm: Hash;
+    algorithm: HashAlg;
     /**
      * A key returned from https.createSecureKey(options).
      */
@@ -112,10 +112,8 @@ export interface SecureString {
 export {ClientResponse, ServerRequest, ServerResponse, GetOptions, DeleteOptions, PostOptions, PutOptions, RequestOptions} from './http';
 
 // METHODS \\
-/**
- * Creates a key for the contents of a credential field.
- */
-export var createSecureKey: HttpsCreateSecureKeyFunction;
+/** Creates a key for the contents of a credential field. */
+export var createSecretKey: HttpsCreateSecureKeyFunction;
 
 /**
  * Creates an https.SecureString object.
