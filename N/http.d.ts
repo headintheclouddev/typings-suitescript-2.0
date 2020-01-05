@@ -3,20 +3,14 @@ import {Form} from './ui/serverWidget';
 import {SecureString} from 'N/https';
 
 interface AddHeaderOptions {
-    /**
-     * The name of the header.
-     */
+    /** The name of the header. */
     name: string;
-    /**
-     * The value used to set the header.
-     */
+    /** The value used to set the header. */
     value: string;
 }
 
 interface GetHeaderOptions {
-    /**
-     * The name of the header.
-     */
+    /** The name of the header. */
     name: string;
 }
 
@@ -49,88 +43,67 @@ interface SendRedirectOptions {
 }
 
 interface SetHeaderOptions {
-    /**
-     * The name of the header.
-     */
+    /** The name of the header. */
     name: string;
-    /**
-     * The value used to set the header.
-     */
+    /** The value used to set the header. */
     value: string;
 }
 
 interface RenderPDFOptions {
-    /**
-     * Content of the pdf.
-     */
+    /** Content of the pdf. */
     xmlString: string;
 }
 
 interface SetCDNCacheableOptions {
-    /**
-     * The value of the caching duration. Set using the http.CacheDuration enum.
-     */
+    /** The value of the caching duration. Set using the http.CacheDuration enum. */
     type: CacheDuration;
 }
 
 interface WriteOptions {
-    /**
-     * The output string or file being written.
-     */
+    /** The output string or file being written. */
     output: string;
 }
 
 interface WriteFileOptions {
-    /**
-     * The file to be written
-     */
+    /** The file to be written */
     file: File;
-    /**
-     * -optional- Determines whether the field is inline. If true, the file is inline.
-     */
+    /** -optional- Determines whether the field is inline. If true, the file is inline. */
     isInline?: boolean;
 }
 
 interface WriteLineOptions {
-    /**
-     * The output string being written.
-     */
+    /** The output string being written. */
     output: string;
 }
 
 interface WritePageOptions {
-    /**
-     * A standalone page object in the form of an assistant, form or list.
-     */
+    /** A standalone page object in the form of an assistant, form or list. */
     pageObject: any;
 }
 
 interface GetLineCountOptions {
-    /**
-     * The sublist internal ID.
-     */
+    /** The sublist internal ID. */
     group: string;
 }
 
 export interface GetOptions {
-    /**
-     * The HTTP URL being requested.
-     */
+    /** The HTTP URL being requested. */
     url: string | SecureString;
-    /**
-     * -optional- The HTTP headers.
-     */
+    /** -optional- The HTTP headers. */
     headers?: any;
-    
+    /**
+     * Pass an array of GUIDs here to be decoded by the server. Reference GUIDs must be in curly braces where used.
+     * For example, if you have a GUID for a username:password for basic auth, your header would be: { Authorization: `Basic {${guid}}` }
+     * Note: This attribute is undocumented as of 5 Jan 2020, but it is shown in the https module script sample code.
+     * Confirmed that this actually a thing, as of NetSuite 2019.2.  Used in HITC SMS Suitelet for basic authentication.
+     */
     credentials?: string[];
 }
 
 export interface DeleteOptions extends GetOptions {}
 
 export interface PostOptions extends GetOptions {
-    /**
-     * The POST data.
-     */
+    /** The POST data. */
     body: string | any;
 }
 
