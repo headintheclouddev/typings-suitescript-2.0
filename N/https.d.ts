@@ -3,68 +3,45 @@ import {ClientResponse, ServerRequest, ServerResponse, RedirectType} from './htt
 import {HashAlg, SecretKey} from './crypto';
 
 interface CreateSecureKeyOptions {
-    /**
-     * Specifies the encoding for the SecureKey.
-     */
-    encoding: Encoding;
-    /**
-     * A GUID used to generate a secret key.
-     * The GUID can resolve to either data or metadata.
-     */
+    /** Specifies the encoding for the SecureKey. */
+    encoding?: Encoding;
+    /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. */
     guid: string;
 }
 
 interface CreateSecureStringOptions {
-    /**
-     * The string to convert to a secure string.
-     */
+    /** The string to convert to a secure string. */
     input: string;
-    /**
-     * Identifies the encoding that the input string uses. The default value is UTF_8
-     */
+    /** Identifies the encoding that the input string uses. The default value is UTF_8. */
     inputEncoding?: Encoding;
 }
 
 interface AppendStringOptions {
-    /**
-     * The string to append.
-     */
+    /** The string to append. */
     input: string;
-    /**
-     * The encoding of the string that is being appended.
-     */
+    /** The encoding of the string that is being appended. */
     encoding: Encoding;
 }
 
 interface AppendSecureStringOptions {
-    /**
-     * The https.SecureString to append.
-     */
+    /** The https.SecureString to append. */
     secureString: SecureString;
 }
 
 interface ConvertEncodingOptions {
-    /**
-     * The encoding to apply to the returned string.
-     */
+    /** The encoding to apply to the returned string. */
     toEncoding: Encoding;
 }
 
 interface HashOptions {
-    /**
-     * The hash algorithm. Set the value using the crypto.Hash enum.
-     */
+    /** The hash algorithm. Set the value using the crypto.Hash enum. */
     algorithm: HashAlg;
 }
 
 interface HmacOptions {
-    /**
-     * The hash algorithm. Set by the crypto.Hash enum.
-     */
+    /** The hash algorithm. Set by the crypto.Hash enum. */
     algorithm: HashAlg;
-    /**
-     * A key returned from https.createSecureKey(options).
-     */
+    /** A key returned from https.createSecureKey(options). */
     key: SecretKey;
 }
 
@@ -79,33 +56,19 @@ interface HttpsCreateSecureStringFunction {
 }
 
 // OBJECTS \\
-/**
- * Encapsulates data that may be sent to a third-party via an HTTPS call.
- */
+/** Encapsulates data that may be sent to a third-party via an HTTPS call. */
 export interface SecureString {
-    /**
-     * Appends a passed in https.SecureString to another https.SecureString.
-     */
+    /** Appends a passed in https.SecureString to another https.SecureString. */
     appendString(options: AppendStringOptions): SecureString;
-    /**
-     * Appends a passed in string to a https.SecureString.
-     */
+    /** Appends a passed in string to a https.SecureString. */
     appendSecureString(options: AppendSecureStringOptions): SecureString;
-    /**
-     * Changes the encoding of a https.SecureString.
-     */
+    /** Changes the encoding of a https.SecureString. */
     convertEncoding(options: ConvertEncodingOptions): SecureString;
-    /**
-     * Produces the https.SecureString as a hash.
-     */
+    /** Produces the https.SecureString as a hash. */
     hash(options: HashOptions): SecureString;
-    /**
-     * Produces the https.SecureString as an hmac.
-     */
+    /** Produces the https.SecureString as an hmac. */
     hmac(options: HmacOptions): SecureString;
-    /**
-     * Not Documented - 6/9/2016
-     */
+    /** Not Documented - 6/9/2016 */
     toString(): string;
 }
 
