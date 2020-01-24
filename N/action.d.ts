@@ -6,6 +6,15 @@ interface Action {
   parameters:  Object;
 }
 
+interface ExecuteBulkOptions {
+  recordType: string;
+  /** The action ID */
+  id:     string;
+  params: { recordId: string };
+  condition: string;
+  paramCallback: string;
+}
+
 interface ExecuteOptions {
   recordType: string;
   /** The action ID */
@@ -31,8 +40,8 @@ interface ActionGetFunction {
 }
 
 interface ActionExecuteFunction {
-  (options: FindGetOptions): Object;
-  promise(options: FindGetOptions): Promise<Object>;
+  (options: ExecuteOptions): Object;
+  promise(options: ExecuteOptions): Promise<Object>;
 }
 
 /**
@@ -60,3 +69,9 @@ export var find: ActionFindFunction;
  * If the action executes successfully, the notifications property is usually empty.
  */
 export var execute: ActionExecuteFunction;
+
+/**
+ * Executes an asynchronous bulk record action and returns its task ID for status queries with action.getBulkStatus(options).
+ * The options.params parameter is mutually exclusive to options.condition and options.paramCallback.
+ */
+export const executeBulk: (options: ExecuteBulkOptions) => string;
