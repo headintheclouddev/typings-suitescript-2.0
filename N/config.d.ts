@@ -25,4 +25,6 @@ export declare enum Type {
     ACCOUNTING_PERIODS,
     TAX_PERIODS,
     FEATURES,
+    TIME_POST,
+    TIME_VOID
 }
