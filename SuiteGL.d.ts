@@ -11,7 +11,7 @@ interface AccountingBook {
 /** These methods exist for both Custom lines and Standard lines. */
 interface GLLine {
   /** Get Account ID for a line. */
-  getAccountId(): string;
+  getAccountId(): number;
   /** Returns the internal NetSuite ID for the class on a StandardLine or CustomLine object. */
   getClassId(): number;
   /** Returns the credit amount for a StandardLine or CustomLine object. */
