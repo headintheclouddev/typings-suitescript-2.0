@@ -1,8 +1,10 @@
 import * as N_action from './N/action';
 import * as N_auth from './N/auth';
 import * as N_cache from './N/cache';
+import * as N_certificateControl from './N/certificateControl';
 import * as N_config from './N/config';
 import * as N_crypto from './N/crypto';
+import * as N_crypto_certificate from './N/crypto/certificate';
 import * as N_currency from './N/currency';
 import * as N_currentRecord from './N/currentRecord';
 import * as N_email from './N/email';
@@ -12,6 +14,7 @@ import * as N_file from './N/file';
 import * as N_format from './N/format';
 import * as N_http from './N/http';
 import * as N_https from './N/https';
+import * as N_https_clientCertificate from './N/https/clientCertificate';
 import * as N_log from './N/log';
 import * as N_plugin from './N/plugin';
 import * as N_portlet from './N/portlet';
@@ -25,6 +28,7 @@ import * as N_sftp from './N/sftp';
 import * as N_sso from './N/sso';
 import * as N_task from './N/task';
 import * as N_transaction from './N/transaction';
+import * as N_translation from './N/translation';
 import * as N_url from './N/url';
 import * as N_util from './N/util';
 import * as N_workflow from './N/workflow';
@@ -37,6 +41,7 @@ import * as N_ui_serverWidget from './N/ui/serverWidget';
 export {N_action as action};
 export {N_auth as auth};
 export {N_cache as cache};
+export {N_certificateControl as certificateControl};
 export {N_config as config};
 export {N_crypto as crypto};
 export {N_currency as currency};
@@ -61,6 +66,7 @@ export {N_sftp as sftp};
 export {N_sso as sso};
 export {N_task as task};
 export {N_transaction as transaction};
+export {N_translation as translation};
 export {N_url as url};
 export {N_util as util};
 export {N_workflow as workflow};
@@ -76,7 +82,19 @@ declare interface N_Commerce_Module {
     recordView: typeof N_commerce_recordView;
 }
 
-declare var N_ui:       N_UI_Module;
-declare var N_commerce: N_Commerce_Module;
+declare interface N_Crypto_Module {
+    certificate: typeof N_crypto_certificate;
+}
+
+declare interface N_Https_Module {
+    clientCertificate: typeof N_https_clientCertificate;
+}
+
+declare const N_ui:       N_UI_Module;
+declare const N_commerce: N_Commerce_Module;
+declare const N_crypto_:  N_Crypto_Module;
+declare const N_https_:   N_Https_Module;
 export {N_ui       as ui};
 export {N_commerce as commerce};
+// export {N_crypto_ as crypto}; // TODO: How can we do this?
+// export {N_https_  as https};  // TODO: How can we do this?
