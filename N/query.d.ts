@@ -161,6 +161,10 @@ interface RunSuiteQLOptions {
     params?: Array<string | number | boolean>;
 }
 
+interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
+    pageSize?: number;
+}
+
 export interface Query {
     /**
      * Query type. Returns the query type given upon the creation of the query object.
@@ -676,7 +680,10 @@ export function create(options: CreateQueryOptions): Query;
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if query doesn't exist or no permissions to load it
  */
-export function load(options: LoadQueryOptions): Query;
+export interface load {
+    (options: LoadQueryOptions): Query;
+    promise: (options: LoadQueryOptions) => Promise<Query>;
+}
 
 interface deleteQuery {
   /**
@@ -686,6 +693,7 @@ interface deleteQuery {
    * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
    */
   (options: DeleteQueryOptions): Query;
+  promise: (options: DeleteQueryOptions) => Promise<Query>;
 }
 
 export {deleteQuery as delete};
@@ -696,7 +704,134 @@ export {deleteQuery as delete};
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
-export function runSuiteQL(options: RunSuiteQLOptions): ResultSet;
+export interface runSuiteQL {
+    (options: RunSuiteQLOptions): ResultSet;
+    promise: (options: RunSuiteQLOptions) => Promise<ResultSet>;
+}
+
+/**
+ * Execute the suiteQL query and return paged results.
+ * @governance 10 units
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
+ * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if there's parameter of different type than string/number/boolean in params array
+ *
+ * @since 2020.1
+ */
+export interface runSuiteQLPaged {
+    (options: RunSuiteQLPagedOptions): PagedData;
+    promise: (options: RunSuiteQLPagedOptions) => Promise<PagedData>;
+}
+
+export const enum DateId {
+    DAYS_AGO = "dago",
+    DAYS_FROM_NOW = "dfn",
+    HOURS_AGO = "hago",
+    HOURS_FROM_NOW = "hfn",
+    MINUTES_AGO = "nago",
+    MINUTES_FROM_NOW = "nfn",
+    MONTHS_AGO = "mago",
+    MONTHS_FROM_NOW = "mfn",
+    QUARTERS_AGO = "qago",
+    QUARTERS_FROM_NOW = "qfn",
+    SECONDS_AGO = "sago",
+    SECONDS_FROM_NOW = "sfn",
+    WEEKS_AGO = "wago",
+    WEEKS_FROM_NOW = "wfn",
+    YEARS_AGO = "yago",
+    YEARS_FROM_NOW = "yfn"
+}
+
+/**
+ * Special object which can be used as a condition while querying dates
+ *
+ * @since 2019.1
+ */
+interface RelativeDate {
+
+    /**
+     * Start of relative date
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly start: Object;
+
+    /**
+     * End of relative date
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly end: Object;
+
+    /**
+     * Interval of relative date
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly interval: Object;
+
+    /**
+     * Value of relative date
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly value: Object;
+
+    /**
+     * Flag if this relative date represents range
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly isRange: boolean;
+
+    /**
+     * Id of relative date
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
+     *
+     * @since 2019.1
+     */    
+    readonly dateId: Object;
+
+    /**
+     * Returns the object type name (query.RelativeDate)
+     *
+     * @since 2019.1
+     */    
+    toString(): string;
+    
+    /**
+     * get JSON format of the object
+     *
+     * @since 2019.1
+     */    
+    toJSON(): any;
+}
+
+interface CreateRelativeDateOptions {
+   /**
+    * The ID of the relative date to create.
+    */
+   dateId: DateId;
+
+   /**
+    * The value to use to create the relative date.
+    */
+   value: number;
+}
+
+
+/**
+ * Creates a query.RelativeDate object that represents a date relative to the current date.
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT If options or id are undefined.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE If options isn't object or id isn't string.
+ *
+ * @since 2019.2
+ */
+export function createRelativeDate(options: CreateRelativeDateOptions): RelativeDate;
 
 export const enum Operator {
     AFTER = "AFTER",
