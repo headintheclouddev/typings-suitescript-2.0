@@ -709,11 +709,11 @@ interface deleteQuery {
    * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
    * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
    * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
-  */
+   */
   (options: DeleteQueryOptions): Query;
 }
 
-export { deleteQuery as delete };
+export {deleteQuery as delete};
 
 /**
  * Deletes query by id
