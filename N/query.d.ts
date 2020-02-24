@@ -567,7 +567,7 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<{ [fieldId: string]: string|boolean|number }>;
+    asMappedResults(): Array<{ [fieldId: string]: string|boolean|number|null }>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
@@ -590,7 +590,7 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): { [fieldId: string]: string|boolean|number };
+    asMap(): { [fieldId: string]: string|boolean|number|null };
 }
 
 /**
