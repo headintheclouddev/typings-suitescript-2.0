@@ -561,6 +561,13 @@ export interface ResultSet {
      * @governance 10 points for each page returned
      */
     iterator(): Iterator;
+
+    /**
+     * Returns the query result set as an array of mapped results.
+     * A mapped result is a JavaScript object with key-value pairs.
+     * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
+     */
+    asMappedResults(): Array<{ [fieldId: string]: string|boolean|number }>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
