@@ -574,6 +574,11 @@ export interface ResultSet {
      * @governance 10 points for each page returned
      */
     iterator(): Iterator;
+
+    /**
+     * Query results mapped to array of key-value pair objects
+     */
+    asMappedResults(): MappedResult[];
 }
 
 /**
@@ -592,6 +597,18 @@ export interface Result {
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
     readonly columns: Column[];
+
+    /**
+     * Result values mapped to key-value pair object
+     */
+    asMap(): MappedResult;
+}
+
+/**
+ * Contains single row of ResultSet mapped to key-value pair object
+ */
+export interface MappedResult {
+    [key: string]: string | number | null;
 }
 
 /**
@@ -692,11 +709,11 @@ interface deleteQuery {
    * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
    * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
    * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
-   */
+  */
   (options: DeleteQueryOptions): Query;
 }
 
-export {deleteQuery as delete};
+export { deleteQuery as delete };
 
 /**
  * Deletes query by id
