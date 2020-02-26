@@ -687,7 +687,9 @@ export function create(options: CreateQueryOptions): Query;
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if query doesn't exist or no permissions to load it
  */
-export interface load {
+export const load: QueryLoadFunction;
+
+interface QueryLoadFunction {
     (options: LoadQueryOptions): Query;
     promise: (options: LoadQueryOptions) => Promise<Query>;
 }
