@@ -46,7 +46,7 @@ interface CopyLoadOptions {
      */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */
-    defaultValue?: {[fieldId: string]: any};
+    defaultValues?: {[fieldId: string]: any};
 }
 
 interface DetachOptions {
