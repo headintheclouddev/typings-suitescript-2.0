@@ -3,19 +3,20 @@
  * @NScriptType UserEventScript
  */
 
-import { EntryPoints } from 'N/types'
-import * as log from 'N/log'
+import {EntryPoints} from 'N/types'
+import log = require('N/log');
 
-var del: EntryPoints.RESTlet.delete_ = requestParams => {
-    let type = requestParams.type;
-    let id = requestParams.id;
+const del: EntryPoints.RESTlet.delete_ = requestParams => {
+  const type = requestParams.type;
+  const id   = requestParams.id;
 
-    return {
-        success: true
-    };
-}
+  log.debug('Delete', `Input record type ${type} id ${id}.`);
+  return { success: true };
+};
+
 export { del as delete };
 
-export var post: EntryPoints.RESTlet.post = requestBody => {
-    return { success: true };
-} 
+export const post: EntryPoints.RESTlet.post = (requestBody) => {
+  log.debug('Post', `Body: ${JSON.stringify(requestBody)}.`); // Assuming its an object
+  return { success: true };
+};
