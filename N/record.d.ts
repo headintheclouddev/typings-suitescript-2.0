@@ -509,7 +509,7 @@ export interface ClientCurrentRecord {
     /** The internal ID of a specific record. */
     id: number;
     /** Inserts a sublist line. */
-    insertLine(options: InsertLineOptions): void;
+    insertLine(options: InsertLineOptions): ClientCurrentRecord; // Issue #132
     /**
      * Indicates whether the record is in dynamic or standard mode.
      * - If set to true, the record is currently in dynamic mode. If set to false, the record is currently in standard mode.
