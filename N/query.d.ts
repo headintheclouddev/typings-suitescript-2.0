@@ -713,10 +713,12 @@ export {deleteQuery as delete};
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
-export interface runSuiteQL {
+interface RunSuiteQL {
     (options: RunSuiteQLOptions): ResultSet;
     promise: (options: RunSuiteQLOptions) => Promise<ResultSet>;
 }
+
+export const runSuiteQL: RunSuiteQL;
 
 /**
  * Execute the suiteQL query and return paged results.
@@ -726,10 +728,12 @@ export interface runSuiteQL {
  *
  * @since 2020.1
  */
-export interface runSuiteQLPaged {
+interface RunSuiteQLPaged {
     (options: RunSuiteQLPagedOptions): PagedData;
     promise: (options: RunSuiteQLPagedOptions) => Promise<PagedData>;
 }
+
+export const runSuiteQLPaged: RunSuiteQLPaged;
 
 export const enum DateId {
     DAYS_AGO = "dago",
