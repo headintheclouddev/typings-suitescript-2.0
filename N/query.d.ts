@@ -438,6 +438,8 @@ export interface Column {
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
     readonly groupBy: boolean;
+
+    readonly label: string;
 }
 
 /**
