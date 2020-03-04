@@ -14,7 +14,7 @@ interface GetHeaderOptions {
     name: string;
 }
 
-interface SendRedirectOptions {
+export interface SendRedirectOptions {
     /**
      * The base type for this resource.
      * Use one of the following values: RECORD | TASKLINK | SUITELET
