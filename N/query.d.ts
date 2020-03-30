@@ -165,6 +165,23 @@ interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
     pageSize?: number;
 }
 
+/**
+ * @since 2020.1
+ */
+interface SuiteQL {
+    readonly columns: readonly Column[];
+    readonly params: readonly (string | number | boolean)[];
+    readonly query: string;
+    readonly type: string;
+
+    run(): ResultSet;
+
+    /**
+     * @governance 10
+     */
+    runPaged(options: { pageSize: number }): PagedData;
+}
+
 export interface Query {
     /**
      * Query type. Returns the query type given upon the creation of the query object.
@@ -289,6 +306,17 @@ export interface Query {
      * to the method as argument.
      */
     not(condition: Condition): Condition;
+
+    /**
+     * Converts this query.Query object to its corresponding SuiteQL representation.
+     * This method returns a query.SuiteQL object that represents the same query as the original query.Query object. 
+     * This object includes the SuiteQL.columns, SuiteQL.params, SuiteQL.query, and SuiteQL.type properties.
+     * You can run the query using SuiteQL.run(), or you can run the query as a paged query using SuiteQL.runPaged(options).
+     * Important: The resulting SuiteQL query string (contained in the SuiteQL.query property) does not include any aliases
+     * you set on query result columns in the original query.Query object. For more information about aliases, see Column.alias.
+     * @since 2020.1
+     */
+    toSuiteQL(): SuiteQL;
 
     /**
      * Returns the object type name.
