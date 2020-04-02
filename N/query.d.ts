@@ -165,6 +165,17 @@ interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
     pageSize?: number;
 }
 
+interface SuiteQL {
+    readonly columns: readonly Column[];
+    readonly params: readonly (string | number | boolean)[];
+    readonly query: string;
+    readonly type: string;
+
+    run(): ResultSet;
+
+    runPaged(options: { pageSize: number }): PagedData;
+}
+
 export interface Query {
     /**
      * Query type. Returns the query type given upon the creation of the query object.
@@ -289,6 +300,8 @@ export interface Query {
      * to the method as argument.
      */
     not(condition: Condition): Condition;
+
+    toSuiteQL(): SuiteQL;
 
     /**
      * Returns the object type name.
