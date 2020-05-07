@@ -131,9 +131,9 @@ export enum EnvType {
 }
 /** Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method. */
 export enum Permission {
-    FULL,
-    EDIT,
-    CREATE,
-    VIEW,
-    NONE,
+    FULL = 4,
+    EDIT = 3,
+    CREATE = 2,
+    VIEW = 1,
+    NONE = 0,
 }
