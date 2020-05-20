@@ -1,4 +1,3 @@
-import {Operator} from '../search';
 import {ServerResponse} from 'N/http';
 import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from 'N/portlet';
 import {MessageCreateOptions} from 'N/ui/message';
@@ -150,7 +149,7 @@ interface IDOptions {
     id: string;
 }
 
-interface GetFieldIdsByFIeldGroupOptions {
+interface GetFieldIdsByFieldGroupOptions {
     /** The internal ID of the field group. */
     fieldGroup: string;
 }
@@ -292,7 +291,7 @@ export interface Assistant {
     /** Gets all the internal IDs for fields in an assistant. */
     getFieldIds(): string; // not string[]?? may need testing.
     /** Gets all field IDs in the assistant field group. */
-    getFieldIdsByFieldGroup(options: GetFieldIdsByFIeldGroupOptions): string[];
+    getFieldIdsByFieldGroup(options: GetFieldIdsByFieldGroupOptions): string[];
     /** Gets the last action taken by the user. To identify the step that the last action came from, use Assistant.getLastStep(). */
     getLastAction(): AssistantSubmitAction;
     /** Gets the step associated with the last action submitted by the user. */
@@ -491,7 +490,7 @@ export interface List {
     /** The relative path to the client script file to be used in this list */
     clientScriptModulePath: string;
     /** Sets the display style for this list */
-    style: string;
+    style: ListStyle;
     /** Sets the List title. */
     title: string;
 }
@@ -541,6 +540,7 @@ export function createAssistant(options: CreateAssistantOptions): Assistant;
 
 /** Creates a form object. */
 export function createForm(options: CreateAssistantOptions): Form;
+
 export enum AssistantSubmitAction {
     BACK,
     CANCEL,
