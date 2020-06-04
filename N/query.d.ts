@@ -166,8 +166,8 @@ interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
 }
 
 interface SuiteQL {
-    readonly columns: readonly Column[];
-    readonly params: readonly (string | number | boolean)[];
+    readonly columns: Column[];
+    readonly params: (string | number | boolean)[];
     readonly query: string;
     readonly type: string;
 
