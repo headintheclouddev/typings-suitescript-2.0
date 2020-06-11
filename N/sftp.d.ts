@@ -1,10 +1,9 @@
 import { File } from './file';
-import Search = require('./search');
 
 interface DownloadOptions {
-    filename: string;
+    filename:   string;
     directory?: string;
-    timeout?: number;
+    timeout?:   number;
 }
 
 interface UploadOptions {
@@ -31,7 +30,7 @@ export interface Connection {
     /** Uploads a file to the remote FTP server */
     upload: (options: UploadOptions) => void;
     /** Creates an empty directory. */
-    makeDirectory: (options: { path: string }) => void; // TODO: Test this. Documentation is inconsistent on what the return type is.
+    makeDirectory: (options: { path: string }) => void;
     /** Removes an empty directory. */
     removeDirectory: (options: { path: string }) => void;
     /** Removes a file. */
@@ -39,7 +38,7 @@ export interface Connection {
     /** Moves a file or directory from one location to another. */
     move: (options: { from: string, to: string }) => void;
     /** Lists the remote directory. */
-    list: (options: { path: string, sort: Search.Sort }) => string[]; // TODO: Test this. Documentation is unclear on what the return type is.
+    list: (options: { path: string, sort: Sort }) => { directory: boolean, name: string, size: string, lastModified: string }[];
 }
 
 interface CreateSFTPConnectionOptions {
@@ -76,3 +75,12 @@ interface CreateSFTPConnectionOptions {
  * For more information about supported SFTP protocol, see Supported Cipher Suites and Host Key Types
  */
 export function createConnection(options: CreateSFTPConnectionOptions): Connection;
+
+export enum Sort {
+    DATE,
+    DATE_DESC,
+    SIZE,
+    SIZE_DESC,
+    NAME,
+    NAME_DESC
+}
