@@ -13,6 +13,7 @@ export var beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (ctx) => {
     }
 };
 */
+
 declare enum UserEventType {
     APPROVE,
     CANCEL,
@@ -38,6 +39,7 @@ declare enum UserEventType {
     VIEW,
     XEDIT,
 }
+
 declare interface UserEventTypes {
     APPROVE: UserEventType;
     CANCEL: UserEventType;
@@ -210,7 +212,7 @@ export namespace EntryPoints {
             readonly errors: MapReduceErrorIteratorContainer;
             readonly key: string;
             readonly value: string;
-            readonly write: (key: string, value: string) => void;
+            readonly write: (key: string|object, value: string|object) => void;
         }
         type map = (scriptContext: mapContext) => void;
 
