@@ -18,6 +18,17 @@ interface ToRecordOptions {
     parameters?: any;
 }
 
+interface ToRecordTransformOptions {
+    /** The internal ID of the source record. */
+    fromId: string | number;
+    /** Type of the source record. */
+    fromType: string;
+    /** Type of the target record. */
+    toType: string;
+    /** Contains additional parameters as key/value pairs. */
+    parameters?: any;
+}
+
 interface ToSavedSearchOptions {
     /** Internal ID of the search. */
     id: number;
@@ -53,6 +64,8 @@ interface ToTaskLinkOptions {
 export function redirect(options: RedirectOptions): void;
 /** Method used to set the redirect URL to a specific NetSuite record. */
 export function toRecord(options: ToRecordOptions): void;
+/** Method used to set the redirect URL to a transformed NetSuite record. */
+export function toRecordTransform(options: ToRecordTransformOptions): void;
 /** Method used to load an existing saved search and redirect to the populated search definition page. */
 export function toSavedSearch(options: ToSavedSearchOptions): void;
 /** Method used to redirect a user to a search results page for an existing saved search. */
