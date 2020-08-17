@@ -368,6 +368,14 @@ export interface Column {
     label: string
     /** Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column. */
     sublistId: string
+    /** Indicates whether the column is disabled. */
+    isDisabled: boolean;
+    /** Indicates whether the column is displayed. */
+    isDisplay: boolean;
+    /** Indicates whether the column is mandatory. */
+    isMandatory: boolean;
+    /** Indicates whether the column is sortable. */
+    isSortable: boolean;
 }
 
 /**
