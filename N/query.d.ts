@@ -53,7 +53,7 @@ interface CreateConditionOptions {
     operator: Operator;
 
     /** Array of values */
-    values: string | boolean | string[] | boolean[]; // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
+    values: string | boolean | string[] | boolean[] | number[] | Date[]; // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
 
     /** Aggregate function. Use the Aggregate enum. */
     aggregate?: string;
