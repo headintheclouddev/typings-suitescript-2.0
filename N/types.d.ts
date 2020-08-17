@@ -129,6 +129,7 @@ export namespace EntryPoints {
         interface validateDeleteContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
+            lineCount: number; // As of 2020.2
         }
         type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
