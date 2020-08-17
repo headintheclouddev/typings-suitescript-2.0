@@ -2,6 +2,7 @@ import * as N_action from './N/action';
 import * as N_auth from './N/auth';
 import * as N_cache from './N/cache';
 import * as N_certificateControl from './N/certificateControl';
+import * as N_compress from './N/compress';
 import * as N_config from './N/config';
 import * as N_crypto from './N/crypto';
 import * as N_currency from './N/currency';
@@ -20,6 +21,7 @@ import * as N_portlet from './N/portlet';
 import * as N_query from './N/query';
 import * as N_piRemoval from './N/piremoval';
 import * as N_record from './N/record';
+import * as N_recordContext from './N/recordContext';
 import * as N_redirect from './N/redirect';
 import * as N_render from './N/render';
 import * as N_runtime from './N/runtime';
@@ -44,6 +46,7 @@ export {N_action as action};
 export {N_auth as auth};
 export {N_cache as cache};
 export {N_certificateControl as certificateControl};
+export {N_compress as compress};
 export {N_config as config};
 export {N_crypto as crypto};
 export {N_currency as currency};
@@ -62,6 +65,7 @@ export {N_plugin as plugin};
 export {N_portlet as portlet};
 export {N_query as query};
 export {N_record as record};
+export {N_recordContext as recordContext};
 export {N_redirect as redirect};
 export {N_render as render};
 export {N_runtime as runtime};
@@ -100,5 +104,5 @@ declare const N_commerce: N_Commerce_Module;
 // declare const N_https_:   N_Https_Module;
 export {N_ui       as ui};
 export {N_commerce as commerce};
-// export {N_crypto_ as crypto}; // TODO: How can we do this? (Maybe we don't have to)
-// export {N_https_  as https};  // TODO: How can we do this? (Maybe we don't need to)
+// export {N_crypto_ as crypto}; // We don't have to do this
+// export {N_https_  as https};  // We don't have to do this
