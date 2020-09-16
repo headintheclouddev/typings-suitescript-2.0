@@ -120,6 +120,16 @@ interface CreateColumnWithFormulaOptions {
      * on other columns.
      */
     groupBy?: boolean;
+
+    /**
+     * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results.
+     * In general, the alias is an optional property. 
+     * 
+     * To use mapped results, you must specify an alias in the following situations:
+     * 1. You must specify an alias for a column when the column uses a formula.
+     * 2. You must specify an alias when two columns in a joined query use the same field ID.
+     */
+    alias?: string;
 }
 
 interface CreateSortOptions {
