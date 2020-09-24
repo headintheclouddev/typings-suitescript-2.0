@@ -73,6 +73,7 @@ declare enum ScheduledInvocationType {
     ABORTED,
     SKIPPED,
 }
+
 declare interface ScheduledInvocationTypes {
     SCHEDULED: ScheduledInvocationType;
     ON_DEMAND: ScheduledInvocationType;
@@ -346,5 +347,15 @@ export namespace EntryPoints {
             toVersion: number;
         }
         type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
+    }
+
+    namespace SDFInstallation {
+        interface runContext {
+            /** The version of the SuiteApp currently installed on the account. Specify Null if this is a new installation. */
+            fromVersion: string;
+            /** The version of the SuiteApp that will be installed on the account. */
+            toVersion: string;
+        }
+        type run = (scriptContext: runContext) => void;
     }
 }
