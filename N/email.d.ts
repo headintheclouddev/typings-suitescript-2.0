@@ -11,7 +11,7 @@ interface SendOptions {
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      * Note: Only the first recipient displays on the Communication tab (under the Recipient column).
      */
-    recipients: number[]|string[];
+    recipients: number[]|string[]|number|string;
     /**
      * The email address that appears in the reply-to header when an email is sent out.
      */
