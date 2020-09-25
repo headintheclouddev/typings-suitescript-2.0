@@ -454,7 +454,7 @@ export interface Form extends BaseForm {
     addResetButton(options?: AddResetButtonOptions): Button;
     addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
     addSublist(options: AddSublistOptions): Sublist;
-    addSubmitButton(options?: AddSubmitButtonOptions): void;
+    addSubmitButton(options?: AddSubmitButtonOptions): Button;
     addSubtab(options: AddSubtabOptions): Tab;
     addTab(options: AddFieldGroupOptions): Tab;
     getButton(options: IDOptions): Button;
