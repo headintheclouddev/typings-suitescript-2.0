@@ -158,7 +158,7 @@ export interface parseDataContext {
 /** Transform a data file into account and transaction data */
 export type parseData = (options: parseDataContext) => void;
 
-type transactionCode =
+type creditDebit =
     "CREDIT" |
     "DEBIT";
 
@@ -178,7 +178,7 @@ type transactionType =
 interface createNewStandardTransactionCodeOptions {
 
     /** The raw transaction code from the parsed transaction */
-    transactionCode: transactionCode;
+    transactionCode: string;
 
     /**
      * The bank data type in NetSuite to which the code maps, which can be one of the following:
@@ -202,10 +202,10 @@ interface createNewStandardTransactionCodeOptions {
      * CREDIT
      * DEBIT
      */
-    creditDebit: string;
+    creditDebit?: creditDebit;
 
     /** A description of the kind of transaction that the transaction code represents */
-    description: string;
+    description?: string;
 }
 
 export interface getStandardTransactionCodesContext {
