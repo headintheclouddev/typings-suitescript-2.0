@@ -4,6 +4,7 @@ import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
 import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin"
+import * as N_FiParser from "./plugins/fiParserPlugin"
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
@@ -398,6 +399,31 @@ export namespace EntryPoints {
     }
 
     namespace Plugins {
+
+        namespace FiParser {
+
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {
+
+            }
+
+            interface parseDataContext extends N_FiParser.parseDataContext {
+
+            }
+
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {
+
+            }
+
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {
+
+            }
+
+            type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
+            type parseData = N_FiParser.parseData;
+            type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
+            type getExpenseCodes = N_FiParser.getExpenseCodes;
+        }
+
         namespace FiConnectivity {
 
             interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {
