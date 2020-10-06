@@ -90,7 +90,7 @@ export function load(idOrPath: number | string): File;
 
 /** Enumeration that holds the string values for supported character encoding. */
 export enum Encoding {
-    UTF8,
+    UTF_8,
     WINDOWS_1252,
     ISO_8859_1,
     GB18030,
