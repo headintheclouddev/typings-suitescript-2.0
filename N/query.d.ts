@@ -604,6 +604,7 @@ export interface ResultSet {
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
     asMappedResults(): Array<{ [fieldId: string]: string|boolean|number|null }>;
+    asMappedResults<T extends Object>(): Array<T>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
