@@ -3,6 +3,8 @@ import * as N_portlet from './portlet';
 import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
+import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin"
+import * as N_FiParser from "./plugins/fiParserPlugin"
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
@@ -91,18 +93,21 @@ export namespace EntryPoints {
             line: number;
             column: number;
         }
+
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
         interface lineInitContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
+
         type lineInit = (scriptContext: lineInitContext) => void;
 
         interface pageInitContext {
             currentRecord: N_record.ClientCurrentRecord;
-            mode: 'create'|'copy'|'edit'|'view';
+            mode: 'create' | 'copy' | 'edit' | 'view';
         }
+
         type pageInit = (scriptContext: pageInitContext) => void;
 
         interface postSourcingContext {
@@ -110,11 +115,13 @@ export namespace EntryPoints {
             sublistId: string;
             fieldId: string;
         }
+
         type postSourcing = (scriptContext: postSourcingContext) => void;
 
         interface saveRecordContext {
             currentRecord: N_record.ClientCurrentRecord;
         }
+
         type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
         interface sublistChangedContext {
@@ -125,6 +132,7 @@ export namespace EntryPoints {
              */
             operation: string;
         }
+
         type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
         interface validateDeleteContext {
@@ -132,6 +140,7 @@ export namespace EntryPoints {
             sublistId: string;
             lineCount: number; // As of 2020.2
         }
+
         type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
         interface validateFieldContext {
@@ -141,18 +150,21 @@ export namespace EntryPoints {
             line?: number;
             column?: number;
         }
+
         type validateField = (scriptContext: validateFieldContext) => boolean;
 
         interface validateInsertContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
+
         type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
         interface validateLineContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
         }
+
         type validateLine = (scriptContext: validateLineContext) => boolean;
     }
 
@@ -164,6 +176,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
             request: N_http.ServerRequest;
         }
+
         type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
         interface beforeSubmitContext {
@@ -172,6 +185,7 @@ export namespace EntryPoints {
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
+
         type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
@@ -180,6 +194,7 @@ export namespace EntryPoints {
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
+
         type afterSubmit = (scriptContext: afterSubmitContext) => void;
     }
 
@@ -188,24 +203,28 @@ export namespace EntryPoints {
             type: ScheduledInvocationType;
             InvocationType: ScheduledInvocationTypes;
         }
+
         type execute = (scriptContext: executeContext) => void;
     }
 
     namespace MapReduce {
         interface Configuration {
-            retryCount?: 0|1|2|3;
+            retryCount?: 0 | 1 | 2 | 3;
             exitOnError?: boolean;
         }
+
         type config = Configuration;
-        
+
         interface ObjectReference {
             id: string;
             type: string;
         }
+
         interface getInputDataContext {
             readonly isRestarted: boolean;
             ObjectRef: ObjectReference;
         }
+
         type getInputData = (scriptContext: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
@@ -214,8 +233,9 @@ export namespace EntryPoints {
             readonly errors: MapReduceErrorIteratorContainer;
             readonly key: string;
             readonly value: string;
-            readonly write: (key: string|object, value: string|object) => void;
+            readonly write: (key: string | object, value: string | object) => void;
         }
+
         type map = (scriptContext: mapContext) => void;
 
         interface reduceContext {
@@ -226,26 +246,32 @@ export namespace EntryPoints {
             readonly values: string[];
             readonly write: (key: string, value: string) => void;
         }
+
         type reduce = (scriptContext: reduceContext) => void;
 
         interface MapReduceIterator {
             each(callback: (key: string, value: string) => boolean): void;
         }
+
         interface MapReduceIteratorContainer {
             iterator(): MapReduceIterator;
         }
+
         interface MapReduceErrorIterator {
             each(callback: (key: string, error: string, executionNo: number) => boolean): void;
         }
+
         interface MapReduceErrorIteratorContainer {
             iterator(): MapReduceErrorIterator;
         }
+
         interface InputSummary {
             dateCreated: Date;
             error: string;
             seconds: number;
             usage: number;
         }
+
         interface MapSummary {
             dateCreated: Date;
             seconds: number;
@@ -255,6 +281,7 @@ export namespace EntryPoints {
             keys: MapReduceIteratorContainer;
             errors: MapReduceErrorIteratorContainer;
         }
+
         interface ReduceSummary {
             dateCreated: Date;
             seconds: number;
@@ -264,6 +291,7 @@ export namespace EntryPoints {
             keys: MapReduceIteratorContainer;
             errors: MapReduceErrorIteratorContainer;
         }
+
         interface summarizeContext {
             readonly isRestarted: boolean;
             dateCreated: Date;
@@ -276,6 +304,7 @@ export namespace EntryPoints {
             reduceSummary: ReduceSummary;
             output: MapReduceIteratorContainer;
         }
+
         type summarize = (summary: summarizeContext) => void;
     }
 
@@ -286,6 +315,7 @@ export namespace EntryPoints {
             /** This is entityid in the docs, but entity in practice */
             entity: string;
         }
+
         type render = (scriptContext: renderContext) => void;
     }
 
@@ -294,6 +324,7 @@ export namespace EntryPoints {
             request: N_http.ServerRequest;
             response: N_http.ServerResponse;
         }
+
         type onRequest = (scriptContext: onRequestContext) => void;
     }
 
@@ -302,6 +333,7 @@ export namespace EntryPoints {
             id: number;
             type: string;
         }
+
         type each = (scriptContext: eachContext) => void;
     }
 
@@ -310,6 +342,7 @@ export namespace EntryPoints {
             newRecord: N_record.Record;
             oldRecord: N_record.Record;
         }
+
         type onAction = (scriptContext: onActionContext) => void;
     }
 
@@ -319,33 +352,38 @@ export namespace EntryPoints {
         type post = (requestBody: any) => any;
         type put = (requestBody: any) => any;
     }
-    
+
     namespace BundleInstallation {
         interface onAfterInstallContext {
             version: number;
         }
+
         type afterInstall = (scriptContext: onAfterInstallContext) => void;
 
         interface onAfterUpdateContext {
             fromVersion: number;
             toVersion: number;
         }
+
         type afterUpdate = (scriptContext: onAfterUpdateContext) => void;
 
         interface onBeforeInstallContext {
             version: number;
         }
+
         type beforeInstall = (scriptContext: onBeforeInstallContext) => void;
 
         interface onBeforeUninstallContext {
             version: number;
         }
+
         type beforeUninstall = (scriptContext: onBeforeUninstallContext) => void;
 
         interface onBeforeUpdateContext {
             fromVersion: number;
             toVersion: number;
         }
+
         type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
     }
 
@@ -356,6 +394,57 @@ export namespace EntryPoints {
             /** The version of the SuiteApp that will be installed on the account. */
             toVersion: string;
         }
+
         type run = (scriptContext: runContext) => void;
+    }
+
+    namespace Plugins {
+
+        namespace FiParser {
+
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {
+
+            }
+
+            interface parseDataContext extends N_FiParser.parseDataContext {
+
+            }
+
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {
+
+            }
+
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {
+
+            }
+
+            type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
+            type parseData = N_FiParser.parseData;
+            type getStandardTransactionCodes = N_FiParser.getStandardTransactionCodes;
+            type getExpenseCodes = N_FiParser.getExpenseCodes;
+        }
+
+        namespace FiConnectivity {
+
+            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {
+
+            }
+
+            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {
+
+            }
+
+            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {
+
+            }
+
+            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {
+
+            }
+
+            type getTransactionData = N_FiConnectivity.getTransactionData;
+            type getAccounts = N_FiConnectivity.getAccounts;
+            type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+        }
     }
 }
