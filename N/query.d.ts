@@ -70,6 +70,18 @@ interface CreateConditionWithFormulaOptions {
     aggregate?: string;
 }
 
+interface ColumnContextOptions {
+	/** The name of the field context. */
+	name: string | FieldContext,
+	/** The additional parameters to use with the specified field context. */
+	params?: {
+		/** The internal ID of the currency to convert to. */
+		currencyId?: number, 
+		/** The date to use for the actual exchange rate between the base currency and the currency to convert to. */
+		date?: RelativeDate | Date 
+	}
+}
+
 interface CreateColumnOptions {
     /**
      * Field (column) id
@@ -95,7 +107,10 @@ interface CreateColumnOptions {
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
      */
-    alias?: string;
+	alias?: string;
+	
+	/** The field context for values in the query result column. This value sets the Column.context property. */
+	context?: string | FieldContext | ColumnContextOptions
 }
 
 interface CreateColumnWithFormulaOptions {
@@ -129,7 +144,10 @@ interface CreateColumnWithFormulaOptions {
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
      */
-    alias?: string;
+	alias?: string;
+	
+	/** The field context for values in the query result column. This value sets the Column.context property. */
+	context?: string | FieldContext | ColumnContextOptions
 }
 
 interface CreateSortOptions {
@@ -473,7 +491,10 @@ export interface Column {
     readonly groupBy: boolean;
 
     readonly label: string;
-    readonly alias: string;
+	readonly alias: string;
+	
+	/** The field context for values in the query result column. */
+    readonly context: ColumnContextOptions;
 }
 
 /**
@@ -1172,6 +1193,37 @@ export enum ReturnType {
     RELATIONSHIP = "RELATIONSHIP",
     STRING = "STRING",
     UNKNOWN = "UNKNOWN",
+}
+
+/**
+ * Holds the string values for the field context to use when creating a column.
+ * The field context determines how field values are displayed in a column.
+ */
+export enum FieldContext {
+	/** Displays converted currency amounts using the exchange rate that was in effect on a specific date. */
+	CONVERTED = "CONVERTED",
+	/** Displays consolidated currency amounts in the base currency. */
+	CURRENCY_CONSOLIDATED = "CURRENCY_CONSOLIDATED",
+	/** 
+	 * Displays user-friendly field values.
+	 * For example, for the entity field on Transaction records, using the DISPLAY enum value displays the name of the entity instead of its ID.
+	 */
+	DISPLAY = "DISPLAY",
+	/**
+	 * Displays user-friendly field values for hierarchical fields (for example, “Parent Company : SUB CAD”).
+	 * This value is similar to the DISPLAY enum value but applies to hierarchical fields.
+	 */
+	HIERARCHY = "HIERARCHY",
+	/**
+	 * Displays raw field values for hierarchical fields (for example, “1 : 5”).
+	 * This value is similar to the RAW enum value but applies to hierarchical fields.
+	 */
+	HIERARCHY_IDENTIFIER = "HIERARCHY_IDENTIFIER",
+	/**
+	 * Displays raw field values.
+	 * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
+	 */
+	RAW = "RAW"
 }
 
 export enum SortLocale {
