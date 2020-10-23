@@ -10,11 +10,11 @@ export function findKeys(options: FindKeysOptions): { [key: string]: any }; // T
 export function deleteKey(options: { scriptId: string }): string; // TODO: Confirm return type. Documentation says object, but example is keyId
 export function loadKey(options: { scriptId: string }): Key;
 
-export interface Operator {
-  STARTS_WITH,
-  CONTAINS,
-  ENDS_WITH,
-  EQUALS
+export enum Operator {
+  STARTS_WITH = "startswith",
+  CONTAINS = "contains",
+  ENDS_WITH = "endswith",
+  EQUALS = "equals"
 }
 
 interface Key {
