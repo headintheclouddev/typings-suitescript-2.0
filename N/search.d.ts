@@ -191,10 +191,22 @@ interface SearchLookupFieldsOptions {
     columns: (string | string[]);
 }
 
+type LookupValue = string | number | boolean | {value:string, text:string}[]
+
 interface SearchLookupFieldsFunction {
-    promise(options: SearchLookupFieldsOptions): Promise<any>;
-    (options: SearchLookupFieldsOptions): any;
+    promise<T extends string>(options: {
+		type: Type | string;
+		id: FieldValue | string | number;
+		columns: T | T[]
+	}): Promise<{ [ K in T ]?: LookupValue }>;
+	
+	<T extends string>(options: {
+		type: Type | string;
+		id: FieldValue | string | number;
+		columns: T | T[]
+	}): { [ K in T ]?: LookupValue };
 }
+
 /** Global search keywords string or expression. */
 interface SearchGlobalOptions {
     keywords: string;
