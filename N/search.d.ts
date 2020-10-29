@@ -185,12 +185,6 @@ export interface CreateSearchColumnOptions {
     sort?: Sort;
 }
 
-interface SearchLookupFieldsOptions {
-    type: Type | string;
-    id: FieldValue | string | number;
-    columns: (string | string[]);
-}
-
 type LookupValue = string | number | boolean | {value:string, text:string}[]
 
 interface SearchLookupFieldsFunction {
