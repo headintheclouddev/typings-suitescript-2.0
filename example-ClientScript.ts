@@ -10,10 +10,11 @@ export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
   if (ctx.mode != 'edit') return;
 
   const customerId = ctx.currentRecord.getValue('entity'); // Assume this script is running on a transaction
-  search.lookupFields.promise({ type: 'customer', id: customerId, columns: ['companyname', 'datecreated'] }).then((values) => {
-    const name = values.companyname as string;
-    const date = values.datecreated as Date;
-    console.log('Customer', name, 'created at', date);
+  search.lookupFields.promise({ type: 'customer', id: customerId, columns: ['companyname', 'datecreated', 'entitystatus'] }).then((values) => {
+    const name   = values.companyname as string;
+    const date   = values.datecreated as string;
+    const status = values.entitystatus as { value: string, text: string }[];
+    console.log('Customer', name, 'created at', date, 'status', status);
   });
 
   search.create.promise({
