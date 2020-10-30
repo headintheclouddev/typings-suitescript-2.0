@@ -185,7 +185,7 @@ export interface CreateSearchColumnOptions {
     sort?: Sort;
 }
 
-type LookupValue = string | number | boolean | {value:string, text:string}[]
+type LookupValue = string | number | boolean | { value: string, text: string }[];
 
 interface SearchLookupFieldsFunction {
     promise<T extends string>(options: {
