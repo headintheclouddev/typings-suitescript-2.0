@@ -160,7 +160,7 @@ export interface Search {
     runPaged: SearchRunPagedFunction;
 }
 
-interface CreateSearchFilterOptions {
+export interface CreateSearchFilterOptions {
     /** Name or internal ID of the search field. */
     name: string;
     /** Join ID for the search filter. */
