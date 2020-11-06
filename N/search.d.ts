@@ -678,6 +678,43 @@ export function createColumn(options: CreateSearchColumnOptions): Column;
  */
 export function createFilter(options: CreateSearchFilterOptions): Filter;
 
+export function createSetting<K extends SettingName>(options: CreateSearchSettingOptions<K>): Setting
+
+interface CreateSearchSettingOptions<K extends SettingName> {
+    name: K | string
+    value: SettingValueType[K] | string 
+}
+
+interface Setting {
+    name: string
+    value: ConsolidationEnum | IncludePeriodTransactionEnum
+}
+
+type SettingValueType = {
+    [SettingName.consolidationtype]: ConsolidationEnum,
+    [SettingName.includeperiodendtransactions]: IncludePeriodTransactionEnum
+}
+
+export enum SettingName {
+    consolidationtype = "consolidationtype",
+    includeperiodendtransactions = "includeperiodendtransactions"
+}
+
+export enum ConsolidationEnum {
+    ACCTTYPE,
+    AVERAGE,
+    CURRENT,
+    HISTORICAL,
+    NONE,
+}
+
+export enum IncludePeriodTransactionEnum {
+    F,
+    FALSE,
+    T,
+    TRUE
+}
+
 export enum Operator {
     AFTER,
     ALLOF,
