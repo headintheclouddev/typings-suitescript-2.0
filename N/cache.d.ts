@@ -8,7 +8,7 @@ interface GetOptions {
 
     /**
      * Optional, but strongly recommended
-     * A user-defined function that returns the requested value if it is not already present in the cache. Addtionally, when the loader retrieves a value, the system automatically places that value in the cache. For this reason, NetSuite recommends using the loader function as the primary means of populating the cache.
+     * A user-defined function that returns the requested value if it is not already present in the cache. Additionally, when the loader retrieves a value, the system automatically places that value in the cache. For this reason, NetSuite recommends using the loader function as the primary means of populating the cache.
      * Note also that if the value returned by the loader is not a string, the system uses JSON.stringify() to convert the value before it is placed in the cache and returned. The maximum size of a value that can be placed in the cache is 500KB.
      * When no loader is specified and a value is missing from the cache, the system returns null.
      */
@@ -59,7 +59,7 @@ interface GetCacheOptions {
     scope?: Scope;
 }
 
-/** Checks for a cache object with the specified name. If the cache exists, this method returns the cache object. If the cache does not exist, the sytem creates it. */
+/** Checks for a cache object with the specified name. If the cache exists, this method returns the cache object. If the cache does not exist, the system creates it. */
 export function getCache(options: GetCacheOptions): Cache;
 
 export enum Scope {

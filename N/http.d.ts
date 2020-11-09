@@ -324,10 +324,10 @@ export enum CacheDuration {
  * This enum is used to set the value of http.request(options) and ServerRequest.method.
  */
 export enum Method {
-    DELETE,
-    GET,
-    PUT,
-    POST,
+    DELETE = "DELETE",
+    GET = "GET",
+    PUT = "PUT",
+    POST = "POST",
 }
 
 export enum RedirectType {
