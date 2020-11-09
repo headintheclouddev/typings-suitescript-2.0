@@ -81,6 +81,12 @@ interface CustomLine extends GLLine {
    * @param {string} memo
    */
   setMemo (memo: string): void;
+  /**
+   * Sets custom segment values on a CustomLine object. See also getSegmentValueId().
+   * @param {string} segmentId
+   * @param {string} segmentValueId
+   */
+  setSegmentValueId (segmentId: string, segmentValueId: number): void;
 }
 
 /** 

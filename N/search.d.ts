@@ -160,7 +160,7 @@ export interface Search {
     runPaged: SearchRunPagedFunction;
 }
 
-interface CreateSearchFilterOptions {
+export interface CreateSearchFilterOptions {
     /** Name or internal ID of the search field. */
     name: string;
     /** Join ID for the search filter. */
@@ -185,16 +185,22 @@ export interface CreateSearchColumnOptions {
     sort?: Sort;
 }
 
-interface SearchLookupFieldsOptions {
-    type: Type | string;
-    id: FieldValue | string | number;
-    columns: (string | string[]);
-}
+type LookupValue = string | number | boolean | { value: string, text: string }[];
 
 interface SearchLookupFieldsFunction {
-    promise(options: SearchLookupFieldsOptions): Promise<any>;
-    (options: SearchLookupFieldsOptions): any;
+    promise<T extends string>(options: {
+		type: Type | string;
+		id: FieldValue | string | number;
+		columns: T | T[]
+	}): Promise<{ [ K in T ]?: LookupValue }>;
+	
+	<T extends string>(options: {
+		type: Type | string;
+		id: FieldValue | string | number;
+		columns: T | T[]
+	}): { [ K in T ]?: LookupValue };
 }
+
 /** Global search keywords string or expression. */
 interface SearchGlobalOptions {
     keywords: string;
@@ -677,6 +683,43 @@ export function createColumn(options: CreateSearchColumnOptions): Column;
  * a filter or column with a formula using name: 'formulatext'. 
  */
 export function createFilter(options: CreateSearchFilterOptions): Filter;
+
+export function createSetting<K extends SettingName>(options: CreateSearchSettingOptions<K>): Setting
+
+interface CreateSearchSettingOptions<K extends SettingName> {
+    name: K | string
+    value: SettingValueType[K] | string 
+}
+
+interface Setting {
+    name: string
+    value: ConsolidationEnum | IncludePeriodTransactionEnum
+}
+
+type SettingValueType = {
+    [SettingName.consolidationtype]: ConsolidationEnum,
+    [SettingName.includeperiodendtransactions]: IncludePeriodTransactionEnum
+}
+
+export enum SettingName {
+    consolidationtype = "consolidationtype",
+    includeperiodendtransactions = "includeperiodendtransactions"
+}
+
+export enum ConsolidationEnum {
+    ACCTTYPE,
+    AVERAGE,
+    CURRENT,
+    HISTORICAL,
+    NONE,
+}
+
+export enum IncludePeriodTransactionEnum {
+    F,
+    FALSE,
+    T,
+    TRUE
+}
 
 export enum Operator {
     AFTER,
