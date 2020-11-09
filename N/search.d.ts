@@ -293,6 +293,9 @@ export interface SearchCreateOptions {
     title?: string;
     id?: string;
     isPublic?: boolean;
+    packageId?: string;
+    settings?: Object | Object[] | string | string[] | Setting | Setting[];
+    filterExpression?: Object[];
 }
 
 interface SearchCreateFunction {
