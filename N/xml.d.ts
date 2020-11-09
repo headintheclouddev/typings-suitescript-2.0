@@ -139,6 +139,7 @@ interface NSXMLDocument extends NSNode {
     createCDATASection: (options: CDATAOptions) => NSNode;
     createComments: (options: CreateCommentOptions) => NSNode;
     createDocumentFragment: () => NSNode;
+    createElement: (options: CreateElementOptions) => NSElement;
     createElements: (options: CreateElementOptions) => NSElement;
     createElementNS: (options: CreateElementNSOptions) => NSElement;
     createProcessingInstruction: (options: CreateProcessingOpts) => NSNode;
