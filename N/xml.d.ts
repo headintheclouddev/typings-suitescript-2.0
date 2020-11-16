@@ -13,7 +13,7 @@ interface NSNode {
     normalize: () => void;
     removeChild: (options: RemoveChildOptions) => NSNode;
     replaceChild: (options: ReplaceChildOptions) => NSNode;
-    attributes: string;
+    attributes: { [key: string]: Attribute };
     baseURI: string;
     childNodes: NSNode[];
     firstChild: NSNode;
@@ -33,6 +33,18 @@ interface NSNode {
 
 interface AppendChildOptions {
     newChild: NSNode;
+}
+
+interface Attribute {
+    name: string;
+    ownerElement: {
+        name: string;
+        type: NodeType,
+        value: string | null,
+        textContent: string,
+    }
+    specified: boolean,
+    value: string;
 }
 
 interface CloneNodeOptions {
