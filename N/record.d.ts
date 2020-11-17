@@ -544,27 +544,27 @@ export interface ClientCurrentRecord {
      */
     removeSubrecord(options: RecordGetLineCountOptions): this;
     /** Selects an existing line in a sublist. */
-    selectLine(options: SelectLineOptions): void;
-    selectLine(sublistId: string, line: number): void;
+    selectLine(options: SelectLineOptions): this;
+    selectLine(sublistId: string, line: number): this;
     /** Selects a new line at the end of a sublist. */
-    selectNewLine(options: RecordGetLineCountOptions): void;
+    selectNewLine(options: RecordGetLineCountOptions): this;
     /** Sets the value for the line currently selected in the matrix. */
     setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions): Record;
     /** Sets the value for the field in the currently selected line by a text representation. */
-    setCurrentSublistText(options: SetCurrentSublistTextOptions): void;
+    setCurrentSublistText(options: SetCurrentSublistTextOptions): this;
     /** Sets the value for the field in the currently selected line. */
-    setCurrentSublistValue(options: SetCurrentSublistValueOptions): void;
-    setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): void;
+    setCurrentSublistValue(options: SetCurrentSublistValueOptions): this;
+    setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): this;
     /** Sets the value for the associated header in the matrix. */
     setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
     /** Sets the value for the associated field in the matrix. */
     setMatrixSublistValue(options: SetSublistValueOptions): Record;
     /** Sets the value of the field by a text representation. */
-    setText(options: SetFieldTextOptions): void;
-    setText(fieldId: string, value: string): void;
+    setText(options: SetFieldTextOptions): this;
+    setText(fieldId: string, value: string): this;
     /** Sets the value of a field. */
-    setValue(options: SetValueOptions): void;
-    setValue(fieldId: string, value: FieldValue): void;
+    setValue(options: SetValueOptions): this;
+    setValue(fieldId: string, value: FieldValue): this;
     
     /** The record type. */
     type: Type | string;
