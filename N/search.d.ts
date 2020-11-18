@@ -55,7 +55,7 @@ export interface Column {
 }
 
 export interface Result {
-    getValue(column: Column | string): boolean | string | string[];
+    getValue(column: Column | string): boolean | string | string[] | number;
     getText(options: Column | string): string;
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object containing all column values by name. */
     getAllValues(): { [fieldId: string]: string };

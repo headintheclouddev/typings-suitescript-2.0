@@ -354,7 +354,7 @@ export interface AssistantStep {
     /** Gets the current value of a sublist field (line item) in a step. */
     getSublistValue(options: GetSublistValueOptions): string;
     /** Gets the current value(s) of a field or multi-select field. */
-    getValue(options: IDOptions): string | string[] | number;
+    getValue(options: IDOptions): string | string[];
     /** The help text for a step. */
     helpText: string;
     /** The internal ID of the step. */
