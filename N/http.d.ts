@@ -207,7 +207,7 @@ export interface ServerRequest {
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
      */
-    method: Method | string;
+    method: Method | "DELETE" | "GET" | "POST" | "PUT";
     /**
      * The server request parameters.
      */
