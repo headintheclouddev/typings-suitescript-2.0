@@ -696,7 +696,7 @@ interface CreateSearchSettingOptions<K extends SettingName> {
     value: SettingValueType[K] | string 
 }
 
-interface Setting {
+export interface Setting {
     name: string
     value: ConsolidationEnum | IncludePeriodTransactionEnum
 }
