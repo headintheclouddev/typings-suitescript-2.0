@@ -40,13 +40,9 @@ export interface Connection {
     /** Lists the remote directory. */
     list: (options: { path: string, sort: Sort }) => { directory: boolean, name: string, size: string, lastModified: string }[];
 }
-
 interface CreateSFTPConnectionOptions {
     /** The host of the remote account. */
     url: string;
-
-    /** The password GUID for the remote account. */
-    passwordGuid: string;
 
     /** The host key for the trusted fingerprint on the server. */
     hostKey: string;
@@ -67,6 +63,15 @@ interface CreateSFTPConnectionOptions {
     hostKeyType?: 'dsa' | 'ecdsa' | 'rsa';
 }
 
+interface CreateSFTPConnectionWithPasswordOptions extends CreateSFTPConnectionOptions{
+    /** The password GUID for the remote account. */
+    passwordGuid: string;
+}
+interface CreateSFTPConnectionWithKeyOptions extends CreateSFTPConnectionOptions {
+    /** The Key ID for the private key file uploaded to NetSuite */
+    keyId: string;
+}
+
 /** 
  * Establishes a connection to a remote FTP server.
  * To generate the passwordguid, you can create a suitelet that uses Form.addCredentialField(options).
@@ -74,7 +79,7 @@ interface CreateSFTPConnectionOptions {
  * For a Suitelet example, see N/https Module Script Sample.
  * For more information about supported SFTP protocol, see Supported Cipher Suites and Host Key Types
  */
-export function createConnection(options: CreateSFTPConnectionOptions): Connection;
+export function createConnection(options: CreateSFTPConnectionWithKeyOptions | CreateSFTPConnectionWithPasswordOptions): Connection;
 
 export enum Sort {
     DATE,
