@@ -29,6 +29,7 @@ import * as N_runtime from './N/runtime';
 import * as N_search from './N/search';
 import * as N_sftp from './N/sftp';
 import * as N_sso from './N/sso';
+import * as N_suiteAppInfo from './N/suiteAppInfo';
 import * as N_task from './N/task';
 import * as N_transaction from './N/transaction';
 import * as N_translation from './N/translation';
@@ -75,6 +76,7 @@ export {N_runtime as runtime};
 export {N_search as search};
 export {N_sftp as sftp};
 export {N_sso as sso};
+export {N_suiteAppInfo as suiteAppInfo};
 export {N_task as task};
 export {N_transaction as transaction};
 export {N_translation as translation};
@@ -85,13 +87,13 @@ export {N_workflow as workflow};
 export {N_xml as xml};
 
 declare interface N_UI_Module {
-    dialog:       typeof N_ui_dialog;
-    message:      typeof N_ui_message;
-    serverWidget: typeof N_ui_serverWidget;
+  dialog:       typeof N_ui_dialog;
+  message:      typeof N_ui_message;
+  serverWidget: typeof N_ui_serverWidget;
 }
 
 declare interface N_Commerce_Module {
-    recordView: typeof N_commerce_recordView;
+  recordView: typeof N_commerce_recordView;
 }
 
 // declare interface N_Crypto_Module {
