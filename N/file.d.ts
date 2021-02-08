@@ -56,6 +56,20 @@ interface FileDeleteOptions {
     id: (number | string);
 }
 
+interface FileCopyOptions {
+    /** The internal ID of the folder to copy the file to.  This folder must already exist in the File Cabinet. */
+    folder: number;
+    /** The internal ID of the file to copy. The file must already exist in the file cabinet. */
+    id: number;
+    /**
+     * The conflict resolution value.
+     * This parameter specifies the type of conflict resolution to apply when a conflict occurs while copying a file
+     * (for example, if the target folder already contains a file with the same name).
+     * Use the values in the file.ConflictResolution enum to set this parameter. The default value is ConflictResolution.FAIL.
+     */
+    conflictResolution: ConflictResolution;
+}
+
 interface FileCreateOptions {
     /** The file name. */
     name: string;
@@ -78,6 +92,9 @@ interface FileCreateOptions {
 /** Method used to create a new file in the NetSuite file cabinet. */
 export function create(options: FileCreateOptions): File;
 
+/** Copy an existing file in the NetSuite File Cabinet. */
+export function copy(options: FileCopyOptions): File;
+
 /**  Method used to delete an existing file from the NetSuite file cabinet. */
 declare function deleteFunc(options: FileDeleteOptions): void;
 export {deleteFunc as delete};
@@ -87,6 +104,20 @@ export function load(options: FileLoadOptions): File;
 
 /** Method used to load an existing file from the NetSuite file cabinet. */
 export function load(idOrPath: number | string): File;
+
+export enum ConflictResolution {
+    /** Fail with an error if a conflict occurs. */
+    FAIL,
+    /** Overwrite the existing file if a conflict occurs.
+     * The attributes and permissions of the overwritten file are preserved (meaning that the copied file has the same attributes and permissions as the file that was overwritten).
+     */
+    OVERWRITE,
+    /**
+     * Add a numeric suffix to the name of the copied file if a conflict occurs.
+     * For example, if you are copying a file named file.txt and a conflict occurs, the name of the copied file is file (1).txt.
+     */
+    RENAME_TO_UNIQUE
+}
 
 /** Enumeration that holds the string values for supported character encoding. */
 export enum Encoding {
