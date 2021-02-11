@@ -1,6 +1,8 @@
 /** Load the N/workbook module when you want to create a new workbook, load an existing workbook, or list all existing workbooks. */
 // TODO: Implement this module.  May want to wait until 2021.1, as it still looks like an early beta feature in 2020.2.
 
+import { Dataset } from "./dataset";
+
 interface Aspect {
   measure: Measure;
   type: AspectType;
@@ -25,9 +27,13 @@ interface ChartAxis {
  * You can create a chart definition using workbook.createChartDefinition(options).
  */
 interface ChartDefinition {
-
+  /** The limiting and conditional filters of the chart definition. */
+  aggregationFilters: (LimitingFilter|ConditionalFilter)[];
+  /** The category of the chart definition. */
+  category: string;
+  /** The underlying dataset for the chart definition. */
+  dataset: Dataset;
 }
-
 /**
  * A conditional filter.
  * A conditional filter can be used when you create a pivot definition or a chart definition.
@@ -43,6 +49,10 @@ interface DataDimension {
 
 export interface Expression {
 
+}
+
+interface LimitingFilter {
+  
 }
 
 interface Measure {
