@@ -33,6 +33,24 @@ interface ChartDefinition {
   category: string;
   /** The underlying dataset for the chart definition. */
   dataset: Dataset;
+  /** The filter expressions for the chart definition. */
+  filterExpression: Expression[];
+  /** The ID of chart definition. */
+  id: string;
+  /** The legend of the chart definition. */
+  legend: Legend;
+  /** The name of the chart definition. */
+  name: string;
+  /** The series of the chart definition. */
+  series: Series;
+  /** The stacking type for the chart definition. */
+  stacking: Stacking;
+  /** The subtitle of the chart definition. */
+  subtitle: string;
+  /** The title of chart definition. */
+  title: string;
+  /** The chart type of the chart definition. */
+  chartType: ChartType
 }
 /**
  * A conditional filter.
@@ -67,7 +85,28 @@ interface SortDefinition {
 
 }
 
+interface Legend {
+
+}
+
+interface Series {
+
+}
+
+declare enum Stacking {
+  DISABLED,
+  NORMAL,
+  PERCENT
+}
+
 declare enum AspectType {
   COLOR = 'color',
   VALUE = 'value'
+}
+
+declare enum ChartType {
+  AREA,
+  BAR,
+  COLUMN,
+  LINE
 }
