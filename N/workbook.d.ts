@@ -50,23 +50,63 @@ interface ChartDefinition {
   /** The title of chart definition. */
   title: string;
   /** The chart type of the chart definition. */
-  chartType: ChartType
+  chartType: ChartType;
 }
+
 /**
  * A conditional filter.
  * A conditional filter can be used when you create a pivot definition or a chart definition.
  * You can create a conditional filter using workbook.createConditionalFilter(options).
  */
 interface ConditionalFilter {
-
+  /** The selected filters in the condition filter. */
+  filteredNodesSelector: ;
+  /** The measure of the conditional filter. */
+  measure: Measure;
+  /** The selector for the other axis in the conditional filter. */
+  otherAxisSelector: (AllSubNodeSelector|PathSelector|DimensionSelector);
+  /** The actual predicate for the conditional filter, which indicates whether the condition is met. */
+  predicate: Expression;
+  /** The row axis indicator for the conditional filter. */
+  row: boolean;
 }
 
+/**
+ * A data dimension. A data dimension can be used when you create a category, a legend, a pivot axis, a dimension selector, or a section.
+ * You can create a data dimension using workbook.createDataDimension(options).
+ */
 interface DataDimension {
-
+  /** The children of the data dimension. */
+  children: (DataDimension|Section|Measure)[];
+  /** The items of the data dimension. */
+  items: DataDimensionItem[];
+  /**  The formatting specification for the total line of the data dimension. */
+  totalLine: TotalLine;
 }
 
-export interface Expression {
+interface DataDimensionItem {
+  expression: Expression;
+  label: string;
+}
 
+interface DimensionSelector {
+  dimension: DataDimension|Section;
+}
+
+interface DimensionSort {
+/**
+ A dimension sort. A dimension sort can be used when you create a sort definition or a limiting filter.
+ You can create a dimension sort using workbook.createDimensionSort(options).
+ */
+  item: DataDimensionItem;
+  sort: Sort;
+}
+export interface Expression {
+/** An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
+ You can create an expression using workbook.createExpression(options).
+ */
+functionId: ExpressionType;
+parameters:
 }
 
 interface LimitingFilter {
