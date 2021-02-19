@@ -84,29 +84,70 @@ interface DataDimension {
   totalLine: TotalLine;
 }
 
+/**
+ * A data dimension item. A data dimension item is used when you create a data dimension or a dimension sort.
+ * You can create a data dimension item using workbook.createDataDimensionItem(options).
+ */
 interface DataDimensionItem {
-  expression: Expression;
-  label: string;
+  /** The expression for data dimension item. */
+   expression: Expression;
+   /** The label for the data dimension item. */
+   label: string;
 }
 
+/**
+ * A dimension selector. A dimension selector is used when you create a path selector, a sort definition, a conditional filter, a limiting filter or a measure sort.
+ * You can create a dimension selector using workbook.createDimensionSelector(options).
+ */
 interface DimensionSelector {
+  /** The dimension of the dimension selector. */
   dimension: DataDimension|Section;
 }
 
-interface DimensionSort {
 /**
- A dimension sort. A dimension sort can be used when you create a sort definition or a limiting filter.
- You can create a dimension sort using workbook.createDimensionSort(options).
+ * A dimension sort. A dimension sort can be used when you create a sort definition or a limiting filter.
+ * You can create a dimension sort using workbook.createDimensionSort(options).
  */
+interface DimensionSort {
+  /** The data dimension item for the dimension sort. */
   item: DataDimensionItem;
+  /** The sort object for the dimension sort. */
   sort: Sort;
 }
-export interface Expression {
-/** An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
- You can create an expression using workbook.createExpression(options).
+
+/**
+ * An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
+ * You can create an expression using workbook.createExpression(options).
  */
-functionId: ExpressionType;
-parameters:
+export interface Expression {
+  /** The ID of the function used in the expression. */
+  functionId: ExpressionType;
+  /** The parameters for the expression. */
+  parameters: Object;
+}
+
+/**
+ * A field context. A field context is used when you create a table column.
+ * You can create a field context using workbook.createFieldContext(options).
+ */
+interface FieldContext {
+  /** The name of the field context (for example, DISPLAY or CONSOLIDATED) */
+  name: string;
+  /** The user-specified parameters of the field context, specified as key:value pairs. */
+  parameters: Object;
+}
+
+/**
+ * A legend. A legend can be used when you create a chart definition.
+ * You can create a legend using workbook.createLegend(options).
+ */
+interface Legend {
+  /** The axes for the legend. */
+  axes: ChartAxis[];
+  /** The root data (i.e., fields) that defines the legend. */
+  root: DataDimension|Section;
+  /** The sort definitions of the legend. */
+  sortDefinitions: SortDefinition[];
 }
 
 interface LimitingFilter {
