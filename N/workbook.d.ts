@@ -174,6 +174,13 @@ interface Series {
 
 }
 
+interface Sort {
+  ascending: boolean,
+  caseSensitive: boolean,
+  locale: ,
+  nullsLast:
+}
+
 declare enum Stacking {
   DISABLED,
   NORMAL,
@@ -190,4 +197,49 @@ declare enum ChartType {
   BAR,
   COLUMN,
   LINE
+}
+
+declare enum Operator {
+  AFTER       = 'AFTER', /** Date/time values */
+  AFTER_NOT	  =	'AFTER_NOT', /** Date/time values */
+  ANY_OF		  = 'ANY_OF',	/** Single-select fields or Multi-select fields" */
+  ANY_OF_NOT  = 'ANY_OF_NOT', /**	Single-select fields or Multi-select fields */
+  BEFORE      =	'BEFORE', /** Date/time values */
+  BEFORE_NOT	=	'BEFORE_NOT', /** Date/time values */
+  BETWEEN		  = 'BETWEEN',	/** Date/time values */
+  BETWEEN_NOT	= 'BETWEEN_NOT',	/** Date/time values */
+  CONTAIN		  = 'CONTAIN',	/** String */
+  CONTAIN_NOT = 'CONTAIN_NOT',	/** String */
+  EMPTY		    = 'EMPTY', /**	Single-select fields or Multi-select fields */
+  EMPTY_NOT		= 'EMPTY_NOT',	/**	Single-select fields or Multi-select fields */
+  ENDWITH		  = 'ENDWITH',	/** String */
+  ENDWITH_NOT = 'ENDWITH_NOT', /** String */
+EQUAL		EQUAL	Numbers
+EQUAL_NOT		EQUAL_NOT	Numbers
+EXCLUDE_ALL		MN_EXCLUDE	Multi-select fields
+EXCLUDE_ANY		MN_EXCLUDE_ALL	Multi-select fields
+EXCLUDE_EXACTLY		MN_EXCLUDE_EXACTLY	Multi-select fields
+GREATER		GREATER	Numbers
+GREATER_NOT		GREATER_NOT	Numbers
+GREATER_OR_EQUAL		GREATER_OR_EQUAL	Numbers
+GREATER_OR_EQUAL_NOT		GREATER_OR_EQUAL_NOT	Numbers
+INCLUDE_ALL		MN_INCLUDE_ALL	Multi-select fields
+INCLUDE_ANY		MN_INCLUDE	Multi-select fields
+INCLUDE_EXACTLY		MN_INCLUDE_EXACTLY	Multi-select fields
+IS		IS	Boolean values
+IS_NOT		IS_NOT	Boolean values
+LESS		LESS	Numbers
+LESS_NOT		LESS_NOT	Numbers
+LESS_OR_EQUAL		LESS_OR_EQUAL	Numbers
+LESS_OR_EQUAL_NOT		LESS_OR_EQUAL_NOT	Numbers
+ON		ON	Date/time values
+ON_NOT		ON_NOT	Date/time values
+ON_OR_AFTER		ON_OR_AFTER	Date/time values
+ON_OR_AFTER_NOT		ON_OR_AFTER_NOT	Date/time values
+ON_OR_BEFORE		ON_OR_BEFORE	Date/time values
+ON_OR_BEFORE_NOT		ON_OR_BEFORE_NOT	Date/time values
+START_WITH		START_WITH	Strings
+START_WITH_NOT		START_WITH_NOT	Strings
+WITHIN		WITHIN	Date/time values
+WITHIN_NOT		WITHIN_NOT	Date/time values
 }
