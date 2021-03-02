@@ -149,24 +149,50 @@ interface Legend {
   /** The sort definitions of the legend. */
   sortDefinitions: SortDefinition[];
 }
-
+/**
+ * A limiting filter. A limiting factor can be used when you create a chart definition or a pivot definition.
+ * You can create a limiting filter using workbook.createLimitingFilter(options).
+ */
 interface LimitingFilter {
-  
+  /** The selections for the limiting filter. */
+  filteredNodesSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
+  /** The limit number for the limiting filter. */
+  limit: number;
+  /** The row axis indicator for the limiting factor.*/
+  row: boolean;
+  /** The ordering elements of the limiting filter.*/
+  sortBys: (DimensionSort|MeasureSort)[]
 }
 
+/**
+ * A measure. A measure can be used when you create an aspect, a section, a conditional filter, or a measure sort.
+ * You can create a measure using workbook.createMeasure(options).
+ */
 interface Measure {
-
+  /** The aggregation for the measure. */
+  aggregation: Aggregation;
+  /** The expression for the measure. Only used for a single expression measure. */
+  expression: Expression;
+  /** The expressions (multiple) for the measure. Only used for a multi expression measure. */
+  // TODO fill this in
+  /** The label of the measure. */
+  label: string;
 }
 
+/**
+ * A measure sort. A measure sort can be used when you create a limiting filter or a sort definition.
+ * You can create a measure sort using workbook.createMeasureSort(options).
+ */
+interface MeasureSort {
+  /** The sort of the measure sort. */
+   measure:
+  otherAxisSelector:
+}
 interface Section {
 
 }
 
 interface SortDefinition {
-
-}
-
-interface Legend {
 
 }
 
@@ -179,6 +205,17 @@ interface Sort {
   caseSensitive: boolean,
   locale: ,
   nullsLast:
+}
+
+/**
+ * An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
+ * You can create an expression using workbook.createExpression(options).
+ */
+interface Expression {
+  /** The ID of the function used in the expression. */
+  functionId: ExpressionType
+  /** The parameters for the expression. */
+  parameters: Object;
 }
 
 declare enum Stacking {
@@ -200,46 +237,81 @@ declare enum ChartType {
 }
 
 declare enum Operator {
-  AFTER       = 'AFTER', /** Date/time values */
-  AFTER_NOT	  =	'AFTER_NOT', /** Date/time values */
-  ANY_OF		  = 'ANY_OF',	/** Single-select fields or Multi-select fields" */
-  ANY_OF_NOT  = 'ANY_OF_NOT', /**	Single-select fields or Multi-select fields */
-  BEFORE      =	'BEFORE', /** Date/time values */
-  BEFORE_NOT	=	'BEFORE_NOT', /** Date/time values */
-  BETWEEN		  = 'BETWEEN',	/** Date/time values */
-  BETWEEN_NOT	= 'BETWEEN_NOT',	/** Date/time values */
-  CONTAIN		  = 'CONTAIN',	/** String */
-  CONTAIN_NOT = 'CONTAIN_NOT',	/** String */
-  EMPTY		    = 'EMPTY', /**	Single-select fields or Multi-select fields */
-  EMPTY_NOT		= 'EMPTY_NOT',	/**	Single-select fields or Multi-select fields */
-  ENDWITH		  = 'ENDWITH',	/** String */
-  ENDWITH_NOT = 'ENDWITH_NOT', /** String */
-EQUAL		EQUAL	Numbers
-EQUAL_NOT		EQUAL_NOT	Numbers
-EXCLUDE_ALL		MN_EXCLUDE	Multi-select fields
-EXCLUDE_ANY		MN_EXCLUDE_ALL	Multi-select fields
-EXCLUDE_EXACTLY		MN_EXCLUDE_EXACTLY	Multi-select fields
-GREATER		GREATER	Numbers
-GREATER_NOT		GREATER_NOT	Numbers
-GREATER_OR_EQUAL		GREATER_OR_EQUAL	Numbers
-GREATER_OR_EQUAL_NOT		GREATER_OR_EQUAL_NOT	Numbers
-INCLUDE_ALL		MN_INCLUDE_ALL	Multi-select fields
-INCLUDE_ANY		MN_INCLUDE	Multi-select fields
-INCLUDE_EXACTLY		MN_INCLUDE_EXACTLY	Multi-select fields
-IS		IS	Boolean values
-IS_NOT		IS_NOT	Boolean values
-LESS		LESS	Numbers
-LESS_NOT		LESS_NOT	Numbers
-LESS_OR_EQUAL		LESS_OR_EQUAL	Numbers
-LESS_OR_EQUAL_NOT		LESS_OR_EQUAL_NOT	Numbers
-ON		ON	Date/time values
-ON_NOT		ON_NOT	Date/time values
-ON_OR_AFTER		ON_OR_AFTER	Date/time values
-ON_OR_AFTER_NOT		ON_OR_AFTER_NOT	Date/time values
-ON_OR_BEFORE		ON_OR_BEFORE	Date/time values
-ON_OR_BEFORE_NOT		ON_OR_BEFORE_NOT	Date/time values
-START_WITH		START_WITH	Strings
-START_WITH_NOT		START_WITH_NOT	Strings
-WITHIN		WITHIN	Date/time values
-WITHIN_NOT		WITHIN_NOT	Date/time values
+  AFTER                 = 'AFTER',
+  AFTER_NOT	            =	'AFTER_NOT',
+  ANY_OF		            = 'ANY_OF',
+  ANY_OF_NOT            = 'ANY_OF_NOT',
+  BEFORE                =	'BEFORE',
+  BEFORE_NOT	          =	'BEFORE_NOT',
+  BETWEEN		            = 'BETWEEN',
+  BETWEEN_NOT	          = 'BETWEEN_NOT',
+  CONTAIN		            = 'CONTAIN',
+  CONTAIN_NOT           = 'CONTAIN_NOT',
+  EMPTY		              = 'EMPTY',
+  EMPTY_NOT		          = 'EMPTY_NOT',
+  ENDWITH		            = 'ENDWITH',
+  ENDWITH_NOT           = 'ENDWITH_NOT',
+  EQUAL		              = 'EQUAL',
+  EQUAL_NOT		          = 'EQUAL_NOT',
+  EXCLUDE_ALL	          =	'MN_EXCLUDE',
+  EXCLUDE_ANY	          =	'MN_EXCLUDE_ALL',
+  EXCLUDE_EXACTLY	      = 'MN_EXCLUDE_EXACTLY',
+  GREATER		            = 'GREATER',
+  GREATER_NOT		        = 'GREATER_NOT',
+  GREATER_OR_EQUAL      = 'GREATER_OR_EQUAL',
+  GREATER_OR_EQUAL_NOT	= 'GREATER_OR_EQUAL_NOT',
+  INCLUDE_ALL		        = 'MN_INCLUDE_ALL',
+  INCLUDE_ANY		        = 'MN_INCLUDE',
+  INCLUDE_EXACTLY	      = 'MN_INCLUDE_EXACTLY',
+  IS		                = 'IS',
+  IS_NOT		            = 'IS_NOT',
+  LESS		              = 'LESS',
+  LESS_NOT		          = 'LESS_NOT',
+  LESS_OR_EQUAL		      = 'LESS_OR_EQUAL',
+  LESS_OR_EQUAL_NOT		  = 'LESS_OR_EQUAL_NOT',
+  ON	                  =	'ON',
+  ON_NOT	              =	'ON_NOT',
+  ON_OR_AFTER	          =	'ON_OR_AFTER',
+  ON_OR_AFTER_NOT	      =	'ON_OR_AFTER_NOT',
+  ON_OR_BEFORE		      = 'ON_OR_BEFORE',
+  ON_OR_BEFORE_NOT	    =	'ON_OR_BEFORE_NOT',
+  START_WITH	          = 'START_WITH',
+  START_WITH_NOT	      =	'START_WITH_NOT',
+  WITHIN	              =	'WITHIN',
+  WITHIN_NOT	          =	'WITHIN_NOT'
+}
+
+declare enum Aggregation {
+  COUNT,
+  COUNT_DISTINCT,
+  MAX,
+  MEDIAN,
+  MIN,
+  SUM
+}
+
+declare enum ExpressionType {
+  AND,
+  ANY_IN_HIERARCHY,
+  ANY_OF,
+  BETWEEN,
+  CHILD_OF,
+  COMPARE,
+  CONSOLIDATE,
+  CURRENCY_CONVERSION,
+  DATE_RANGE_SELECTOR_ID,
+  DATE_SELECTOR_ID,
+  DATE_TIME_PROPERTY,
+  EQUALS,
+  FIELD,
+  HIERARCHY,
+  HIERARCHY_TO_TEXT,
+  IN_RANGE,
+  IS_NULL,
+  LAMBDA,
+  NOT,
+  OR,
+  RECORD_DISPLAY_VALUE,
+  RECORD_KEY,
+  TRUNCATE_DATE_TIME
 }
