@@ -60,7 +60,7 @@ interface ChartDefinition {
  */
 interface ConditionalFilter {
   /** The selected filters in the condition filter. */
-  filteredNodesSelector: ;
+  filteredNodesSelector: AllSubNodeSelector|PathSelector|DimensionSelector;
   /** The measure of the conditional filter. */
   measure: Measure;
   /** The selector for the other axis in the conditional filter. */
@@ -149,6 +149,7 @@ interface Legend {
   /** The sort definitions of the legend. */
   sortDefinitions: SortDefinition[];
 }
+
 /**
  * A limiting filter. A limiting factor can be used when you create a chart definition or a pivot definition.
  * You can create a limiting filter using workbook.createLimitingFilter(options).
@@ -185,26 +186,124 @@ interface Measure {
  */
 interface MeasureSort {
   /** The sort of the measure sort. */
-   measure:
-  otherAxisSelector:
+  measure: Measure;
+  /** The other axis selector for the measure sort. */
+  otherAxisSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
+  /** The sort for the measure sort. */
+  sort: Sort;
 }
+
+/**
+ * A path selector. A path selector can be used when you create a sort definition, a conditional filter, a limiting filter, or a measure sort.
+ * You can create a path selector using workbook.createPathSelector(options).
+ */
+interface PathSelector {
+  /** The elements denoting 'xpath' of the path selector. */
+  elements: PathSelector|DimensionSelector;
+}
+
+/** A pivot axis. A pivot axis is used with you create a pivot definition.
+ * You can create a pivot axis using workbook.createPivotAxis(options).
+ */
+interface PivotAxis {
+  /** The root data for the pivot axis. */
+  root: DataDimension|Section;
+  /** The sort definitions of the pivot axis. */
+  sortDefinitions: SortDefinition
+}
+/**
+ * A section. A section can be used when you create a category, a legend, a data dimension, a dimension selector, a pivot axis, or a pivot definition.
+ * You can create a section using workbook.createSection(options).
+ */
 interface Section {
-
+  /** The children of the section. */
+  children: DataDimension|Measure|Section[];
+  /** The format for the total line on a section. */
+  totalLine: TotalLine;
 }
 
-interface SortDefinition {
-
-}
-
+/**
+ * A series in a workbook. A series is used when you create a chart definition.
+ * You can create a series using workbook.createSeries(options).
+ */
 interface Series {
-
+  /** The aspects for the series. */
+  aspects: Aspect[];
 }
 
+/**
+ * A sort. A sort is used when you create a table column, a dimension sort, or a measure sort.
+ * You can create a sort using workbook.createSort(options).
+ */
 interface Sort {
+  /** The ascending sort indicator of the sort. */
   ascending: boolean,
+  /** The indicator that determines if the sort is case sensitive. */
   caseSensitive: boolean,
-  locale: ,
-  nullsLast:
+  /** The locale of the sort. */
+  locale: Operator,
+  /** The indicator for placing nulls last of the sort. */
+  nullsLast: boolean;
+}
+
+/**
+ * A sort definition. A sort definition can be used with you create a category, a legend, and a pivot axis.
+ * You can create a sort definition using workbook.createSortDefinition(options).
+ */
+interface SortDefinition {
+  /** The selector for the sort definition. */
+  selector: AllSubNodeSelector|DimensionSelector|PathSelector;
+  /** The ordering elements for the sort definition. */
+  sortBys: DimensionSelector|MeasureSort[];
+}
+
+/**
+ * A table column. A table column is used when you create a table definition.
+ * You can create a table column using workbook.createTableColumn(options).
+ */
+interface TableColumn {
+  /** The alias for the column. */
+  alias: string;
+  /** The alias of the dataset column from which the table column was created. */
+  datasetColumnAlias: string;
+  /** The ID of the dataset column from which the table column was created. */
+  datasetColumnId: number;
+  /** The field context specification for the field used in the table column. */
+  fieldContext: FieldContext;
+  /** The filters for the table column. */
+  filters: TableFilter[];
+  /** The label of table column. */
+  label: string;
+  /** The sort of the table column. */
+  sort: Sort;
+  /** The width of the table column when displayed in the UI. */
+  width: number;
+}
+
+/**
+ * A table definition. A table is a workbook component that enables you to view your dataset query results in a simple table.
+ * You can create a table definition using workbook.createTableDefinition(options).
+ */
+interface TableDefinition {
+  /** The columns of the table definition. */
+  columns: TableColumn[];
+  /** The dataset of the table definition. */
+  dataset: Dataset;
+  /** The ID of the table definition. */
+  id: string;
+  /** The name of the table definition. */
+  name: string;
+}
+
+/**
+ * A table filter. A table filter can be used when you create a table column.
+ * You can create a table filter using workbook.createTableFilter(options).
+ * */
+interface TableFilter {
+  /** The operator of the table filter. */
+  operator: Operator;
+  /** The values of the table filter. */
+  values: null|Object|boolean|number|string|Date;
 }
 
 /**
@@ -314,4 +413,10 @@ declare enum ExpressionType {
   RECORD_DISPLAY_VALUE,
   RECORD_KEY,
   TRUNCATE_DATE_TIME
+}
+
+declare enum TotalLine {
+  FIRST_LINE,
+  HIDDEN,
+  LAST_LINE
 }
