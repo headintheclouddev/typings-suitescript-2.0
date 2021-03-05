@@ -22,9 +22,9 @@
     "@types/node": "^10.12.21",
     "@types/shelljs": "^0.8.2",
     "esprima": "^4.0.0",
-    "tsd-check": "0.2.1",
     "jasmine": "^3.3.1",
     "shelljs": "^0.8.3",
+    "tsd-check": "0.2.1",
     "typescript": "^3.3.1"
   },
   "keywords": [
