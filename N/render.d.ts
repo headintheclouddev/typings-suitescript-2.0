@@ -126,8 +126,8 @@ interface TemplateRenderer {
     addSearchResults(options: AddSearchResultsOptions): void;
     /** Uses the advanced template to produce a PDF printed form. */
     renderAsPdf(): File;
-    /** Renders a server response into a PDF file. */
-    renderAsPdfToResponse(options: RenderToResponseOptions): void;
+    /** Renders a server response into a PDF file. For example, you can pass in a response to be rendered as a PDF in a browser, or downloaded by a user. */
+    renderPdfToResponse(options: RenderToResponseOptions): void;
     /** Return template content in string form. */
     renderAsString(): string;
     /** Writes template content to a server response. */
