@@ -303,7 +303,32 @@ interface TableFilter {
   /** The operator of the table filter. */
   operator: Operator;
   /** The values of the table filter. */
-  values: null|Object|boolean|number|string|Date;
+  values: (null|Object|boolean|number|string|Date)[];
+}
+
+/**
+ * A workbook.
+ * Workbooks are where you analyze the results of your dataset queries using different components, such as table views, pivot tables, and charts.
+ * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
+ * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
+ */
+interface Workbook {
+  /** Executes the table and returns the result set (the same as in N/query Module). */
+  runTable // TODO is this right
+  /** Executes the table and returns paginated data (the same as in N/query Module). */
+  runTablePaged,
+  /** Chart definitions that can be included in a workbook when you create a new workbook. */
+  chartDefinitions: ChartDefinition;
+  /** The description of the workbook. This is set when you create a workbook. */
+  description: string;
+  /** The ID of the workbook, that is set when you create a workbook. */
+  id: string;
+  /** The name of the workbook. */
+  name: string;
+  /** Pivot definitions that can be included in a workbook when you create a new workbook. */
+  pivotDefinitions: PivotDefinition[];
+  /** *Table definitions that can be included in a workbook when you create a new workbook. */
+  tableDefinitions: TableDefinition[];
 }
 
 /**
@@ -334,7 +359,7 @@ interface PivotDefinition {
 }
 
 interface CreateOptions {
-  chartDefinitions?: ChartDefinition[];
+  chartDefinition?: ChartDefinition[];
   description?: string;
   name?: string;
   pivotDefinitions?: PivotDefinition[];
@@ -342,7 +367,7 @@ interface CreateOptions {
 }
 
 interface CreateAllSubNodesSelector {
-
+ // TODO fill this
 }
 
 interface CreateAspectOptions {
@@ -496,6 +521,35 @@ interface CreateTableColumn {
   width?: number;
 }
 
+interface CreateTableDefinition {
+  columns: TableColumn[];
+  dataset: Dataset;
+  id: string;
+  name: string;
+}
+
+interface CreateTableFilter {
+  operator: string;
+  values?: (null|Object|number|string|boolean|Date)[];
+}
+
+interface List { // TODO is this right?
+  list: Object;
+}
+
+interface Load {
+  id: string;
+}
+
+interface RunTable {
+  id: string
+}
+
+interface RunTablePaged {
+  id: string
+  pageSize?: number;
+}
+
 /**
  * Creates a new workbook. Workbooks are where you analyze the results of your dataset queries using different components, such as table views, pivot tables, and charts.
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
@@ -634,11 +688,35 @@ export function createSortDefinition(options: CreateSortDefinition): Workbook;
  */
 export function createTableColumn(options: CreateTableColumn): Workbook;
 
+/**
+ * Creates a table.
+ * A table is a workbook component that enables you to view your dataset query results in a simple table.
+ * A table is based on an underlying dataset and can include an ID, a name, a dataset, and table columns,
+ */
+export function createTableDefinition(options: CreateTableDefinition): Workbook;
 
-declare enum Stacking {
-  DISABLED,
-  NORMAL,
-  PERCENT
+/**
+ * Creates a table filter, which includes an operator and values.
+ */
+export function createTableFilter(options: CreateTableFilter): Workbook;
+
+/**
+ * Executes the table and returns the result set (the same as in N/query Module).
+ */
+export function runTable(options: RunTable): Workbook;
+
+/**
+ * Executes the table and returns paginated data (the same as in N/query Module).
+ */
+export function runTablePaged(options: RunTablePaged): Workbook;
+
+declare enum Aggregation {
+  COUNT,
+  COUNT_DISTINCT,
+  MAX,
+  MEDIAN,
+  MIN,
+  SUM
 }
 
 declare enum AspectType {
@@ -651,6 +729,63 @@ declare enum ChartType {
   BAR,
   COLUMN,
   LINE
+}
+
+declare enum ConstantType {
+  BOOLEAN,
+  CURRENCY,
+  DATE,
+  DATE_TIME,
+  DURATION,
+  NUMBER,
+  TEXT
+}
+
+declare enum DateTimeHierarchy {
+  MONTH_BASED,
+  WEEK_BASED
+}
+
+declare enum DateTimeProperty {
+  DATE,
+  DAY_OF_MONTH,
+  DAY_OF_WEEK,
+  MONTH,
+  QUARTER,
+  WEEK_OF_YEAR,
+  YEAR
+}
+
+declare enum ExpressionType {
+  AND,
+  ANY_IN_HIERARCHY,
+  ANY_OF,
+  BETWEEN,
+  CHILD_OF,
+  COMPARE,
+  CONSOLIDATE,
+  CURRENCY_CONVERSION,
+  DATE_RANGE_SELECTOR_ID,
+  DATE_SELECTOR_ID,
+  DATE_TIME_PROPERTY,
+  EQUALS,
+  FIELD,
+  HIERARCHY,
+  HIERARCHY_TO_TEXT,
+  IN_RANGE,
+  IS_NULL,
+  LAMBDA,
+  NOT,
+  OR,
+  RECORD_DISPLAY_VALUE,
+  RECORD_KEY,
+  TRUNCATE_DATE_TIME
+}
+
+declare enum Stacking {
+  DISABLED,
+  NORMAL,
+  PERCENT
 }
 
 declare enum Operator {
@@ -698,53 +833,8 @@ declare enum Operator {
   WITHIN_NOT	          =	'WITHIN_NOT'
 }
 
-declare enum Aggregation {
-  COUNT,
-  COUNT_DISTINCT,
-  MAX,
-  MEDIAN,
-  MIN,
-  SUM
-}
-
-declare enum ExpressionType {
-  AND,
-  ANY_IN_HIERARCHY,
-  ANY_OF,
-  BETWEEN,
-  CHILD_OF,
-  COMPARE,
-  CONSOLIDATE,
-  CURRENCY_CONVERSION,
-  DATE_RANGE_SELECTOR_ID,
-  DATE_SELECTOR_ID,
-  DATE_TIME_PROPERTY,
-  EQUALS,
-  FIELD,
-  HIERARCHY,
-  HIERARCHY_TO_TEXT,
-  IN_RANGE,
-  IS_NULL,
-  LAMBDA,
-  NOT,
-  OR,
-  RECORD_DISPLAY_VALUE,
-  RECORD_KEY,
-  TRUNCATE_DATE_TIME
-}
-
 declare enum TotalLine {
   FIRST_LINE,
   HIDDEN,
   LAST_LINE
-}
-
-declare enum ConstantType {
-  BOOLEAN,
-  CURRENCY,
-  DATE,
-  DATE_TIME,
-  DURATION,
-  NUMBER,
-  TEXT
 }
