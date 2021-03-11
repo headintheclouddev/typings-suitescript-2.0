@@ -166,6 +166,14 @@ export namespace EntryPoints {
         }
 
         type validateLine = (scriptContext: validateLineContext) => boolean;
+
+        interface localizationContext {
+            currentRecord: N_record.ClientCurrentRecord;
+            locale: string;
+        }
+
+        type localizationContextEnter = (scriptContext: localizationContext) => void;
+        type localizationContextExit = (scriptContext: localizationContext) => void;
     }
 
     namespace UserEvent {
