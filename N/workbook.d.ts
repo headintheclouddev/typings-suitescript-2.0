@@ -175,7 +175,7 @@ interface Measure {
   /** The expression for the measure. Only used for a single expression measure. */
   expression: Expression;
   /** The expressions (multiple) for the measure. Only used for a multi expression measure. */
-  // TODO fill this in
+  expressions: Expression[];
   /** The label of the measure. */
   label: string;
 }
@@ -314,9 +314,9 @@ interface TableFilter {
  */
 interface Workbook {
   /** Executes the table and returns the result set (the same as in N/query Module). */
-  runTable // TODO is this right
+  runTable(options: RunTable): Workbook;
   /** Executes the table and returns paginated data (the same as in N/query Module). */
-  runTablePaged,
+  runTablePaged(options: RunTablePaged): Workbook;
   /** Chart definitions that can be included in a workbook when you create a new workbook. */
   chartDefinitions: ChartDefinition;
   /** The description of the workbook. This is set when you create a workbook. */
@@ -347,15 +347,17 @@ interface Expression {
  * You can create an AllSubNodesSelector using workbook.createAllSubNodesSelector().
  */
 interface AllSubNodesSelector {
-
-}
-
-interface Workbook {
-
+  // TODO Update this as it is empty with NS Help
 }
 
 interface PivotDefinition {
-
+  aggregationFilters: (ConditionalFilter|LimitingFilter)[];
+  columnAxis: PivotAxis;
+  dataset: Dataset;
+  filterExpressions: Expression[];
+  id: string;
+  name: string;
+  rowAxis: PivotAxis;
 }
 
 interface CreateOptions {
@@ -364,10 +366,6 @@ interface CreateOptions {
   name?: string;
   pivotDefinitions?: PivotDefinition[];
   tableDefinitions?: TableDefinition[];
-}
-
-interface CreateAllSubNodesSelector {
- // TODO fill this
 }
 
 interface CreateAspectOptions {
@@ -533,10 +531,6 @@ interface CreateTableFilter {
   values?: (null|Object|number|string|boolean|Date)[];
 }
 
-interface List { // TODO is this right?
-  list: Object;
-}
-
 interface Load {
   id: string;
 }
@@ -556,6 +550,11 @@ interface RunTablePaged {
  * A workbook can include an ID, a name, a description, pivot definitions, chart definitions, and table definitions.
  */
 export function create(options: CreateOptions): Workbook;
+
+/**
+ * Creates an AllSubNodesSelector, which can be used when creating a path selector, a sort definition, a conditional filter, a limiting filter, or a measure sort.
+ */
+export function createAllSubNodesSelector(): AllSubNodesSelector;
 
 /**
  * Creates an aspect for a chart series. An aspect includes a measure and an aspect type.
@@ -701,14 +700,14 @@ export function createTableDefinition(options: CreateTableDefinition): Workbook;
 export function createTableFilter(options: CreateTableFilter): Workbook;
 
 /**
- * Executes the table and returns the result set (the same as in N/query Module).
+ * Lists all existing workbooks.
  */
-export function runTable(options: RunTable): Workbook;
+export function list(): Object[];
 
 /**
- * Executes the table and returns paginated data (the same as in N/query Module).
+ * Loads an existing workbook. Once you load a workbook, you can execute a table and view the results.
  */
-export function runTablePaged(options: RunTablePaged): Workbook;
+export function load(options: { id: string }): Workbook;
 
 declare enum Aggregation {
   COUNT,
