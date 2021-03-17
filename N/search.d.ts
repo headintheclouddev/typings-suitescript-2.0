@@ -58,7 +58,7 @@ export interface Result {
     getValue(column: Column | string): boolean | string | string[];
     getText(options: Column | string): string;
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object containing all column values by name. */
-    getAllValues(): { [fieldId: string]: string };
+    getAllValues(): { [fieldId: string]: boolean|string|LookupValueObject[] };
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object representing the search result. */
     toJSON(): { recordType?: string, id?: string, values: { [columnName: string]: string|boolean } };
     recordType: Type | string;
