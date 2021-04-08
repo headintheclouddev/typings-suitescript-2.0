@@ -36,10 +36,10 @@ interface GZipOptions {
 }
 
 /** Compresses a file by using gzip and returns it as a temporary file object. 0 is no compression. */
-export declare function gzip(options: GZipOptions): file.File;
+export function gzip(options: GZipOptions): file.File;
 
 /** Decompresses a file that was compressed using gzip and returns it as a temporary file object. */
-export declare function changePassword(options: { file: file.File }): file.File;
+export function gunzip(options: { file: file.File }): file.File;
 
 /** Creates a compress.Archiver object that can be used for creating file archives, such as ZIP or TAR files. */
 export declare function createArchiver(): Archiver;
