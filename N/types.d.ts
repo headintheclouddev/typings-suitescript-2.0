@@ -257,12 +257,20 @@ export namespace EntryPoints {
 
         type reduce = (scriptContext: reduceContext) => void;
 
-        interface MapReduceIterator {
+        interface MapReduceOutputIterator {
+            each(callback: (key: string, value: string) => boolean): void;
+        }
+
+        interface MapReduceOutputIteratorContainer {
+            iterator(): MapReduceOutputIterator;
+        }
+
+        interface MapReduceSummaryIterator {
             each(callback: (key: string, executionCount: number, completionState: string) => boolean): void;
         }
 
-        interface MapReduceIteratorContainer {
-            iterator(): MapReduceIterator;
+        interface MapReduceSummaryIteratorContainer {
+            iterator(): MapReduceSummaryIterator;
         }
 
         interface MapReduceErrorIterator {
@@ -286,7 +294,7 @@ export namespace EntryPoints {
             usage: number;
             concurrency: number;
             yields: number;
-            keys: MapReduceIteratorContainer;
+            keys: MapReduceSummaryIteratorContainer;
             errors: MapReduceErrorIteratorContainer;
         }
 
@@ -296,7 +304,7 @@ export namespace EntryPoints {
             usage: number;
             concurrency: number;
             yields: number;
-            keys: MapReduceIteratorContainer;
+            keys: MapReduceSummaryIteratorContainer;
             errors: MapReduceErrorIteratorContainer;
         }
 
@@ -310,7 +318,7 @@ export namespace EntryPoints {
             inputSummary: InputSummary;
             mapSummary: MapSummary;
             reduceSummary: ReduceSummary;
-            output: MapReduceIteratorContainer;
+            output: MapReduceOutputIteratorContainer;
         }
 
         type summarize = (summary: summarizeContext) => void;
