@@ -1,5 +1,5 @@
 import {File} from './file';
-import {Form} from './ui/serverWidget';
+import {Assistant, Form, List} from './ui/serverWidget';
 import {SecureString} from 'N/https';
 
 interface AddHeaderOptions {
@@ -78,7 +78,7 @@ interface WriteLineOptions {
 
 interface WritePageOptions {
     /** A standalone page object in the form of an assistant, form or list. */
-    pageObject: any;
+    pageObject: Assistant | Form | List;
 }
 
 interface GetLineCountOptions {
