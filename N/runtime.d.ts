@@ -42,6 +42,8 @@ interface User {
     getPermission(options: GetParameterOptions): Permission;
     /** Returns the value of a NetSuite preference. */
     getPreference(options: GetParameterOptions): string;
+    /** The internal ID of the currently logged-in contact. If no logged-in entity or other entity than contact is logged in, then 0 is returned as value. */
+    readonly contact: number;
     /** The internal ID of the department for the currently logged-in user. */
     department: number;
     /** The email address of the currently logged-in user. */
