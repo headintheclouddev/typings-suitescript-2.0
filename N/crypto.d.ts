@@ -2,7 +2,7 @@ import {Encoding} from './encode';
 export {Encoding} from './encode';
 
 /** Encapsulates a cipher. */
-interface Cipher {
+export interface Cipher {
   /** Method used to return the cipher data. Sets the output encoding for the crypto.CipherPayload object. */
   final(options: FinalOptions): CipherPayload;
   /** Method used to update the clear data with the specified encoding. */
@@ -10,7 +10,7 @@ interface Cipher {
 }
 
 /** Encapsulates a cipher payload. */
-interface CipherPayload {
+export interface CipherPayload {
   /** The result of the ciphering process. For example, to take the cipher payload and send it to another system. */
   ciphertext: string;
   /** Initialization vector for the cipher payload. You can pass in the iv value to crypto.createDecipher(options). */
@@ -18,7 +18,7 @@ interface CipherPayload {
 }
 
 /** Encapsulates a decipher. This object has methods that decrypt. */
-interface Decipher {
+export interface Decipher {
   /** Method used to return the clear data. */
   final(options: FinalOptions): string;
   /** Method used to update decipher data with the specified encoding. */
@@ -32,7 +32,7 @@ export interface Hash {
   update(options: UpdateOptions): void;
 }
 
-interface Hmac {
+export interface Hmac {
   /** Calculates the digest of the data to be hashed. Default output encoding is HEX. */
   digest(options?: { outputEncoding: Encoding }): string;
   /** Method used to update the hmac data with the encoding specified. */
