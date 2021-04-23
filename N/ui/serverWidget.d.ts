@@ -562,6 +562,7 @@ export enum FieldDisplayType {
     INLINE,
     NORMAL,
     READONLY,
+    NODISPLAY,
 }
 
 export enum FieldLayoutType {
