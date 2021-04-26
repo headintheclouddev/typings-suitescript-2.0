@@ -560,6 +560,7 @@ export enum FieldDisplayType {
     ENTRY,
     HIDDEN,
     INLINE,
+    NODISPLAY,
     NORMAL,
     READONLY,
 }
