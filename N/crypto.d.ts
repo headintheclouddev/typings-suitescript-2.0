@@ -92,7 +92,12 @@ interface CreateHmacOptions {
 
 interface CreateSecretKeyOptions {
   /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. */
-  guid: string;
+  guid?: string;
+  /**
+   * The script ID of the secret used for authentication. You can store secrets at Setup > Company > API Secrets. For more information, see Secrets Management.
+   * This is only required if GUID is not provided. You cannot use the secret parameter in combination with the passwordGuid parameter.
+   */
+  secret?: string;
   /** Specifies the encoding for the SecureKey. Set this value using the encode.Encoding enum. The default value is HEX. */
   encoding?: Encoding;
 }
@@ -102,10 +107,10 @@ export declare enum EncryptionAlg {
 }
 
 export declare enum HashAlg {
-  SHA1,
+  // SHA1,
   SHA256,
-  SHA512,
-  MD5,
+  SHA512
+  // MD5,
 }
 
 export declare enum Padding {
