@@ -645,6 +645,7 @@ export var load: SearchLoadFunction;
 declare var deleteFunc: SearchDeleteFunction;
 export { deleteFunc as delete };
 export var duplicates: SearchDuplicatesFunction;
+
 /**
  * Performs a global search against a single keyword or multiple keywords.
  * Similar to the global search functionality in the UI, you can programmatically filter the global
@@ -655,6 +656,7 @@ export var duplicates: SearchDuplicatesFunction;
  * Results are limited to 1000 records. If there are no search results, this method returns null.
  */
 export var global: SearchGlobalFunction;
+
 /**
  * Performs a search for one or more body fields on a record. You can use joined-field lookups with this method, with
  * the following syntax: join_id.field_name The search.lookupFields(options) method also includes a promise version,
@@ -680,6 +682,7 @@ export var global: SearchGlobalFunction;
  array of object with value:text pairs.
  */
 export var lookupFields: SearchLookupFieldsFunction;
+
 export function createColumn(options: CreateSearchColumnOptions): Column;
 /** Creates a new search filter as a search.Filter object.
  * 
