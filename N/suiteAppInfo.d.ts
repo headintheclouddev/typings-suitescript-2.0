@@ -29,8 +29,8 @@ interface IBundle {
   isManaged: boolean;
   dateInstalled: Date;
   dateLastUpdated: Date;
-  publisher: string; // TODO: Verify what this looks like.  Help says "Publisher, which includes an integer id and a string name"
-  installedBy: string; // TODO: Verify
+  publisher:   { id: string; name: string };
+  installedBy: { id: number; name: string };
 }
 
 interface ISuiteApp {
@@ -41,5 +41,5 @@ interface ISuiteApp {
   dateInstalled: Date;
   dateLastUpdated: Date;
   publisherId: string;
-  installedBy: string; // TODO: Verify
+  installedBy: { id: number; name: string };
 }
