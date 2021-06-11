@@ -19,6 +19,8 @@ interface TriggerOptions {
      * Use this parameter to trigger the workflow as if the specified button were clicked.
      */
     actionId?: string | number;
+    /** The internal ID (number) or script ID (string) of the workflow state that contains the action. */
+    stateId?: string | number;
 }
 
 export function initiate(options: InitiateOptions): number;
