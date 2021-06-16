@@ -734,8 +734,8 @@ interface RecordLoadFunction {
  * @since 2015.2
  */
 interface RecordDeleteFunction {
-    (options: RecordDeleteOptions): void;
-    promise(options: RecordDeleteOptions): Promise<void>;
+    (options: RecordDeleteOptions): number;
+    promise(options: RecordDeleteOptions): Promise<number>;
 }
 
 /**
