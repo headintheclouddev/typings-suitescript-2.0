@@ -35,6 +35,7 @@ declare enum UserEventType {
     QUICKVIEW,
     REASSIGN,
     REJECT,
+    SAVESUBMIT,
     SHIP,
     SPECIALORDER,
     TRANSFORM,
@@ -61,6 +62,7 @@ declare interface UserEventTypes {
     QUICKVIEW: UserEventType;
     REASSIGN: UserEventType;
     REJECT: UserEventType;
+    SAVESUBMIT: UserEventType;
     SHIP: UserEventType;
     SPECIALORDER: UserEventType;
     TRANSFORM: UserEventType;
