@@ -4,14 +4,14 @@
  */
 
 interface GetContextOptions {
-    /** The record type. */
-    recordType: number; // TODO: Test this. Seems like it should be a string, but docs say number.
-    /** The record ID. */
-    recordID: string;
-    /** The record object. */
-    record: string;
-    /** The available context types. */
-    contextTypes?: string[];
+    /** The record type. Required if the record is not loaded in your script. */
+    recordType?: string;
+    /** The record ID. Required if the record is not loaded in your script. */
+    recordId?: string;
+    /** The record object. Required if the record is loaded in your script. */
+    record?: string;
+    /** The available context types. Optional. */
+    contextTypes?: ContextType[];
 }
 
 /**
