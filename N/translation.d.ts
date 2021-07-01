@@ -1,10 +1,10 @@
 /**
  * Translation module
  *
- * Please, mind that this feature is still in BETA testing and the API might change.
+ * The N/translation module lets SuiteScript developers interact with NetSuite Translation Collections programmatically.
  *
  * @module N/translation
- * @version 2019.1-beta
+ * @version 2021.1
  */
 
 /**
@@ -97,7 +97,7 @@ export type Translator = (options?: {params: string[]}) => string;
  * @throws {SuiteScriptError} TRANSLATION_KEY_NOT_FOUND if translation key was not found
  *
  * @since 2019.1
- * @version 2019.1-beta
+ * @version 2021.1
  */
 export function get(
     options: {
@@ -134,7 +134,7 @@ export type Collection = {
  * @throws {SuiteScriptError} INVALID_LOCALE if a locale is of an invalid format
  *
  * @since 2019.1
- * @version 2019.1-beta
+ * @version 2021.1
  */
 export function load(
     options: {
@@ -157,14 +157,14 @@ export function load(
  * @throws {SuiteScriptError} TRANSLATION_HANDLE_IS_IN_AN_ILLEGAL_STATE if the handle passed is in an illegal state
  *
  * @since 2019.1
- * @version 2019.1-beta
+ * @version 2021.1
  */
 export function selectLocale(
     options: {
         handle: Handle,
         locale: Locale,
     }
-): void;
+): Handle;
 
 /**
  * Translations.Handle has a hierarchical structure.
