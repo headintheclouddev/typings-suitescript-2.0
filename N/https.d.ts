@@ -19,16 +19,26 @@ interface CreateSecureStringOptions {
 interface AppendStringOptions {
     /** The string to append. */
     input: string;
-    /** The encoding of the string that is being appended. */
-    encoding: Encoding;
+    /**
+     * The encoding of the string that is being appended.
+     * The default value is https.Encoding.UTF_8.
+     * Note: This parameter is deprecated; it is recommended to use this method only for appending a string (UTF-8) content to a SecureString.
+     */
+    inputEncoding?: Encoding;
+    /** Keeps the appended string in its original encoding. Set this value to true to prevent unexpected content re-encoding. The default value is false. */
+    keepEncoding?: boolean;
 }
 
 interface AppendSecureStringOptions {
     /** The https.SecureString to append. */
     secureString: SecureString;
+    /** Keeps the appended string in its original encoding. Set this value to true to prevent unexpected content re-encoding. The default value is false. */
+    keepEncoding?: boolean;
 }
 
 interface ConvertEncodingOptions {
+    /** The encoding to be used to decode the current content of the SecureString. */
+    fromEncoding: Encoding;
     /** The encoding to apply to the returned string. */
     toEncoding: Encoding;
 }
@@ -36,6 +46,10 @@ interface ConvertEncodingOptions {
 interface HashOptions {
     /** The hash algorithm. Set the value using the crypto.Hash enum. */
     algorithm: HashAlg;
+    /** Encoding used to convert/decode the current string content into binary data for hashing. Use values from the https.Encoding enum. */
+    contentEncoding?: Encoding;
+    /** Encoding used encode the binary result as a string. Use values from the https.Encoding enum. */
+    resultEncoding?: Encoding;
 }
 
 interface HmacOptions {
@@ -43,6 +57,10 @@ interface HmacOptions {
     algorithm: HashAlg;
     /** A key returned from https.createSecureKey(options). */
     key: SecretKey;
+    /** Encoding used to convert/decode the current string content into binary data for hmac processing. */
+    contentEncoding?: Encoding;
+    /** Encoding used encode the binary result as a string. Use values from the https.Encoding enum. */
+    resultEncoding?: Encoding;
 }
 
 interface HttpsCreateSecureKeyFunction {
@@ -111,6 +129,8 @@ export interface SecureString {
     hash(options: HashOptions): SecureString;
     /** Produces the https.SecureString as an hmac. */
     hmac(options: HmacOptions): SecureString;
+    /** Replaces all occurrences of a pattern string inside an https.SecureString with a replacement string. */
+    replaceString(options: { pattern: string, replacement: string }): SecureString;
     /** Not Documented - 6/9/2016 */
     toString(): string;
 }
