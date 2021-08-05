@@ -428,7 +428,6 @@ interface NLObjContext {
      * @param {string} type
      * @param {string} name
      *
-     * @deprecated
      */
     getSetting(type: string, name: string): string;
     /**
