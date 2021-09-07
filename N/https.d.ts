@@ -2,11 +2,13 @@ import {Encoding} from './encode';
 import {ClientResponse, ServerRequest, ServerResponse, RedirectType, SendRedirectOptions} from './http'
 import {HashAlg, SecretKey} from './crypto';
 
-interface CreateSecureKeyOptions {
+interface CreateSecretKeyOptions {
     /** Specifies the encoding for the SecureKey. */
     encoding?: Encoding;
-    /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. */
-    guid: string;
+    /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. Required if secret is not specified */
+    guid?: string;
+    /** The script ID of the secret used for authentication. This parameter is not required if you use the options.guid parameter. You cannot use both the options.guid parameter and secret parameter in combination. */
+    secret?: string;
 }
 
 interface CreateSecureStringOptions {
@@ -63,9 +65,9 @@ interface HmacOptions {
     resultEncoding?: Encoding;
 }
 
-interface HttpsCreateSecureKeyFunction {
-    (options: CreateSecureKeyOptions): SecretKey;
-    promise(options: CreateSecureKeyOptions): Promise<SecretKey>;
+interface HttpsCreateSecretKeyFunction {
+    (options: CreateSecretKeyOptions): SecretKey;
+    promise(options: CreateSecretKeyOptions): Promise<SecretKey>;
 }
 
 interface HttpsCreateSecureStringFunction {
@@ -139,7 +141,7 @@ export {get, delete as delete, request, post, put, CacheDuration, Method, Client
 
 // METHODS \\
 /** Creates a key for the contents of a credential field. */
-export var createSecretKey: HttpsCreateSecureKeyFunction;
+export var createSecretKey: HttpsCreateSecretKeyFunction;
 
 /**
  * Creates an https.SecureString object.
