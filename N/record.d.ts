@@ -67,6 +67,15 @@ interface FindSublistLineWithValueOptions {
     value: FieldValue;
 }
 
+interface GetCurrentMatrixSublistValueOptions {
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string;
+    /** The column number for the matrix field. Note that column indexing begins at 0 with SuiteScript 2.0. */
+    column: number;
+}
+
 interface GetCurrentSublistValueOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
@@ -443,7 +452,7 @@ export interface ClientCurrentRecord {
     /** Returns the line number for the first occurrence of a field value in a sublist. */
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
-    getCurrentMatrixSublistValue(options: GetCurrentSublistValueOptions): number | Date | string | string[] | boolean;
+    getCurrentMatrixSublistValue(options: GetCurrentMatrixSublistValueOptions): number | Date | string | string[] | boolean;
     /** Returns the line number of the currently selected line. */  
     
     /**
