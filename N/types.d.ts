@@ -243,7 +243,8 @@ export namespace EntryPoints {
             readonly errors: MapReduceErrorIteratorContainer;
             readonly key: string;
             readonly value: string;
-            readonly write: (key: string | object, value: string | object) => void;
+            write(key: string | object, value: string | object): void;
+            write(options: IKeyValuePair): void;
         }
 
         type map = (scriptContext: mapContext) => void;
@@ -254,7 +255,8 @@ export namespace EntryPoints {
             readonly errors: MapReduceErrorIteratorContainer;
             readonly key: string;
             readonly values: string[];
-            readonly write: (key: string, value: string) => void;
+            write(key: string | object, value: string | object): void;
+            write(options: IKeyValuePair): void;
         }
 
         type reduce = (scriptContext: reduceContext) => void;
@@ -465,4 +467,9 @@ export namespace EntryPoints {
             type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
         }
     }
+}
+
+interface IKeyValuePair {
+    key: string|object;
+    value: string|object;
 }
