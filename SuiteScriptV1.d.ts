@@ -3211,7 +3211,7 @@ declare function nlapiSendCampaignEmail(campaignEventId: number, recipientId: nu
  */
 declare function nlapiSendEmail(
     from: number|string,
-    to: string|number,
+    to: string|number|string[], // NOTE: The help file says that the options are string | int, but the documentation also notes that string[] is valid.
     subject: string,
     body: string,
     cc?: string|string[],
