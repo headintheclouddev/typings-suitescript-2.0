@@ -312,7 +312,7 @@ interface TableFilter {
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
  * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
  */
-interface Workbook {
+export interface Workbook {
   /** Executes the table and returns the result set (the same as in N/query Module). */
   runTable(options: RunTable): Workbook;
   /** Executes the table and returns paginated data (the same as in N/query Module). */
