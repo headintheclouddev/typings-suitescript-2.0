@@ -44,7 +44,7 @@ interface Join {
 }
 
 /** Encapsulates the entire dataset, including columns, conditions, and joins. This object is created using the dataset.create(options) method. */
-interface Dataset {
+export interface Dataset {
   getExpressionFromColumn(options: { columnId: number, alias?: string }): Expression;
   /** Executes the dataset and returns the result set (the same as in N/query Module). */
   run(): ResultSet;
