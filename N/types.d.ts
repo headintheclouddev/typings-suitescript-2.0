@@ -3,9 +3,11 @@ import * as N_portlet from './portlet';
 import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
-import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin"
-import * as N_FiParser from "./plugins/fiParserPlugin"
-
+import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
+import * as N_FiParser from "./plugins/fiParserPlugin";
+import * as N_dataset from "./dataset";
+import * as N_workbook from "./workbook";
+ 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
 export var beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (ctx) => {
@@ -463,6 +465,30 @@ export namespace EntryPoints {
             type getTransactionData = N_FiConnectivity.getTransactionData;
             type getAccounts = N_FiConnectivity.getAccounts;
             type getConfigurationIFrameUrl = N_FiConnectivity.getConfigurationIFrameUrl;
+        }
+
+        namespace DatasetBuilder {
+            interface createDatasetContext {
+                dataset: N_dataset.Dataset;
+                readonly description: string;
+                readonly name: string;
+                readonly owner: number;
+                readonly role: number;
+            }
+    
+            type createDataset = (scriptContext: createDatasetContext) => void;
+        }
+
+        namespace WorkbookBuilder {
+            interface createWorkbookContext {
+                workbook: N_workbook.Workbook;
+                readonly description: string;
+                readonly name: string;
+                readonly owner: number;
+                readonly role: number;
+            }
+
+            type createWorkbook = (scriptContext: createWorkbookContext) => void;
         }
     }
 }
