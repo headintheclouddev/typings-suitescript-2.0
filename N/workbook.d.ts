@@ -194,6 +194,10 @@ interface FieldContext {
   parameters: Object;
 }
 
+/**
+ * A font size.
+ * Object is called `FontSize` in documentation, used different name here to avoid naming collision with `FontSize` enum.
+ */
 interface FontSizeObj {
   size: number;
   unit: string;
@@ -485,7 +489,7 @@ interface TableColumnFilter {
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
  * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
  */
-interface Workbook {
+export interface Workbook {
   runPivot(options: RunPivot): PivotIntersection[];
   /** Executes the table and returns the result set (the same as in N/query Module). */
   runTable(options: RunTable): ResultSet;

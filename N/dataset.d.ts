@@ -44,7 +44,7 @@ interface Join {
 }
 
 /** Encapsulates the entire dataset, including columns, conditions, and joins. This object is created using the dataset.create(options) method. */
-interface Dataset {
+export interface Dataset {
   /**
   * Returns an expression which can be used in workbook.
   * The Help Center documentation shows alias is optional and columnId is required.
