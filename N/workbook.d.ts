@@ -59,6 +59,10 @@ interface ChartDefinition {
   chartType: ChartType;
 }
 
+/**
+ * A color, which is made up of red, green, blue, and alpha components.
+ * Object is called `Color` in documentation, used different name here to avoid naming collision with `Color` enum.
+ */
 interface ColorRGBA {
   alpha: number;
   blue: number;
@@ -89,12 +93,14 @@ interface ConditionalFormat {
 }
 
 interface ConditionalFormatRule {
+  /** The filter that determines which rows or cells to apply the conditional format to. */
   filter: TableColumnFilter;
   style: Style;
 }
 
 interface Currency {
   amount: number;
+  /** The ID of the currency (for example, USD, EUR, GBP, and so on). */
   id: string;
 }
 
@@ -134,7 +140,9 @@ interface DataDimensionValue {
 
 interface DataMeasure {
   aggregation: string;
+  /** This property is used if the data measure is a single-expression measure. */
   expression: Expression;
+  /** This property is used if the data measure is a multiple-expression measure. */
   expressions: Expression[];
   label: string;
 }
@@ -281,6 +289,10 @@ interface PivotAxis {
   sortDefinitions: SortDefinition
 }
 
+/**
+ * A pivot is a workbook component that enables you to pivot your dataset query results by defining measures and dimensions, so that you can analyze different subsets of data.
+ * You can create a pivot using workbook.createPivot(options).
+ */
 interface Pivot {
   aggregationFilters: (ConditionalFilter|LimitingFilter)[];
   columnAxis: PivotAxis;
@@ -313,6 +325,10 @@ interface PositionValues {
   vertical: string;
 }
 
+/**
+ * A date or date-time range.
+ * The dates in the range are formatted according to the user’s preferences in their account. This object can be returned from a pivot execution.
+ */
 interface Range {
   end: string;
   start: string;
@@ -334,6 +350,7 @@ interface ReportStyle {
 }
 
 interface ReportStyleRule {
+  /** A Boolean expression indicating whether the style should be applied. */
   expression: Expression;
   style: Style;
 }
@@ -628,8 +645,8 @@ interface CreateLimitingFilter {
 
 interface CreateMeasure {
   aggregation?: string;
-  expression: Expression;
-  expressions: Expression[];
+  expression?: Expression;
+  expressions?: Expression[];
   label: string;
 }
 
@@ -800,6 +817,9 @@ export function createAllSubNodesSelector(): AllSubNodesSelector;
  */
 export function createAspect(options: CreateAspectOptions): Aspect;
 
+/**
+ * Creates a calculated measure.
+ */
 export function createCalculatedMeasure(options: CreateCalculatedMeasure): CalculatedMeasure;
 
 /**
@@ -820,6 +840,9 @@ export function createChartAxis(options: CreateChartAxis): ChartAxis;
  */
 export function createChartDefinition(options: CreateChartDefinition): Workbook;
 
+/**
+ * Creates a color.
+ */
 export function createColor(options: CreateColor): ColorRGBA;
 
 /**
@@ -828,8 +851,14 @@ export function createColor(options: CreateColor): ColorRGBA;
  */
 export function createConditionalFilter(options: CreateConditionalFilter): ConditionalFilter;
 
+/**
+ * Creates a conditional format.
+ */
 export function createConditionalFormat(options: CreateConditionalFormat): ConditionalFormat;
 
+/**
+ * Creates a conditional format rule.
+ */
 export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
 
 /**
@@ -848,6 +877,9 @@ export function createDataDimension(options: CreateDataDimension): DataDimension
  */
 export function createDataDimensionItem(options: CreateDataDimensionItem): DataDimensionItem;
 
+/**
+ * Creates a data measure.
+ */
 export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
 
 /**
@@ -871,6 +903,9 @@ export function createExpression(options: CreateExpression): Expression;
  */
 export function createFieldContext(options: CreateFieldContext): FieldContext;
 
+/**
+ * Creates a font size defined using units.
+ */
 export function createFontSize(options: CreateFontSize): FontSizeObj;
 
 /**
@@ -889,6 +924,9 @@ export function createLimitingFilter(options: CreateLimitingFilter): LimitingFil
  */
 export function createMeasure(options: CreateMeasure): Measure;
 
+/**
+ * Creates a measure selector.
+ */
 export function createMeasureSelector(options: CreateMeasureSelector): MeasureSelector;
 
 /**
@@ -896,6 +934,9 @@ export function createMeasureSelector(options: CreateMeasureSelector): MeasureSe
  */
 export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 
+/**
+ * Creates a measure value selector.
+ */
 export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
 
 /**
@@ -915,14 +956,29 @@ export function createPivotAxis(options: CreatePivotAxis): PivotAxis;
  */
 export function createPivot(options: CreatePivotDefinition): Pivot;
 
+/**
+ * Creates a percent-defined background position.
+ */
 export function createPositionPercent(options: CreatePositionPercent): PositionPercent;
 
+/**
+ * Creates a background position defined using x-y coordinates and units.
+ */
 export function createPositionUnits(options: CreatePositionUnits): PositionUnits;
 
+/**
+ * Creates a background position defined using position values.
+ */
 export function createPositionValues(options: CreatePositionValues): PositionValues;
 
+/**
+ * Creates a report style.
+ */
 export function createReportStyle(options: CreateReportStyle): ReportStyle;
 
+/**
+ * Creates a report style formatting rule.
+ */
 export function createReportStyleRule(options: CreateReportStyleRule): ReportStyleRule;
 
 /**
@@ -940,8 +996,14 @@ export function createSeries(options: CreateSeries): Series;
  */
 export function createSort(options: CreateSort): Sort;
 
+/**
+ * Creates a sort based on data dimension items.
+ */
 export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
 
+/**
+ * Creates a sort based on a measure.
+ */
 export function createSortByMeasure(options: CreateSortByMeasure): SortByMeasure;
 
 /**
@@ -950,6 +1012,9 @@ export function createSortByMeasure(options: CreateSortByMeasure): SortByMeasure
  */
 export function createSortDefinition(options: CreateSortDefinition): SortDefinition;
 
+/**
+ * Creates a style to be used for conditional formatting.
+ */
 export function createStyle(options: CreateStyle): Style;
 
 /**
