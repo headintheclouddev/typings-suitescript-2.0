@@ -1,3 +1,5 @@
+import {record} from "../N";
+
 interface formatOptions {
     domain: string;
     params: any;
@@ -11,7 +13,7 @@ interface resolveHostOptions {
 }
 
 interface resolveRecordOptions {
-    recordType: string;
+    recordType: string | record.Type; // Documentation says it just accepts string, but record.Type values are strings.
     recordId: string | number;
     isEditMode?: boolean;
     params?: any;
