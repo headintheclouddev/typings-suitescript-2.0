@@ -1,11 +1,17 @@
 /** Load the N/workbook module when you want to create a new workbook, load an existing workbook, or list all existing workbooks. */
 
-import { Dataset } from "./dataset";
-import {SortLocale} from "N/query";
+import { Dataset } from "N/dataset";
+import { PagedData, ResultSet, SortLocale } from "N/query";
+import { DatasetLink } from "N/datasetLink";
 
 interface Aspect {
   measure: Measure;
   type: AspectType;
+}
+
+interface CalculatedMeasure {
+  expression: Expression;
+  label: string | Expression;
 }
 
 interface Category {
@@ -54,6 +60,17 @@ interface ChartDefinition {
 }
 
 /**
+ * A color, which is made up of red, green, blue, and alpha components.
+ * Object is called `Color` in documentation, used different name here to avoid naming collision with `Color` enum.
+ */
+interface ColorRGBA {
+  alpha: number;
+  blue: number;
+  green: number;
+  red: number;
+}
+
+/**
  * A conditional filter.
  * A conditional filter can be used when you create a pivot definition or a chart definition.
  * You can create a conditional filter using workbook.createConditionalFilter(options).
@@ -69,6 +86,22 @@ interface ConditionalFilter {
   predicate: Expression;
   /** The row axis indicator for the conditional filter. */
   row: boolean;
+}
+
+interface ConditionalFormat {
+  rules: ConditionalFormatRule[];
+}
+
+interface ConditionalFormatRule {
+  /** The filter that determines which rows or cells to apply the conditional format to. */
+  filter: TableColumnFilter;
+  style: Style;
+}
+
+interface Currency {
+  amount: number;
+  /** The ID of the currency (for example, USD, EUR, GBP, and so on). */
+  id: string;
 }
 
 /**
@@ -95,6 +128,25 @@ interface DataDimensionItem {
    label: string;
 }
 
+interface DataDimensionItemValue {
+  item: DataDimensionItem;
+  value: string | number | boolean | Record | Currency | Range | Duration;
+}
+
+interface DataDimensionValue {
+  dataDimension: DataDimension;
+  itemValues: DataDimensionItemValue[];
+}
+
+interface DataMeasure {
+  aggregation: string;
+  /** This property is used if the data measure is a single-expression measure. */
+  expression: Expression;
+  /** This property is used if the data measure is a multiple-expression measure. */
+  expressions: Expression[];
+  label: string;
+}
+
 /**
  * A dimension selector. A dimension selector is used when you create a path selector, a sort definition, a conditional filter, a limiting filter or a measure sort.
  * You can create a dimension selector using workbook.createDimensionSelector(options).
@@ -113,6 +165,11 @@ interface DimensionSort {
   item: DataDimensionItem;
   /** The sort object for the dimension sort. */
   sort: Sort;
+}
+
+interface Duration {
+  amount: number;
+  units: unknown;
 }
 
 /**
@@ -135,6 +192,15 @@ interface FieldContext {
   name: string;
   /** The user-specified parameters of the field context, specified as key:value pairs. */
   parameters: Object;
+}
+
+/**
+ * A font size.
+ * Object is called `FontSize` in documentation, used different name here to avoid naming collision with `FontSize` enum.
+ */
+interface FontSizeObj {
+  size: number;
+  unit: string;
 }
 
 /**
@@ -180,6 +246,10 @@ interface Measure {
   label: string;
 }
 
+interface MeasureSelector {
+  measures: CalculatedMeasure[] | DataMeasure;
+}
+
 /**
  * A measure sort. A measure sort can be used when you create a limiting filter or a sort definition.
  * You can create a measure sort using workbook.createMeasureSort(options).
@@ -191,6 +261,17 @@ interface MeasureSort {
   otherAxisSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
   /** The sort for the measure sort. */
   sort: Sort;
+}
+
+interface MeasureValue {
+  measure: Measure;
+  value: string | number | boolean | Record | Currency | Range | Duration;
+}
+
+interface MeasureValueSelector {
+  columnSelector: DimensionSelector | PathSelector;
+  measureSelector: MeasureSelector[];
+  rowSelector: DimensionSelector | PathSelector;
 }
 
 /**
@@ -211,6 +292,73 @@ interface PivotAxis {
   /** The sort definitions of the pivot axis. */
   sortDefinitions: SortDefinition
 }
+
+/**
+ * A pivot is a workbook component that enables you to pivot your dataset query results by defining measures and dimensions, so that you can analyze different subsets of data.
+ * You can create a pivot using workbook.createPivot(options).
+ */
+interface Pivot {
+  aggregationFilters: (ConditionalFilter|LimitingFilter)[];
+  columnAxis: PivotAxis;
+  dataset: Dataset;
+  filterExpressions: Expression[];
+  id: string;
+  name: string;
+  rowAxis: PivotAxis;
+}
+
+interface PivotIntersection {
+  column: DataDimensionValue | SectionValue;
+  measureValues: MeasureValue[];
+  row: DataDimensionValue | SectionValue;
+}
+
+interface PositionPercent {
+  percentX: number;
+  percentY: number;
+}
+
+interface PositionUnits {
+  unit: string;
+  x: number;
+  y: number;
+}
+
+interface PositionValues {
+  horizontal: string;
+  vertical: string;
+}
+
+/**
+ * A date or date-time range.
+ * The dates in the range are formatted according to the user’s preferences in their account. This object can be returned from a pivot execution.
+ */
+interface Range {
+  end: string;
+  start: string;
+}
+
+interface Record {
+  name: string;
+  primaryKey: number;
+  properties: unknown;
+}
+
+interface RecordKey {
+  properties: unknown
+}
+
+interface ReportStyle {
+  rules: ReportStyleRule[];
+  selectors: MeasureValueSelector[];
+}
+
+interface ReportStyleRule {
+  /** A Boolean expression indicating whether the style should be applied. */
+  expression: Expression;
+  style: Style;
+}
+
 /**
  * A section. A section can be used when you create a category, a legend, a data dimension, a dimension selector, a pivot axis, or a pivot definition.
  * You can create a section using workbook.createSection(options).
@@ -220,6 +368,10 @@ interface Section {
   children: DataDimension|Measure|Section[];
   /** The format for the total line on a section. */
   totalLine: TotalLine;
+}
+
+interface SectionValue {
+  section: Section;
 }
 
 /**
@@ -257,6 +409,31 @@ interface SortDefinition {
   sortBys: DimensionSelector|MeasureSort[];
 }
 
+interface SortByDataDimensionItem {
+  item: DataDimensionItem;
+  sort: Sort;
+}
+
+interface SortByMeasure {
+  measure: CalculatedMeasure | DataMeasure;
+  otherAxisSelector: PathSelector | DimensionSelector;
+  sort: Sort;
+}
+
+interface Style {
+  backgroundColor: string | Color | ColorRGBA;
+  backgroundImage: string;
+  backgroundPosition: PositionPercent | PositionUnits | PositionValues;
+  color: string | ColorRGBA;
+  fontSize: string | FontSizeObj;
+  fontStyle: string;
+  fontWeight: string;
+  textAlign: string;
+  textDecorationColor: string | Color | ColorRGBA;
+  textDecorationLine: string;
+  textDecorationStyle: string;
+}
+
 /**
  * A table column. A table column is used when you create a table definition.
  * You can create a table column using workbook.createTableColumn(options).
@@ -271,7 +448,7 @@ interface TableColumn {
   /** The field context specification for the field used in the table column. */
   fieldContext: FieldContext;
   /** The filters for the table column. */
-  filters: TableFilter[];
+  filters: TableColumnFilter[];
   /** The label of table column. */
   label: string;
   /** The sort of the table column. */
@@ -299,7 +476,7 @@ interface TableDefinition {
  * A table filter. A table filter can be used when you create a table column.
  * You can create a table filter using workbook.createTableFilter(options).
  * */
-interface TableFilter {
+interface TableColumnFilter {
   /** The operator of the table filter. */
   operator: Operator;
   /** The values of the table filter. */
@@ -313,10 +490,11 @@ interface TableFilter {
  * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
  */
 export interface Workbook {
+  runPivot(options: RunPivot): PivotIntersection[];
   /** Executes the table and returns the result set (the same as in N/query Module). */
-  runTable(options: RunTable): Workbook;
+  runTable(options: RunTable): ResultSet;
   /** Executes the table and returns paginated data (the same as in N/query Module). */
-  runTablePaged(options: RunTablePaged): Workbook;
+  runTablePaged(options: RunTablePaged): PagedData;
   /** Chart definitions that can be included in a workbook when you create a new workbook. */
   chartDefinitions: ChartDefinition;
   /** The description of the workbook. This is set when you create a workbook. */
@@ -326,20 +504,9 @@ export interface Workbook {
   /** The name of the workbook. */
   name: string;
   /** Pivot definitions that can be included in a workbook when you create a new workbook. */
-  pivotDefinitions: PivotDefinition[];
+  pivots: Pivot[];
   /** *Table definitions that can be included in a workbook when you create a new workbook. */
-  tableDefinitions: TableDefinition[];
-}
-
-/**
- * An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
- * You can create an expression using workbook.createExpression(options).
- */
-interface Expression {
-  /** The ID of the function used in the expression. */
-  functionId: ExpressionType
-  /** The parameters for the expression. */
-  parameters: Object;
+  tables: TableDefinition[];
 }
 
 /**
@@ -350,27 +517,25 @@ interface AllSubNodesSelector {
   // TODO Update this as it is empty with NS Help
 }
 
-interface PivotDefinition {
-  aggregationFilters: (ConditionalFilter|LimitingFilter)[];
-  columnAxis: PivotAxis;
-  dataset: Dataset;
-  filterExpressions: Expression[];
-  id: string;
-  name: string;
-  rowAxis: PivotAxis;
-}
-
 interface CreateOptions {
   chartDefinition?: ChartDefinition[];
   description?: string;
   name?: string;
-  pivotDefinitions?: PivotDefinition[];
+  pivots?: Pivot[];
   tableDefinitions?: TableDefinition[];
 }
 
 interface CreateAspectOptions {
   measure: Measure;
   type?: AspectType;
+}
+
+interface CreateCalculatedMeasure {
+  expression: Expression;
+  label?: string | Expression;
+  name?: string;
+  pivotDefinitions?: Pivot[];
+  tableDefinitions?: TableDefinition[];
 }
 
 interface CreateCategoryOptions {
@@ -398,12 +563,28 @@ interface CreateChartDefinition {
   type: ChartType;
 }
 
+interface CreateColor {
+  alpha?: number;
+  blue?: number;
+  green?: number;
+  red?: number;
+}
+
 interface CreateConditionalFilter {
   filteredNodesSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
   measure: Measure;
   otherAxisSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
   predicate: Expression;
   row: boolean;
+}
+
+interface CreateConditionalFormat {
+  rules: ConditionalFormatRule[];
+}
+
+interface CreateConditionalFormatRule {
+  filter: TableColumnFilter;
+  style: Style;
 }
 
 interface CreateConstant {
@@ -413,13 +594,20 @@ interface CreateConstant {
 
 interface CreateDataDimension {
   children?: (DataDimension|Section|Measure)[];
-  items: DataDimensionItem;
+  items: DataDimensionItem[];
   totalLine?: string;
 }
 
 interface CreateDataDimensionItem {
   expression: Expression;
   label?: string;
+}
+
+interface CreateDataMeasure {
+  aggregation: string;
+  expression?: Expression;
+  expressions?: Expression[];
+  label: string;
 }
 
 interface CreateDimensionSelector {
@@ -441,6 +629,11 @@ interface CreateFieldContext {
   parameters?: Object;
 }
 
+interface CreateFontSize {
+  size: number;
+  unit: string;
+}
+
 interface CreateLegend {
   axes: ChartAxis[];
   root: Section|DataDimension;
@@ -456,9 +649,13 @@ interface CreateLimitingFilter {
 
 interface CreateMeasure {
   aggregation?: string;
-  expression: Expression;
-  expressions: Expression[];
+  expression?: Expression;
+  expressions?: Expression[];
   label: string;
+}
+
+interface CreateMeasureSelector {
+  measures: (CalculatedMeasure | DataMeasure)[];
 }
 
 interface CreateMeasureSort {
@@ -466,6 +663,12 @@ interface CreateMeasureSort {
   otherAxisSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
   selector: AllSubNodesSelector|DimensionSelector|PathSelector;
   sort: Sort;
+}
+
+interface CreateMeasureValueSelector {
+  columnSelector: DimensionSelector | PathSelector;
+  measureSelector: MeasureSelector;
+  rowSelector: DimensionSelector | PathSelector;
 }
 
 interface CreatePathSelector {
@@ -480,15 +683,42 @@ interface CreatePivotAxis {
 interface CreatePivotDefinition {
   aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
   columnAxis: PivotAxis;
-  dataset: Dataset;
+  dataset?: Dataset;
   filterExpressions?: Expression[];
   id: string;
   name: string;
   rowAxis: PivotAxis;
+  datasetLink?: DatasetLink;
+}
+
+interface CreatePositionPercent {
+  percentX: number;
+  percentY: number;
+}
+
+interface CreatePositionUnits {
+  unit: string;
+  x: number;
+  y: number;
+}
+
+interface CreatePositionValues {
+  horizontal: string;
+  vertical: string;
+}
+
+interface CreateReportStyle {
+  rules: ReportStyleRule[];
+  selectors: MeasureValueSelector[];
+}
+
+interface CreateReportStyleRule {
+  expression: Expression;
+  style: Style;
 }
 
 interface CreateSection {
-  children: (DataDimension|Measure|Section)[];
+  children: (DataDimension|Measure|Section|DataMeasure)[];
   totalLine?: TotalLine;
 }
 
@@ -503,9 +733,35 @@ interface CreateSort {
   nullsLast?: boolean;
 }
 
+interface CreateSortByDataDimensionItem {
+  item: DataDimensionItem;
+  sort: Sort;
+}
+
+interface CreateSortByMeasure {
+  measure: Measure;
+  otherAxisSelector: (DimensionSelector | PathSelector)[];
+  selector: (DimensionSelector | PathSelector)[];
+  sort: Sort;
+}
+
 interface CreateSortDefinition {
   selector: AllSubNodesSelector|DimensionSelector|PathSelector;
   sortBys: (DimensionSort|MeasureSort)[];
+}
+
+interface CreateStyle {
+  backgroundColor?: Color | string;
+  backgroundImage?: string;
+  backgroundPosition?: PositionPercent | PositionUnits | PositionValues;
+  color?: Color | string;
+  fontSize?: string;
+  fontStyle?: string;
+  fontWeight?: string;
+  textAlign?: string;
+  textDecorationColor?: Color | string;
+  textDecorationLine?: string;
+  textDecorationStyle?: string;
 }
 
 interface CreateTableColumn {
@@ -513,7 +769,7 @@ interface CreateTableColumn {
   datasetColumnAlias: string;
   datasetColumnId: number;
   fieldContext?: FieldContext;
-  filters?: TableFilter;
+  filters?: TableColumnFilter;
   label?: string;
   sort: Sort;
   width?: number;
@@ -526,7 +782,7 @@ interface CreateTableDefinition {
   name: string;
 }
 
-interface CreateTableFilter {
+interface CreateTableColumnFilter {
   operator: string;
   values?: (null|Object|number|string|boolean|Date)[];
 }
@@ -544,6 +800,10 @@ interface RunTablePaged {
   pageSize?: number;
 }
 
+interface RunPivot {
+  id: string;
+}
+
 /**
  * Creates a new workbook. Workbooks are where you analyze the results of your dataset queries using different components, such as table views, pivot tables, and charts.
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
@@ -559,17 +819,22 @@ export function createAllSubNodesSelector(): AllSubNodesSelector;
 /**
  * Creates an aspect for a chart series. An aspect includes a measure and an aspect type.
  */
-export function createAspect(options: CreateAspectOptions): Workbook;
+export function createAspect(options: CreateAspectOptions): Aspect;
+
+/**
+ * Creates a calculated measure.
+ */
+export function createCalculatedMeasure(options: CreateCalculatedMeasure): CalculatedMeasure;
 
 /**
  * Creates a chart category, which includes an axis, a data root, and a sort definition. A chart category is used in a workbook.ChartDefinition.
  */
-export function createCategory(options: CreateCategoryOptions): Workbook;
+export function createCategory(options: CreateCategoryOptions): Category;
 
 /**
  * Creates an X-axis or a Y-axis for the chart.
  */
-export function createChartAxis(options: CreateChartAxis): Workbook;
+export function createChartAxis(options: CreateChartAxis): ChartAxis;
 
 /**
  * Creates a chart definition.
@@ -580,124 +845,199 @@ export function createChartAxis(options: CreateChartAxis): Workbook;
 export function createChartDefinition(options: CreateChartDefinition): Workbook;
 
 /**
+ * Creates a color.
+ */
+export function createColor(options: CreateColor): ColorRGBA;
+
+/**
  * Creates a conditional filter, which includes a selector of what to filter, a row axis and other axis, a measure and a predicate.
  * Conditional filters can be used in pivot definitions and chart definitions.
  */
-export function createConditionalFilter(options: CreateConditionalFilter): Workbook;
+export function createConditionalFilter(options: CreateConditionalFilter): ConditionalFilter;
+
+/**
+ * Creates a conditional format.
+ */
+export function createConditionalFormat(options: CreateConditionalFormat): ConditionalFormat;
+
+/**
+ * Creates a conditional format rule.
+ */
+export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
 
 /**
  * Creates a constant expression.
  */
-export function createConstant(options: CreateConstant): Workbook;
+export function createConstant(options: CreateConstant): Expression;
 
 /**
  * Creates a data dimension, which includes items, child data items, and a total line.
  * A data dimension is used in a workbook.Category, a workbook.Legend a workbook.PivotAxis, a workbook.DimensionSelector, and a workbook.Section.
  */
-export function createDataDimension(options: CreateDataDimension): Workbook;
+export function createDataDimension(options: CreateDataDimension): DataDimension;
 
 /**
  * Creates a data dimension item, which includes an expression and a label.
  */
-export function createDataDimensionItem(options: CreateDataDimensionItem): Workbook;
+export function createDataDimensionItem(options: CreateDataDimensionItem): DataDimensionItem;
+
+/**
+ * Creates a data measure.
+ */
+export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
 
 /**
  * Creates a dimension selector.
  */
-export function createDimensionSelector(options: CreateDimensionSelector): Workbook;
+export function createDimensionSelector(options: CreateDimensionSelector): DimensionSelector;
 
 /**
  * Creates a dimension sort.
  */
-export function createDimensionSort(options: CreateDimensionSort): Workbook;
+export function createDimensionSort(options: CreateDimensionSort): DimensionSort;
 
 /**
  * Creates an expression, that includes a function ID and parameters.
  * Expressions can be used to create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, and a dimension sort.
  */
-export function createExpression(options: CreateExpression): Workbook;
+export function createExpression(options: CreateExpression): Expression;
 
 /**
  * Creates a field context for a table definition column.
  */
-export function createFieldContext(options: CreateFieldContext): Workbook;
+export function createFieldContext(options: CreateFieldContext): FieldContext;
+
+/**
+ * Creates a font size defined using units.
+ */
+export function createFontSize(options: CreateFontSize): FontSizeObj;
 
 /**
  * Creates a chart legend.
  */
-export function createLegend(options: CreateLegend): Workbook;
+export function createLegend(options: CreateLegend): Legend;
 
 /**
  * Creates a limiting filter, which includes a selector of what to filter, a row axis, a limit, and a sorting order.
  * Limiting filters can be used in pivot definitions and chart definitions to limit the data shown on a pivot or chart.
  */
-export function createLimitingFilter(options: CreateLimitingFilter): Workbook;
+export function createLimitingFilter(options: CreateLimitingFilter): LimitingFilter;
 
 /**
  * Creates a measure, which includes an aggregation, a label, and one or more expressions.
  */
-export function createMeasure(options: CreateMeasure): Workbook;
+export function createMeasure(options: CreateMeasure): Measure;
+
+/**
+ * Creates a measure selector.
+ */
+export function createMeasureSelector(options: CreateMeasureSelector): MeasureSelector;
 
 /**
  * Creates a measure sort, which defines a sort on a measure.
  */
-export function createMeasureSort(options: CreateMeasureSort): Workbook;
+export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
+
+/**
+ * Creates a measure value selector.
+ */
+export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
 
 /**
  * Creates a path selector.
  */
-export function createPathSelector(options: CreatePathSelector): Workbook;
+export function createPathSelector(options: CreatePathSelector): PathSelector;
 
 /**
  * Creates a pivot axis, which includes a data root and a sort definition.
  */
-export function createPivotAxis(options: CreatePivotAxis): Workbook;
+export function createPivotAxis(options: CreatePivotAxis): PivotAxis;
 
 /**
  * Creates a pivot definition.
  * A pivot is a workbook component that enables you to pivot your dataset query results by defining measures and dimensions, so that you can analyze different subsets of data.
  * A pivot definition is based on an underlying dataset and can include an ID, a name, a row axis, a column axis, conditional/limiting filters, and filter expressions.
  */
-export function createPivotDefinition(options: CreatePivotDefinition): Workbook;
+export function createPivot(options: CreatePivotDefinition): Pivot;
+
+/**
+ * Creates a percent-defined background position.
+ */
+export function createPositionPercent(options: CreatePositionPercent): PositionPercent;
+
+/**
+ * Creates a background position defined using x-y coordinates and units.
+ */
+export function createPositionUnits(options: CreatePositionUnits): PositionUnits;
+
+/**
+ * Creates a background position defined using position values.
+ */
+export function createPositionValues(options: CreatePositionValues): PositionValues;
+
+/**
+ * Creates a report style.
+ */
+export function createReportStyle(options: CreateReportStyle): ReportStyle;
+
+/**
+ * Creates a report style formatting rule.
+ */
+export function createReportStyleRule(options: CreateReportStyleRule): ReportStyleRule;
 
 /**
  * Creates a section, which includes children and a total line.
  */
-export function createSection(options: CreateSection): Workbook;
+export function createSection(options: CreateSection): Section;
 
 /**
  * Creates a chart series, which is a set of aspects.
  */
-export function createSeries(options: CreateSeries): Workbook;
+export function createSeries(options: CreateSeries): Series;
 
 /**
  * Creates a sort, which includes indicators for sorting in ascending order, case sensitivity, sort locale, and whether nulls should be placed last.
  */
-export function createSort(options: CreateSort): Workbook;
+export function createSort(options: CreateSort): Sort;
+
+/**
+ * Creates a sort based on data dimension items.
+ */
+export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
+
+/**
+ * Creates a sort based on a measure.
+ */
+export function createSortByMeasure(options: CreateSortByMeasure): SortByMeasure;
 
 /**
  * Creates a sort definition.
  * A sort definition is used to specify sorting for a category, legend, pivot definition, or pivot axis.
  */
-export function createSortDefinition(options: CreateSortDefinition): Workbook;
+export function createSortDefinition(options: CreateSortDefinition): SortDefinition;
+
+/**
+ * Creates a style to be used for conditional formatting.
+ */
+export function createStyle(options: CreateStyle): Style;
 
 /**
  * Creates a table column.
  * Table columns are used in table definitions, and include an alias, dataset column alias/ID, filters, a label, sorts, and a column width.
  */
-export function createTableColumn(options: CreateTableColumn): Workbook;
+export function createTableColumn(options: CreateTableColumn): TableColumn;
 
 /**
  * Creates a table.
  * A table is a workbook component that enables you to view your dataset query results in a simple table.
  * A table is based on an underlying dataset and can include an ID, a name, a dataset, and table columns,
  */
-export function createTableDefinition(options: CreateTableDefinition): Workbook;
+export function createTableDefinition(options: CreateTableDefinition): TableDefinition;
 
 /**
  * Creates a table filter, which includes an operator and values.
  */
-export function createTableFilter(options: CreateTableFilter): Workbook;
+export function createTableColumnFilter(options: CreateTableColumnFilter): TableColumnFilter;
 
 /**
  * Lists all existing workbooks.
@@ -721,6 +1061,20 @@ declare enum Aggregation {
 declare enum AspectType {
   COLOR = 'color',
   VALUE = 'value'
+}
+
+declare enum Color {
+  BLACK,
+  BLUE,
+  BROWN,
+  GRAY,
+  GREEN,
+  ORANGE,
+  PINK,
+  PURPLE,
+  RED,
+  WHITE,
+  YELLOW
 }
 
 declare enum ChartType {
@@ -781,10 +1135,97 @@ declare enum ExpressionType {
   TRUNCATE_DATE_TIME
 }
 
+declare enum FontSize {
+  LARGE,
+  LARGER,
+  MEDIUM,
+  SMALL,
+  SMALLER,
+  XX_LARGE,
+  XX_SMALL,
+  X_LARGE,
+  X_SMALL
+}
+
+declare enum FontStyle {
+  ITALIC,
+  NORMAL,
+  OBLIQUE,
+}
+
+declare enum FontWeight {
+  BOLD,
+  NORMAL
+}
+
+declare enum Image {
+  EXCLAMATION,
+  QUESTION,
+  SMILE
+}
+
+declare enum Position {
+  BOTTOM,
+  CENTER,
+  LEFT,
+  RIGHT,
+  TOP
+}
+
 declare enum Stacking {
   DISABLED,
   NORMAL,
   PERCENT
+}
+
+declare enum TemporalUnit {
+  HOURS,
+  MINUTES
+}
+
+declare enum TextAlign {
+  CENTER,
+  JUSTIFY,
+  LEFT,
+  RIGHT
+}
+
+declare enum TextDecorationLine {
+  LINE_THROUGH,
+  NONE,
+  OVERLINE,
+  UNDERLINE
+}
+
+declare enum TextDecorationStyle {
+  DASHED,
+  DOTTED,
+  DOUBLE,
+  SOLID,
+  WAVY
+}
+
+declare enum TotalLine {
+  FIRST_LINE,
+  HIDDEN,
+  LAST_LINE
+}
+
+declare enum Unit {
+  CH,
+  CM,
+  EM,
+  EX,
+  IN,
+  MM,
+  PC,
+  PT,
+  PX,
+  REM,
+  VH,
+  VMAX,
+  VMIN,
+  VW
 }
 
 declare enum Operator {
@@ -830,10 +1271,4 @@ declare enum Operator {
   START_WITH_NOT	      =	'START_WITH_NOT',
   WITHIN	              =	'WITHIN',
   WITHIN_NOT	          =	'WITHIN_NOT'
-}
-
-declare enum TotalLine {
-  FIRST_LINE,
-  HIDDEN,
-  LAST_LINE
 }
