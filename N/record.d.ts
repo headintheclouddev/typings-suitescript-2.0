@@ -238,7 +238,7 @@ interface SetCurrentSublistTextOptions {
     forceSyncSourcing?: boolean
 }
 
-interface SetValueOptions {
+export interface SetValueOptions {
     /** The internal ID of a standard or custom body field. */
     fieldId: string;
     /**
