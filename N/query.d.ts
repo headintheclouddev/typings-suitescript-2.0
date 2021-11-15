@@ -313,7 +313,7 @@ export interface Query {
      * Create a Column object based on the root component of the Query. This is a shortcut for Query.root.createColumn.
      * @see Component.createColumn
      */
-    createColumn(options: CreateColumnOptions): Column;
+    createColumn(options: CreateColumnOptions | CreateColumnWithFormulaOptions): Column;
 
     /**
      * Create a Sort object based on the root component of the Query. This is a shortcut for Query.root.createSort.
