@@ -71,15 +71,19 @@ interface CreateSFTPConnectionWithKeyOptions extends CreateSFTPConnectionOptions
     /** The Key ID for the private key file uploaded to NetSuite */
     keyId: string;
 }
+interface CreateSFTPConnectionWithSecretOptions extends CreateSFTPConnectionOptions {
+    /** The script ID of the secret used for authentication. Secrets are stored at Setup > Company > API Secrets. Since 2021.1. */
+    secret: string;
+}
 
-/** 
+/**
  * Establishes a connection to a remote FTP server.
  * To generate the passwordguid, you can create a suitelet that uses Form.addCredentialField(options).
  * Use the N/https Module to fetch the GUID value returned from the Suitelet's credential field.
  * For a Suitelet example, see N/https Module Script Sample.
  * For more information about supported SFTP protocol, see Supported Cipher Suites and Host Key Types
  */
-export function createConnection(options: CreateSFTPConnectionWithKeyOptions | CreateSFTPConnectionWithPasswordOptions): Connection;
+export function createConnection(options: CreateSFTPConnectionWithKeyOptions | CreateSFTPConnectionWithPasswordOptions | CreateSFTPConnectionWithSecretOptions): Connection;
 
 export enum Sort {
     DATE,
