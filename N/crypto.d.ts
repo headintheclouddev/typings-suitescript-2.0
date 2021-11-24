@@ -14,7 +14,7 @@ export interface CipherPayload {
   /** The result of the ciphering process. For example, to take the cipher payload and send it to another system. */
   ciphertext: string;
   /** Initialization vector for the cipher payload. You can pass in the iv value to crypto.createDecipher(options). */
-  iv: number;
+  iv: string;
 }
 
 /** Encapsulates a decipher. This object has methods that decrypt. */
