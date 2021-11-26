@@ -115,4 +115,4 @@ export var sendBulk: EmailSendFunction;
  * Method used to send a single “on-demand” campaign email to a specified recipient and return a campaign response ID to track the email.
  * Email (campaignemail) sublists are not supported. The campaign must use a Lead Nurturing (campaigndrip) sublist.
  */
-export var sendCampaign: EmailSendCampaignFunction;
+export var sendCampaignEvent: EmailSendCampaignFunction;
