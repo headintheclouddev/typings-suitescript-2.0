@@ -77,11 +77,11 @@ interface ColorRGBA {
  */
 interface ConditionalFilter {
   /** The selected filters in the condition filter. */
-  filteredNodesSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
+  filteredNodesSelector: PathSelector|DimensionSelector;
   /** The measure of the conditional filter. */
   measure: Measure;
   /** The selector for the other axis in the conditional filter. */
-  otherAxisSelector: (AllSubNodesSelector|PathSelector|DimensionSelector);
+  otherAxisSelector: PathSelector|DimensionSelector;
   /** The actual predicate for the conditional filter, which indicates whether the condition is met. */
   predicate: Expression;
   /** The row axis indicator for the conditional filter. */
@@ -222,7 +222,7 @@ interface Legend {
  */
 interface LimitingFilter {
   /** The selections for the limiting filter. */
-  filteredNodesSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
+  filteredNodesSelector: PathSelector|DimensionSelector;
   /** The limit number for the limiting filter. */
   limit: number;
   /** The row axis indicator for the limiting factor.*/
@@ -258,7 +258,7 @@ interface MeasureSort {
   /** The sort of the measure sort. */
   measure: Measure;
   /** The other axis selector for the measure sort. */
-  otherAxisSelector: AllSubNodesSelector|PathSelector|DimensionSelector;
+  otherAxisSelector: PathSelector|DimensionSelector;
   /** The sort for the measure sort. */
   sort: Sort;
 }
@@ -390,7 +390,7 @@ interface Series {
 interface Sort {
   /** The ascending sort indicator of the sort. */
   ascending: boolean,
-  /** The indicator that determines if the sort is case sensitive. */
+  /** The indicator that determines if the sort is case-sensitive. */
   caseSensitive: boolean,
   /** The locale of the sort. */
   locale: Operator,
@@ -404,7 +404,7 @@ interface Sort {
  */
 interface SortDefinition {
   /** The selector for the sort definition. */
-  selector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  selector: DimensionSelector|PathSelector;
   /** The ordering elements for the sort definition. */
   sortBys: DimensionSelector|MeasureSort[];
 }
@@ -459,7 +459,7 @@ interface TableColumn {
 
 /**
  * A table definition. A table is a workbook component that enables you to view your dataset query results in a simple table.
- * You can create a table definition using workbook.createTableDefinition(options).
+ * You can create a table definition using workbook.createTable(options).
  */
 interface TableDefinition {
   /** The columns of the table definition. */
@@ -513,9 +513,7 @@ export interface Workbook {
  * A selector that is used to select nodes to use in conditions. It can be used when creating a path selector, a sort definition, a conditional filter, a limiting filter, or a measure sort.
  * You can create an AllSubNodesSelector using workbook.createAllSubNodesSelector().
  */
-interface AllSubNodesSelector {
-  // TODO Update this as it is empty with NS Help
-}
+// interface AllSubNodesSelector { } // Commented out on 6 Dec 2021 - this is no longer in the Help?
 
 interface CreateOptions {
   chartDefinition?: ChartDefinition[];
@@ -571,9 +569,9 @@ interface CreateColor {
 }
 
 interface CreateConditionalFilter {
-  filteredNodesSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  filteredNodesSelector: DimensionSelector|PathSelector;
   measure: Measure;
-  otherAxisSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  otherAxisSelector: DimensionSelector|PathSelector;
   predicate: Expression;
   row: boolean;
 }
@@ -641,7 +639,7 @@ interface CreateLegend {
 }
 
 interface CreateLimitingFilter {
-  filteredNodesSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  filteredNodesSelector: DimensionSelector|PathSelector;
   limit: number;
   row: boolean;
   sortBys: (DimensionSort|MeasureSort)[];
@@ -660,8 +658,8 @@ interface CreateMeasureSelector {
 
 interface CreateMeasureSort {
   measure: Measure;
-  otherAxisSelector: AllSubNodesSelector|DimensionSelector|PathSelector;
-  selector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  otherAxisSelector: DimensionSelector|PathSelector;
+  selector: DimensionSelector|PathSelector;
   sort: Sort;
 }
 
@@ -672,7 +670,7 @@ interface CreateMeasureValueSelector {
 }
 
 interface CreatePathSelector {
-  elements: (AllSubNodesSelector|DimensionSelector)[];
+  elements: DimensionSelector[];
 }
 
 interface CreatePivotAxis {
@@ -746,7 +744,7 @@ interface CreateSortByMeasure {
 }
 
 interface CreateSortDefinition {
-  selector: AllSubNodesSelector|DimensionSelector|PathSelector;
+  selector: DimensionSelector|PathSelector;
   sortBys: (DimensionSort|MeasureSort)[];
 }
 
@@ -814,7 +812,7 @@ export function create(options: CreateOptions): Workbook;
 /**
  * Creates an AllSubNodesSelector, which can be used when creating a path selector, a sort definition, a conditional filter, a limiting filter, or a measure sort.
  */
-export function createAllSubNodesSelector(): AllSubNodesSelector;
+// export function createAllSubNodesSelector(): AllSubNodesSelector;
 
 /**
  * Creates an aspect for a chart series. An aspect includes a measure and an aspect type.
@@ -881,9 +879,7 @@ export function createDataDimension(options: CreateDataDimension): DataDimension
  */
 export function createDataDimensionItem(options: CreateDataDimensionItem): DataDimensionItem;
 
-/**
- * Creates a data measure.
- */
+/** Creates a data measure. TODO: Test this, this method doesn't seem to actually exist in NetSuite as of December 2021. */
 export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
 
 /**
@@ -1032,7 +1028,7 @@ export function createTableColumn(options: CreateTableColumn): TableColumn;
  * A table is a workbook component that enables you to view your dataset query results in a simple table.
  * A table is based on an underlying dataset and can include an ID, a name, a dataset, and table columns,
  */
-export function createTableDefinition(options: CreateTableDefinition): TableDefinition;
+export function createTable(options: CreateTableDefinition): TableDefinition;
 
 /**
  * Creates a table filter, which includes an operator and values.
