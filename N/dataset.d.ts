@@ -91,8 +91,10 @@ interface CreateConditionOptions {
   children?: Condition[];
   /** Required, unless options.children is specified. */
   column?: Column;
+  /** Uses the query.Operator enumeration, otherwise can be 'AND' or 'OR' when you are combining condition children. */
   operator: string;
-  values: string[]|number[]|boolean[]|Date[];
+  /** The values attribute is required unless the operator is 'AND' or 'OR', as it is when you are combining condition children. */
+  values?: string[]|number[]|boolean[]|Date[];
 }
 
 interface CreateJoinOptions {
