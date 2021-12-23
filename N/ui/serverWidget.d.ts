@@ -2,7 +2,7 @@ import {ServerResponse} from 'N/http';
 import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from 'N/portlet';
 import {MessageCreateOptions} from 'N/ui/message';
 
-interface AddButtonOptions {
+export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
     id?: string;
     /** The label for this button. */
