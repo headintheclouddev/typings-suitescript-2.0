@@ -94,7 +94,7 @@ interface CreateConditionOptions {
   /** Uses the query.Operator enumeration, otherwise can be 'AND' or 'OR' when you are combining condition children. */
   operator: string;
   /** The values attribute is required unless the operator is 'AND' or 'OR', as it is when you are combining condition children. */
-  values?: string[]|number[]|boolean[]|Date[];
+  values?: string[]|number[]|boolean[]|Date[]|{ dateId: string, type: string }[]; // For example, for after Start of Last Fiscal Year, use: { dateId: "SOLFY", type: "end" }
 }
 
 interface CreateJoinOptions {
