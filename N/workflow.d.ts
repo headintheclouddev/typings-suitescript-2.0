@@ -1,12 +1,14 @@
+import {record} from "../N";
+
 interface InitiateOptions {
-    recordType: string; // Documentation says number, but examples clearly contradict
+    recordType: string | record.Type;
     recordId: string | number;
     workflowId: string | number;
     defaultValues?: any;
 }
 
 interface TriggerOptions {
-    recordType: string; // Documentation says number, but examples clearly contradict
+    recordType: string | record.Type;
     recordId: string | number;
     /**
      * Internal ID (number) or script ID (string) for the workflow definition. This is the ID field on the Workflow Definition Page.
