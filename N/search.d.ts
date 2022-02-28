@@ -235,7 +235,7 @@ interface SearchDeleteFunction {
 
 interface SearchLoadOptions {
     /** Internal ID or script ID of a saved search. The script ID starts with customsearch. */
-    id: string;
+    id: string | number;
     /**
      * The search type of the saved search to load. Use a value from the search.Type enum for this parameter.
      * This parameter is required if the saved search to load uses a standalone search type.
