@@ -53,6 +53,10 @@ export interface Dataset {
   getExpressionFromColumn(options: { alias: string, columnId?: number }): Expression;
   /** Executes the dataset and returns the result set (the same as in N/query Module). */
   run(): ResultSet;
+  /**
+   * Executes the dataset and returns the result set as paginated data (the same as in N/query Module).
+   * The maximum number of results per page is 1000. The minimum number of results per page is 5, except for the last page, which may include fewer than 5 results.
+   */
   runPaged(options?: { pageSize: number }): PagedData;
   save(): void; // May need to test what this returns.  Documentation says an object, but what object? The dataset itself?
   columns: Column[];
