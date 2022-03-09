@@ -53,7 +53,7 @@ export interface Dataset {
   getExpressionFromColumn(options: { alias: string, columnId?: number }): Expression;
   /** Executes the dataset and returns the result set (the same as in N/query Module). */
   run(): ResultSet;
-  runPaged(): PagedData;
+  runPaged(options?: { pageSize: number }): PagedData;
   save(): void; // May need to test what this returns.  Documentation says an object, but what object? The dataset itself?
   columns: Column[];
   condition: Condition;
