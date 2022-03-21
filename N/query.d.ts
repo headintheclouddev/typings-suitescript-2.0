@@ -46,14 +46,27 @@ interface JoinFromOptions {
 }
 
 interface CreateConditionOptions {
-    /** Field (column) id */
-    fieldId: string;
+    /** Field (column) id. Required if options.operator and options.values are used. */
+    fieldId?: string;
 
     /** Use the Operator enum. */
     operator: Operator;
 
-    /** Array of values */
-    values: string | boolean | string[] | boolean[] | number[] | Date[]; // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
+    /**
+     * Array of values to use for the condition.
+     * Required if options.fieldId and options.operator are used, and options.operator does not have a value of query.Operator.EMPTY or query.Operator.EMPTY_NOT.
+     */
+    values: string | boolean | string[] | boolean[] | number[] | Date[] | RelativeDate[] | Period[]; // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
+
+    /**
+     * If you use the options.formula parameter, use this parameter to explicitly define the formula’s return type. This value sets the Condition.type property.
+     * Use the appropriate query.ReturnType enum value to pass in your argument. This enum holds all the supported values for this parameter.
+     * Required if options.fieldId is not used.
+     */
+    formula?: string;
+
+    /** Required if options.formula is used. */
+    type?: string;
 
     /** Aggregate function. Use the Aggregate enum. */
     aggregate?: string;
@@ -172,10 +185,11 @@ interface CreateSortOptions {
 }
 
 interface CreateQueryOptions {
-    /**
-     * The query type. Use the Type enum.
-     */
+    /** The query type. Use the Type enum. */
     type: string;
+    columns?: Column[];
+    condition?: Condition;
+    sort?: Sort[];
 }
 
 interface LoadQueryOptions {
@@ -184,9 +198,7 @@ interface LoadQueryOptions {
 }
 
 interface DeleteQueryOptions {
-    /**
-     * Id of query to be delete
-     */
+    /** The id of query to be deleted. */
     id: number;
 }
 
@@ -725,6 +737,19 @@ export interface PageRange {
     readonly size: number;
 }
 
+/** A period of time to use in query conditions. Use query.createPeriod(options) to create this object. */
+interface Period {
+    /** The adjustment of the period. This property uses values from the query.PeriodAdjustment enum. */
+    readonly adjustment: string;
+    /** The code of the period. This property uses values from the query.PeriodCode enum. */
+    readonly code: string;
+    /**
+     * The type of the period. This property uses values from the query.PeriodType enum.
+     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type parameter, the default value of this property is query.PeriodType.START.
+     */
+    readonly type: string;
+}
+
 export interface Iterator {
     each(f: (result: Result) => boolean): void;
 }
@@ -881,6 +906,17 @@ interface RelativeDate {
      */    
     toJSON(): any;
 }
+
+interface CreatePeriodOptions {
+    /** The code of the period. This property uses values from the query.PeriodCode enum. */
+    code: PeriodCode;
+    /** The adjustment of the period. This property uses values from the query.PeriodAdjustment enum. */
+    adjustment?: PeriodAdjustment;
+    /** The type of the period. This property uses values from the query.PeriodType enum. The default value of this property is query.PeriodType.START. */
+    type?: PeriodType;
+}
+
+export function createPeriod(options: CreatePeriodOptions): Period;
 
 interface CreateRelativeDateOptions {
    /**
@@ -1231,6 +1267,49 @@ export enum FieldContext {
 	 * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
 	 */
 	RAW = "RAW"
+}
+
+declare enum PeriodAdjustment {
+    ALL,
+    NOT_LAST
+}
+
+declare enum PeriodCode {
+    FIRST_FISCAL_QUARTER_LAST_FY,
+    FIRST_FISCAL_QUARTER_THIS_FY,
+    FISCAL_QUARTER_BEFORE_LAST,
+    FISCAL_YEAR_BEFORE_LAST,
+    FOURTH_FISCAL_QUARTER_LAST_FY,
+    FOURTH_FISCAL_QUARTER_THIS_FY,
+    LAST_FISCAL_QUARTER,
+    LAST_FISCAL_QUARTER_ONE_FISCAL_YEAR_AGO,
+    LAST_FISCAL_QUARTER_TO_PERIOD,
+    LAST_FISCAL_YEAR,
+    LAST_FISCAL_YEAR_TO_PERIOD,
+    LAST_PERIOD,
+    LAST_PERIOD_ONE_FISCAL_QUARTER_AGO,
+    LAST_PERIOD_ONE_FISCAL_YEAR_AGO,
+    LAST_ROLLING_18_PERIODS,
+    LAST_ROLLING_6_FISCAL_QUARTERS,
+    PERIOD_BEFORE_LAST,
+    SAME_FISCAL_QUARTER_LAST_FY,
+    SAME_FISCAL_QUARTER_LAST_FY_TO_PERIOD,
+    SAME_PERIOD_LAST_FY,
+    SAME_PERIOD_LAST_FISCAL_QUARTER,
+    SECOND_FISCAL_QUARTER_LAST_FY,
+    SECOND_FISCAL_QUARTER_THIS_FY,
+    THIRD_FISCAL_QUARTER_LAST_FY,
+    THIRD_FISCAL_QUARTER_THIS_FY,
+    THIS_FISCAL_QUARTER,
+    THIS_FISCAL_QUARTER_TO_PERIOD,
+    THIS_FISCAL_YEAR,
+    THIS_FISCAL_YEAR_TO_PERIOD,
+    THIS_PERIOD
+}
+
+declare enum PeriodType {
+    END,
+    START
 }
 
 export enum SortLocale {
