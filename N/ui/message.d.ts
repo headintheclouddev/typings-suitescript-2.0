@@ -1,4 +1,4 @@
-interface Message {
+export interface Message { // Also referenced in N/ui/serverWidget
     hide(): void;
     show(options?: MessageShowOptions): void;
 }
