@@ -1,6 +1,6 @@
 import {ServerResponse} from 'N/http';
 import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from 'N/portlet';
-import {MessageCreateOptions} from 'N/ui/message';
+import {Message, MessageCreateOptions} from 'N/ui/message';
 
 export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -449,7 +449,7 @@ export interface Form extends BaseForm {
     addButton(options: AddButtonOptions): Button;
     addCredentialField(options: AddCredentialFieldOptions): Field;
     addFieldGroup(options: AddFieldGroupOptions): FieldGroup;
-    addPageInitMessage(options: MessageCreateOptions): void;
+    addPageInitMessage(options: { message: Message } | MessageCreateOptions): void;
     addPageLink(options: AddPageLinkOptions): void;
     addResetButton(options?: AddResetButtonOptions): Button;
     addSecretKeyField(options: AddSecretKeyFieldOptions): Field;
