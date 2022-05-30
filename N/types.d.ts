@@ -73,11 +73,11 @@ declare interface UserEventTypes {
 }
 
 declare enum ScheduledInvocationType {
-    SCHEDULED,
-    ON_DEMAND,
-    USER,
-    ABORTED,
-    SKIPPED,
+    SCHEDULED,      // The normal execution according to the deployment options specified in the UI.
+    ON_DEMAND,      // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+    USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
+    ABORTED,        // The script re-executed automatically following an aborted execution (system went down during execution).
+    SKIPPED         // The script is executed automatically following downtime during which the script should have been executed.
 }
 
 declare interface ScheduledInvocationTypes {
