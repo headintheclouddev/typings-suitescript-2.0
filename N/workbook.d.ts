@@ -1105,18 +1105,20 @@ declare enum DateTimeProperty {
   YEAR
 }
 
-declare enum ExpressionType {
+declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 2022.1
   AND,
-  ANY_IN_HIERARCHY,
+  // ANY_IN_HIERARCHY,
   ANY_OF,
   BETWEEN,
   CHILD_OF,
   COMPARE,
-  CONSOLIDATE,
+  CONSTANT,
+  // CONSOLIDATE,
   CURRENCY_CONVERSION,
   DATE_RANGE_SELECTOR_ID,
   DATE_SELECTOR_ID,
   DATE_TIME_PROPERTY,
+  DIVIDE,
   EQUALS,
   FIELD,
   HIERARCHY,
@@ -1124,10 +1126,15 @@ declare enum ExpressionType {
   IN_RANGE,
   IS_NULL,
   LAMBDA,
+  MEASURE_VALUE,
+  MINUS,
+  MULTIPLY,
   NOT,
   OR,
   RECORD_DISPLAY_VALUE,
   RECORD_KEY,
+  SIMPLE_CONSOLIDATE,
+  TRANSLATE,
   TRUNCATE_DATE_TIME
 }
 
