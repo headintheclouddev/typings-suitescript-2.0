@@ -167,6 +167,12 @@ interface InsertLineOptions {
     ignoreRecalc?: boolean;
 }
 
+interface MoveLineOptions {
+    sublistId: string;
+    from:      number;
+    to:        number;
+}
+
 interface SelectLineOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
@@ -537,6 +543,11 @@ export interface ClientCurrentRecord {
      * This value is set when the record is created or accessed.
      */
     isDynamic: boolean;
+    /**
+     * Moves one line of the sublist to another location. The sublist machine must allow moving lines, for example: editmachine.setAllowMoveLines(true);.
+     * The sublist must contain the _sequence field. The sublist type must be edit machine. When using this method, the order of the other lines is preserved.
+     */
+    moveLine(options: MoveLineOptions): this;
     /** 
      * Removes the subrecord for the associated sublist field on the current line. 
      * @return {Record} same record, for chaining
