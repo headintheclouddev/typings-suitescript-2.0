@@ -203,6 +203,29 @@ interface SetCurrentMatrixSublistValueOptions {
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
     forceSyncSourcing?: boolean
 }
+interface SetMatrixSublistValueOptions {
+    /** The internal ID of the sublist. */
+    sublistId: string;
+    /** The internal ID of a standard or custom sublist field. */
+    fieldId: string;
+    /** The line number to set in the sublist. */
+    line: number;
+    /** The column number for the field. */
+    column: number
+    /**
+     * The value to set the field to.
+     * The value type must correspond to the field type being set. For example:
+     * - Text, Radio and Select fields accept string values.
+     * - Checkbox fields accept Boolean values.
+     * - Date and DateTime fields accept Date values.
+     * - Integer, Float, Currency and Percent fields accept number values.
+     */
+    value: FieldValue;
+    /** Indicates whether to perform slaving synchronously. */
+    fireSlavingSync?: boolean;
+    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    forceSyncSourcing?: boolean
+}
 
 interface SetCurrentSublistValueOptions {
     /** The internal ID of the sublist. */
@@ -578,7 +601,7 @@ export interface ClientCurrentRecord {
     /** Sets the value for the associated header in the matrix. */
     setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
     /** Sets the value for the associated field in the matrix. */
-    setMatrixSublistValue(options: SetSublistValueOptions): Record;
+    setMatrixSublistValue(options: SetMatrixSublistValueOptions): Record;
     /** Sets the value of the field by a text representation. */
     setText(options: SetFieldTextOptions): this;
     setText(fieldId: string, value: string): this;
