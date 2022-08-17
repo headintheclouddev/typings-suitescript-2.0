@@ -83,7 +83,7 @@ declare enum ScheduledInvocationType {
 declare interface ScheduledInvocationTypes {
     SCHEDULED: ScheduledInvocationType;
     ON_DEMAND: ScheduledInvocationType;
-    USER: ScheduledInvocationType;
+    USER_INTERFACE: ScheduledInvocationType;
     ABORTED: ScheduledInvocationType;
     SKIPPED: ScheduledInvocationType;
 }
