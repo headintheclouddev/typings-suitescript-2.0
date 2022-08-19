@@ -593,7 +593,7 @@ interface CreateConstant {
 interface CreateDataDimension {
   children?: (DataDimension|Section|Measure)[];
   items: DataDimensionItem[];
-  totalLine?: string;
+  totalLine?: TotalLine | string;
 }
 
 interface CreateDataDimensionItem {
