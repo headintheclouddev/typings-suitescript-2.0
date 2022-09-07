@@ -5,10 +5,12 @@
     "moduleResolution":"node",
     "sourceMap": false,
     "newLine": "LF",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "noImplicitUseStrict": true,
     "baseUrl": ".",
-    "lib": ["ES6", "DOM.Iterable", "dom"],
+    "lib": ["ES6", "DOM.Iterable", "DOM"],
   },
   "exclude": ["node_modules"]
 }
