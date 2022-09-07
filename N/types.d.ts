@@ -369,10 +369,10 @@ export namespace EntryPoints {
     }
 
     namespace RESTlet {
-        type get = (requestParameters: any) => any;
-        type delete_ = (requestParameters: any) => any;
-        type post = (requestBody: any) => any;
-        type put = (requestBody: any) => any;
+        type get = (requestParameters: Object) => Object | string;
+        type delete_ = (requestParameters: Object) => Object | string;
+        type post = (requestBody: Object | string) => Object | string;
+        type put = (requestBody: Object | string) => Object | string;
     }
 
     namespace BundleInstallation {
