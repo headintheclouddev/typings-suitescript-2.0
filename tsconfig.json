@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "module": "amd",
-    "target": "es6",
+    "target": "es5",
     "moduleResolution":"node",
     "sourceMap": false,
     "newLine": "LF",
     "experimentalDecorators": true,
     "noImplicitUseStrict": true,
     "baseUrl": ".",
-    "lib": ["es6", "ES2016.Array.Include" , "DOM.Iterable", "dom"],
+    "lib": ["ES6", "DOM.Iterable", "dom"],
   },
   "exclude": ["node_modules"]
 }
