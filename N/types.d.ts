@@ -493,6 +493,25 @@ export namespace EntryPoints {
             type createWorkbook = (scriptContext: createWorkbookContext) => void;
         }
     }
+
+    namespace CustomRecordAction {
+        interface isQualifiedContext {
+            ids: string[];
+            recordType: string;
+            qualified: Map<string, string>;
+        }
+
+        type isQualified = (scriptContext: isQualifiedContext) => void;
+
+        interface executeActionContext {
+            ids: string[];
+            recordType: string;
+            params: Object;
+            response: Object;
+        }
+
+        type executeAction = (scriptContext: executeActionContext) => void;
+    }
 }
 
 interface IKeyValuePair {
