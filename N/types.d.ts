@@ -369,10 +369,10 @@ export namespace EntryPoints {
     }
 
     namespace RESTlet {
-        type get = (requestParameters: Object) => Object | string;
-        type delete_ = (requestParameters: Object) => Object | string;
-        type post = (requestBody: Object | string) => Object | string;
-        type put = (requestBody: Object | string) => Object | string;
+        type get = (requestParameters: object) => object | string;
+        type delete_ = (requestParameters: object) => object | string;
+        type post = (requestBody: object | string) => object | string;
+        type put = (requestBody: object | string) => object | string;
     }
 
     namespace BundleInstallation {
@@ -506,8 +506,8 @@ export namespace EntryPoints {
         interface executeActionContext {
             ids: string[];
             recordType: string;
-            params: Object;
-            response: Object;
+            params: object;
+            response: object;
         }
 
         type executeAction = (scriptContext: executeActionContext) => void;
