@@ -1,4 +1,5 @@
 import {Encoding} from './encode';
+import { Type } from './record';
 export {Encoding} from './encode';
 
 /** Encapsulates a cipher. */
@@ -102,6 +103,33 @@ interface CreateSecretKeyOptions {
   encoding?: Encoding;
 }
 
+export interface CheckPasswordFieldOptions {
+  /**
+   * ID of the password field.
+   */
+  fieldId: string;
+  /**
+   * Zero-based line index of the password field if the password is on a line.
+   */
+  line?: number;
+  /**
+   * ID of the record that has the password field.
+   */
+  recordId: number;
+  /**
+   * Type of record that has the password field.
+   */
+  recordType: string | Type;
+  /**
+   * ID of the sublist if the password field is on a sublist line.
+   */
+  sublistId?: string
+  /**
+   * Input password value to be checked against the password stored in the record.
+   */
+  value: string
+}
+
 export declare enum EncryptionAlg {
   AES,
 }
@@ -131,3 +159,12 @@ export declare function createHash(options?: CreateHashOptions): Hash;
 export declare function createHmac(options: CreateHmacOptions): Hmac;
 /** Method used to create a new crypto.SecretKey object. */
 export declare function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
+
+/**
+ * Checks whether a password in a record corresponds to the password entered by the user.
+ *
+ * Use this method instead of Record.getValue(options) or CurrentRecord.getValue(options) on a custom password field.
+ * You should no longer use those methods for custom password fields.
+ * This method provides a more secure way to check custom password fields.
+ */
+export declare function checkPasswordField (options: CheckPasswordFieldOptions);
