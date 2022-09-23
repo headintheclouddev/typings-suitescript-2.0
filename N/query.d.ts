@@ -749,7 +749,7 @@ interface Period {
 }
 
 export interface Iterator {
-    each(f: (result: Result) => boolean): void;
+    each(f: (result: { value: Result }) => boolean): void;
 }
 
 interface PageIterator {
