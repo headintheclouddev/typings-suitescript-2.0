@@ -167,4 +167,4 @@ export declare function createSecretKey(options: CreateSecretKeyOptions): Secret
  * You should no longer use those methods for custom password fields.
  * This method provides a more secure way to check custom password fields.
  */
-export declare function checkPasswordField (options: CheckPasswordFieldOptions);
+export declare function checkPasswordField (options: CheckPasswordFieldOptions): boolean;
