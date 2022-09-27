@@ -114,7 +114,8 @@ export interface Page {
     isFirst: boolean;
     isLast: boolean;
     pagedData: PagedData;
-    pagedRange: PageRange;
+    /** The PageRange Object used to fetch this Page Object. Page boundary information with the key and label. */
+    readonly pageRange: PageRange;
 }
 
 export interface PageRange {
