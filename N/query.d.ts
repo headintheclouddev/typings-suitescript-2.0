@@ -31,9 +31,7 @@ interface JoinToOptions {
      */
     fieldId: string;
 
-    /**
-     * The target target of the join. It is the specialized query type with which is this component joined.
-     */
+    /** The target of the join. It is the specialized query type with which is this component joined. */
     target: string;
 }
 
@@ -751,7 +749,7 @@ interface Period {
 }
 
 export interface Iterator {
-    each(f: (result: Result) => boolean): void;
+    each(f: (result: { value: Result }) => boolean): void;
 }
 
 interface PageIterator {
@@ -778,30 +776,35 @@ interface QueryLoadFunction {
 }
 
 interface deleteQuery {
-  /**
-   * Deletes query by id
-   * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
-   * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
-   * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
-   */
   (options: DeleteQueryOptions): Query;
   promise: (options: DeleteQueryOptions) => Promise<Query>;
 }
 
-export {deleteQuery as delete};
-
 /**
  * Deletes query by id
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
+export {deleteQuery as delete};
+
 interface RunSuiteQL {
     (options: RunSuiteQLOptions): ResultSet;
     promise: (options: RunSuiteQLOptions) => Promise<ResultSet>;
 }
 
+/**
+ * @description Deletes query by id
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
+ * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
+ */
 export const runSuiteQL: RunSuiteQL;
+
+interface RunSuiteQLPaged {
+    (options: RunSuiteQLPagedOptions): PagedData;
+    promise: (options: RunSuiteQLPagedOptions) => Promise<PagedData>;
+}
 
 /**
  * Execute the suiteQL query and return paged results.
@@ -811,11 +814,6 @@ export const runSuiteQL: RunSuiteQL;
  *
  * @since 2020.1
  */
-interface RunSuiteQLPaged {
-    (options: RunSuiteQLPagedOptions): PagedData;
-    promise: (options: RunSuiteQLPagedOptions) => Promise<PagedData>;
-}
-
 export const runSuiteQLPaged: RunSuiteQLPaged;
 
 export const enum DateId {
