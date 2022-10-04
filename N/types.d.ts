@@ -369,10 +369,10 @@ export namespace EntryPoints {
     }
 
     namespace RESTlet {
-        type get = (requestParameters: any) => any;
-        type delete_ = (requestParameters: any) => any;
-        type post = (requestBody: any) => any;
-        type put = (requestBody: any) => any;
+        type get = (requestParameters: object) => object | string;
+        type delete_ = (requestParameters: object) => object | string;
+        type post = (requestBody: object | string) => object | string;
+        type put = (requestBody: object | string) => object | string;
     }
 
     namespace BundleInstallation {
@@ -492,6 +492,25 @@ export namespace EntryPoints {
 
             type createWorkbook = (scriptContext: createWorkbookContext) => void;
         }
+    }
+
+    namespace CustomRecordAction {
+        interface isQualifiedContext {
+            ids: string[];
+            recordType: string;
+            qualified: Map<string, string>;
+        }
+
+        type isQualified = (scriptContext: isQualifiedContext) => void;
+
+        interface executeActionContext {
+            ids: string[];
+            recordType: string;
+            params: object;
+            response: object;
+        }
+
+        type executeAction = (scriptContext: executeActionContext) => void;
     }
 }
 
