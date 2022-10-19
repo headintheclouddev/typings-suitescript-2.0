@@ -5,7 +5,8 @@
  * AccountingBook object represents a different accounting book each time the plug-in implementation executes.
  */
 interface AccountingBook {
-
+  getId(): number;
+  isPrimary(): boolean;
 }
 
 /** These methods exist for both Custom lines and Standard lines. */
