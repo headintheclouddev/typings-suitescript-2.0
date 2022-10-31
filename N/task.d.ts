@@ -1,4 +1,5 @@
 import {File} from './file';
+import {Query} from './query';
 
 interface CheckStatusOptions {
     taskId: string;
@@ -18,6 +19,22 @@ interface SearchTaskCreateOptions {
     savedSearchId?: number;
     fileId?: number;
     filePath?: string;
+}
+
+interface QueryTaskCreateOptions {
+    taskType: TaskType.QUERY
+    query: Query;
+    fileId?: number;
+    filePath?: string;
+}
+
+interface QueryTask {
+    submit(): string;
+    addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
+    toString(): string;
+    query: Query;
+    fileId: number;
+    filePath: string;
 }
 
 interface SearchTask {
@@ -169,6 +186,7 @@ export function create(options: MapReduceScriptTaskCreateOptions): MapReduceScri
 export function create(options: ScheduledScriptTaskCreateOptions): ScheduledScriptTask;
 export function create(options: WorkflowTriggerTaskCreateOptions): WorkflowTriggerTask;
 export function create(options: SearchTaskCreateOptions): SearchTask;
+export function create(options: QueryTaskCreateOptions): QueryTask;
 export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus;
 export enum DedupeEntityType {
     CUSTOMER,
@@ -209,5 +227,6 @@ export enum TaskType {
     CSV_IMPORT = "CSV_IMPORT",
     ENTITY_DEDUPLICATION = "ENTITY_DEDUPLICATION",
     WORKFLOW_TRIGGER = "WORKFLOW_TRIGGER",
-    SEARCH = "SEARCH"
+    SEARCH = "SEARCH",
+    QUERY = "QUERY"
 }
