@@ -11,8 +11,103 @@ type TaskCreateOptions =
     | MapReduceScriptTaskCreateOptions
     | ScheduledScriptTaskCreateOptions
     | WorkflowTriggerTaskCreateOptions
+    | QueryTaskCreateOptions
+    | RecordActionTaskCreateOptions
+    | SuiteQLTaskCreateOptions
     | SearchTaskCreateOptions;
 
+interface RecordActionTaskCreateOptions {
+    taskType: TaskType.RECORD_ACTION
+    action: string;
+    condition: ActionCondition;
+    params: {}[];
+    recordType: string;
+}
+
+interface RecordActionTaskStatus {
+    readonly complete: number;
+    readonly errors: {};
+    readonly failed: number;
+    readonly pending: number;
+    readonly results: {};
+    readonly status: string;
+    readonly succeeded: number;
+    readonly taskId: string;
+}
+
+/** The properties of a record action task. Use the methods and properties for this object to submit a record action task into the task queue and to execute it asynchronously. */
+interface RecordActionTask {
+    /** Submits a record action task script deployment for processing and returns its task ID. */
+    submit(): string;
+    action: string;
+    condition: ActionCondition;
+    id: string;
+    /**
+     * Property of type function that takes record ID and returns the parameter object for the specified record ID. Is to be used in conjunction with task.ActionCondition.
+     * This parameter cannot be specified when RecordActionTask.params is specified.
+     */
+    paramCallback?(taskId: string): {};
+    /**
+     * An array of parameter objects. Each object corresponds to one record ID of the record for which the action is to be executed.
+     * The object has the following form: {recordId: 1, someParam: 'example1', otherParam: 'example2'}
+     */
+    params: {}[];
+    recordType: string;
+}
+
+interface AddInboundDependencyOptions {
+    /** The script ID of the scheduled script record or map/reduce script record for the dependent task. */
+    scriptId: string;
+    /** The type of dependent task. This property uses one of the following values in the task.TaskType enum. */
+    taskType: string;
+    /** The script ID of the script deployment record for the dependent task. */
+    deploymentId?: string;
+    /** The parameters for the scheduled script or map/reduce script. */
+    params?: {}
+}
+
+interface SuiteQLTaskCreateOptions {
+    taskType: TaskType.SUITE_QL;
+    /** The internal ID of the CSV file to export search results to. */
+    fileId?: number;
+    /**
+     * The path of the CSV file to export search results to.
+     * This parameter is mutually exclusive with the options.fileId parameter. If you specify values for both parameters, an error occurs.
+     */
+    filePath?: string;
+    params?: (string|boolean|number)[];
+    query?: Query|string;
+}
+
+/** The status of an asynchronous SuiteQL task (task.SuiteQLTask) in the NetSuite task queue. */
+interface SuiteQLTaskStatus {
+    readonly fileId: number;
+    params: (string|boolean|number)[];
+    readonly query: string;
+    readonly status: string;
+    readonly taskId: string;
+}
+
+interface SuiteQLTask {
+    /** Submits the SuiteQL task for asynchronous processing. */
+    submit(): string;
+    /** Adds a scheduled script task or map/reduce script task as a dependent task to the SuiteQL task. */
+    addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask | { taskType: TaskType, scriptId: string, deploymentId?: string, params?: {} } ): void;
+    query: string;
+    fileId: number;
+    filePath: string;
+    /**
+     * Key-value pairs that contain information about the dependent tasks added to the SuiteQL task.
+     * Use this property to verify the properties of dependent tasks after you add the tasks using SuiteQLTask.addInboundDependency(options).
+     * This property uses nested objects to store information about each dependent task.
+     * A nested object is included for each dependent task added to the SuiteQL task, and these objects are referenced by their index (starting at 0).
+     * Dependent tasks are indexed in the order they are added to the SuiteQL task.
+     * Each nested object contains the task type, script ID, script deployment ID, and script parameters.
+     */
+    readonly inboundDependencies: {}[];
+    /** Parameters for the SuiteQL query. */
+    params: (string|boolean|number)[];
+}
 
 interface SearchTaskCreateOptions {
     taskType: TaskType.SEARCH
@@ -26,6 +121,13 @@ interface QueryTaskCreateOptions {
     query: Query;
     fileId?: number;
     filePath?: string;
+}
+
+interface QueryTaskStatus {
+    readonly fileId: number;
+    readonly query: string;
+    readonly status: string;
+    readonly taskId: string;
 }
 
 interface QueryTask {
@@ -187,7 +289,15 @@ export function create(options: ScheduledScriptTaskCreateOptions): ScheduledScri
 export function create(options: WorkflowTriggerTaskCreateOptions): WorkflowTriggerTask;
 export function create(options: SearchTaskCreateOptions): SearchTask;
 export function create(options: QueryTaskCreateOptions): QueryTask;
-export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus;
+export function create(options: RecordActionTaskCreateOptions): RecordActionTask;
+export function create(options: SuiteQLTaskCreateOptions): SuiteQLTask;
+export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus | SuiteQLTaskStatus | QueryTaskStatus | RecordActionTaskStatus;
+
+/** Holds the string values for the possible record action conditions. */
+declare enum ActionCondition {
+    ALL_QUALIFIED_INSTANCES
+}
+
 export enum DedupeEntityType {
     CUSTOMER,
     CONTACT,
@@ -228,5 +338,7 @@ export enum TaskType {
     ENTITY_DEDUPLICATION = "ENTITY_DEDUPLICATION",
     WORKFLOW_TRIGGER = "WORKFLOW_TRIGGER",
     SEARCH = "SEARCH",
+    RECORD_ACTION = "RECORD_ACTION",
+    SUITE_QL = "SUITE_QL",
     QUERY = "QUERY"
 }
