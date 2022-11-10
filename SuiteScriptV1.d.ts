@@ -2971,11 +2971,11 @@ declare function nlapiLoadSearch(type: string, id: string): NLObjSearch;
 /**
  * Create an entry in the script execution log (note that execution log entries are automatically purged after 30 days).
  *
- * @param {'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENCY'} type
+ * @param {'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENCY' | 'debug' | 'audit' | 'error' | 'emergency'} type
  * @param {string} title Log title (up to 90 characters supported)
  * @param {string|number|boolean} details Log details (up to 3000 characters supported)
  */
-declare function nlapiLogExecution(type: 'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENCY', title: string, details?: string|number|boolean): void;
+declare function nlapiLogExecution(type: 'DEBUG' | 'AUDIT' | 'ERROR' | 'EMERGENCY' | 'debug' | 'audit' | 'error' | 'emergency', title: string, details?: string|number|boolean): void;
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
  * faster than loading the record in order to get the field.
