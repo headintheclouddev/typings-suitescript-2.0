@@ -97,7 +97,7 @@ interface CustomLine extends GLLine {
  * Use this object to add and modify custom lines with GL impact on a transaction.
  * Create a new CustomLine object with addNewLine().
  */
-interface CustomLines {
+interface CustomLines extends StandardLines {
   /**
    * Adds a CustomLine object to the parent CustomLines object in a Custom GL Lines plug-in
    * implementation and returns the new object. Use this method to add a custom line with
