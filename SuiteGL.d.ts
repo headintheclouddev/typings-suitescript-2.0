@@ -97,7 +97,7 @@ interface CustomLine extends GLLine {
  * Use this object to add and modify custom lines with GL impact on a transaction.
  * Create a new CustomLine object with addNewLine().
  */
-interface CustomLines extends StandardLines {
+interface CustomLines {
   /**
    * Adds a CustomLine object to the parent CustomLines object in a Custom GL Lines plug-in
    * implementation and returns the new object. Use this method to add a custom line with
@@ -106,6 +106,17 @@ interface CustomLines extends StandardLines {
    * ledger account ID and the amount of the custom line.
    */
   addNewLine(): CustomLine;
+    /**
+   * Returns the number of custom lines with GL impact for a specific accounting book in a transaction.
+   * Use this method in conjunction with getLine(index) to read individual custom lines.
+   */
+  getCount(): number;
+  /**
+   * Returns a CustomLine object that represents a custom line with GL impact.
+   * CustomLine objects are stored in the CustomLines object starting at index 0.
+   * @param {number} index
+   */
+  getLine (index: number): CustomLine;
 }
 
 /** 
