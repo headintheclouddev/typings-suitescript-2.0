@@ -5,7 +5,10 @@
  * AccountingBook object represents a different accounting book each time the plug-in implementation executes.
  */
 interface AccountingBook {
-
+  /** Returns the internal NetSuite ID for the accounting book to be passed to a Custom GL Lines plug-in implementation. */
+  getId(): number;
+  /** Returns true if the book object is the primary accounting book for the NetSuite account or returns false if the accounting book is a secondary accounting book. */
+  isPrimary(): boolean;
 }
 
 /** These methods exist for both Custom lines and Standard lines. */
