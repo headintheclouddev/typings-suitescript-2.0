@@ -106,6 +106,17 @@ interface CustomLines {
    * ledger account ID and the amount of the custom line.
    */
   addNewLine(): CustomLine;
+    /**
+   * Returns the number of custom lines with GL impact for a specific accounting book in a transaction.
+   * Use this method in conjunction with getLine(index) to read individual custom lines.
+   */
+  getCount(): number;
+  /**
+   * Returns a CustomLine object that represents a custom line with GL impact.
+   * CustomLine objects are stored in the CustomLines object starting at index 0.
+   * @param {number} index
+   */
+  getLine (index: number): CustomLine;
 }
 
 /** 
