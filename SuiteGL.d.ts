@@ -43,7 +43,6 @@ interface GLLine {
  * object contains a reference to each custom GL impact line.
  */
 interface CustomLine extends GLLine {
-  // TODO: Add the rest of the methods here.  There are a few more that may be used in special situations.
   /**
    * Sets the account ID property for a CustomLine object in a primary or secondary book.
    * @param {number} accountId Internal NetSuite ID for an account.
@@ -90,6 +89,20 @@ interface CustomLine extends GLLine {
    * @param {string} segmentValueId
    */
   setSegmentValueId (segmentId: string, segmentValueId: number): void;
+   /**
+   * Sets a custom GL impact line to affect only the primary book in a Custom GL plug-in implementation.
+   * If you use this method and set the value to false,
+   * the plug-in implementation copies the custom line to secondary books and the custom line is also subject to the any mapping set up for the Multi-Book Accounting feature.
+   *
+   * If you do not use this method or set the value to true, the custom GL impact line only applies to the primary accounting book and is not copied to secondary accounting books.
+   * @param {boolean} bookSpecific
+   */
+  setBookSpecific(bookSpecific: boolean): void;
+  /**
+   * Returns true if the custom line is specific to the primary book and should not be copied to the secondary accounting books.
+   * Returns false if the custom line is not specific to the primary accounting book.
+   */
+  isBookSpecific(): boolean;
 }
 
 /** 
