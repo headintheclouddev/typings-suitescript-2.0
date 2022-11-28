@@ -75,6 +75,8 @@ interface FeatureOptions {
 
 /** The NetSuite account ID for the currently logged-in user. */
 export var accountId: string;
+/** The country for the current company. */
+export var country: string;
 /** The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration. */
 export var envType: EnvType;
 /** Returns a runtime.ContextType enumeration that represents what triggered the current script. */
