@@ -75,7 +75,7 @@ interface FeatureOptions {
 
 /** The NetSuite account ID for the currently logged-in user. */
 export var accountId: string;
-/** The country for the current company. */
+/** The country for the current company. Returns the two-letter abbreviation.  For example, US */
 export var country: string;
 /** The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration. */
 export var envType: EnvType;
