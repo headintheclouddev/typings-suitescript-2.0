@@ -7,7 +7,7 @@ import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
 import * as N_FiParser from "./plugins/fiParserPlugin";
 import * as N_dataset from "./dataset";
 import * as N_workbook from "./workbook";
- 
+
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
 export var beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (ctx) => {
@@ -363,6 +363,9 @@ export namespace EntryPoints {
         interface onActionContext {
             newRecord: N_record.Record;
             oldRecord: N_record.Record;
+            form?: N_ui_serverWidget.Form;
+            type?: string;
+            workflowId?: number;
         }
 
         type onAction = (scriptContext: onActionContext) => void;
@@ -477,7 +480,7 @@ export namespace EntryPoints {
                 readonly owner: number;
                 readonly role: number;
             }
-    
+
             type createDataset = (scriptContext: createDatasetContext) => void;
         }
 
