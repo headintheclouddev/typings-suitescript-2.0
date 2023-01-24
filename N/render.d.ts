@@ -104,6 +104,8 @@ interface StatementOptions {
     statementDate?: string;
     /** Include only open transactions. */
     openTransactionsOnly?: boolean;
+    /** Internal ID of the subsidiary. Note: This parameter only works for advance printing. */
+    subsidiaryId?: number;
 }
 
 interface XMLToPDFOptions {
