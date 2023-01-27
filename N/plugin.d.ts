@@ -22,4 +22,4 @@ export function findImplementations(options: FindImplementationsOptions): string
  * Instantiates an implementation of the custom plugin type.
  * Returns the implementation which is currently selected in the UI (Manage Plug-ins page) when no implementation ID is explicitly provided.
  */
-export function loadImplementation<T>(options: LoadImplementationOptions): T;
+export function loadImplementation<T extends Record<string, (...s: any) => any>>(options: LoadImplementationOptions): T;
