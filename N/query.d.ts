@@ -4,8 +4,8 @@ interface RunMethodType {
 }
 
 interface RunPagedMethodType {
-    (options: {pageSize: number}): PagedData;
-    promise(options: {pageSize: number}): Promise<PagedData>;
+    (options: { pageSize: number }): PagedData;
+    promise(options: { pageSize: number }): Promise<PagedData>;
 }
 
 interface AutoJoinOptions {
@@ -82,15 +82,15 @@ interface CreateConditionWithFormulaOptions {
 }
 
 interface ColumnContextOptions {
-	/** The name of the field context. */
-	name: string | FieldContext,
-	/** The additional parameters to use with the specified field context. */
-	params?: {
-		/** The internal ID of the currency to convert to. */
-		currencyId?: number, 
-		/** The date to use for the actual exchange rate between the base currency and the currency to convert to. */
-		date?: RelativeDate | Date 
-	}
+    /** The name of the field context. */
+    name: string | FieldContext,
+    /** The additional parameters to use with the specified field context. */
+    params?: {
+        /** The internal ID of the currency to convert to. */
+        currencyId?: number,
+        /** The date to use for the actual exchange rate between the base currency and the currency to convert to. */
+        date?: RelativeDate | Date
+    }
 }
 
 interface CreateColumnOptions {
@@ -118,10 +118,10 @@ interface CreateColumnOptions {
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
      */
-	alias?: string;
-	
-	/** The field context for values in the query result column. This value sets the Column.context property. */
-	context?: string | FieldContext | ColumnContextOptions
+    alias?: string;
+
+    /** The field context for values in the query result column. This value sets the Column.context property. */
+    context?: string | FieldContext | ColumnContextOptions
 }
 
 interface CreateColumnWithFormulaOptions {
@@ -155,10 +155,10 @@ interface CreateColumnWithFormulaOptions {
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
      */
-	alias?: string;
-	
-	/** The field context for values in the query result column. This value sets the Column.context property. */
-	context?: string | FieldContext | ColumnContextOptions
+    alias?: string;
+
+    /** The field context for values in the query result column. This value sets the Column.context property. */
+    context?: string | FieldContext | ColumnContextOptions
 }
 
 interface CreateSortOptions {
@@ -501,9 +501,9 @@ export interface Column {
     readonly groupBy: boolean;
 
     readonly label: string;
-	readonly alias: string;
-	
-	/** The field context for values in the query result column. */
+    readonly alias: string;
+
+    /** The field context for values in the query result column. */
     readonly context: ColumnContextOptions;
 }
 
@@ -634,7 +634,7 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<{ [fieldId: string]: string|boolean|number|null }>;
+    asMappedResults(): Array<{ [fieldId: string]: string | boolean | number | null }>;
     asMappedResults<T extends Object>(): Array<T>;
 }
 
@@ -658,7 +658,7 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): { [fieldId: string]: string|boolean|number|null };
+    asMap(): { [fieldId: string]: string | boolean | number | null };
 }
 
 /**
@@ -776,8 +776,8 @@ interface QueryLoadFunction {
 }
 
 interface deleteQuery {
-  (options: DeleteQueryOptions): Query;
-  promise: (options: DeleteQueryOptions) => Promise<Query>;
+    (options: DeleteQueryOptions): Query;
+    promise: (options: DeleteQueryOptions) => Promise<Query>;
 }
 
 /**
@@ -786,7 +786,7 @@ interface deleteQuery {
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
-export {deleteQuery as delete};
+export { deleteQuery as delete };
 
 interface RunSuiteQL {
     (options: RunSuiteQLOptions): ResultSet;
@@ -794,7 +794,9 @@ interface RunSuiteQL {
 }
 
 /**
- * @description Deletes query by id
+ * Runs an arbitrary SuiteQL query.
+ * SuiteQL is a query language based on the SQL-92 revision of the SQL database query language.
+ * It provides advanced query capabilities you can use to access your NetSuite records and data.
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
@@ -847,7 +849,7 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly start: Object;
 
     /**
@@ -855,7 +857,7 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly end: Object;
 
     /**
@@ -863,7 +865,7 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly interval: Object;
 
     /**
@@ -871,7 +873,7 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly value: Object;
 
     /**
@@ -879,7 +881,7 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly isRange: boolean;
 
     /**
@@ -887,21 +889,21 @@ interface RelativeDate {
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
      *
      * @since 2019.1
-     */    
+     */
     readonly dateId: Object;
 
     /**
      * Returns the object type name (query.RelativeDate)
      *
      * @since 2019.1
-     */    
+     */
     toString(): string;
-    
+
     /**
      * get JSON format of the object
      *
      * @since 2019.1
-     */    
+     */
     toJSON(): any;
 }
 
@@ -917,15 +919,15 @@ interface CreatePeriodOptions {
 export function createPeriod(options: CreatePeriodOptions): Period;
 
 interface CreateRelativeDateOptions {
-   /**
-    * The ID of the relative date to create.
-    */
-   dateId: DateId;
+    /**
+     * The ID of the relative date to create.
+     */
+    dateId: DateId;
 
-   /**
-    * The value to use to create the relative date.
-    */
-   value: number;
+    /**
+     * The value to use to create the relative date.
+     */
+    value: number;
 }
 
 
@@ -1241,30 +1243,30 @@ export enum ReturnType {
  * The field context determines how field values are displayed in a column.
  */
 export enum FieldContext {
-	/** Displays converted currency amounts using the exchange rate that was in effect on a specific date. */
-	CONVERTED = "CONVERTED",
-	/** Displays consolidated currency amounts in the base currency. */
-	CURRENCY_CONSOLIDATED = "CURRENCY_CONSOLIDATED",
-	/** 
-	 * Displays user-friendly field values.
-	 * For example, for the entity field on Transaction records, using the DISPLAY enum value displays the name of the entity instead of its ID.
-	 */
-	DISPLAY = "DISPLAY",
-	/**
-	 * Displays user-friendly field values for hierarchical fields (for example, “Parent Company : SUB CAD”).
-	 * This value is similar to the DISPLAY enum value but applies to hierarchical fields.
-	 */
-	HIERARCHY = "HIERARCHY",
-	/**
-	 * Displays raw field values for hierarchical fields (for example, “1 : 5”).
-	 * This value is similar to the RAW enum value but applies to hierarchical fields.
-	 */
-	HIERARCHY_IDENTIFIER = "HIERARCHY_IDENTIFIER",
-	/**
-	 * Displays raw field values.
-	 * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
-	 */
-	RAW = "RAW"
+    /** Displays converted currency amounts using the exchange rate that was in effect on a specific date. */
+    CONVERTED = "CONVERTED",
+    /** Displays consolidated currency amounts in the base currency. */
+    CURRENCY_CONSOLIDATED = "CURRENCY_CONSOLIDATED",
+    /** 
+     * Displays user-friendly field values.
+     * For example, for the entity field on Transaction records, using the DISPLAY enum value displays the name of the entity instead of its ID.
+     */
+    DISPLAY = "DISPLAY",
+    /**
+     * Displays user-friendly field values for hierarchical fields (for example, “Parent Company : SUB CAD”).
+     * This value is similar to the DISPLAY enum value but applies to hierarchical fields.
+     */
+    HIERARCHY = "HIERARCHY",
+    /**
+     * Displays raw field values for hierarchical fields (for example, “1 : 5”).
+     * This value is similar to the RAW enum value but applies to hierarchical fields.
+     */
+    HIERARCHY_IDENTIFIER = "HIERARCHY_IDENTIFIER",
+    /**
+     * Displays raw field values.
+     * For example, for the entity field on Transaction records, using the RAW enum value displays the ID of the entity.
+     */
+    RAW = "RAW"
 }
 
 declare enum PeriodAdjustment {
