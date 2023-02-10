@@ -574,11 +574,11 @@ export interface ClientCurrentRecord {
      * This value is set when the record is created or accessed.
      */
     isDynamic: boolean;
-	/**
-	 * This value read is true when the record is being created
+    /**
+     * This value read is true when the record is being created
      * This property is read-only.
-	 */
-	isNew: boolean;	
+     */
+    isNew: boolean;
     /**
      * Returns true if the record form cannot be edited, or false otherwise.
      * This property is read-only.
@@ -626,7 +626,7 @@ export interface ClientCurrentRecord {
     /** Sets the value of a field. */
     setValue(options: SetValueOptions): this;
     setValue(fieldId: string, value: FieldValue): this;
-    
+
     /** The record type. */
     type: Type | string;
 }
