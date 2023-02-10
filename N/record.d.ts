@@ -574,6 +574,16 @@ export interface ClientCurrentRecord {
      * This value is set when the record is created or accessed.
      */
     isDynamic: boolean;
+	/**
+	 * This value read is true when the record is being created
+     * This property is read-only.
+	 */
+	isNew: boolean;	
+    /**
+     * Returns true if the record form cannot be edited, or false otherwise.
+     * This property is read-only.
+     */
+    isReadOnly: boolean;
     /**
      * Moves one line of the sublist to another location. The sublist machine must allow moving lines, for example: editmachine.setAllowMoveLines(true);.
      * The sublist must contain the _sequence field. The sublist type must be edit machine. When using this method, the order of the other lines is preserved.
