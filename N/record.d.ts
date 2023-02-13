@@ -576,12 +576,10 @@ export interface ClientCurrentRecord {
     isDynamic: boolean;
     /**
      * This value read is true when the record is being created
-     * This property is read-only.
      */
     readonly isNew: boolean;
     /**
      * Returns true if the record form cannot be edited, or false otherwise.
-     * This property is read-only.
      */
     readonly isReadOnly: boolean;
     /**
