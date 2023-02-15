@@ -574,13 +574,9 @@ export interface ClientCurrentRecord {
      * This value is set when the record is created or accessed.
      */
     isDynamic: boolean;
-    /**
-     * This value read is true when the record is being created
-     */
+    /** UNDOCUMENTED (as of 2023.1): This value is true when the record is being created. */
     readonly isNew: boolean;
-    /**
-     * Returns true if the record form cannot be edited, or false otherwise.
-     */
+    /** UNDOCUMENTED (as of 2023.1): Returns true if the record form cannot be edited, or false otherwise. */
     readonly isReadOnly: boolean;
     /**
      * Moves one line of the sublist to another location. The sublist machine must allow moving lines, for example: editmachine.setAllowMoveLines(true);.
