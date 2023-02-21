@@ -18,6 +18,19 @@ interface AddEditColumnOptions {
     column: string;
     showHrefCol?: boolean;
     showView?: boolean;
+    /**
+     * The Edit/View base link. (For example: /app/common/entity/employee.nl)
+     * The complete link is formed like this: <link>?<linkParamName>=<row data from linkParam>. (For example: /app/common/entity/employee.nl?id=123)
+     */
+    link?: string;
+    /**
+     * The internal ID of the field in the row data where to take the parameter from.
+     * The default value is the value set in the options.column parameter.
+     * Tip: In most cases, the value to use here is internalid.
+     */
+    linkParam?: string;
+    /** The name of the parameter. The default value is id. */
+    linkParamName?: string;
 }
 
 interface AddFieldOptions {
