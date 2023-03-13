@@ -600,6 +600,7 @@ export interface Condition {
     readonly component: Component;
 }
 
+type QueryResultMap = { [fieldId: string]: string | boolean | number | null }
 /**
  * Set of results returned by the query.
  */
@@ -634,8 +635,8 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<{ [fieldId: string]: string | boolean | number | null }>;
-    asMappedResults<T extends Object>(): Array<T>;
+    asMappedResults(): Array<QueryResultMap>;
+    asMappedResults<QueryResultMap>(): Array<QueryResultMap>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
@@ -658,7 +659,8 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): { [fieldId: string]: string | boolean | number | null };
+    asMap(): QueryResultMap;
+    asMap<QueryResultMap>(): QueryResultMap
 }
 
 /**
@@ -743,7 +745,8 @@ interface Period {
     readonly code: string;
     /**
      * The type of the period. This property uses values from the query.PeriodType enum.
-     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type parameter, the default value of this property is query.PeriodType.START.
+     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type 
+     * parameter, the default value of this property is query.PeriodType.START.
      */
     readonly type: string;
 }
