@@ -20,10 +20,14 @@ interface resolveRecordOptions {
 }
 
 interface resolveScriptOptions {
-    scriptId: string;
-    deploymentId: string;
-    returnExternalUrl?: boolean;
+    /** The script ID (string) or internal ID (number) of the script. The ID must identify a RESTlet or a Suitelet. */
+    scriptId: string|number;
+    /** The script ID (string) or internal ID (number) of the deployment script. */
+    deploymentId: string|number;
+    /** The object containing name/value pairs to describe the query. */
     params?: any;
+    /** Indicates whether to return the external URL. By default, the internal URL is returned (that is, the default value is false). */
+    returnExternalUrl?: boolean;
 }
 
 interface resolveTaskLinkOptions {
