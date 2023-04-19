@@ -97,6 +97,15 @@ interface RequestRestletFunction {
 	(options: RequestRestletOptions): ClientResponse
 }
 
+interface RequestSuiteletOptions extends RequestRestletOptions {
+	/** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
+	external?: boolean,
+}
+
+interface RequestSuiteletFunction {
+	(options: RequestSuiteletOptions): ClientResponse
+}
+
 interface RequestSuiteTalkRestOptions {
 	/** The PUT/POST data. This is ignored if the options.method parameter is not POST or PUT. */
 	body?: string | Object,
@@ -155,6 +164,17 @@ export var createSecureString: HttpsCreateSecureStringFunction;
  * @governance 10 units
  */
 export var requestRestlet: RequestRestletFunction;
+
+/**
+ * Sends an HTTPS request to a Suitelet and returns the response.
+ *
+ * Use this method to perform an outbound HTTPS request in an anonymous client-side context. You can do this by performing the HTTPS request inside a Suitelet that is available without login, then calling the Suitelet inside your client script using the https.requestSuitelet(options) method.
+ *
+ * Currently, this method is supported only with the options.external parameter set to true
+ *
+ * @governance 10 units
+ */
+export var requestSuitelet: RequestSuiteletFunction;
 
 /**
  * Sends an HTTPS request to a SuiteTalk REST endpoint and returns the response. Authentication headers are automatically added.
