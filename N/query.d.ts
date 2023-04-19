@@ -37,7 +37,7 @@ interface JoinToOptions {
 
 interface JoinFromOptions {
     /** The name of the relationship field on which join with other query type is performed For example "salesrep". */
-    name: string;
+    fieldId: string;
 
     /** The query type on which is relationship field used to create the join with this component. */
     source: string;
@@ -1246,6 +1246,8 @@ export enum ReturnType {
  * The field context determines how field values are displayed in a column.
  */
 export enum FieldContext {
+    /** Displays consolidated debit / credit amount in the base currency. */
+    SIGN_CONSOLIDATED = "SIGN_CONSOLIDATED",
     /** Displays converted currency amounts using the exchange rate that was in effect on a specific date. */
     CONVERTED = "CONVERTED",
     /** Displays consolidated currency amounts in the base currency. */
