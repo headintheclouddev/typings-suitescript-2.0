@@ -76,55 +76,56 @@ interface HttpsCreateSecureStringFunction {
 }
 
 interface RequestRestletOptions {
-	/** The PUT/POST data. This is ignored if the options.method is not POST or PUT. */
-	body?: string | Object,
-	/** The script ID of the script deployment record. */
-	deploymentId: string,
-	/** The internal ID or script ID of the script record. Specify internal ID as a number. Specify script ID as a string. */
-	scriptId: string,
-	/** The HTTPS headers. */
-	headers?: Object,
-	/**
-	 * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
-	 * The default value is GET if options.body is not specified, and POST if options.body is specified.
-	 */
-	method?: string,
-	/** The parameters to be appended to the target URL as a query string. */
-	urlParams?: Object
+    /** The PUT/POST data. This is ignored if the options.method is not POST or PUT. */
+    body?: string | Object,
+    /** The script ID of the script deployment record. */
+    deploymentId: string,
+    /** The internal ID or script ID of the script record. Specify internal ID as a number. Specify script ID as a string. */
+    scriptId: string,
+    /** The HTTPS headers. */
+    headers?: Object,
+    /**
+     * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
+     * The default value is GET if options.body is not specified, and POST if options.body is specified.
+     */
+    method?: string,
+    /** The parameters to be appended to the target URL as a query string. */
+    urlParams?: Object
 }
 
 interface RequestRestletFunction {
-	(options: RequestRestletOptions): ClientResponse
+    (options: RequestRestletOptions): ClientResponse
 }
 
 interface RequestSuiteletOptions extends RequestRestletOptions {
-	/** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
-	external?: boolean,
+    /** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
+    external?: boolean,
 }
 
 interface RequestSuiteletFunction {
-	(options: RequestSuiteletOptions): ClientResponse
+    (options: RequestSuiteletOptions): ClientResponse
+    promise(options: RequestSuiteletOptions): Promise<ClientResponse>;
 }
 
 interface RequestSuiteTalkRestOptions {
-	/** The PUT/POST data. This is ignored if the options.method parameter is not POST or PUT. */
-	body?: string | Object,
-	/** 
-	 * The URL of a SuiteTalk REST endpoint. It may also contain query parameters.
-	 * The URL may be fully qualified, relative, or relative with the /services/rest/ prefix omitted.
-	 */
-	url: string,
-	/** The HTTPS headers. */
-	headers?: Object,
-	/**
-	 * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
-	 * The default value is GET if options.body is not specified, and POST if options.body is specified.
-	 */
-	method?: string
+    /** The PUT/POST data. This is ignored if the options.method parameter is not POST or PUT. */
+    body?: string | Object,
+    /** 
+     * The URL of a SuiteTalk REST endpoint. It may also contain query parameters.
+     * The URL may be fully qualified, relative, or relative with the /services/rest/ prefix omitted.
+     */
+    url: string,
+    /** The HTTPS headers. */
+    headers?: Object,
+    /**
+     * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
+     * The default value is GET if options.body is not specified, and POST if options.body is specified.
+     */
+    method?: string
 }
 
 interface RequestSuiteTalkRestFunction {
-	(options: RequestSuiteTalkRestOptions): ClientResponse
+    (options: RequestSuiteTalkRestOptions): ClientResponse
 }
 
 // OBJECTS \\
