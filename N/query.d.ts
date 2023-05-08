@@ -207,6 +207,8 @@ interface RunSuiteQLOptions {
     query: string;
 
     params?: Array<string | number | boolean>;
+        
+    customScriptId?: string;
 }
 
 interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
