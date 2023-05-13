@@ -130,14 +130,16 @@ interface TemplateRenderer {
     renderAsPdf(): File;
     /** Renders a server response into a PDF file. For example, you can pass in a response to be rendered as a PDF in a browser, or downloaded by a user. */
     renderPdfToResponse(options: RenderToResponseOptions): void;
+    renderPdfToResponse(serverResponse: ServerResponse): void;
     /** Return template content in string form. */
     renderAsString(): string;
     /** Writes template content to a server response. */
     renderToResponse(options: RenderToResponseOptions): void;
+    renderToResponse(serverResponse: ServerResponse): void;
     /** Sets the template using the internal ID. */
     setTemplateById(options: { id: number; }): void;
     /** Sets the template using the script ID. */
-    setTemplateByScriptId(options: { scriptId: string; }): void;
+    setTemplateByScriptId(options: { scriptId: Uppercase<string>; }): void;
     /** Content of template. */
     templateContent: string;
 }
