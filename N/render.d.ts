@@ -113,6 +113,21 @@ interface XMLToPDFOptions {
     xmlString: string;
 }
 
+interface GLImpactOptions {
+    /** The internal ID of the transaction to print GL Impact. */
+    internalId: number;
+    /** The print output type. Set using the render.PrintMode enum. */
+    printMode?: PrintMode|string;
+    /** Include only specific subsidiaries. Default to false. */
+    printPerSubsidiary?: boolean;
+    /** Specific subsidiaries, only available when printPerSubsidiary is set to true. */
+    subsidiaries?: number[];
+    /** Specific accounting books. If not specify, prints GL Impact in all accounting books. */
+    accountingBooks?: number[];
+    /** Internal ID of the template. If not specify, the preferred template will be used. */
+    template?: number;
+}
+
 interface TemplateRenderer {
     /** Adds XML or JSON as custom data source to an advanced PDF/HTML template. */
     addCustomDataSource(options: AddCustomDataSourceOptions): void;
@@ -180,6 +195,8 @@ export function statement(options: StatementOptions): File;
 export function transaction(options: TransactionOptions): File;
 /** Method used to pass XML to the Big Faceless Organization tag library (which is stored by NetSuite), and return a PDF file. */
 export function xmlToPdf(options: XMLToPDFOptions): File;
+/** Use this method to create a PDF or HTML object of the GL Impact of a transaction. */
+export function glImpact(options: GLImpactOptions): File;
 
 /** Holds the string values for supported data source types. Use this enum to set the options.format parameter. */
 export enum DataSource {
