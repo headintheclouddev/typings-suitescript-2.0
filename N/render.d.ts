@@ -113,6 +113,7 @@ interface XMLToPDFOptions {
     xmlString: string;
 }
 
+/** See: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/subsect_156215822877.html#subsect_159601086460 **/
 interface GLImpactOptions {
     /** The internal ID of the transaction to print GL Impact. */
     internalId: number;
