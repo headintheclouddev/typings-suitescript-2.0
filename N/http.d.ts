@@ -1,6 +1,6 @@
 import {File} from './file';
 import {Assistant, Form, List} from './ui/serverWidget';
-import {SecureString} from 'N/https';
+import {SecureString} from './https';
 
 interface AddHeaderOptions {
     /** The name of the header. */

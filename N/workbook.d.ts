@@ -1,8 +1,8 @@
 /** Load the N/workbook module when you want to create a new workbook, load an existing workbook, or list all existing workbooks. */
 
-import { Dataset } from "N/dataset";
-import { PagedData, ResultSet, SortLocale } from "N/query";
-import { DatasetLink } from "N/datasetLink";
+import { Dataset } from "./dataset";
+import { PagedData, ResultSet, SortLocale } from "./query";
+import { DatasetLink } from "./datasetLink";
 
 interface Aspect {
   measure: Measure;

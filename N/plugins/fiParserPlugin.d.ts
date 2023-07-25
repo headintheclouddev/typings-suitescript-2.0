@@ -1,4 +1,4 @@
-import {File} from "N/file";
+import {File} from "../file";
 
 interface getConfigurationFieldValueOptions {
 

@@ -1,5 +1,5 @@
 import {Search} from './search';
-import record = require('N/record');
+import record = require('./record');
 
 interface RedirectOptions {
     /** The URL of a Suitelet that is available externally. */
