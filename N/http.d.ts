@@ -26,11 +26,11 @@ export interface SendRedirectOptions {
      * If the base type is TASKLINK, pass in the task ID. For a list of supported task IDs, see Supported Tasklinks.
      * If the base type is SUITELET, input the script ID.
      */
-    identifier: string;
+    identifier: number | string;
     /**
      * -optional- The secondary ID for this resource. If the base type is SUITLET, pass in the deployment ID.
      */
-    id?: string;
+    id?: number | string;
     /**
      * -optional- If the base type is RECORD, this value determines whether to return a URL for the record in EDIT or VIEW mode.
      * The default value is false.
