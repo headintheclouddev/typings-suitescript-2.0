@@ -5,7 +5,7 @@
  * behaves differently based on the context.
  */
 
-import record = require('N/record');
+import record = require('./record');
 
 interface GetContextOptions {
     /** The record type. Required if the record is not loaded in your script. */
