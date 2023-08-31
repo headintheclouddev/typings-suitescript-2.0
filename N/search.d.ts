@@ -181,6 +181,11 @@ export interface CreateSearchColumnOptions {
     join?: string;
     summary?: Summary;
     formula?: string;
+    /**
+     * See the list of Supported Function in NetSuite help.
+     * For example, use "day" when creating a column to show a date/time column as just a date.
+     * Do not specify this property when calling result.getValue(), only use it when creating the search column.
+     */
     function?: string;
     label?: string;
     sort?: Sort;
