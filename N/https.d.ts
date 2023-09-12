@@ -102,6 +102,14 @@ interface RequestSuiteletOptions extends RequestRestletOptions {
     external?: boolean,
 }
 
+/**
+ * Sends an HTTPS request to a Suitelet and returns the response.
+ *
+ * Use this method to perform an outbound HTTPS request in an anonymous client-side context.
+ * You can do this by performing the HTTPS request inside a Suitelet that is available without login, then calling the Suitelet inside your client script using the https.requestSuitelet(options) method.
+ *
+ * Currently, this method is supported only with the options.external parameter set to true.
+ */
 interface RequestSuiteletFunction {
     (options: RequestSuiteletOptions): ClientResponse
     promise(options: RequestSuiteletOptions): Promise<ClientResponse>;
