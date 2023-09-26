@@ -92,18 +92,22 @@ interface RenderToResponseOptions {
 }
 
 interface StatementOptions {
+    /** Flag to convert all amount values to the base currency. */
+    consolidateStatements?: boolean;
     /** The internal ID of the statement to print. */
     entityId: number;
-    /** The print output type. Set using the render.PrintMode enum. */
-    printMode?: PrintMode;
     /** Internal ID of the form to use to print the statement. */
     formId?: number;
+    /** Applies when advanced templates are used. Prints the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale.*/
+    inCustLocale?: boolean;
+    /** Include only open transactions. */
+    openTransactionsOnly?: boolean;
+    /** The print output type. Set using the render.PrintMode enum. */
+    printMode?: PrintMode;
     /** Date of the oldest transaction to appear on the statement. */
     startDate?: string;
     /** Statement date. NS Docs say this should be a Date object, but in practice it should be a string.*/
     statementDate?: string;
-    /** Include only open transactions. */
-    openTransactionsOnly?: boolean;
     /** Internal ID of the subsidiary. Note: This parameter only works for advance printing. */
     subsidiaryId?: number;
 }
