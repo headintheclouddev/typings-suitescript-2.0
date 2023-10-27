@@ -67,7 +67,7 @@ interface FileCopyOptions {
      * (for example, if the target folder already contains a file with the same name).
      * Use the values in the file.ConflictResolution enum to set this parameter. The default value is ConflictResolution.FAIL.
      */
-    conflictResolution: ConflictResolution;
+    conflictResolution: NameConflictResolution;
 }
 
 interface FileCreateOptions {
@@ -105,7 +105,7 @@ export function load(options: FileLoadOptions): File;
 /** Method used to load an existing file from the NetSuite file cabinet. */
 export function load(idOrPath: number | string): File;
 
-export enum ConflictResolution {
+export enum NameConflictResolution {
     /** Fail with an error if a conflict occurs. */
     FAIL,
     /** Overwrite the existing file if a conflict occurs.
