@@ -720,25 +720,7 @@ interface RecordCopyFunction {
     promise(options: CopyLoadOptions): Promise<Record>;
 }
 
-export interface RecordCreateOptions {
-    /**
-     * The record type.
-     */
-    type: Type | string;
-    /**
-     * Determines whether the new record is dynamic. If set to true, the record is created in dynamic mode. If set to false, the record is created in standard mode. By default, this value is false.
-     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in standard mode, the record’s body fields and sublist line items are not sourced, calculated, and validated until the record is saved (submitted) with Record.save(options).
-     * - When you work with a record in standard mode, you do not need to set values in any particular order. After submitting the record, NetSuite processes the record’s body fields and sublist line items in the correct order, regardless of the organization of your script.
-     * - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
-     * - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
-     */
-    isDynamic?: boolean;
-    /**
-     * Name-value pairs containing default values of fields in the new record.
-     */
-    defaultValues?: any;
-}
-
+export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
 
 /**
  * Create a new record object based on provided type
