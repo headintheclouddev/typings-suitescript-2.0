@@ -40,7 +40,7 @@ interface CancelCommitLineOptions {
     sublistId: string;
 }
 
-interface CopyLoadOptions {
+export interface CopyLoadOptions {
     /** The record type. */
     type: Type | string;
     /** The internal ID of the existing record instance in NetSuite. */
@@ -720,7 +720,7 @@ interface RecordCopyFunction {
     promise(options: CopyLoadOptions): Promise<Record>;
 }
 
-interface RecordCreateOptions {
+export interface RecordCreateOptions {
     /**
      * The record type.
      */
