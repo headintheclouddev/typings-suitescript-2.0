@@ -742,7 +742,7 @@ interface RecordDeleteOptions {
     /**
      * The internal ID of the record instance to be deleted.
      */
-    id:: FieldValue | number | string;
+    id: (string | number);
 }
 
 interface RecordDetachFunction {
