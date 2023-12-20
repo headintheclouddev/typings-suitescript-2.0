@@ -200,7 +200,7 @@ interface DeleteQueryOptions {
     id: number;
 }
 
-interface RunSuiteQLOptions {
+export interface RunSuiteQLOptions {
     /**
      * String representation of SuiteQL query
      */
@@ -211,7 +211,7 @@ interface RunSuiteQLOptions {
     customScriptId?: string;
 }
 
-interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
+export interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
     pageSize?: number;
 }
 

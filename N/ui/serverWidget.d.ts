@@ -329,7 +329,7 @@ export interface Assistant {
     /** Identifies the current step. You can set any step as the current step. */
     currentStep: AssistantStep;
     /** Error message text for the current step. Optionally, you can use HTML tags to format the message. */
-    errorHtml: string;
+    errorHtml: string | undefined;
     /** The text to display after the assistant finishes. For example “You have completed the Small Business Setup Assistant. Take the rest of the day off”. To trigger display of the completion message, call Assistant.isFinished(). */
     finishedHtml: string;
     /** Indicates whether to show or hide the Add to Shortcuts link that appears in the top-right corner of an assistant page. */
@@ -472,7 +472,7 @@ export interface Form extends BaseForm {
     removeButton(options: IDOptions): void;
 }
 
-export interface List { 
+export interface List {
     /** Adds a button to a list */
     addButton(options: AddButtonOptions): Button;
     /** Adds a column to a list */
