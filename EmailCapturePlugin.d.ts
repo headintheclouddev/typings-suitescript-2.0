@@ -1,6 +1,6 @@
 interface IAddress {
   getEmail(): string;
-  getName():  string;
+  getName(): string;
 }
 
 interface IAttachment {
@@ -19,14 +19,14 @@ interface IAttachment {
 }
 
 /** Object that represents an email message sent to the Email Capture plug-in implementation. */
-interface IEmail {
+export interface IEmail {
   getAttachments(): IAttachment[];
-  getCc():          IAddress;
-  getFrom():        IAddress[];
-  getHtmlBody():    string;
-  getReplyTo():     IAddress;
-  getSentDate():    Date;
-  getSubject():     string;
-  getTextBody():    string;
-  getTo():          IAddress;
+  getCc(): IAddress;
+  getFrom(): IAddress[];
+  getHtmlBody(): string;
+  getReplyTo(): IAddress;
+  getSentDate(): Date;
+  getSubject(): string;
+  getTextBody(): string;
+  getTo(): IAddress;
 }
