@@ -467,13 +467,13 @@ export interface Column {
      * Id of column field.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly prototype: string;
+    readonly prototype?: string;
 
     /**
      * Query component. Returns the Component to which this column belongs.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly component: Component;
+    readonly component?: Component;
 
     /** Holds the name of the query result column. */
     readonly fieldId: string;
@@ -482,31 +482,31 @@ export interface Column {
      * Formula.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly formula: string;
+    readonly formula?: string;
 
     /**
      * Desired value type of the formula (if it was explicitly stated upon Column creation).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly type: string;
+    readonly type?: string;
 
     /**
      * Aggregate function (value from Aggregate enum).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly aggregate: string;
+    readonly aggregate?: string;
 
     /**
      * The group-by flag.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly groupBy: boolean;
+    readonly groupBy?: boolean;
 
-    readonly label: string;
-    readonly alias: string;
+    readonly label?: string;
+    readonly alias?: string;
 
     /** The field context for values in the query result column. */
-    readonly context: ColumnContextOptions;
+    readonly context?: ColumnContextOptions;
 }
 
 /**
