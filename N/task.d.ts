@@ -146,6 +146,7 @@ interface SearchTask {
     savedSearchId: number;
     fileId: number;
     filePath: string;
+    inboundDependencies: Record<string, Readonly<{id?: string; type: string; scriptId: string; deploymentId: string; params: any}>>;
 }
 
 interface SearchTaskStatus {
