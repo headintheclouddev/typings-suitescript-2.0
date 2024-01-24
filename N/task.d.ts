@@ -111,7 +111,7 @@ interface SuiteQLTask {
 
 interface SearchTaskCreateOptions {
     taskType: TaskType.SEARCH
-    savedSearchId?: number;
+    savedSearchId?: number | string;
     fileId?: number;
     filePath?: string;
 }
