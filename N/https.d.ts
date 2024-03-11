@@ -95,6 +95,7 @@ export interface RequestRestletOptions {
 
 interface RequestRestletFunction {
     (options: RequestRestletOptions): ClientResponse
+    promise(options: RequestRestletOptions): Promise<ClientResponse>;
 }
 
 interface RequestSuiteletOptions extends RequestRestletOptions {
