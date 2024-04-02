@@ -757,7 +757,7 @@ export interface Iterator {
     each(f: (result: { value: Result }) => boolean): void;
 }
 
-interface PageIterator {
+export interface PageIterator {
     each(f: (result: { value: Page }) => boolean): void;
 }
 
