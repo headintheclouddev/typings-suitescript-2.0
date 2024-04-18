@@ -10,7 +10,7 @@
  * For more information on using workbooks, see N/workbook Module.
  */
 
-import {PagedData, ResultSet} from "./query";
+import {PagedData, RelativeDate, ResultSet} from "./query";
 import {Expression} from "./workbook";
 
 /** Encapsulates the record fields in the dataset. Columns are equivalent to the fields you use when you build a dataset in SuiteAnalytics. */
@@ -98,7 +98,7 @@ interface CreateConditionOptions {
   /** Uses the query.Operator enumeration, otherwise can be 'AND' or 'OR' when you are combining condition children. */
   operator: string;
   /** The values attribute is required unless the operator is 'AND' or 'OR', as it is when you are combining condition children. */
-  values?: string[]|number[]|boolean[]|Date[]|{ dateId: string, type: string }[]; // For example, for after Start of Last Fiscal Year, use: { dateId: "SOLFY", type: "end" }
+  values?: string[]|number[]|boolean[]|Date[]|{ dateId: string, type: string }[]|RelativeDate[]; // For example, for after Start of Last Fiscal Year, use: { dateId: "SOLFY", type: "end" }
 }
 
 interface CreateJoinOptions {
