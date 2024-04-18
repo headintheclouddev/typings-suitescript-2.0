@@ -843,12 +843,11 @@ export const enum DateId {
 }
 
 /**
- * Special object which can be used as a condition while querying dates
+ * Special object which can be used as a condition while querying dates.
  *
  * @since 2019.1
  */
-interface RelativeDate {
-
+export interface RelativeDate {
     /**
      * Start of relative date
      * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
