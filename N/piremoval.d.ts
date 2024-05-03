@@ -25,7 +25,7 @@ export function loadTask(options: { id: number }): PiRemovalTask;
 
 interface CreateTaskOptions {
   /** Represents IDs of fields whose personal information is removed. */
-  fieldIds?: number[];
+  fieldIds?: number[] | string[]; // NOTE: The help file indicates that this is number[], but the examples show string[] and the examples are correct.
   /**
    * Indicates whether the PI removal task removes system note information only, not field values or workflow history.
    * If true, the task removes information from system notes only.
