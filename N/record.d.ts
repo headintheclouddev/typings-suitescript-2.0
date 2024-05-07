@@ -485,7 +485,7 @@ export interface ClientCurrentRecord {
     /** Performs macro operation and returns its result in a plain JavaScript object. */
     executeMacro: ExecuteMacroFunction;
     /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
-    findMatrixSublistLineWIthValue(options: FindSublistLineWithValueOptions): number;
+    findMatrixSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Returns the line number for the first occurrence of a field value in a sublist. */
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
