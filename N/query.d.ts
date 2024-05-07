@@ -721,7 +721,12 @@ export interface PagedData {
      */
     iterator(): PageIterator;
 
-    fetch(index: number): Page;
+    fetch: FetchType;
+}
+
+interface FetchType {
+    (options: { index: number }): Page;
+    promise(options: { index: number }): Promise<Page>;
 }
 
 /**
