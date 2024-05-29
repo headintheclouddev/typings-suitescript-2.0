@@ -149,7 +149,7 @@ export namespace EntryPoints {
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
+            sublistId: string|null;
             fieldId: string;
             line?: number;
             column?: number;
