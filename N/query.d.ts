@@ -807,6 +807,7 @@ interface RunSuiteQL {
  * Runs an arbitrary SuiteQL query.
  * SuiteQL is a query language based on the SQL-92 revision of the SQL database query language.
  * It provides advanced query capabilities you can use to access your NetSuite records and data.
+ * @governance 10 units
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
