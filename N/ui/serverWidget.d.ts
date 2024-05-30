@@ -1,6 +1,6 @@
 import {ServerResponse} from '../http';
 import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from '../portlet';
-import {Message, MessageCreateOptions} from '../ui/message';
+import {Message, MessageCreateOptions} from './message';
 
 export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -462,7 +462,8 @@ export interface Form extends BaseForm {
     getSublist(options: IDOptions): Sublist;
     getSubtab(options: IDOptions): Tab;
     getTab(options: { id: string }): Tab;
-    getTabs(): Tab[];
+    /** Returns an array that contains the internal IDs of all tabs in a form. */
+    getTabs(): string[];
     insertField(options: InsertFieldOptions): Field;
     insertSublist(options: InsertSublistOptions): Sublist;
     insertSubtab(options: InsertSubtabOptions): Tab;
