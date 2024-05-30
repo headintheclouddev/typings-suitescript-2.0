@@ -45,10 +45,10 @@ export interface Cache {
     get(options: GetOptions): string;
 
     /** Puts a value into the cache. If the value provided is not a string, the system uses JSON.stringify() to convert the value to a string. */
-    put(options: PutOptions): string;
+    put(options: PutOptions): void;
 
     /** Removes a value from the cache. */
-    remove(options: RemoveOptions): string;
+    remove(options: RemoveOptions): void;
 }
 
 interface GetCacheOptions {
