@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "lib": ["ES6", "DOM.Iterable", "DOM"],
+    "lib": ["ES6", "DOM.Iterable", "DOM"]
   },
   "exclude": ["node_modules"]
 }
