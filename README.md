@@ -26,7 +26,6 @@ You can import the modules and use them like normal using standard TypeScript sy
     "sourceMap": false,
     "newLine": "LF",
     "experimentalDecorators": true,
-    "noImplicitUseStrict": true,
     "baseUrl": ".",
     "lib": ["es5", "es2015.promise", "dom"],
     "paths": {
