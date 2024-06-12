@@ -497,10 +497,10 @@ export interface ClientCurrentRecord {
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @restriction only available in dynamic record
      */
-    getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field | null;
+    getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field;
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     /** Gets the subrecord for the associated sublist field on the current line. */
-    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record | null;
+    getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
     /** Returns a text representation of the field value in the currently selected line. */
     getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
     /** Returns the value of a sublist field on the currently selected sublist line. */
@@ -526,28 +526,28 @@ export interface ClientCurrentRecord {
     /** Gets the field for the specified header in the matrix.
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if any required values are missing
      */
-    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions): Field | null;
+    getMatrixHeaderField(options: GetMatrixHeaderFieldOptions): Field;
     /** Gets the value for the associated header in the matrix. */
     getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions): FieldValue;
     /** Gets the field for the specified sublist in the matrix. */
-    getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field | null;
+    getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field;
     /** Gets the value for the associated field in the matrix. */
     getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
     /** Returns the specified sublist. */
-    getSublist(options: RecordGetLineCountOptions): Sublist | null;
+    getSublist(options: RecordGetLineCountOptions): Sublist;
     /**
      * Return field object from record's sublist
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if line number is invalid
      */
-    getSublistField(options: GetSublistFieldOptions): Field | null;
+    getSublistField(options: GetSublistFieldOptions): Field;
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: GetSublistValueOptions): string;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Gets the subrecord for the associated field. */
-    getSubrecord(options: GetFieldOptions): Record | null;
+    getSubrecord(options: GetFieldOptions): Record;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     getText(fieldId: string): string | string[];
@@ -634,7 +634,7 @@ export interface Record extends ClientCurrentRecord {
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
     /** Gets the subrecord associated with a sublist field. */
-    getSublistSubrecord(options: GetSublistValueOptions): Record | null;
+    getSublistSubrecord(options: GetSublistValueOptions): Record;
     /**
      * Removes the subrecord for the associated sublist field.
      * @restriction only available in deferred dynamic record
