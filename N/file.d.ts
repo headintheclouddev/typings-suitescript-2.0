@@ -133,8 +133,11 @@ export enum Encoding {
 
 /** Enumeration that holds the string values for supported file types. */
 export enum Type {
+    APPCACHE,
     AUTOCAD,
     BMPIMAGE,
+    CERTIFICATE,
+    CONFIG,
     CSV,
     EXCEL,
     FLASH,
@@ -158,8 +161,10 @@ export enum Type {
     POWERPOINT,
     QUICKTIME,
     RTF,
+    SCSS,
     SMS,
     STYLESHEET,
+    SVG,
     TAR,
     TIFFIMAGE,
     VISIO,
