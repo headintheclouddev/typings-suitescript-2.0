@@ -496,7 +496,7 @@ export interface ClientCurrentRecord {
      * return field object from record's sublist current line. Only available in dynamic record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @restriction only available in dynamic record
-     */    
+     */
     getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field;
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     /** Gets the subrecord for the associated sublist field on the current line. */
@@ -513,7 +513,7 @@ export interface ClientCurrentRecord {
      * 
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.fieldId is missing or undefined
      */
-    getField(options: GetFieldOptions): Field;
+    getField(options: GetFieldOptions): Field | null;
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
     getLineCount(sublistId: string): number;
@@ -535,7 +535,7 @@ export interface ClientCurrentRecord {
     getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
     /** Returns the specified sublist. */
     getSublist(options: RecordGetLineCountOptions): Sublist;
-    /** 
+    /**
      * Return field object from record's sublist
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if line number is invalid
@@ -635,8 +635,8 @@ export interface Record extends ClientCurrentRecord {
     getSublistFields(options: RecordGetLineCountOptions): string[];
     /** Gets the subrecord associated with a sublist field. */
     getSublistSubrecord(options: GetSublistValueOptions): Record;
-    /** 
-     * Removes the subrecord for the associated sublist field. 
+    /**
+     * Removes the subrecord for the associated sublist field.
      * @restriction only available in deferred dynamic record
      * @return {Record} same record, for chaining
      */
