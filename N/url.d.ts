@@ -19,6 +19,12 @@ interface resolveRecordOptions {
     params?: any;
 }
 
+interface resolveNewRecordOptions {
+    recordType: string | record.Type; // Documentation says it just accepts string, but record.Type values are strings.
+    isEditMode?: boolean;
+    params?: any;
+}
+
 interface resolveScriptOptions {
     /** The script ID (string) or internal ID (number) of the script. The ID must identify a RESTlet or a Suitelet. */
     scriptId: string|number;
@@ -41,6 +47,8 @@ export function format(options: formatOptions): string;
 export function resolveDomain(options: resolveHostOptions): string;
 /** Returns the URL string to a NetSuite record. */
 export function resolveRecord(options: resolveRecordOptions): string;
+/** Returns the URL string to new Netsuite record */
+export function resolveRecord(options: resolveNewRecordOptions): string;
 /** Returns an external or internal URL string to a script. */
 export function resolveScript(options: resolveScriptOptions): string;
 /** Returns the internal URL to a NetSuite tasklink. */
