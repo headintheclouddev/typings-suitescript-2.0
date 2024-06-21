@@ -550,9 +550,11 @@ export interface ClientCurrentRecord {
     getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
+    /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
     getText(fieldId: string): string | string[];
     /** Returns the value of a field. */
     getValue(options: GetFieldOptions): FieldValue;
+    /** Returns the value of a field. Warning: the fieldId string parameter is an undocumented function overload. */
     getValue(fieldId: string): FieldValue;
     /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
     hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
