@@ -547,7 +547,7 @@ export interface ClientCurrentRecord {
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Gets the subrecord for the associated field. */
-    getSubrecord(options: GetFieldOptions): Record;
+    getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     getText(fieldId: string): string | string[];
@@ -634,7 +634,7 @@ export interface Record extends ClientCurrentRecord {
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
     /** Gets the subrecord associated with a sublist field. */
-    getSublistSubrecord(options: GetSublistValueOptions): Record;
+    getSublistSubrecord(options: GetSublistValueOptions): Omit<Record, "save">;
     /**
      * Removes the subrecord for the associated sublist field.
      * @restriction only available in deferred dynamic record
