@@ -101,7 +101,7 @@ interface DeleteCertificateOptions {
 
 interface FindCertificatesOptions {
   /** The internal ID of the subsidiary. */
-  subsidiary?: string;
+  subsidiary?: number;
   /** The certificate file type. */
   type?: string;
   /** The internal ID of an employee selected in the Restrict to Employees field. */
@@ -112,6 +112,8 @@ interface FindCertificatesOptions {
   name?: string;
   /** The certificate description. You can use this filter with the certificateControl.Operator enum. */
   description?: string;
+  /** Script name to be used for searching for certificates with restrictions to a particular script. */
+  scriptRestriction?: string;
 }
 
 interface FindUsagesOptions {
