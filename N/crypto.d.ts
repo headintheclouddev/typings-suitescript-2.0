@@ -134,11 +134,17 @@ export declare enum EncryptionAlg {
   AES,
 }
 
+/**
+ * Holds the string values for supported hashing algorithms.
+ * Use this enum to set the value of the options.algorithm parameter for crypto.createHash(options) and crypto.createHmac(options).
+ */
 export declare enum HashAlg {
-  // SHA1,
+  /** SHA1 is no longer listed in the documentation, but NetSuite does still support using it. */
+  SHA1,
   SHA256,
-  SHA512
-  // MD5,
+  SHA512,
+  /** MD5 is no longer listed in the documentation, but NetSuite does still support using it. */
+  MD5
 }
 
 export declare enum Padding {
