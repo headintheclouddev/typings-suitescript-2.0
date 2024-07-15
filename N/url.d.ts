@@ -14,7 +14,7 @@ interface resolveHostOptions {
 
 interface resolveRecordOptions {
     recordType: string | record.Type; // Documentation says it just accepts string, but record.Type values are strings.
-    recordId: string | number;
+    recordId?: string | number; // Omitting this property produces a URL to a NEW record
     isEditMode?: boolean;
     params?: any;
 }
