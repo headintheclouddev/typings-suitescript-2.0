@@ -327,7 +327,7 @@ export interface Assistant {
     /** The relative path to the client script file to be used in this assistant. */
     clientScriptModulePath: string;
     /** Identifies the current step. You can set any step as the current step. */
-    currentStep: AssistantStep;
+    currentStep?: AssistantStep;
     /** Error message text for the current step. Optionally, you can use HTML tags to format the message. */
     errorHtml: string | undefined;
     /** The text to display after the assistant finishes. For example “You have completed the Small Business Setup Assistant. Take the rest of the day off”. To trigger display of the completion message, call Assistant.isFinished(). */
