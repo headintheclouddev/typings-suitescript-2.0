@@ -168,7 +168,7 @@ export interface getAccountsContext {
  */
 export type  getAccounts = (options: getAccountsContext) => void;
 
-interface addDaraChunkOptions {
+interface addDataChunkOptions {
 
     /**
      * This function enables you to transmit the financial institution’s data file to NetSuite as a series of chunks.
@@ -215,7 +215,7 @@ export interface getTransactionDataContext {
      * It encrypts the incoming chunks before storing them in the database. Each chunk size has a 25–million
      * character limit.
      */
-    addDataChunk: (options: addDaraChunkOptions) => void;
+    addDataChunk: (options: addDataChunkOptions) => void;
 
     /**
      * This function enables you to return the list of accounts queried by the plug-in, as well as the reason
