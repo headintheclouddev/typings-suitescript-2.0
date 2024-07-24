@@ -562,8 +562,13 @@ export interface ClientCurrentRecord {
     hasSublistSubrecord(options: GetSublistValueOptions): boolean;
     /** Returns a value indicating whether the field contains a subrecord. */
     hasSubrecord(options: HasSubrecordOptions): boolean;
-    /** The internal ID of a specific record. */
-    id: number;
+    /**
+     * The internal ID of a specific record.
+     *
+     * If {@link isNew} is true, this is normally null, but there are exceptions,
+     * such as when {@link isNew} is true in the afterSubmit() entrypoint of a user event script.
+     */
+    id: number | null;
     /** Inserts a sublist line. */
     insertLine(options: InsertLineOptions): this; // Issue #132
     /**
@@ -599,7 +604,7 @@ export interface ClientCurrentRecord {
      * Removes the subrecord for the associated field. 
      * @return {Record} same record, for chaining
      */
-    removeSubrecord(options: RecordGetLineCountOptions): this;
+    removeSubrecord(options: GetFieldOptions): this;
     /** Selects an existing line in a sublist. */
     selectLine(options: SelectLineOptions): this;
     selectLine(sublistId: string, line: number): this;
@@ -760,8 +765,8 @@ interface RecordDetachFunction {
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 interface RecordLoadFunction {
-    (options: CopyLoadOptions): Record;
-    promise(options: CopyLoadOptions): Promise<Record>;
+    (options: CopyLoadOptions): Record & { id: number };
+    promise(options: CopyLoadOptions): Promise<Record & { id: number }>;
 }
 /**
  * Delete a record object based on provided type, id and return the id of deleted record

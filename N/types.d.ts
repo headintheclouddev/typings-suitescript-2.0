@@ -201,7 +201,7 @@ export namespace EntryPoints {
         type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
-            newRecord: N_record.Record;
+            newRecord: N_record.Record & { id: number };
             oldRecord: N_record.Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
