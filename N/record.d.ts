@@ -96,6 +96,11 @@ interface GetFieldOptions {
     fieldId: string;
 }
 
+interface GetValueOptions<TFields extends RecordFieldsMap, TFieldId extends keyof TFields> {
+    /** The internal ID of a standard or custom body field. */
+    fieldId: TFieldId;
+}
+
 interface RecordGetLineCountOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
@@ -474,8 +479,14 @@ export interface Field {
 
 export type FieldValue = Date | number | number[] | string | string[] | boolean | null;
 
+export interface RecordFieldsMap {
+    [fieldId: string]: FieldValue;
+}
+
+export type FieldValueMapped<TFields extends RecordFieldsMap, TFieldId extends keyof TFields> = TFields[TFieldId];
+
 /** Almost like a full Record, except without things like save(). */
-export interface ClientCurrentRecord {
+export interface ClientCurrentRecord<TFields extends RecordFieldsMap = RecordFieldsMap> {
     /** Cancels the currently selected line on a sublist. */
     cancelLine(options: CancelCommitLineOptions): Record;
     cancelLine(sublistId: string): Record;
@@ -553,9 +564,11 @@ export interface ClientCurrentRecord {
     /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
     getText(fieldId: string): string | string[];
     /** Returns the value of a field. */
-    getValue(options: GetFieldOptions): FieldValue;
+    getValue<TFieldId extends keyof TFields = string>(
+        options: GetValueOptions<TFields, TFieldId>,
+    ): FieldValueMapped<TFields, TFieldId>;
     /** Returns the value of a field. Warning: the fieldId string parameter is an undocumented function overload. */
-    getValue(fieldId: string): FieldValue;
+    getValue<TFieldId extends keyof TFields = string>(fieldId: TFieldId): FieldValueMapped<TFields, TFieldId>;
     /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
     hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
     /** Returns a value indicating whether the associated sublist field contains a subrecord. */
@@ -633,7 +646,7 @@ export interface ClientCurrentRecord {
 }
 
 // Exported for other modules to be able to consume this type
-export interface Record extends ClientCurrentRecord {
+export interface Record<TFields extends RecordFieldsMap = RecordFieldsMap> extends ClientCurrentRecord<TFields> {
     /** Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields. */
     getFields(): string[];
     /** Returns all the names of all the sublists. */
@@ -737,8 +750,8 @@ export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type is missing
  */
 interface RecordCreateFunction {
-    (options: RecordCreateOptions): Record;
-    promise(options: RecordCreateOptions): Promise<Record>;
+    <TFields extends RecordFieldsMap = RecordFieldsMap>(options: RecordCreateOptions): Record<TFields>;
+    promise<TFields extends RecordFieldsMap = RecordFieldsMap>(options: RecordCreateOptions): Promise<Record<TFields>>;
 }
 
 interface RecordDeleteOptions {
@@ -765,8 +778,10 @@ interface RecordDetachFunction {
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 interface RecordLoadFunction {
-    (options: CopyLoadOptions): Record & { id: number };
-    promise(options: CopyLoadOptions): Promise<Record & { id: number }>;
+    <TFields extends RecordFieldsMap = RecordFieldsMap>(options: CopyLoadOptions): Record<TFields> & { id: number };
+    promise<TFields extends RecordFieldsMap = RecordFieldsMap>(
+        options: CopyLoadOptions,
+    ): Promise<Record<TFields> & { id: number }>;
 }
 /**
  * Delete a record object based on provided type, id and return the id of deleted record
