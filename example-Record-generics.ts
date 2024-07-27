@@ -21,7 +21,7 @@ interface BillFieldSchema extends RecordFieldSchema {
  * Types are also inferred for "setValue", helping ensure you are using the type any given
  * field id expects.
  */
-function withFieldsMapGeneric() {
+function withFieldSchema() {
     const bill = loadRecord<BillFieldSchema>({
         type: RecordType.VENDOR_BILL,
         id: 1,
@@ -44,7 +44,7 @@ function withFieldsMapGeneric() {
  * Not passing a generic will mean getValue returns a FieldValue, requiring you to cast the
  * value to use type-specific methods (This is the same behavior as before record maps were implemented).
  */
-function withoutFieldsMapGeneric() {
+function withoutFieldSchema() {
     const bill = loadRecord({
         type: RecordType.VENDOR_BILL,
         id: 1,
@@ -65,6 +65,6 @@ function withoutFieldsMapGeneric() {
 }
 
 export const pageInit: EntryPoints.Client.pageInit = (_context) => {
-    withFieldsMapGeneric();
-    withoutFieldsMapGeneric();
+    withFieldSchema();
+    withoutFieldSchema();
 };
