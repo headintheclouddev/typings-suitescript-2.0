@@ -96,7 +96,7 @@ interface GetFieldOptions {
     fieldId: string;
 }
 
-interface GetValueOptions<TFields extends RecordFieldsMap, TFieldId extends keyof TFields> {
+interface GetValueOptions<TFields extends RecordFieldSchema, TFieldId extends keyof TFields> {
     /** The internal ID of a standard or custom body field. */
     fieldId: TFieldId;
 }
@@ -280,9 +280,9 @@ interface SetCurrentSublistTextOptions {
     forceSyncSourcing?: boolean
 }
 
-export interface SetValueOptions {
+export interface SetValueOptions<TFields extends RecordFieldSchema, TFieldId extends keyof TFields> {
     /** The internal ID of a standard or custom body field. */
-    fieldId: string;
+    fieldId: TFieldId;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -291,7 +291,7 @@ export interface SetValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: TFields[TFieldId];
     /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
@@ -479,19 +479,27 @@ export interface Field {
 
 export type FieldValue = Date | number | number[] | string | string[] | boolean | null;
 
-export interface RecordFieldsMap {
+/**
+ * Extend this interface to create your own "schema" of a record's body field ids and their JavaScript types.
+ * You can pass this new schema type to record.load(), record.create(), etc. to enable more robust type inference
+ * with record.getValue() and record.setValue().
+ *
+ * - Text, Radio and Select fields accept string values.
+ * - Checkbox fields accept Boolean values.
+ * - Date and DateTime fields accept Date values.
+ * - Integer, Float, Currency and Percent fields accept number values.
+ */
+export interface RecordFieldSchema {
     [fieldId: string]: FieldValue;
 }
 
-export type FieldValueMapped<TFields extends RecordFieldsMap, TFieldId extends keyof TFields> = TFields[TFieldId];
-
 /** Almost like a full Record, except without things like save(). */
-export interface ClientCurrentRecord<TFields extends RecordFieldsMap = RecordFieldsMap> {
+export interface ClientCurrentRecord<TFields extends RecordFieldSchema = RecordFieldSchema> {
     /** Cancels the currently selected line on a sublist. */
-    cancelLine(options: CancelCommitLineOptions): Record;
-    cancelLine(sublistId: string): Record;
+    cancelLine(options: CancelCommitLineOptions): Record<TFields>;
+    cancelLine(sublistId: string): Record<TFields>;
     /** Commits the currently selected line on a sublist. */
-    commitLine(options: CommitLineOptions): Record;
+    commitLine(options: CommitLineOptions): Record<TFields>;
     copy: RecordCopyFunction;
     /** Performs macro operation and returns its result in a plain JavaScript object. */
     executeMacro: ExecuteMacroFunction;
@@ -564,11 +572,9 @@ export interface ClientCurrentRecord<TFields extends RecordFieldsMap = RecordFie
     /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
     getText(fieldId: string): string | string[];
     /** Returns the value of a field. */
-    getValue<TFieldId extends keyof TFields = string>(
-        options: GetValueOptions<TFields, TFieldId>,
-    ): FieldValueMapped<TFields, TFieldId>;
+    getValue<TFieldId extends keyof TFields = string>(options: GetValueOptions<TFields, TFieldId>): TFields[TFieldId];
     /** Returns the value of a field. Warning: the fieldId string parameter is an undocumented function overload. */
-    getValue<TFieldId extends keyof TFields = string>(fieldId: TFieldId): FieldValueMapped<TFields, TFieldId>;
+    getValue<TFieldId extends keyof TFields = string>(fieldId: TFieldId): TFields[TFieldId];
     /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
     hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
     /** Returns a value indicating whether the associated sublist field contains a subrecord. */
@@ -624,29 +630,30 @@ export interface ClientCurrentRecord<TFields extends RecordFieldsMap = RecordFie
     /** Selects a new line at the end of a sublist. */
     selectNewLine(options: RecordGetLineCountOptions): this;
     /** Sets the value for the line currently selected in the matrix. */
-    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions): Record;
+    setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions): Record<TFields>;
     /** Sets the value for the field in the currently selected line by a text representation. */
     setCurrentSublistText(options: SetCurrentSublistTextOptions): this;
     /** Sets the value for the field in the currently selected line. */
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): this;
     setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): this;
     /** Sets the value for the associated header in the matrix. */
-    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
+    setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record<TFields>;
     /** Sets the value for the associated field in the matrix. */
-    setMatrixSublistValue(options: SetMatrixSublistValueOptions): Record;
+    setMatrixSublistValue(options: SetMatrixSublistValueOptions): Record<TFields>;
     /** Sets the value of the field by a text representation. */
     setText(options: SetFieldTextOptions): this;
     setText(fieldId: string, value: string): this;
     /** Sets the value of a field. */
-    setValue(options: SetValueOptions): this;
-    setValue(fieldId: string, value: FieldValue): this;
+    setValue<TFieldId extends keyof TFields = string>(options: SetValueOptions<TFields, TFieldId>): this;
+    /** Sets the value of a field. Warning: using function parameters instead of the options object is an undocumented function overload. */
+    setValue<TFieldId extends keyof TFields = string>(fieldId: TFieldId, value: TFields[TFieldId]): this;
 
     /** The record type. */
     type: Type | string;
 }
 
 // Exported for other modules to be able to consume this type
-export interface Record<TFields extends RecordFieldsMap = RecordFieldsMap> extends ClientCurrentRecord<TFields> {
+export interface Record<TFields extends RecordFieldSchema = RecordFieldSchema> extends ClientCurrentRecord<TFields> {
     /** Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields. */
     getFields(): string[];
     /** Returns all the names of all the sublists. */
@@ -669,9 +676,9 @@ export interface Record<TFields extends RecordFieldsMap = RecordFieldsMap> exten
     */
     save: RecordSaveFunction;
     /** Sets the value of a sublist field by a text representation. */
-    setSublistText(options: SetSublistTextOptions): Record;
+    setSublistText(options: SetSublistTextOptions): Record<TFields>;
     /** Sets the value of a sublist field. (standard mode only). */
-    setSublistValue(options: SetSublistValueOptions): Record;
+    setSublistValue(options: SetSublistValueOptions): Record<TFields>;
     toString(): string;
     /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */  
     toJSON(): RecordToJSONReturnValue
@@ -736,8 +743,8 @@ interface RecordAttachFunction {
 }
 
 interface RecordCopyFunction {
-    (options: CopyLoadOptions): Record;
-    promise(options: CopyLoadOptions): Promise<Record>;
+    <TFields extends RecordFieldSchema = RecordFieldSchema>(options: CopyLoadOptions): Record<TFields>;
+    promise<TFields extends RecordFieldSchema = RecordFieldSchema>(options: CopyLoadOptions): Promise<Record<TFields>>;
 }
 
 export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
@@ -750,8 +757,10 @@ export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type is missing
  */
 interface RecordCreateFunction {
-    <TFields extends RecordFieldsMap = RecordFieldsMap>(options: RecordCreateOptions): Record<TFields>;
-    promise<TFields extends RecordFieldsMap = RecordFieldsMap>(options: RecordCreateOptions): Promise<Record<TFields>>;
+    <TFields extends RecordFieldSchema = RecordFieldSchema>(options: RecordCreateOptions): Record<TFields>;
+    promise<TFields extends RecordFieldSchema = RecordFieldSchema>(
+        options: RecordCreateOptions,
+    ): Promise<Record<TFields>>;
 }
 
 interface RecordDeleteOptions {
@@ -778,8 +787,8 @@ interface RecordDetachFunction {
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 interface RecordLoadFunction {
-    <TFields extends RecordFieldsMap = RecordFieldsMap>(options: CopyLoadOptions): Record<TFields> & { id: number };
-    promise<TFields extends RecordFieldsMap = RecordFieldsMap>(
+    <TFields extends RecordFieldSchema = RecordFieldSchema>(options: CopyLoadOptions): Record<TFields> & { id: number };
+    promise<TFields extends RecordFieldSchema = RecordFieldSchema>(
         options: CopyLoadOptions,
     ): Promise<Record<TFields> & { id: number }>;
 }
@@ -805,8 +814,10 @@ interface RecordDeleteFunction {
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 interface RecordTransformFunction {
-    (options: RecordTransformOptions): Record;
-    promise(options: RecordTransformOptions): Promise<Record>;
+    <TFields extends RecordFieldSchema = RecordFieldSchema>(options: RecordTransformOptions): Record<TFields>;
+    promise<TFields extends RecordFieldSchema = RecordFieldSchema>(
+        options: RecordTransformOptions,
+    ): Promise<Record<TFields>>;
 }
 
 interface RecordTransformOptions {
