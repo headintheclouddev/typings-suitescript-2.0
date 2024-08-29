@@ -36,11 +36,11 @@ interface ChartDefinition {
   /** The limiting and conditional filters of the chart definition. */
   aggregationFilters: (LimitingFilter|ConditionalFilter)[];
   /** The category of the chart definition. */
-  category: string;
+  category: Category;
   /** The underlying dataset for the chart definition. */
   dataset: Dataset;
   /** The filter expressions for the chart definition. */
-  filterExpression: Expression[];
+  filterExpressions: Expression[];
   /** The ID of chart definition. */
   id: string;
   /** The legend of the chart definition. */
@@ -48,15 +48,17 @@ interface ChartDefinition {
   /** The name of the chart definition. */
   name: string;
   /** The series of the chart definition. */
-  series: Series;
+  series: Series[];
   /** The stacking type for the chart definition. */
   stacking: Stacking;
   /** The subtitle of the chart definition. */
-  subtitle: string;
+  subTitle: string;
   /** The title of chart definition. */
   title: string;
   /** The chart type of the chart definition. */
-  chartType: ChartType;
+  type: ChartType;
+  /** The dataset link of the chart definition. */
+  datasetLink?: DatasetLink;
 }
 
 /**
@@ -139,7 +141,7 @@ interface DataDimensionValue {
 }
 
 interface DataMeasure {
-  aggregation: string;
+  aggregation: string|Aggregation;
   /** This property is used if the data measure is a single-expression measure. */
   expression: Expression;
   /** This property is used if the data measure is a multiple-expression measure. */
@@ -228,7 +230,7 @@ interface LimitingFilter {
   /** The row axis indicator for the limiting factor.*/
   row: boolean;
   /** The ordering elements of the limiting filter.*/
-  sortBys: (DimensionSort|MeasureSort)[]
+  sortBys: (DimensionSort|MeasureSort)[];
 }
 
 /**
@@ -280,7 +282,7 @@ interface MeasureValueSelector {
  */
 interface PathSelector {
   /** The elements denoting 'xpath' of the path selector. */
-  elements: PathSelector|DimensionSelector;
+  elements: PathSelector|DimensionSelector|(PathSelector|DimensionSelector)[];
 }
 
 /** A pivot axis. A pivot axis is used with you create a pivot definition.
@@ -290,7 +292,7 @@ interface PivotAxis {
   /** The root data for the pivot axis. */
   root: DataDimension|Section;
   /** The sort definitions of the pivot axis. */
-  sortDefinitions: SortDefinition
+  sortDefinitions: SortDefinition|SortDefinition[];
 }
 
 /**
@@ -365,7 +367,7 @@ interface ReportStyleRule {
  */
 interface Section {
   /** The children of the section. */
-  children: DataDimension|Measure|Section[];
+  children: (DataDimension|Measure|Section)[];
   /** The format for the total line on a section. */
   totalLine: TotalLine;
 }
@@ -389,11 +391,11 @@ interface Series {
  */
 interface Sort {
   /** The ascending sort indicator of the sort. */
-  ascending: boolean,
+  ascending: boolean;
   /** The indicator that determines if the sort is case-sensitive. */
-  caseSensitive: boolean,
+  caseSensitive: boolean;
   /** The locale of the sort. */
-  locale: Operator,
+  locale: Operator;
   /** The indicator for placing nulls last of the sort. */
   nullsLast: boolean;
 }
@@ -406,7 +408,7 @@ interface SortDefinition {
   /** The selector for the sort definition. */
   selector: DimensionSelector|PathSelector;
   /** The ordering elements for the sort definition. */
-  sortBys: DimensionSelector|MeasureSort[];
+  sortBys: (DimensionSort|MeasureSort)[];
 }
 
 interface SortByDataDimensionItem {
@@ -496,7 +498,7 @@ export interface Workbook {
   /** Executes the table and returns paginated data (the same as in N/query Module). */
   runTablePaged(options: RunTablePaged): PagedData;
   /** Chart definitions that can be included in a workbook when you create a new workbook. */
-  chartDefinitions: ChartDefinition;
+  charts: ChartDefinition[];
   /** The description of the workbook. This is set when you create a workbook. */
   description: string;
   /** The ID of the workbook, that is set when you create a workbook. */
@@ -516,15 +518,15 @@ export interface Workbook {
 // interface AllSubNodesSelector { } // Commented out on 6 Dec 2021 - this is no longer in the Help?
 
 interface CreateOptions {
-  chartDefinition?: ChartDefinition[];
+  charts?: ChartDefinition[];
   description?: string;
   name?: string;
   pivots?: Pivot[];
-  tableDefinitions?: TableDefinition[];
+  tables?: TableDefinition[];
 }
 
 interface CreateAspectOptions {
-  measure: Measure;
+  measure: Measure|DataMeasure;
   type?: AspectType;
 }
 
@@ -549,16 +551,17 @@ interface CreateChartAxis {
 interface CreateChartDefinition {
   aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
   category: Category;
-  dataset: Dataset;
-  filterExpressions?: Expression;
+  dataset?: Dataset;
+  filterExpressions?: Expression[];
   id: string;
   legend: Legend;
   name: string;
-  series: Series;
+  series: Series[];
   stacking?: Stacking;
   subTitle?: string;
   title?: string;
   type: ChartType;
+  datasetLink?: DatasetLink;
 }
 
 interface CreateColor {
@@ -587,7 +590,7 @@ interface CreateConditionalFormatRule {
 
 interface CreateConstant {
   constant: string|number|boolean|Date;
-  tye?: ConstantType;
+  type?: ConstantType;
 }
 
 interface CreateDataDimension {
@@ -602,7 +605,7 @@ interface CreateDataDimensionItem {
 }
 
 interface CreateDataMeasure {
-  aggregation: string;
+  aggregation: string|Aggregation;
   expression?: Expression;
   expressions?: Expression[];
   label: string;
@@ -635,7 +638,7 @@ interface CreateFontSize {
 interface CreateLegend {
   axes: ChartAxis[];
   root: Section|DataDimension;
-  sortDefinitions?: SortDefinition[]
+  sortDefinitions?: SortDefinition[];
 }
 
 interface CreateLimitingFilter {
@@ -790,11 +793,11 @@ interface Load {
 }
 
 interface RunTable {
-  id: string
+  id: string;
 }
 
 interface RunTablePaged {
-  id: string
+  id: string;
   pageSize?: number;
 }
 
@@ -840,7 +843,7 @@ export function createChartAxis(options: CreateChartAxis): ChartAxis;
  * A chart is built from an underlying dataset and can also include a category, a legend, series, a type, expressions, filters, stacking behavior indicators, along with an ID, a name, a title, and a subtitle.
  * For more information on charts in SuiteAnalytics, see Workbook Charts.
  */
-export function createChartDefinition(options: CreateChartDefinition): Workbook;
+export function createChart(options: CreateChartDefinition): ChartDefinition;
 
 /**
  * Creates a color.
@@ -1036,6 +1039,13 @@ export function createTable(options: CreateTableDefinition): TableDefinition;
 export function createTableColumnFilter(options: CreateTableColumnFilter): TableColumnFilter;
 
 /**
+* Creates a record key.
+*/
+export function createSimpleRecordKey({ key: number }): number;
+
+/**
+
+/**
  * Lists all existing workbooks.
  */
 export function list(): Object[];
@@ -1044,6 +1054,8 @@ export function list(): Object[];
  * Loads an existing workbook. Once you load a workbook, you can execute a table and view the results.
  */
 export function load(options: { id: string }): Workbook;
+
+export const DescendantOrSelfNodesSelector;
 
 declare enum Aggregation {
   COUNT,
