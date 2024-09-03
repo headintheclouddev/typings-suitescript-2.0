@@ -1,7 +1,6 @@
-
 interface VoidOptions {
-    id: number|string;
-    type: string|Type;
+    id: number | string;
+    type: string | Type;
 }
 
 interface TransactionVoidFunction {
@@ -10,7 +9,7 @@ interface TransactionVoidFunction {
 }
 
 declare var voidFunc: TransactionVoidFunction;
-export {voidFunc as void};
+export { voidFunc as void };
 
 export enum Type { // As of 15 July 2020
     ASSEMBLY_BUILD,
@@ -68,5 +67,5 @@ export enum Type { // As of 15 July 2020
     WORK_ORDER,
     WORK_ORDER_CLOSE,
     WORK_ORDER_COMPLETION,
-    WORK_ORDER_ISSUE
+    WORK_ORDER_ISSUE,
 }

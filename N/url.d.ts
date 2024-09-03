@@ -1,4 +1,4 @@
-import {record} from "../N";
+import { record } from '../N';
 
 interface formatOptions {
     domain: string;
@@ -21,9 +21,9 @@ interface resolveRecordOptions {
 
 interface resolveScriptOptions {
     /** The script ID (string) or internal ID (number) of the script. The ID must identify a RESTlet or a Suitelet. */
-    scriptId: string|number;
+    scriptId: string | number;
     /** The script ID (string) or internal ID (number) of the deployment script. */
-    deploymentId: string|number;
+    deploymentId: string | number;
     /** The object containing name/value pairs to describe the query. */
     params?: any;
     /** Indicates whether to return the external URL. By default, the internal URL is returned (that is, the default value is false). */
@@ -56,5 +56,5 @@ export enum HostType {
     /** The domain for calling a RESTlet from an external source. Sample: rest.na2.netsuite.com */
     RESTLET,
     /** The domain for SuiteTalk (web services) requests. Sample: webservices.​na2.​netsuite.​com */
-    SUITETALK
+    SUITETALK,
 }

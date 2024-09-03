@@ -1,6 +1,12 @@
-import {Encoding} from './encode';
-import {ClientResponse, ServerRequest, ServerResponse, RedirectType, SendRedirectOptions} from './http'
-import {HashAlg, SecretKey} from './crypto';
+import { Encoding } from './encode';
+import {
+    ClientResponse,
+    ServerRequest,
+    ServerResponse,
+    RedirectType,
+    SendRedirectOptions,
+} from './http';
+import { HashAlg, SecretKey } from './crypto';
 
 interface CreateSecretKeyOptions {
     /** Specifies the encoding for the SecureKey. */
@@ -77,30 +83,30 @@ interface HttpsCreateSecureStringFunction {
 
 export interface RequestRestletOptions {
     /** The PUT/POST data. This is ignored if the options.method is not POST or PUT. */
-    body?: string | Object,
+    body?: string | Object;
     /** The script ID of the script deployment record. */
-    deploymentId: string,
+    deploymentId: string;
     /** The internal ID or script ID of the script record. Specify internal ID as a number. Specify script ID as a string. */
-    scriptId: string,
+    scriptId: string;
     /** The HTTPS headers. */
-    headers?: Object,
+    headers?: Object;
     /**
      * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
      * The default value is GET if options.body is not specified, and POST if options.body is specified.
      */
-    method?: string,
+    method?: string;
     /** The parameters to be appended to the target URL as a query string. */
-    urlParams?: Object
+    urlParams?: Object;
 }
 
 interface RequestRestletFunction {
-    (options: RequestRestletOptions): ClientResponse
+    (options: RequestRestletOptions): ClientResponse;
     promise(options: RequestRestletOptions): Promise<ClientResponse>;
 }
 
 interface RequestSuiteletOptions extends RequestRestletOptions {
     /** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
-    external?: boolean,
+    external?: boolean;
 }
 
 /**
@@ -112,29 +118,29 @@ interface RequestSuiteletOptions extends RequestRestletOptions {
  * Currently, this method is supported only with the options.external parameter set to true.
  */
 interface RequestSuiteletFunction {
-    (options: RequestSuiteletOptions): ClientResponse
+    (options: RequestSuiteletOptions): ClientResponse;
     promise(options: RequestSuiteletOptions): Promise<ClientResponse>;
 }
 
 interface RequestSuiteTalkRestOptions {
     /** The PUT/POST data. This is ignored if the options.method parameter is not POST or PUT. */
-    body?: string | Object,
-    /** 
+    body?: string | Object;
+    /**
      * The URL of a SuiteTalk REST endpoint. It may also contain query parameters.
      * The URL may be fully qualified, relative, or relative with the /services/rest/ prefix omitted.
      */
-    url: string,
+    url: string;
     /** The HTTPS headers. */
-    headers?: Object,
+    headers?: Object;
     /**
      * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
      * The default value is GET if options.body is not specified, and POST if options.body is specified.
      */
-    method?: string
+    method?: string;
 }
 
 interface RequestSuiteTalkRestFunction {
-    (options: RequestSuiteTalkRestOptions): ClientResponse
+    (options: RequestSuiteTalkRestOptions): ClientResponse;
 }
 
 // OBJECTS \\
@@ -151,12 +157,30 @@ export interface SecureString {
     /** Produces the https.SecureString as an hmac. */
     hmac(options: HmacOptions): SecureString;
     /** Replaces all occurrences of a pattern string inside an https.SecureString with a replacement string. */
-    replaceString(options: { pattern: string, replacement: string }): SecureString;
+    replaceString(options: { pattern: string; replacement: string }): SecureString;
     /** Not Documented - 6/9/2016 */
     toString(): string;
 }
 
-export {get, delete as delete, request, post, put, CacheDuration, Method, ClientResponse, ServerRequest, ServerResponse, GetOptions, DeleteOptions, PostOptions, PutOptions, RequestOptions, SendRedirectOptions, RedirectType} from './http';
+export {
+    get,
+    delete as delete,
+    request,
+    post,
+    put,
+    CacheDuration,
+    Method,
+    ClientResponse,
+    ServerRequest,
+    ServerResponse,
+    GetOptions,
+    DeleteOptions,
+    PostOptions,
+    PutOptions,
+    RequestOptions,
+    SendRedirectOptions,
+    RedirectType,
+} from './http';
 
 // METHODS \\
 /** Creates a key for the contents of a credential field. */
@@ -170,7 +194,7 @@ export var createSecureString: HttpsCreateSecureStringFunction;
 /**
  * Sends an HTTPS request to a RESTlet and returns the response. Authentication headers are automatically added.
  * The RESTlet will run with the same privileges as the calling script.
- * 
+ *
  * @governance 10 units
  */
 export var requestRestlet: RequestRestletFunction;
@@ -188,9 +212,9 @@ export var requestSuitelet: RequestSuiteletFunction;
 
 /**
  * Sends an HTTPS request to a SuiteTalk REST endpoint and returns the response. Authentication headers are automatically added.
- * 
+ *
  * @governance 10 units
  */
 export var requestSuiteTalkRest: RequestSuiteTalkRestFunction;
 
-export {Encoding} from './encode';
+export { Encoding } from './encode';

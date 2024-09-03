@@ -1,7 +1,7 @@
 interface EventType {
-    beforeLoad:   string;
+    beforeLoad: string;
     beforeSubmit: string;
-    afterSubmit:  string;
+    afterSubmit: string;
 }
 
 interface CreateOptions {
@@ -28,7 +28,7 @@ export interface SuiteScriptError {
     /** Whether email notification is suppressed. */
     notifyOff?: boolean;
 }
-    
+
 /** Encapsulates a SuiteScript error thrown by a user event script. */
 export interface UserEventError {
     /** The user event type. Holds one of the following values: beforeLoad, beforeSubmit, afterSubmit. */
@@ -46,4 +46,6 @@ export interface UserEventError {
 }
 
 /** Creates a new error.SuiteScriptError or error.UserEventError object. */
-export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(options: CreateOptions): T;
+export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(
+    options: CreateOptions,
+): T;

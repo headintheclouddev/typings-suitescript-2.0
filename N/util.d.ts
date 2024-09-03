@@ -18,8 +18,14 @@ export function nanoTime(): number;
  * @param iterable
  * @param callback
  */
-export function each<T>(iterable: T[], callback: (item: T, idx: number, iterable: T[]) => void): T[];
-export function each<T>(iterable: T, callback: (property: any, key: keyof T, iterable: T) => void): T;
+export function each<T>(
+    iterable: T[],
+    callback: (item: T, idx: number, iterable: T[]) => void,
+): T[];
+export function each<T>(
+    iterable: T,
+    callback: (property: any, key: keyof T, iterable: T) => void,
+): T;
 
 /**
  * Copy all properties from contributor into receiver.

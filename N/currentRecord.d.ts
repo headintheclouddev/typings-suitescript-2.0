@@ -1,4 +1,4 @@
-import {ClientCurrentRecord} from './record';
+import { ClientCurrentRecord } from './record';
 
 interface GetCurrentRecordFunction {
     (): ClientCurrentRecord;

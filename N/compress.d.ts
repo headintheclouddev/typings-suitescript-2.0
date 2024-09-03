@@ -19,7 +19,7 @@ interface ArchiverArchiveOptions {
     /** The name of the archive file. */
     name: string;
     /** The archive type. See the compress.Type enum. This parameter does not need to be specified if options.name has one of the following extensions: cpio, tar, tar.gz, tgz, tbz2, zip. */
-    type: string|Type;
+    type: string | Type;
 }
 
 /** The functionality for creating an archive file. Use compress.createArchiver() to create this object. */
@@ -49,5 +49,5 @@ export enum Type {
     TAR,
     TBZ2,
     TGZ,
-    ZIP
+    ZIP,
 }

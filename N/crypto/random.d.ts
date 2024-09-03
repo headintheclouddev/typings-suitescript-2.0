@@ -19,13 +19,13 @@ export function generateInt(options: GenerateIntOptions): number;
 export function generateUUID(): string;
 
 interface GenerateBytesOptions {
-  /** The number of bytes to generate. */
-  size: number;
+    /** The number of bytes to generate. */
+    size: number;
 }
 
 interface GenerateIntOptions {
-  /** End of random range (exclusive). */
-  max: number;
-  /** Start of random range. Default is 0. */
-  min?: number;
+    /** End of random range (exclusive). */
+    max: number;
+    /** Start of random range. Default is 0. */
+    min?: number;
 }

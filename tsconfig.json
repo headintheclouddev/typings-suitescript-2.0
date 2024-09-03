@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "amd",
-    "target": "es5",
-    "moduleResolution":"node",
-    "sourceMap": false,
-    "newLine": "LF",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "lib": ["ES6", "DOM.Iterable", "DOM"]
-  },
-  "exclude": ["node_modules"]
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "newLine": "LF",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "lib": ["ES6", "DOM.Iterable", "DOM"]
+    },
+    "exclude": ["node_modules"]
 }

@@ -1,34 +1,36 @@
 {
-  "name": "@hitc/netsuite-types",
-  "description": "TypeScript typings for SuiteScript 2.0",
-  "scripts": {
-    "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
-    "pretest": "npm run cleanup",
-    "test": "npx tsc && node node_modules/typescript/bin/tsc -p spec/specs_specs_tsconfig.json && node node_modules/jasmine/bin/jasmine.js",
-    "posttest": "npm run cleanup"
-  },
-  "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
-  "version": "2024.2.2",
-  "author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
-  },
-  "devDependencies": {
-    "@types/esprima": "^4.0.2",
-    "@types/jasmine": "^3.6.9",
-    "@types/node": "^14.14.37",
-    "@types/shelljs": "^0.8.8",
-    "esprima": "^4.0.1",
-    "jasmine": "^3.7.0",
-    "shelljs": "^0.8.4",
-    "tsd": "^0.24.1",
-    "typescript": "^4.2.4"
-  },
-  "keywords": [
-    "netsuite",
-    "suitescript",
-    "typescript"
-  ]
+    "name": "@hitc/netsuite-types",
+    "description": "TypeScript typings for SuiteScript 2.0",
+    "scripts": {
+        "cleanup": "node -e \"var shelljs = require('shelljs'); shelljs.config.silent = true; shelljs.rm('spec/*.js');\"",
+        "pretest": "npm run cleanup",
+        "test": "npx tsc && node node_modules/typescript/bin/tsc -p spec/specs_specs_tsconfig.json && node node_modules/jasmine/bin/jasmine.js",
+        "posttest": "npm run cleanup",
+        "prettify": "npx prettier ./ --write"
+    },
+    "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
+    "version": "2024.2.0",
+    "author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/headintheclouddev/typings-suitescript-2.0.git"
+    },
+    "devDependencies": {
+        "@types/esprima": "^4.0.2",
+        "@types/jasmine": "^3.6.9",
+        "@types/node": "^14.14.37",
+        "@types/shelljs": "^0.8.8",
+        "esprima": "^4.0.1",
+        "jasmine": "^3.7.0",
+        "prettier": "^3.3.3",
+        "shelljs": "^0.8.4",
+        "tsd": "^0.24.1",
+        "typescript": "^4.2.4"
+    },
+    "keywords": [
+        "netsuite",
+        "suitescript",
+        "typescript"
+    ]
 }

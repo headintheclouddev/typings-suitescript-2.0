@@ -1,4 +1,5 @@
-export interface Message { // Also referenced in N/ui/serverWidget
+export interface Message {
+    // Also referenced in N/ui/serverWidget
     hide(): void;
     show(options?: MessageShowOptions): void;
 }
@@ -21,7 +22,7 @@ interface MessageShowOptions {
 export function create(options: MessageCreateOptions): Message;
 export enum Type {
     CONFIRMATION, // A green background with a checkmark icon.
-    INFORMATION,  // A blue background with an Information icon.
-    WARNING,      // A yellow background with a Warning icon.
-    ERROR,        // A red background with an X icon.
+    INFORMATION, // A blue background with an Information icon.
+    WARNING, // A yellow background with a Warning icon.
+    ERROR, // A red background with an X icon.
 }

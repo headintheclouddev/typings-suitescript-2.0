@@ -1,14 +1,12 @@
-import {File} from "../file";
+import { File } from '../file';
 
 interface getConfigurationFieldValueOptions {
-
     /** This property is required and refers to the name of the configuration value to retrieve */
     fieldName: string;
 }
 
 /** This object allows the plug-in to retrieve user-supplied configuration data (field values) for this plug-in */
 interface pluginConfiguration {
-
     /**
      * This is an object function of pluginConfiguration that allows the plug-in to retrieve a named
      * configuration value. For all Financial Institution Connectivity Plug-ins that you develop, the
@@ -19,7 +17,6 @@ interface pluginConfiguration {
 }
 
 interface createNewTransactionOptions {
-
     /** The date of the transaction. NetSuite currently accepts the ISO 8601 extended local date format */
     date: string;
 
@@ -84,7 +81,6 @@ interface createNewTransactionOptions {
 }
 
 interface createAccountDataOptions {
-
     /**
      * The raw ID of the external account, which is used to link to a valid account in NetSuite via the
      * Format Profile or Upload File page
@@ -138,18 +134,16 @@ interface createAccountDataOptions {
 }
 
 interface accountData {
-
     /** Add a new imported transaction to the account data set */
     createNewTransaction: (options: createNewTransactionOptions) => void;
 }
 
 export interface parseDataContext {
-
     /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
     /** Access the input data to be parsed */
-    inputData: File
+    inputData: File;
 
     /** Create a new account data set */
     createAccountData: (options: createAccountDataOptions) => accountData;
@@ -158,25 +152,22 @@ export interface parseDataContext {
 /** Transform a data file into account and transaction data */
 export type parseData = (options: parseDataContext) => void;
 
-type creditDebit =
-    "CREDIT" |
-    "DEBIT";
+type creditDebit = 'CREDIT' | 'DEBIT';
 
 type transactionType =
-    "ACH" |
-    "CHECK" |
-    "CREDIT" |
-    "CREDIT_OR_DEBIT" |
-    "DEBIT" |
-    "DEPOSIT" |
-    "FEE" |
-    "INTEREST" |
-    "PAYMENT" |
-    "TRANSFER" |
-    "OTHER";
+    | 'ACH'
+    | 'CHECK'
+    | 'CREDIT'
+    | 'CREDIT_OR_DEBIT'
+    | 'DEBIT'
+    | 'DEPOSIT'
+    | 'FEE'
+    | 'INTEREST'
+    | 'PAYMENT'
+    | 'TRANSFER'
+    | 'OTHER';
 
 interface createNewStandardTransactionCodeOptions {
-
     /** The raw transaction code from the parsed transaction */
     transactionCode: string;
 
@@ -209,7 +200,6 @@ interface createNewStandardTransactionCodeOptions {
 }
 
 export interface getStandardTransactionCodesContext {
-
     /** Create a new StandardTransactionCode object for the plug-in to set property values */
     createNewStandardTransactionCode: (options: createNewStandardTransactionCodeOptions) => void;
 }
@@ -219,10 +209,9 @@ export interface getStandardTransactionCodesContext {
  * Mapping subtab displays a grid where you can provide custom transaction codes and map them to corresponding bank
  * data types in NetSuite
  */
-export type  getStandardTransactionCodes = (options: getStandardTransactionCodesContext) => void;
+export type getStandardTransactionCodes = (options: getStandardTransactionCodesContext) => void;
 
 interface createNewExpenseCodeOptions {
-
     /** A raw expense code supported by the data file */
     code: string;
 
@@ -231,7 +220,6 @@ interface createNewExpenseCodeOptions {
 }
 
 export interface getExpenseCodesContext {
-
     /** Create a new ExpenseCode object for the plug-in to set property values */
     createNewExpenseCode: (options: createNewExpenseCodeOptions) => void;
 }
@@ -242,10 +230,9 @@ export interface getExpenseCodesContext {
  * values returned by getExpenseCodes(). This subtab enables you to map expense codes to expense categories to
  * automatically populate expense categories in expense reports
  */
-export type  getExpenseCodes = (options: getExpenseCodesContext) => void;
+export type getExpenseCodes = (options: getExpenseCodesContext) => void;
 
 export interface getConfigurationPageUrlContext {
-
     /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 

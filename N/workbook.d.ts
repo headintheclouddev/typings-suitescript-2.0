@@ -1,29 +1,29 @@
 /** Load the N/workbook module when you want to create a new workbook, load an existing workbook, or list all existing workbooks. */
 
-import { Dataset } from "./dataset";
-import { PagedData, ResultSet, SortLocale } from "./query";
-import { DatasetLink } from "./datasetLink";
+import { Dataset } from './dataset';
+import { PagedData, ResultSet, SortLocale } from './query';
+import { DatasetLink } from './datasetLink';
 
 interface Aspect {
-  measure: Measure;
-  type: AspectType;
+    measure: Measure;
+    type: AspectType;
 }
 
 interface CalculatedMeasure {
-  expression: Expression;
-  label: string | Expression;
+    expression: Expression;
+    label: string | Expression;
 }
 
 interface Category {
-  axis: ChartAxis;
-  /** The root data (i.e., fields) that defines the category. */
-  root: DataDimension|Section;
-  sortDefinitions: SortDefinition[];
+    axis: ChartAxis;
+    /** The root data (i.e., fields) that defines the category. */
+    root: DataDimension | Section;
+    sortDefinitions: SortDefinition[];
 }
 
 /** A chart axis. A chart axis is used when you create a category or a legend. You can create a chart axis using workbook.createChartAxis(options). */
 interface ChartAxis {
-  title: string;
+    title: string;
 }
 
 /**
@@ -33,32 +33,32 @@ interface ChartAxis {
  * You can create a chart definition using workbook.createChartDefinition(options).
  */
 interface ChartDefinition {
-  /** The limiting and conditional filters of the chart definition. */
-  aggregationFilters: (LimitingFilter|ConditionalFilter)[];
-  /** The category of the chart definition. */
-  category: Category;
-  /** The underlying dataset for the chart definition. */
-  dataset: Dataset;
-  /** The filter expressions for the chart definition. */
-  filterExpressions: Expression[];
-  /** The ID of chart definition. */
-  id: string;
-  /** The legend of the chart definition. */
-  legend: Legend;
-  /** The name of the chart definition. */
-  name: string;
-  /** The series of the chart definition. */
-  series: Series[];
-  /** The stacking type for the chart definition. */
-  stacking: Stacking;
-  /** The subtitle of the chart definition. */
-  subTitle: string;
-  /** The title of chart definition. */
-  title: string;
-  /** The chart type of the chart definition. */
-  type: ChartType;
-  /** The dataset link of the chart definition. */
-  datasetLink?: DatasetLink;
+    /** The limiting and conditional filters of the chart definition. */
+    aggregationFilters: (LimitingFilter | ConditionalFilter)[];
+    /** The category of the chart definition. */
+    category: Category;
+    /** The underlying dataset for the chart definition. */
+    dataset: Dataset;
+    /** The filter expressions for the chart definition. */
+    filterExpressions: Expression[];
+    /** The ID of chart definition. */
+    id: string;
+    /** The legend of the chart definition. */
+    legend: Legend;
+    /** The name of the chart definition. */
+    name: string;
+    /** The series of the chart definition. */
+    series: Series[];
+    /** The stacking type for the chart definition. */
+    stacking: Stacking;
+    /** The subtitle of the chart definition. */
+    subTitle: string;
+    /** The title of chart definition. */
+    title: string;
+    /** The chart type of the chart definition. */
+    type: ChartType;
+    /** The dataset link of the chart definition. */
+    datasetLink?: DatasetLink;
 }
 
 /**
@@ -66,10 +66,10 @@ interface ChartDefinition {
  * Object is called `Color` in documentation, used different name here to avoid naming collision with `Color` enum.
  */
 interface ColorRGBA {
-  alpha: number;
-  blue: number;
-  green: number;
-  red: number;
+    alpha: number;
+    blue: number;
+    green: number;
+    red: number;
 }
 
 /**
@@ -78,32 +78,32 @@ interface ColorRGBA {
  * You can create a conditional filter using workbook.createConditionalFilter(options).
  */
 interface ConditionalFilter {
-  /** The selected filters in the condition filter. */
-  filteredNodesSelector: PathSelector|DimensionSelector;
-  /** The measure of the conditional filter. */
-  measure: Measure;
-  /** The selector for the other axis in the conditional filter. */
-  otherAxisSelector: PathSelector|DimensionSelector;
-  /** The actual predicate for the conditional filter, which indicates whether the condition is met. */
-  predicate: Expression;
-  /** The row axis indicator for the conditional filter. */
-  row: boolean;
+    /** The selected filters in the condition filter. */
+    filteredNodesSelector: PathSelector | DimensionSelector;
+    /** The measure of the conditional filter. */
+    measure: Measure;
+    /** The selector for the other axis in the conditional filter. */
+    otherAxisSelector: PathSelector | DimensionSelector;
+    /** The actual predicate for the conditional filter, which indicates whether the condition is met. */
+    predicate: Expression;
+    /** The row axis indicator for the conditional filter. */
+    row: boolean;
 }
 
 interface ConditionalFormat {
-  rules: ConditionalFormatRule[];
+    rules: ConditionalFormatRule[];
 }
 
 interface ConditionalFormatRule {
-  /** The filter that determines which rows or cells to apply the conditional format to. */
-  filter: TableColumnFilter;
-  style: Style;
+    /** The filter that determines which rows or cells to apply the conditional format to. */
+    filter: TableColumnFilter;
+    style: Style;
 }
 
 interface Currency {
-  amount: number;
-  /** The ID of the currency (for example, USD, EUR, GBP, and so on). */
-  id: string;
+    amount: number;
+    /** The ID of the currency (for example, USD, EUR, GBP, and so on). */
+    id: string;
 }
 
 /**
@@ -111,12 +111,12 @@ interface Currency {
  * You can create a data dimension using workbook.createDataDimension(options).
  */
 interface DataDimension {
-  /** The children of the data dimension. */
-  children: (DataDimension|Section|Measure)[];
-  /** The items of the data dimension. */
-  items: DataDimensionItem[];
-  /**  The formatting specification for the total line of the data dimension. */
-  totalLine: TotalLine;
+    /** The children of the data dimension. */
+    children: (DataDimension | Section | Measure)[];
+    /** The items of the data dimension. */
+    items: DataDimensionItem[];
+    /**  The formatting specification for the total line of the data dimension. */
+    totalLine: TotalLine;
 }
 
 /**
@@ -124,29 +124,29 @@ interface DataDimension {
  * You can create a data dimension item using workbook.createDataDimensionItem(options).
  */
 interface DataDimensionItem {
-  /** The expression for data dimension item. */
-   expression: Expression;
-   /** The label for the data dimension item. */
-   label: string;
+    /** The expression for data dimension item. */
+    expression: Expression;
+    /** The label for the data dimension item. */
+    label: string;
 }
 
 interface DataDimensionItemValue {
-  item: DataDimensionItem;
-  value: string | number | boolean | Record | Currency | Range | Duration;
+    item: DataDimensionItem;
+    value: string | number | boolean | Record | Currency | Range | Duration;
 }
 
 interface DataDimensionValue {
-  dataDimension: DataDimension;
-  itemValues: DataDimensionItemValue[];
+    dataDimension: DataDimension;
+    itemValues: DataDimensionItemValue[];
 }
 
 interface DataMeasure {
-  aggregation: string|Aggregation;
-  /** This property is used if the data measure is a single-expression measure. */
-  expression: Expression;
-  /** This property is used if the data measure is a multiple-expression measure. */
-  expressions: Expression[];
-  label: string;
+    aggregation: string | Aggregation;
+    /** This property is used if the data measure is a single-expression measure. */
+    expression: Expression;
+    /** This property is used if the data measure is a multiple-expression measure. */
+    expressions: Expression[];
+    label: string;
 }
 
 /**
@@ -154,8 +154,8 @@ interface DataMeasure {
  * You can create a dimension selector using workbook.createDimensionSelector(options).
  */
 interface DimensionSelector {
-  /** The dimension of the dimension selector. */
-  dimension: DataDimension|Section;
+    /** The dimension of the dimension selector. */
+    dimension: DataDimension | Section;
 }
 
 /**
@@ -163,15 +163,15 @@ interface DimensionSelector {
  * You can create a dimension sort using workbook.createDimensionSort(options).
  */
 interface DimensionSort {
-  /** The data dimension item for the dimension sort. */
-  item: DataDimensionItem;
-  /** The sort object for the dimension sort. */
-  sort: Sort;
+    /** The data dimension item for the dimension sort. */
+    item: DataDimensionItem;
+    /** The sort object for the dimension sort. */
+    sort: Sort;
 }
 
 interface Duration {
-  amount: number;
-  units: unknown;
+    amount: number;
+    units: unknown;
 }
 
 /**
@@ -179,10 +179,10 @@ interface Duration {
  * You can create an expression using workbook.createExpression(options).
  */
 export interface Expression {
-  /** The ID of the function used in the expression. */
-  functionId: ExpressionType;
-  /** The parameters for the expression. */
-  parameters: Object;
+    /** The ID of the function used in the expression. */
+    functionId: ExpressionType;
+    /** The parameters for the expression. */
+    parameters: Object;
 }
 
 /**
@@ -190,10 +190,10 @@ export interface Expression {
  * You can create a field context using workbook.createFieldContext(options).
  */
 interface FieldContext {
-  /** The name of the field context (for example, DISPLAY or CONSOLIDATED) */
-  name: string;
-  /** The user-specified parameters of the field context, specified as key:value pairs. */
-  parameters: Object;
+    /** The name of the field context (for example, DISPLAY or CONSOLIDATED) */
+    name: string;
+    /** The user-specified parameters of the field context, specified as key:value pairs. */
+    parameters: Object;
 }
 
 /**
@@ -201,8 +201,8 @@ interface FieldContext {
  * Object is called `FontSize` in documentation, used different name here to avoid naming collision with `FontSize` enum.
  */
 interface FontSizeObj {
-  size: number;
-  unit: string;
+    size: number;
+    unit: string;
 }
 
 /**
@@ -210,12 +210,12 @@ interface FontSizeObj {
  * You can create a legend using workbook.createLegend(options).
  */
 interface Legend {
-  /** The axes for the legend. */
-  axes: ChartAxis[];
-  /** The root data (i.e., fields) that defines the legend. */
-  root: DataDimension|Section;
-  /** The sort definitions of the legend. */
-  sortDefinitions: SortDefinition[];
+    /** The axes for the legend. */
+    axes: ChartAxis[];
+    /** The root data (i.e., fields) that defines the legend. */
+    root: DataDimension | Section;
+    /** The sort definitions of the legend. */
+    sortDefinitions: SortDefinition[];
 }
 
 /**
@@ -223,14 +223,14 @@ interface Legend {
  * You can create a limiting filter using workbook.createLimitingFilter(options).
  */
 interface LimitingFilter {
-  /** The selections for the limiting filter. */
-  filteredNodesSelector: PathSelector|DimensionSelector;
-  /** The limit number for the limiting filter. */
-  limit: number;
-  /** The row axis indicator for the limiting factor.*/
-  row: boolean;
-  /** The ordering elements of the limiting filter.*/
-  sortBys: (DimensionSort|MeasureSort)[];
+    /** The selections for the limiting filter. */
+    filteredNodesSelector: PathSelector | DimensionSelector;
+    /** The limit number for the limiting filter. */
+    limit: number;
+    /** The row axis indicator for the limiting factor.*/
+    row: boolean;
+    /** The ordering elements of the limiting filter.*/
+    sortBys: (DimensionSort | MeasureSort)[];
 }
 
 /**
@@ -238,18 +238,18 @@ interface LimitingFilter {
  * You can create a measure using workbook.createMeasure(options).
  */
 interface Measure {
-  /** The aggregation for the measure. */
-  aggregation: Aggregation;
-  /** The expression for the measure. Only used for a single expression measure. */
-  expression: Expression;
-  /** The expressions (multiple) for the measure. Only used for a multi expression measure. */
-  expressions: Expression[];
-  /** The label of the measure. */
-  label: string;
+    /** The aggregation for the measure. */
+    aggregation: Aggregation;
+    /** The expression for the measure. Only used for a single expression measure. */
+    expression: Expression;
+    /** The expressions (multiple) for the measure. Only used for a multi expression measure. */
+    expressions: Expression[];
+    /** The label of the measure. */
+    label: string;
 }
 
 interface MeasureSelector {
-  measures: CalculatedMeasure[] | DataMeasure;
+    measures: CalculatedMeasure[] | DataMeasure;
 }
 
 /**
@@ -257,23 +257,23 @@ interface MeasureSelector {
  * You can create a measure sort using workbook.createMeasureSort(options).
  */
 interface MeasureSort {
-  /** The sort of the measure sort. */
-  measure: Measure;
-  /** The other axis selector for the measure sort. */
-  otherAxisSelector: PathSelector|DimensionSelector;
-  /** The sort for the measure sort. */
-  sort: Sort;
+    /** The sort of the measure sort. */
+    measure: Measure;
+    /** The other axis selector for the measure sort. */
+    otherAxisSelector: PathSelector | DimensionSelector;
+    /** The sort for the measure sort. */
+    sort: Sort;
 }
 
 interface MeasureValue {
-  measure: Measure;
-  value: string | number | boolean | Record | Currency | Range | Duration;
+    measure: Measure;
+    value: string | number | boolean | Record | Currency | Range | Duration;
 }
 
 interface MeasureValueSelector {
-  columnSelector: DimensionSelector | PathSelector;
-  measureSelector: MeasureSelector[];
-  rowSelector: DimensionSelector | PathSelector;
+    columnSelector: DimensionSelector | PathSelector;
+    measureSelector: MeasureSelector[];
+    rowSelector: DimensionSelector | PathSelector;
 }
 
 /**
@@ -281,18 +281,18 @@ interface MeasureValueSelector {
  * You can create a path selector using workbook.createPathSelector(options).
  */
 interface PathSelector {
-  /** The elements denoting 'xpath' of the path selector. */
-  elements: PathSelector|DimensionSelector|(PathSelector|DimensionSelector)[];
+    /** The elements denoting 'xpath' of the path selector. */
+    elements: PathSelector | DimensionSelector | (PathSelector | DimensionSelector)[];
 }
 
 /** A pivot axis. A pivot axis is used with you create a pivot definition.
  * You can create a pivot axis using workbook.createPivotAxis(options).
  */
 interface PivotAxis {
-  /** The root data for the pivot axis. */
-  root: DataDimension|Section;
-  /** The sort definitions of the pivot axis. */
-  sortDefinitions: SortDefinition|SortDefinition[];
+    /** The root data for the pivot axis. */
+    root: DataDimension | Section;
+    /** The sort definitions of the pivot axis. */
+    sortDefinitions: SortDefinition | SortDefinition[];
 }
 
 /**
@@ -300,35 +300,35 @@ interface PivotAxis {
  * You can create a pivot using workbook.createPivot(options).
  */
 interface Pivot {
-  aggregationFilters: (ConditionalFilter|LimitingFilter)[];
-  columnAxis: PivotAxis;
-  dataset: Dataset;
-  filterExpressions: Expression[];
-  id: string;
-  name: string;
-  rowAxis: PivotAxis;
+    aggregationFilters: (ConditionalFilter | LimitingFilter)[];
+    columnAxis: PivotAxis;
+    dataset: Dataset;
+    filterExpressions: Expression[];
+    id: string;
+    name: string;
+    rowAxis: PivotAxis;
 }
 
 interface PivotIntersection {
-  column: DataDimensionValue | SectionValue;
-  measureValues: MeasureValue[];
-  row: DataDimensionValue | SectionValue;
+    column: DataDimensionValue | SectionValue;
+    measureValues: MeasureValue[];
+    row: DataDimensionValue | SectionValue;
 }
 
 interface PositionPercent {
-  percentX: number;
-  percentY: number;
+    percentX: number;
+    percentY: number;
 }
 
 interface PositionUnits {
-  unit: string;
-  x: number;
-  y: number;
+    unit: string;
+    x: number;
+    y: number;
 }
 
 interface PositionValues {
-  horizontal: string;
-  vertical: string;
+    horizontal: string;
+    vertical: string;
 }
 
 /**
@@ -336,29 +336,29 @@ interface PositionValues {
  * The dates in the range are formatted according to the user’s preferences in their account. This object can be returned from a pivot execution.
  */
 interface Range {
-  end: string;
-  start: string;
+    end: string;
+    start: string;
 }
 
 interface Record {
-  name: string;
-  primaryKey: number;
-  properties: unknown;
+    name: string;
+    primaryKey: number;
+    properties: unknown;
 }
 
 interface RecordKey {
-  properties: unknown
+    properties: unknown;
 }
 
 interface ReportStyle {
-  rules: ReportStyleRule[];
-  selectors: MeasureValueSelector[];
+    rules: ReportStyleRule[];
+    selectors: MeasureValueSelector[];
 }
 
 interface ReportStyleRule {
-  /** A Boolean expression indicating whether the style should be applied. */
-  expression: Expression;
-  style: Style;
+    /** A Boolean expression indicating whether the style should be applied. */
+    expression: Expression;
+    style: Style;
 }
 
 /**
@@ -366,14 +366,14 @@ interface ReportStyleRule {
  * You can create a section using workbook.createSection(options).
  */
 interface Section {
-  /** The children of the section. */
-  children: (DataDimension|Measure|Section)[];
-  /** The format for the total line on a section. */
-  totalLine: TotalLine;
+    /** The children of the section. */
+    children: (DataDimension | Measure | Section)[];
+    /** The format for the total line on a section. */
+    totalLine: TotalLine;
 }
 
 interface SectionValue {
-  section: Section;
+    section: Section;
 }
 
 /**
@@ -381,8 +381,8 @@ interface SectionValue {
  * You can create a series using workbook.createSeries(options).
  */
 interface Series {
-  /** The aspects for the series. */
-  aspects: Aspect[];
+    /** The aspects for the series. */
+    aspects: Aspect[];
 }
 
 /**
@@ -390,14 +390,14 @@ interface Series {
  * You can create a sort using workbook.createSort(options).
  */
 interface Sort {
-  /** The ascending sort indicator of the sort. */
-  ascending: boolean;
-  /** The indicator that determines if the sort is case-sensitive. */
-  caseSensitive: boolean;
-  /** The locale of the sort. */
-  locale: Operator;
-  /** The indicator for placing nulls last of the sort. */
-  nullsLast: boolean;
+    /** The ascending sort indicator of the sort. */
+    ascending: boolean;
+    /** The indicator that determines if the sort is case-sensitive. */
+    caseSensitive: boolean;
+    /** The locale of the sort. */
+    locale: Operator;
+    /** The indicator for placing nulls last of the sort. */
+    nullsLast: boolean;
 }
 
 /**
@@ -405,35 +405,35 @@ interface Sort {
  * You can create a sort definition using workbook.createSortDefinition(options).
  */
 interface SortDefinition {
-  /** The selector for the sort definition. */
-  selector: DimensionSelector|PathSelector;
-  /** The ordering elements for the sort definition. */
-  sortBys: (DimensionSort|MeasureSort)[];
+    /** The selector for the sort definition. */
+    selector: DimensionSelector | PathSelector;
+    /** The ordering elements for the sort definition. */
+    sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface SortByDataDimensionItem {
-  item: DataDimensionItem;
-  sort: Sort;
+    item: DataDimensionItem;
+    sort: Sort;
 }
 
 interface SortByMeasure {
-  measure: CalculatedMeasure | DataMeasure;
-  otherAxisSelector: PathSelector | DimensionSelector;
-  sort: Sort;
+    measure: CalculatedMeasure | DataMeasure;
+    otherAxisSelector: PathSelector | DimensionSelector;
+    sort: Sort;
 }
 
 interface Style {
-  backgroundColor: string | Color | ColorRGBA;
-  backgroundImage: string;
-  backgroundPosition: PositionPercent | PositionUnits | PositionValues;
-  color: string | ColorRGBA;
-  fontSize: string | FontSizeObj;
-  fontStyle: string;
-  fontWeight: string;
-  textAlign: string;
-  textDecorationColor: string | Color | ColorRGBA;
-  textDecorationLine: string;
-  textDecorationStyle: string;
+    backgroundColor: string | Color | ColorRGBA;
+    backgroundImage: string;
+    backgroundPosition: PositionPercent | PositionUnits | PositionValues;
+    color: string | ColorRGBA;
+    fontSize: string | FontSizeObj;
+    fontStyle: string;
+    fontWeight: string;
+    textAlign: string;
+    textDecorationColor: string | Color | ColorRGBA;
+    textDecorationLine: string;
+    textDecorationStyle: string;
 }
 
 /**
@@ -441,22 +441,22 @@ interface Style {
  * You can create a table column using workbook.createTableColumn(options).
  */
 interface TableColumn {
-  /** The alias for the column. */
-  alias: string;
-  /** The alias of the dataset column from which the table column was created. */
-  datasetColumnAlias: string;
-  /** The ID of the dataset column from which the table column was created. */
-  datasetColumnId: number;
-  /** The field context specification for the field used in the table column. */
-  fieldContext: FieldContext;
-  /** The filters for the table column. */
-  filters: TableColumnFilter[];
-  /** The label of table column. */
-  label: string;
-  /** The sort of the table column. */
-  sort: Sort;
-  /** The width of the table column when displayed in the UI. */
-  width: number;
+    /** The alias for the column. */
+    alias: string;
+    /** The alias of the dataset column from which the table column was created. */
+    datasetColumnAlias: string;
+    /** The ID of the dataset column from which the table column was created. */
+    datasetColumnId: number;
+    /** The field context specification for the field used in the table column. */
+    fieldContext: FieldContext;
+    /** The filters for the table column. */
+    filters: TableColumnFilter[];
+    /** The label of table column. */
+    label: string;
+    /** The sort of the table column. */
+    sort: Sort;
+    /** The width of the table column when displayed in the UI. */
+    width: number;
 }
 
 /**
@@ -464,14 +464,14 @@ interface TableColumn {
  * You can create a table definition using workbook.createTable(options).
  */
 interface TableDefinition {
-  /** The columns of the table definition. */
-  columns: TableColumn[];
-  /** The dataset of the table definition. */
-  dataset: Dataset;
-  /** The ID of the table definition. */
-  id: string;
-  /** The name of the table definition. */
-  name: string;
+    /** The columns of the table definition. */
+    columns: TableColumn[];
+    /** The dataset of the table definition. */
+    dataset: Dataset;
+    /** The ID of the table definition. */
+    id: string;
+    /** The name of the table definition. */
+    name: string;
 }
 
 /**
@@ -479,10 +479,10 @@ interface TableDefinition {
  * You can create a table filter using workbook.createTableFilter(options).
  * */
 interface TableColumnFilter {
-  /** The operator of the table filter. */
-  operator: Operator;
-  /** The values of the table filter. */
-  values: (null|Object|boolean|number|string|Date)[];
+    /** The operator of the table filter. */
+    operator: Operator;
+    /** The values of the table filter. */
+    values: (null | Object | boolean | number | string | Date)[];
 }
 
 /**
@@ -492,23 +492,23 @@ interface TableColumnFilter {
  * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
  */
 export interface Workbook {
-  runPivot(options: RunPivot): PivotIntersection[];
-  /** Executes the table and returns the result set (the same as in N/query Module). */
-  runTable(options: RunTable): ResultSet;
-  /** Executes the table and returns paginated data (the same as in N/query Module). */
-  runTablePaged(options: RunTablePaged): PagedData;
-  /** Chart definitions that can be included in a workbook when you create a new workbook. */
-  charts: ChartDefinition[];
-  /** The description of the workbook. This is set when you create a workbook. */
-  description: string;
-  /** The ID of the workbook, that is set when you create a workbook. */
-  id: string;
-  /** The name of the workbook. */
-  name: string;
-  /** Pivot definitions that can be included in a workbook when you create a new workbook. */
-  pivots: Pivot[];
-  /** *Table definitions that can be included in a workbook when you create a new workbook. */
-  tables: TableDefinition[];
+    runPivot(options: RunPivot): PivotIntersection[];
+    /** Executes the table and returns the result set (the same as in N/query Module). */
+    runTable(options: RunTable): ResultSet;
+    /** Executes the table and returns paginated data (the same as in N/query Module). */
+    runTablePaged(options: RunTablePaged): PagedData;
+    /** Chart definitions that can be included in a workbook when you create a new workbook. */
+    charts: ChartDefinition[];
+    /** The description of the workbook. This is set when you create a workbook. */
+    description: string;
+    /** The ID of the workbook, that is set when you create a workbook. */
+    id: string;
+    /** The name of the workbook. */
+    name: string;
+    /** Pivot definitions that can be included in a workbook when you create a new workbook. */
+    pivots: Pivot[];
+    /** *Table definitions that can be included in a workbook when you create a new workbook. */
+    tables: TableDefinition[];
 }
 
 /**
@@ -518,291 +518,291 @@ export interface Workbook {
 // interface AllSubNodesSelector { } // Commented out on 6 Dec 2021 - this is no longer in the Help?
 
 interface CreateOptions {
-  charts?: ChartDefinition[];
-  description?: string;
-  name?: string;
-  pivots?: Pivot[];
-  tables?: TableDefinition[];
+    charts?: ChartDefinition[];
+    description?: string;
+    name?: string;
+    pivots?: Pivot[];
+    tables?: TableDefinition[];
 }
 
 interface CreateAspectOptions {
-  measure: Measure|DataMeasure;
-  type?: AspectType;
+    measure: Measure | DataMeasure;
+    type?: AspectType;
 }
 
 interface CreateCalculatedMeasure {
-  expression: Expression;
-  label?: string | Expression;
-  name?: string;
-  pivotDefinitions?: Pivot[];
-  tableDefinitions?: TableDefinition[];
+    expression: Expression;
+    label?: string | Expression;
+    name?: string;
+    pivotDefinitions?: Pivot[];
+    tableDefinitions?: TableDefinition[];
 }
 
 interface CreateCategoryOptions {
-  axis: ChartAxis;
-  root: DataDimension|Section;
-  sortDefinitions?: SortDefinition[];
+    axis: ChartAxis;
+    root: DataDimension | Section;
+    sortDefinitions?: SortDefinition[];
 }
 
 interface CreateChartAxis {
-  title: string;
+    title: string;
 }
 
 interface CreateChartDefinition {
-  aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
-  category: Category;
-  dataset?: Dataset;
-  filterExpressions?: Expression[];
-  id: string;
-  legend: Legend;
-  name: string;
-  series: Series[];
-  stacking?: Stacking;
-  subTitle?: string;
-  title?: string;
-  type: ChartType;
-  datasetLink?: DatasetLink;
+    aggregationFilters?: (ConditionalFilter | LimitingFilter)[];
+    category: Category;
+    dataset?: Dataset;
+    filterExpressions?: Expression[];
+    id: string;
+    legend: Legend;
+    name: string;
+    series: Series[];
+    stacking?: Stacking;
+    subTitle?: string;
+    title?: string;
+    type: ChartType;
+    datasetLink?: DatasetLink;
 }
 
 interface CreateColor {
-  alpha?: number;
-  blue?: number;
-  green?: number;
-  red?: number;
+    alpha?: number;
+    blue?: number;
+    green?: number;
+    red?: number;
 }
 
 interface CreateConditionalFilter {
-  filteredNodesSelector: DimensionSelector|PathSelector;
-  measure: Measure;
-  otherAxisSelector: DimensionSelector|PathSelector;
-  predicate: Expression;
-  row: boolean;
+    filteredNodesSelector: DimensionSelector | PathSelector;
+    measure: Measure;
+    otherAxisSelector: DimensionSelector | PathSelector;
+    predicate: Expression;
+    row: boolean;
 }
 
 interface CreateConditionalFormat {
-  rules: ConditionalFormatRule[];
+    rules: ConditionalFormatRule[];
 }
 
 interface CreateConditionalFormatRule {
-  filter: TableColumnFilter;
-  style: Style;
+    filter: TableColumnFilter;
+    style: Style;
 }
 
 interface CreateConstant {
-  constant: string|number|boolean|Date;
-  type?: ConstantType;
+    constant: string | number | boolean | Date;
+    type?: ConstantType;
 }
 
 interface CreateDataDimension {
-  children?: (DataDimension|Section|Measure)[];
-  items: DataDimensionItem[];
-  totalLine?: TotalLine | string;
+    children?: (DataDimension | Section | Measure)[];
+    items: DataDimensionItem[];
+    totalLine?: TotalLine | string;
 }
 
 interface CreateDataDimensionItem {
-  expression: Expression;
-  label?: string;
+    expression: Expression;
+    label?: string;
 }
 
 interface CreateDataMeasure {
-  aggregation: string|Aggregation;
-  expression?: Expression;
-  expressions?: Expression[];
-  label: string;
+    aggregation: string | Aggregation;
+    expression?: Expression;
+    expressions?: Expression[];
+    label: string;
 }
 
 interface CreateDimensionSelector {
-  dimension: DataDimension|Section;
+    dimension: DataDimension | Section;
 }
 
 interface CreateDimensionSort {
-  item: DataDimensionItem;
-  sort: Sort;
+    item: DataDimensionItem;
+    sort: Sort;
 }
 
 interface CreateExpression {
-  functionId: ExpressionType;
-  parameters?: Object;
+    functionId: ExpressionType;
+    parameters?: Object;
 }
 
 interface CreateFieldContext {
-  name: string;
-  parameters?: Object;
+    name: string;
+    parameters?: Object;
 }
 
 interface CreateFontSize {
-  size: number;
-  unit: string;
+    size: number;
+    unit: string;
 }
 
 interface CreateLegend {
-  axes: ChartAxis[];
-  root: Section|DataDimension;
-  sortDefinitions?: SortDefinition[];
+    axes: ChartAxis[];
+    root: Section | DataDimension;
+    sortDefinitions?: SortDefinition[];
 }
 
 interface CreateLimitingFilter {
-  filteredNodesSelector: DimensionSelector|PathSelector;
-  limit: number;
-  row: boolean;
-  sortBys: (DimensionSort|MeasureSort)[];
+    filteredNodesSelector: DimensionSelector | PathSelector;
+    limit: number;
+    row: boolean;
+    sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface CreateMeasure {
-  aggregation?: string;
-  expression?: Expression;
-  expressions?: Expression[];
-  label: string;
+    aggregation?: string;
+    expression?: Expression;
+    expressions?: Expression[];
+    label: string;
 }
 
 interface CreateMeasureSelector {
-  measures: (CalculatedMeasure | DataMeasure)[];
+    measures: (CalculatedMeasure | DataMeasure)[];
 }
 
 interface CreateMeasureSort {
-  measure: Measure;
-  otherAxisSelector: DimensionSelector|PathSelector;
-  selector: DimensionSelector|PathSelector;
-  sort: Sort;
+    measure: Measure;
+    otherAxisSelector: DimensionSelector | PathSelector;
+    selector: DimensionSelector | PathSelector;
+    sort: Sort;
 }
 
 interface CreateMeasureValueSelector {
-  columnSelector: DimensionSelector | PathSelector;
-  measureSelector: MeasureSelector;
-  rowSelector: DimensionSelector | PathSelector;
+    columnSelector: DimensionSelector | PathSelector;
+    measureSelector: MeasureSelector;
+    rowSelector: DimensionSelector | PathSelector;
 }
 
 interface CreatePathSelector {
-  elements: DimensionSelector[];
+    elements: DimensionSelector[];
 }
 
 interface CreatePivotAxis {
-  root: DataDimension|Section;
-  sortDefinitions?: SortDefinition[];
+    root: DataDimension | Section;
+    sortDefinitions?: SortDefinition[];
 }
 
 interface CreatePivotDefinition {
-  aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
-  columnAxis: PivotAxis;
-  dataset?: Dataset;
-  filterExpressions?: Expression[];
-  id: string;
-  name: string;
-  rowAxis: PivotAxis;
-  datasetLink?: DatasetLink;
+    aggregationFilters?: (ConditionalFilter | LimitingFilter)[];
+    columnAxis: PivotAxis;
+    dataset?: Dataset;
+    filterExpressions?: Expression[];
+    id: string;
+    name: string;
+    rowAxis: PivotAxis;
+    datasetLink?: DatasetLink;
 }
 
 interface CreatePositionPercent {
-  percentX: number;
-  percentY: number;
+    percentX: number;
+    percentY: number;
 }
 
 interface CreatePositionUnits {
-  unit: string;
-  x: number;
-  y: number;
+    unit: string;
+    x: number;
+    y: number;
 }
 
 interface CreatePositionValues {
-  horizontal: string;
-  vertical: string;
+    horizontal: string;
+    vertical: string;
 }
 
 interface CreateReportStyle {
-  rules: ReportStyleRule[];
-  selectors: MeasureValueSelector[];
+    rules: ReportStyleRule[];
+    selectors: MeasureValueSelector[];
 }
 
 interface CreateReportStyleRule {
-  expression: Expression;
-  style: Style;
+    expression: Expression;
+    style: Style;
 }
 
 interface CreateSection {
-  children: (DataDimension|Measure|Section|DataMeasure)[];
-  totalLine?: TotalLine;
+    children: (DataDimension | Measure | Section | DataMeasure)[];
+    totalLine?: TotalLine;
 }
 
 interface CreateSeries {
-  aspects: Aspect[];
+    aspects: Aspect[];
 }
 
 interface CreateSort {
-  ascending?: boolean;
-  caseSensitive?: boolean;
-  locale?: SortLocale;
-  nullsLast?: boolean;
+    ascending?: boolean;
+    caseSensitive?: boolean;
+    locale?: SortLocale;
+    nullsLast?: boolean;
 }
 
 interface CreateSortByDataDimensionItem {
-  item: DataDimensionItem;
-  sort: Sort;
+    item: DataDimensionItem;
+    sort: Sort;
 }
 
 interface CreateSortByMeasure {
-  measure: Measure;
-  otherAxisSelector: (DimensionSelector | PathSelector)[];
-  selector: (DimensionSelector | PathSelector)[];
-  sort: Sort;
+    measure: Measure;
+    otherAxisSelector: (DimensionSelector | PathSelector)[];
+    selector: (DimensionSelector | PathSelector)[];
+    sort: Sort;
 }
 
 interface CreateSortDefinition {
-  selector: DimensionSelector|PathSelector;
-  sortBys: (DimensionSort|MeasureSort)[];
+    selector: DimensionSelector | PathSelector;
+    sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface CreateStyle {
-  backgroundColor?: Color | string;
-  backgroundImage?: string;
-  backgroundPosition?: PositionPercent | PositionUnits | PositionValues;
-  color?: Color | string;
-  fontSize?: string;
-  fontStyle?: string;
-  fontWeight?: string;
-  textAlign?: string;
-  textDecorationColor?: Color | string;
-  textDecorationLine?: string;
-  textDecorationStyle?: string;
+    backgroundColor?: Color | string;
+    backgroundImage?: string;
+    backgroundPosition?: PositionPercent | PositionUnits | PositionValues;
+    color?: Color | string;
+    fontSize?: string;
+    fontStyle?: string;
+    fontWeight?: string;
+    textAlign?: string;
+    textDecorationColor?: Color | string;
+    textDecorationLine?: string;
+    textDecorationStyle?: string;
 }
 
 interface CreateTableColumn {
-  alias?: string;
-  datasetColumnAlias: string;
-  datasetColumnId: number;
-  fieldContext?: FieldContext;
-  filters?: TableColumnFilter;
-  label?: string;
-  sort: Sort;
-  width?: number;
+    alias?: string;
+    datasetColumnAlias: string;
+    datasetColumnId: number;
+    fieldContext?: FieldContext;
+    filters?: TableColumnFilter;
+    label?: string;
+    sort: Sort;
+    width?: number;
 }
 
 interface CreateTableDefinition {
-  columns: TableColumn[];
-  dataset: Dataset;
-  id: string;
-  name: string;
+    columns: TableColumn[];
+    dataset: Dataset;
+    id: string;
+    name: string;
 }
 
 interface CreateTableColumnFilter {
-  operator: string;
-  values?: (null|Object|number|string|boolean|Date)[];
+    operator: string;
+    values?: (null | Object | number | string | boolean | Date)[];
 }
 
 interface Load {
-  id: string;
+    id: string;
 }
 
 interface RunTable {
-  id: string;
+    id: string;
 }
 
 interface RunTablePaged {
-  id: string;
-  pageSize?: number;
+    id: string;
+    pageSize?: number;
 }
 
 interface RunPivot {
-  id: string;
+    id: string;
 }
 
 /**
@@ -864,7 +864,9 @@ export function createConditionalFormat(options: CreateConditionalFormat): Condi
 /**
  * Creates a conditional format rule.
  */
-export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
+export function createConditionalFormatRule(
+    options: CreateConditionalFormatRule,
+): ConditionalFormatRule;
 
 /**
  * Creates a constant expression.
@@ -940,7 +942,9 @@ export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 /**
  * Creates a measure value selector.
  */
-export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
+export function createMeasureValueSelector(
+    options: CreateMeasureValueSelector,
+): MeasureValueSelector;
 
 /**
  * Creates a path selector.
@@ -1002,7 +1006,9 @@ export function createSort(options: CreateSort): Sort;
 /**
  * Creates a sort based on data dimension items.
  */
-export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
+export function createSortByDataDimensionItem(
+    options: CreateSortByDataDimensionItem,
+): SortByDataDimensionItem;
 
 /**
  * Creates a sort based on a measure.
@@ -1039,8 +1045,8 @@ export function createTable(options: CreateTableDefinition): TableDefinition;
 export function createTableColumnFilter(options: CreateTableColumnFilter): TableColumnFilter;
 
 /**
-* Creates a record key.
-*/
+ * Creates a record key.
+ */
 export function createSimpleRecordKey({ key: number }): number;
 
 /**
@@ -1061,232 +1067,232 @@ export function load(options: { id: string }): Workbook;
 export const DescendantOrSelfNodesSelector: unknown;
 
 declare enum Aggregation {
-  COUNT,
-  COUNT_DISTINCT,
-  MAX,
-  MEDIAN,
-  MIN,
-  SUM
+    COUNT,
+    COUNT_DISTINCT,
+    MAX,
+    MEDIAN,
+    MIN,
+    SUM,
 }
 
 declare enum AspectType {
-  COLOR = 'color',
-  VALUE = 'value'
+    COLOR = 'color',
+    VALUE = 'value',
 }
 
 declare enum Color {
-  BLACK,
-  BLUE,
-  BROWN,
-  GRAY,
-  GREEN,
-  ORANGE,
-  PINK,
-  PURPLE,
-  RED,
-  WHITE,
-  YELLOW
+    BLACK,
+    BLUE,
+    BROWN,
+    GRAY,
+    GREEN,
+    ORANGE,
+    PINK,
+    PURPLE,
+    RED,
+    WHITE,
+    YELLOW,
 }
 
 declare enum ChartType {
-  AREA,
-  BAR,
-  COLUMN,
-  LINE
+    AREA,
+    BAR,
+    COLUMN,
+    LINE,
 }
 
 declare enum ConstantType {
-  BOOLEAN,
-  CURRENCY,
-  DATE,
-  DATE_TIME,
-  DURATION,
-  NUMBER,
-  TEXT
+    BOOLEAN,
+    CURRENCY,
+    DATE,
+    DATE_TIME,
+    DURATION,
+    NUMBER,
+    TEXT,
 }
 
 declare enum DateTimeHierarchy {
-  MONTH_BASED,
-  WEEK_BASED
+    MONTH_BASED,
+    WEEK_BASED,
 }
 
 declare enum DateTimeProperty {
-  DATE,
-  DAY_OF_MONTH,
-  DAY_OF_WEEK,
-  MONTH,
-  QUARTER,
-  WEEK_OF_YEAR,
-  YEAR
+    DATE,
+    DAY_OF_MONTH,
+    DAY_OF_WEEK,
+    MONTH,
+    QUARTER,
+    WEEK_OF_YEAR,
+    YEAR,
 }
 
 declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 2022.1
-  AND,
-  // ANY_IN_HIERARCHY,
-  ANY_OF,
-  BETWEEN,
-  CHILD_OF,
-  COMPARE,
-  CONSTANT,
-  // CONSOLIDATE,
-  CURRENCY_CONVERSION,
-  DATE_RANGE_SELECTOR_ID,
-  DATE_SELECTOR_ID,
-  DATE_TIME_PROPERTY,
-  DIVIDE,
-  EQUALS,
-  FIELD,
-  HIERARCHY,
-  HIERARCHY_TO_TEXT,
-  IN_RANGE,
-  IS_NULL,
-  LAMBDA,
-  MEASURE_VALUE,
-  MINUS,
-  MULTIPLY,
-  NOT,
-  OR,
-  RECORD_DISPLAY_VALUE,
-  RECORD_KEY,
-  SIMPLE_CONSOLIDATE,
-  TRANSLATE,
-  TRUNCATE_DATE_TIME
+    AND,
+    // ANY_IN_HIERARCHY,
+    ANY_OF,
+    BETWEEN,
+    CHILD_OF,
+    COMPARE,
+    CONSTANT,
+    // CONSOLIDATE,
+    CURRENCY_CONVERSION,
+    DATE_RANGE_SELECTOR_ID,
+    DATE_SELECTOR_ID,
+    DATE_TIME_PROPERTY,
+    DIVIDE,
+    EQUALS,
+    FIELD,
+    HIERARCHY,
+    HIERARCHY_TO_TEXT,
+    IN_RANGE,
+    IS_NULL,
+    LAMBDA,
+    MEASURE_VALUE,
+    MINUS,
+    MULTIPLY,
+    NOT,
+    OR,
+    RECORD_DISPLAY_VALUE,
+    RECORD_KEY,
+    SIMPLE_CONSOLIDATE,
+    TRANSLATE,
+    TRUNCATE_DATE_TIME,
 }
 
 declare enum FontSize {
-  LARGE,
-  LARGER,
-  MEDIUM,
-  SMALL,
-  SMALLER,
-  XX_LARGE,
-  XX_SMALL,
-  X_LARGE,
-  X_SMALL
+    LARGE,
+    LARGER,
+    MEDIUM,
+    SMALL,
+    SMALLER,
+    XX_LARGE,
+    XX_SMALL,
+    X_LARGE,
+    X_SMALL,
 }
 
 declare enum FontStyle {
-  ITALIC,
-  NORMAL,
-  OBLIQUE,
+    ITALIC,
+    NORMAL,
+    OBLIQUE,
 }
 
 declare enum FontWeight {
-  BOLD,
-  NORMAL
+    BOLD,
+    NORMAL,
 }
 
 declare enum Image {
-  EXCLAMATION,
-  QUESTION,
-  SMILE
+    EXCLAMATION,
+    QUESTION,
+    SMILE,
 }
 
 declare enum Position {
-  BOTTOM,
-  CENTER,
-  LEFT,
-  RIGHT,
-  TOP
+    BOTTOM,
+    CENTER,
+    LEFT,
+    RIGHT,
+    TOP,
 }
 
 declare enum Stacking {
-  DISABLED,
-  NORMAL,
-  PERCENT
+    DISABLED,
+    NORMAL,
+    PERCENT,
 }
 
 declare enum TemporalUnit {
-  HOURS,
-  MINUTES
+    HOURS,
+    MINUTES,
 }
 
 declare enum TextAlign {
-  CENTER,
-  JUSTIFY,
-  LEFT,
-  RIGHT
+    CENTER,
+    JUSTIFY,
+    LEFT,
+    RIGHT,
 }
 
 declare enum TextDecorationLine {
-  LINE_THROUGH,
-  NONE,
-  OVERLINE,
-  UNDERLINE
+    LINE_THROUGH,
+    NONE,
+    OVERLINE,
+    UNDERLINE,
 }
 
 declare enum TextDecorationStyle {
-  DASHED,
-  DOTTED,
-  DOUBLE,
-  SOLID,
-  WAVY
+    DASHED,
+    DOTTED,
+    DOUBLE,
+    SOLID,
+    WAVY,
 }
 
 declare enum TotalLine {
-  FIRST_LINE,
-  HIDDEN,
-  LAST_LINE
+    FIRST_LINE,
+    HIDDEN,
+    LAST_LINE,
 }
 
 declare enum Unit {
-  CH,
-  CM,
-  EM,
-  EX,
-  IN,
-  MM,
-  PC,
-  PT,
-  PX,
-  REM,
-  VH,
-  VMAX,
-  VMIN,
-  VW
+    CH,
+    CM,
+    EM,
+    EX,
+    IN,
+    MM,
+    PC,
+    PT,
+    PX,
+    REM,
+    VH,
+    VMAX,
+    VMIN,
+    VW,
 }
 
 declare enum Operator {
-  AFTER                 = 'AFTER',
-  AFTER_NOT	            =	'AFTER_NOT',
-  ANY_OF		            = 'ANY_OF',
-  ANY_OF_NOT            = 'ANY_OF_NOT',
-  BEFORE                =	'BEFORE',
-  BEFORE_NOT	          =	'BEFORE_NOT',
-  BETWEEN		            = 'BETWEEN',
-  BETWEEN_NOT	          = 'BETWEEN_NOT',
-  CONTAIN		            = 'CONTAIN',
-  CONTAIN_NOT           = 'CONTAIN_NOT',
-  EMPTY		              = 'EMPTY',
-  EMPTY_NOT		          = 'EMPTY_NOT',
-  ENDWITH		            = 'ENDWITH',
-  ENDWITH_NOT           = 'ENDWITH_NOT',
-  EQUAL		              = 'EQUAL',
-  EQUAL_NOT		          = 'EQUAL_NOT',
-  EXCLUDE_ALL	          =	'MN_EXCLUDE',
-  EXCLUDE_ANY	          =	'MN_EXCLUDE_ALL',
-  EXCLUDE_EXACTLY	      = 'MN_EXCLUDE_EXACTLY',
-  GREATER		            = 'GREATER',
-  GREATER_NOT		        = 'GREATER_NOT',
-  GREATER_OR_EQUAL      = 'GREATER_OR_EQUAL',
-  GREATER_OR_EQUAL_NOT	= 'GREATER_OR_EQUAL_NOT',
-  INCLUDE_ALL		        = 'MN_INCLUDE_ALL',
-  INCLUDE_ANY		        = 'MN_INCLUDE',
-  INCLUDE_EXACTLY	      = 'MN_INCLUDE_EXACTLY',
-  IS		                = 'IS',
-  IS_NOT		            = 'IS_NOT',
-  LESS		              = 'LESS',
-  LESS_NOT		          = 'LESS_NOT',
-  LESS_OR_EQUAL		      = 'LESS_OR_EQUAL',
-  LESS_OR_EQUAL_NOT		  = 'LESS_OR_EQUAL_NOT',
-  ON	                  =	'ON',
-  ON_NOT	              =	'ON_NOT',
-  ON_OR_AFTER	          =	'ON_OR_AFTER',
-  ON_OR_AFTER_NOT	      =	'ON_OR_AFTER_NOT',
-  ON_OR_BEFORE		      = 'ON_OR_BEFORE',
-  ON_OR_BEFORE_NOT	    =	'ON_OR_BEFORE_NOT',
-  START_WITH	          = 'START_WITH',
-  START_WITH_NOT	      =	'START_WITH_NOT',
-  WITHIN	              =	'WITHIN',
-  WITHIN_NOT	          =	'WITHIN_NOT'
+    AFTER = 'AFTER',
+    AFTER_NOT = 'AFTER_NOT',
+    ANY_OF = 'ANY_OF',
+    ANY_OF_NOT = 'ANY_OF_NOT',
+    BEFORE = 'BEFORE',
+    BEFORE_NOT = 'BEFORE_NOT',
+    BETWEEN = 'BETWEEN',
+    BETWEEN_NOT = 'BETWEEN_NOT',
+    CONTAIN = 'CONTAIN',
+    CONTAIN_NOT = 'CONTAIN_NOT',
+    EMPTY = 'EMPTY',
+    EMPTY_NOT = 'EMPTY_NOT',
+    ENDWITH = 'ENDWITH',
+    ENDWITH_NOT = 'ENDWITH_NOT',
+    EQUAL = 'EQUAL',
+    EQUAL_NOT = 'EQUAL_NOT',
+    EXCLUDE_ALL = 'MN_EXCLUDE',
+    EXCLUDE_ANY = 'MN_EXCLUDE_ALL',
+    EXCLUDE_EXACTLY = 'MN_EXCLUDE_EXACTLY',
+    GREATER = 'GREATER',
+    GREATER_NOT = 'GREATER_NOT',
+    GREATER_OR_EQUAL = 'GREATER_OR_EQUAL',
+    GREATER_OR_EQUAL_NOT = 'GREATER_OR_EQUAL_NOT',
+    INCLUDE_ALL = 'MN_INCLUDE_ALL',
+    INCLUDE_ANY = 'MN_INCLUDE',
+    INCLUDE_EXACTLY = 'MN_INCLUDE_EXACTLY',
+    IS = 'IS',
+    IS_NOT = 'IS_NOT',
+    LESS = 'LESS',
+    LESS_NOT = 'LESS_NOT',
+    LESS_OR_EQUAL = 'LESS_OR_EQUAL',
+    LESS_OR_EQUAL_NOT = 'LESS_OR_EQUAL_NOT',
+    ON = 'ON',
+    ON_NOT = 'ON_NOT',
+    ON_OR_AFTER = 'ON_OR_AFTER',
+    ON_OR_AFTER_NOT = 'ON_OR_AFTER_NOT',
+    ON_OR_BEFORE = 'ON_OR_BEFORE',
+    ON_OR_BEFORE_NOT = 'ON_OR_BEFORE_NOT',
+    START_WITH = 'START_WITH',
+    START_WITH_NOT = 'START_WITH_NOT',
+    WITHIN = 'WITHIN',
+    WITHIN_NOT = 'WITHIN_NOT',
 }

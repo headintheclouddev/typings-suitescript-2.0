@@ -1,47 +1,47 @@
 interface Action {
-  id:          string;
-  recordType:  string;
-  label:       string;
-  description: string;
-  parameters:  Object;
+    id: string;
+    recordType: string;
+    label: string;
+    description: string;
+    parameters: Object;
 }
 
 interface ExecuteBulkOptions {
-  recordType: string;
-  /** The action ID */
-  id:     string;
-  params: { recordId: string };
-  condition: string;
-  paramCallback: string;
+    recordType: string;
+    /** The action ID */
+    id: string;
+    params: { recordId: string };
+    condition: string;
+    paramCallback: string;
 }
 
 interface ExecuteOptions {
-  recordType: string;
-  /** The action ID */
-  id:     string;
-  params: { recordId: string };
+    recordType: string;
+    /** The action ID */
+    id: string;
+    params: { recordId: string };
 }
 
 interface FindGetOptions {
-  recordType: string;
-  recordId?:  string;
-  /** The ID of the action. */
-  id?: string;
+    recordType: string;
+    recordId?: string;
+    /** The ID of the action. */
+    id?: string;
 }
 
 interface ActionFindFunction {
-  (options: FindGetOptions): Object;
-  promise(options: FindGetOptions): Promise<Object>;
+    (options: FindGetOptions): Object;
+    promise(options: FindGetOptions): Promise<Object>;
 }
 
 interface ActionGetFunction {
-  (options: FindGetOptions): Action;
-  promise(options: FindGetOptions): Promise<Action>;
+    (options: FindGetOptions): Action;
+    promise(options: FindGetOptions): Promise<Action>;
 }
 
 interface ActionExecuteFunction {
-  (options: ExecuteOptions): Object;
-  promise(options: ExecuteOptions): Promise<Object>;
+    (options: ExecuteOptions): Object;
+    promise(options: ExecuteOptions): Promise<Object>;
 }
 
 /**

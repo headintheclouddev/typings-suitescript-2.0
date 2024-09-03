@@ -19,30 +19,29 @@ You can import the modules and use them like normal using standard TypeScript sy
 
 ```json
 {
-  "compilerOptions": {
-    "module": "amd",
-    "target": "es5",
-    "moduleResolution":"node",
-    "sourceMap": false,
-    "newLine": "LF",
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "lib": ["es5", "es2015.promise", "dom"],
-    "paths": {
-      "N": ["node_modules/@hitc/netsuite-types/N"],
-      "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
-    }
-  },
-  "exclude": ["node_modules"]
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "newLine": "LF",
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "lib": ["es5", "es2015.promise", "dom"],
+        "paths": {
+            "N": ["node_modules/@hitc/netsuite-types/N"],
+            "N/*": ["node_modules/@hitc/netsuite-types/N/*"]
+        }
+    },
+    "exclude": ["node_modules"]
 }
 ```
 
-The key components are __baseUrl__ and __paths__.
+The key components are **baseUrl** and **paths**.
 
 Then simply import your modules and go.
 
 ### Writing SuiteScript
-
 
 At the top of every script you will want to have the following lines added:
 
@@ -52,21 +51,23 @@ At the top of every script you will want to have the following lines added:
  * @NScriptType ClientScript
  */
 
-import {EntryPoints} from 'N/types';
+import { EntryPoints } from 'N/types';
 ```
 
 `N/types` and `EntryPoints` isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
 
 ```typescript
-import {EntryPoints} from 'N/types';
-export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
-  //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
-}
+import { EntryPoints } from 'N/types';
+export let pageInit: EntryPoints.Client.pageInit = (
+    context: EntryPoints.Client.pageInitContext,
+) => {
+    //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
+};
 ```
 
-Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point. 
+Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point.
 
-Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-cheking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box. 
+Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-cheking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
 
 ## User Event Example
 
@@ -78,11 +79,13 @@ Full example for a User Event Script might look something like this:
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/types';
+import { EntryPoints } from 'N/types';
 import * as log from 'N/log';
 
-export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
-    let x = context.newRecord.getValue({fieldId: 'companyname'});
+export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (
+    context: EntryPoints.UserEvent.beforeSubmitContext,
+) => {
+    let x = context.newRecord.getValue({ fieldId: 'companyname' });
     log.audit('value', `companyname is: ${x}`);
 };
 ```
@@ -95,11 +98,13 @@ export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoi
  * @NScriptType Suitelet
  */
 
-import {EntryPoints} from 'N/types';
+import { EntryPoints } from 'N/types';
 import * as record from 'N/record';
 
-export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
-    let folder = record.load({type: 'folder', id: 36464});
+export let onRequest: EntryPoints.Suitelet.onRequest = (
+    context: EntryPoints.Suitelet.onRequestContext,
+) => {
+    let folder = record.load({ type: 'folder', id: 36464 });
     let allfields = folder.getFields().join(', ');
     context.response.write(`<br>all fields: ${allfields}`);
 };
@@ -112,4 +117,3 @@ This example exports the function `onRequest` that needs to be referenced in the
 You can download the latest published typings library at any time by simply running the command:
 
 `npm install --save-dev @hitc/netsuite-types`
-

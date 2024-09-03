@@ -1,8 +1,8 @@
-import {File} from './file';
-import {Record} from './record';
-import {ServerResponse} from './http';
-import {Result} from './search';
-import {NSXMLDocument} from './xml';
+import { File } from './file';
+import { Record } from './record';
+import { ServerResponse } from './http';
+import { Result } from './search';
+import { NSXMLDocument } from './xml';
 import query = require('./query');
 
 interface AddCustomDataSourceOptions {
@@ -44,7 +44,7 @@ interface EmailMergeResult {
 
 interface MergeEmailOptions {
     /** Internal ID of the template. */
-    templateId: number;    // One of the below fields must be included.
+    templateId: number; // One of the below fields must be included.
     /** Entity record reference. For example, an employee. */
     entity?: RecordRef;
     /** Recipient record reference.  For example, a lead. */
@@ -122,7 +122,7 @@ interface GLImpactOptions {
     /** The internal ID of the transaction to print GL Impact. */
     internalId: number;
     /** The print output type. Set using the render.PrintMode enum. */
-    printMode?: PrintMode|string;
+    printMode?: PrintMode | string;
     /** Include only specific subsidiaries. Default to false. */
     printPerSubsidiary?: boolean;
     /** Specific subsidiaries, only available when printPerSubsidiary is set to true. */
@@ -157,9 +157,9 @@ interface TemplateRenderer {
     renderToResponse(options: RenderToResponseOptions): void;
     renderToResponse(serverResponse: ServerResponse): void;
     /** Sets the template using the internal ID. */
-    setTemplateById(options: { id: number; }): void;
+    setTemplateById(options: { id: number }): void;
     /** Sets the template using the script ID. */
-    setTemplateByScriptId(options: { scriptId: Uppercase<string>; }): void;
+    setTemplateByScriptId(options: { scriptId: Uppercase<string> }): void;
     /** Content of template. */
     templateContent: string;
 }
@@ -177,7 +177,7 @@ interface TransactionOptions {
     /** The internal ID of the transaction to print. */
     entityId: number;
     /** The print output type. Set using the render.PrintMode enum. */
-    printMode?: PrintMode|string;
+    printMode?: PrintMode | string;
     /** The transaction form number. */
     formId?: number;
     /** Applies when advanced templates are used. Print the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale. */
@@ -208,12 +208,12 @@ export enum DataSource {
     JSON,
     OBJECT,
     XML_DOC,
-    XML_STRING
+    XML_STRING,
 }
 
 /** Holds the string values for supported print output types. Use this enum to set the options.printMode parameter. */
 export enum PrintMode {
     DEFAULT,
     HTML,
-    PDF
+    PDF,
 }

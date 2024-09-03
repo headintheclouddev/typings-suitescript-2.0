@@ -36,8 +36,10 @@ interface GetContextOptions {
  * - For records that are loaded in your script, the record is defined by the record object.
  *   In this case, you must use the record parameter to specify the record to obtain the context for. You do not use the recordType and recordId parameters.
  */
-export declare function getContext(options: GetContextOptions): { [contextType: string]: string|string[] }; // The example shows: { "localization": ["CA"] }
+export declare function getContext(options: GetContextOptions): {
+    [contextType: string]: string | string[];
+}; // The example shows: { "localization": ["CA"] }
 
 export enum ContextType {
-    LOCALIZATION
+    LOCALIZATION,
 }

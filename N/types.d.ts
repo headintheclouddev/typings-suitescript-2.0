@@ -3,10 +3,10 @@ import * as N_portlet from './portlet';
 import * as N_record from './record';
 import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
-import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
-import * as N_FiParser from "./plugins/fiParserPlugin";
-import * as N_dataset from "./dataset";
-import * as N_workbook from "./workbook";
+import * as N_FiConnectivity from './plugins/fiConnectivityPlugin';
+import * as N_FiParser from './plugins/fiParserPlugin';
+import * as N_dataset from './dataset';
+import * as N_workbook from './workbook';
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
@@ -73,11 +73,11 @@ declare interface UserEventTypes {
 }
 
 declare enum ScheduledInvocationType {
-    SCHEDULED,      // The normal execution according to the deployment options specified in the UI.
-    ON_DEMAND,      // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
+    SCHEDULED, // The normal execution according to the deployment options specified in the UI.
+    ON_DEMAND, // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
     USER_INTERFACE, // The script is executed via the UI (the Save & Execute button has been clicked).
-    ABORTED,        // The script re-executed automatically following an aborted execution (system went down during execution).
-    SKIPPED         // The script is executed automatically following downtime during which the script should have been executed.
+    ABORTED, // The script re-executed automatically following an aborted execution (system went down during execution).
+    SKIPPED, // The script is executed automatically following downtime during which the script should have been executed.
 }
 
 declare interface ScheduledInvocationTypes {
@@ -149,7 +149,7 @@ export namespace EntryPoints {
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string|null;
+            sublistId: string | null;
             fieldId: string;
             line?: number;
             column?: number;
@@ -237,7 +237,9 @@ export namespace EntryPoints {
             ObjectRef: ObjectReference;
         }
 
-        type getInputData = (scriptContext: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
+        type getInputData = (
+            scriptContext: getInputDataContext,
+        ) => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
             readonly isRestarted: boolean;
@@ -272,7 +274,9 @@ export namespace EntryPoints {
         }
 
         interface MapReduceSummaryIterator {
-            each(callback: (key: string, executionCount: number, completionState: string) => boolean): void;
+            each(
+                callback: (key: string, executionCount: number, completionState: string) => boolean,
+            ): void;
         }
 
         interface MapReduceSummaryIteratorContainer {
@@ -372,10 +376,16 @@ export namespace EntryPoints {
     }
 
     namespace RESTlet {
-        type get = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type delete_ = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type post = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
-        type put = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
+        type get = (requestParameters: { [key: string]: any }) => { [key: string]: any } | string;
+        type delete_ = (requestParameters: {
+            [key: string]: any;
+        }) => { [key: string]: any } | string;
+        type post = (
+            requestBody: { [key: string]: any } | string,
+        ) => { [key: string]: any } | string;
+        type put = (
+            requestBody: { [key: string]: any } | string,
+        ) => { [key: string]: any } | string;
     }
 
     namespace BundleInstallation {
@@ -424,24 +434,16 @@ export namespace EntryPoints {
     }
 
     namespace Plugins {
-
         namespace FiParser {
+            interface getConfigurationPageUrlContext
+                extends N_FiParser.getConfigurationPageUrlContext {}
 
-            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {
+            interface parseDataContext extends N_FiParser.parseDataContext {}
 
-            }
+            interface getStandardTransactionCodesContext
+                extends N_FiParser.getStandardTransactionCodesContext {}
 
-            interface parseDataContext extends N_FiParser.parseDataContext {
-
-            }
-
-            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {
-
-            }
-
-            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {
-
-            }
+            interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
 
             type getConfigurationPageUrl = N_FiParser.getConfigurationPageUrl;
             type parseData = N_FiParser.parseData;
@@ -450,22 +452,15 @@ export namespace EntryPoints {
         }
 
         namespace FiConnectivity {
+            interface getTransactionDataContext
+                extends N_FiConnectivity.getTransactionDataContext {}
 
-            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {
+            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
 
-            }
+            interface getConfigurationIFrameUrlContext
+                extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
 
-            interface getAccountsContext extends N_FiConnectivity.getAccountsContext {
-
-            }
-
-            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {
-
-            }
-
-            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {
-
-            }
+            interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
 
             type getTransactionData = N_FiConnectivity.getTransactionData;
             type getAccounts = N_FiConnectivity.getAccounts;
@@ -518,6 +513,6 @@ export namespace EntryPoints {
 }
 
 interface IKeyValuePair {
-    key: string|object;
-    value: string|object;
+    key: string | object;
+    value: string | object;
 }

@@ -1,4 +1,4 @@
-import {Record} from './record';
+import { Record } from './record';
 
 interface LoadOptions {
     /**
@@ -13,7 +13,7 @@ interface LoadOptions {
 export declare function load(options: LoadOptions): Record;
 
 /**
- * Enumeration that holds the string values for supported configuration pages. 
+ * Enumeration that holds the string values for supported configuration pages.
  * This enum is used to set the value of the Record.type property.
  * Note that the Record.type property is read-only.
  */
@@ -26,5 +26,5 @@ export declare enum Type {
     TAX_PERIODS,
     FEATURES,
     TIME_POST,
-    TIME_VOID
+    TIME_VOID,
 }

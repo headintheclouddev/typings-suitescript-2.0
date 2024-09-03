@@ -1,4 +1,4 @@
-import {File} from './file';
+import { File } from './file';
 
 interface SendOptions {
     /**
@@ -11,7 +11,7 @@ interface SendOptions {
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      * Note: Only the first recipient displays on the Communication tab (under the Recipient column).
      */
-    recipients: number[]|string[]|number|string;
+    recipients: number[] | string[] | number | string;
     /**
      * The email address that appears in the reply-to header when an email is sent out.
      */
@@ -21,13 +21,13 @@ interface SendOptions {
      * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      */
-    cc?: string[]|number[];
+    cc?: string[] | number[];
     /**
      * The internal ID or email address of the secondary recipient to blind copy.
      * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      */
-    bcc?: string[]|number[];
+    bcc?: string[] | number[];
     /**
      * Subject of the outgoing message
      */
@@ -49,7 +49,7 @@ interface SendOptions {
     /**
      * If true, the Message record is not visible to an external Entity (for example, a customer or contact). Default is false.
      */
-    isInternalOnly?: boolean;   
+    isInternalOnly?: boolean;
 }
 
 interface RelatedRecordTypes {

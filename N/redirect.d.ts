@@ -1,4 +1,4 @@
-import {Search} from './search';
+import { Search } from './search';
 import record = require('./record');
 
 interface RedirectOptions {

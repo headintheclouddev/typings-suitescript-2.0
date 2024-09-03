@@ -1,4 +1,4 @@
-import {FieldValue} from './record';
+import { FieldValue } from './record';
 
 /**
  * Encapsulates a search filter used in a search.
@@ -18,7 +18,7 @@ export interface Filter {
     readonly name: string;
     /** Join ID for the search filter as a string. */
     readonly join: string;
-    /** Operator used for the search filter. This value is set with the search.Operator enum. 
+    /** Operator used for the search filter. This value is set with the search.Operator enum.
      * The search.Operator enum contains the valid operator values for this property. */
     readonly operator: Operator;
     /** Summary type for the search filter. Use this property to get or set the value of the summary type. See search.Summary. */
@@ -49,7 +49,7 @@ export interface Column {
     /** Label used for the search column. You can only get or set custom labels with this property. */
     label?: string;
     /** Special function applied to values in a search column. See Help for Supported Functions. */
-    function?: string
+    function?: string;
     /** The sort order of the column. Use the search.Sort enum to set the value. */
     sort?: Sort;
 }
@@ -58,9 +58,15 @@ export interface Result {
     getValue(column: Column | string): boolean | string | string[];
     getText(options: Column | string): string;
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object containing all column values by name. */
-    getAllValues(): { [fieldId: string]: boolean|string|LookupValueObject[] };
+    getAllValues(): {
+        [fieldId: string]: boolean | string | LookupValueObject[];
+    };
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object representing the search result. */
-    toJSON(): { recordType?: string, id?: string, values: { [columnName: string]: string|boolean } };
+    toJSON(): {
+        recordType?: string;
+        id?: string;
+        values: { [columnName: string]: string | boolean };
+    };
     recordType: Type | string;
     id: string;
     columns: Column[];
@@ -119,7 +125,7 @@ export interface Page {
 }
 
 export interface PageRange {
-    compoundLabel: string; /** Human-readable label with beginning and ending range identifiers */
+    compoundLabel: string /** Human-readable label with beginning and ending range identifiers */;
     index: number; // Read only
 }
 
@@ -127,7 +133,7 @@ export interface PagedData {
     fetch: PagedDataFetchFunction;
     count: number; // Read only
     pageRanges: PageRange[];
-    pageSize: number; /** Read Only */
+    pageSize: number /** Read Only */;
     searchDefinition: Search; // Read only
 }
 
@@ -169,7 +175,16 @@ export interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?: FieldValue | FieldValue[] | string | Date | number | string[] | Date[] | number[] | boolean;
+    values?:
+        | FieldValue
+        | FieldValue[]
+        | string
+        | Date
+        | number
+        | string[]
+        | Date[]
+        | number[]
+        | boolean;
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
@@ -193,20 +208,23 @@ export interface CreateSearchColumnOptions {
 
 type LookupValue = string | number | boolean | LookupValueObject[];
 
-export interface LookupValueObject { value: string, text: string }
+export interface LookupValueObject {
+    value: string;
+    text: string;
+}
 
 interface SearchLookupFieldsFunction {
     promise<T extends string>(options: {
-		type: Type | string;
-		id: FieldValue | string | number;
-		columns: T | T[]
-	}): Promise<{ [ K in T ]?: LookupValue }>;
-	
-	<T extends string>(options: {
-		type: Type | string;
-		id: FieldValue | string | number;
-		columns: T | T[]
-	}): { [ K in T ]?: LookupValue };
+        type: Type | string;
+        id: FieldValue | string | number;
+        columns: T | T[];
+    }): Promise<{ [K in T]?: LookupValue }>;
+
+    <T extends string>(options: {
+        type: Type | string;
+        id: FieldValue | string | number;
+        columns: T | T[];
+    }): { [K in T]?: LookupValue };
 }
 
 /** Global search keywords string or expression. */
@@ -296,7 +314,7 @@ interface SearchLoadFunction {
 
 export interface SearchCreateOptions {
     type: Type | string;
-    filters?: (CreateSearchFilterOptions[] | any[]);
+    filters?: CreateSearchFilterOptions[] | any[];
     columns?: (Column | string)[];
     title?: string;
     id?: string;
@@ -623,23 +641,23 @@ export enum Type { // As of 15 June 2020
     WORK_ORDER_CLOSE,
     WORK_ORDER_COMPLETION,
     WORK_ORDER_ISSUE,
-    ZONE
+    ZONE,
 }
 
 /**
  * Creates a new search and returns it as a search.Search object. The search can be modified and run as an on demand
  * search with Search.run(), without saving it. Alternatively, calling Search.save() will save the search to the
- * database, so it can be reused later in the UI or loaded with search.load(options). 
+ * database, so it can be reused later in the UI or loaded with search.load(options).
  *
  * Note: This method is agnostic in terms of its options.filters argument. It can accept input of a single search.Filter
  * object, an array of search.Filter objects, or a search filter expression. The search.create(options) method also
  * includes a promise version, search.create.promise(options).
  *
- * Important: When you use this method to create a search, consider the following: 
+ * Important: When you use this method to create a search, consider the following:
  *
  *  * When you define the search, make sure you sort using the field with the most unique values, or sort using multiple
  *    fields. Sorting with a single field that has multiple identical values can cause the result rows to be in a
- *    different order each time the search is run. 
+ *    different order each time the search is run.
  *
  *  * You cannot directly create a filter or column for a list/record type field in SuiteScript by passing in its text
  *    value. You must use the field’s internal ID. If you must use the field’s text value, you can create a filter or
@@ -657,7 +675,7 @@ export var duplicates: SearchDuplicatesFunction;
  * Similar to the global search functionality in the UI, you can programmatically filter the global
  * search results that are returned. For example, you can use the following filter to limit the
  * returned records to Customer records: `'cu: simpson'`
- * 
+ *
  * @returns search.Result[] as an array of result objects containing these columns: name, type, info1, and info2
  * Results are limited to 1000 records. If there are no search results, this method returns null.
  */
@@ -691,33 +709,35 @@ export var lookupFields: SearchLookupFieldsFunction;
 
 export function createColumn(options: CreateSearchColumnOptions): Column;
 /** Creates a new search filter as a search.Filter object.
- * 
- * Important: You cannot directly create a filter or column for a list/record type field in SuiteScript by passing 
- * in its text value. You must use the field’s internal ID. If you must use the field’s text value, you can create 
- * a filter or column with a formula using name: 'formulatext'. 
+ *
+ * Important: You cannot directly create a filter or column for a list/record type field in SuiteScript by passing
+ * in its text value. You must use the field’s internal ID. If you must use the field’s text value, you can create
+ * a filter or column with a formula using name: 'formulatext'.
  */
 export function createFilter(options: CreateSearchFilterOptions): Filter;
 
-export function createSetting<K extends SettingName>(options: CreateSearchSettingOptions<K>): Setting
+export function createSetting<K extends SettingName>(
+    options: CreateSearchSettingOptions<K>,
+): Setting;
 
 interface CreateSearchSettingOptions<K extends SettingName> {
-    name: K | string
-    value: SettingValueType[K] | string 
+    name: K | string;
+    value: SettingValueType[K] | string;
 }
 
 export interface Setting {
-    name: string
-    value: ConsolidationEnum | IncludePeriodTransactionEnum
+    name: string;
+    value: ConsolidationEnum | IncludePeriodTransactionEnum;
 }
 
 type SettingValueType = {
-    [SettingName.consolidationtype]: ConsolidationEnum,
-    [SettingName.includeperiodendtransactions]: IncludePeriodTransactionEnum
-}
+    [SettingName.consolidationtype]: ConsolidationEnum;
+    [SettingName.includeperiodendtransactions]: IncludePeriodTransactionEnum;
+};
 
 export enum SettingName {
-    consolidationtype = "consolidationtype",
-    includeperiodendtransactions = "includeperiodendtransactions"
+    consolidationtype = 'consolidationtype',
+    includeperiodendtransactions = 'includeperiodendtransactions',
 }
 
 export enum ConsolidationEnum {
@@ -732,7 +752,7 @@ export enum IncludePeriodTransactionEnum {
     F,
     FALSE,
     T,
-    TRUE
+    TRUE,
 }
 
 export enum Operator {

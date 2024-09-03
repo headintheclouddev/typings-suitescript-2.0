@@ -1,6 +1,5 @@
 /** We use this to specify the parsed contents of accountRequestsJSON and returnAccountRequestsJSON */
 export interface IAccountRequest {
-
     /**
      * The requested start time of the data to be retrieved. If a Bank Reconciliation format profile is saved
      * for the first time, NetSuite downloads data up to 60 calendar days old. After the first import,
@@ -21,13 +20,11 @@ export interface IAccountRequest {
 }
 
 interface getConfigurationFieldValueOptions {
-
     /** This property is required and refers to the name of the configuration value to retrieve */
     fieldName: string;
 }
 
 interface pluginConfiguration {
-
     /**
      * This is an object function of pluginConfiguration that allows the plug-in to retrieve a named
      * configuration value. For all Financial Institution Connectivity Plug-ins that you develop, the
@@ -38,7 +35,6 @@ interface pluginConfiguration {
 }
 
 export interface getConfigurationIFrameUrlContext {
-
     /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
@@ -58,29 +54,28 @@ export type getConfigurationIFrameUrl = (options: getConfigurationIFrameUrlConte
 
 /** Valid account types */
 type accountType =
-    "ACCOUNTS_PAYABLE" |
-    "ACCOUNTS_RECEIVABLE" |
-    "BANK" |
-    "COGS" |
-    "CREDIT_CARD" |
-    "DEFERRED_EXPENSE" |
-    "DEFERRED_REVENUE" |
-    "EQUITY" |
-    "EXPENSE" |
-    "FIXED_ASSET" |
-    "INCOME" |
-    "LONG_TERM_LIABILITY" |
-    "NON_POSTING" |
-    "OTHER_ASSET" |
-    "OTHER_CURRENT_ASSET" |
-    "OTHER_CURRENT_LIABILITY" |
-    "OTHER_EXPENSE" |
-    "OTHER_INCOME" |
-    "STATISTICAL" |
-    "UNBILLED_RECEIVABLES";
+    | 'ACCOUNTS_PAYABLE'
+    | 'ACCOUNTS_RECEIVABLE'
+    | 'BANK'
+    | 'COGS'
+    | 'CREDIT_CARD'
+    | 'DEFERRED_EXPENSE'
+    | 'DEFERRED_REVENUE'
+    | 'EQUITY'
+    | 'EXPENSE'
+    | 'FIXED_ASSET'
+    | 'INCOME'
+    | 'LONG_TERM_LIABILITY'
+    | 'NON_POSTING'
+    | 'OTHER_ASSET'
+    | 'OTHER_CURRENT_ASSET'
+    | 'OTHER_CURRENT_LIABILITY'
+    | 'OTHER_EXPENSE'
+    | 'OTHER_INCOME'
+    | 'STATISTICAL'
+    | 'UNBILLED_RECEIVABLES';
 
 interface addAccountOptions {
-
     /**
      * The financial institution account’s unique identifier. For compliance reasons, this cannot be a
      * credit card number. To ensure that the account mapping key does not contain a credit card number,
@@ -148,7 +143,6 @@ interface addAccountOptions {
 }
 
 export interface getAccountsContext {
-
     /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
@@ -166,10 +160,9 @@ export interface getAccountsContext {
  * open the Account Linking subtab on a Bank Reconciliation format profile record, or when bank data is imported
  * into NetSuite
  */
-export type  getAccounts = (options: getAccountsContext) => void;
+export type getAccounts = (options: getAccountsContext) => void;
 
 interface addDataChunkOptions {
-
     /**
      * This function enables you to transmit the financial institution’s data file to NetSuite as a series of chunks.
      * It encrypts the incoming chunks before storing them in the database.
@@ -179,7 +172,6 @@ interface addDataChunkOptions {
 }
 
 interface returnAccountRequestsJSONOptions {
-
     /**
      * Contains the list of financial institution accounts queried by the plug-in, as well as the reason for any
      * query failures. This information is returned as a JSON format string
@@ -188,7 +180,6 @@ interface returnAccountRequestsJSONOptions {
 }
 
 interface retryOptions {
-
     /**
      * How many minutes into the future to schedule the import retry. Must be greater than or equal to 30,
      * and less than or equal to 240
@@ -200,7 +191,6 @@ interface retryOptions {
 }
 
 export interface getTransactionDataContext {
-
     /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
@@ -245,4 +235,4 @@ export interface getTransactionDataContext {
  * This function enables the plug-in to invoke a Financial Institution Parser Plug-in or Bank Statement Parser
  * Plug-in to parse content into transactions. This happens when a bank data import is initiated
  */
-export type  getTransactionData = (options: getTransactionDataContext) => void;
+export type getTransactionData = (options: getTransactionDataContext) => void;

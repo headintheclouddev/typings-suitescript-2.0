@@ -1,8 +1,8 @@
 import { AddSelectOptionOptions } from './ui/serverWidget';
 
-/** 
- * Submits a new record or saves edits to an existing record. 
- * 
+/**
+ * Submits a new record or saves edits to an existing record.
+ *
  * @governance 20 units for transactions, 4 for custom records, 10 for all other records
  * @return id of submitted record
  */
@@ -34,7 +34,6 @@ interface CommitLineOptions {
     ignoreRecalc?: boolean;
 }
 
-
 interface CancelCommitLineOptions {
     /** The internal ID of the sublist. */
     sublistId: string;
@@ -54,7 +53,7 @@ export interface CopyLoadOptions {
      */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */
-    defaultValues?: {[fieldId: string]: any};
+    defaultValues?: { [fieldId: string]: any };
 }
 
 interface DetachOptions {
@@ -133,7 +132,7 @@ interface GetMatrixSublistValueOptions {
     /** The line number for the field. */
     line: number;
     /** the column number for the field */
-    column: number; 
+    column: number;
 }
 
 interface GetSublistValueOptions {
@@ -177,8 +176,8 @@ interface InsertLineOptions {
 
 interface MoveLineOptions {
     sublistId: string;
-    from:      number;
-    to:        number;
+    from: number;
+    to: number;
 }
 
 interface SelectLineOptions {
@@ -194,7 +193,7 @@ interface SetCurrentMatrixSublistValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The column number for the field. */
-    column: number
+    column: number;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -209,7 +208,7 @@ interface SetCurrentMatrixSublistValueOptions {
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 interface SetMatrixSublistValueOptions {
     /** The internal ID of the sublist. */
@@ -219,7 +218,7 @@ interface SetMatrixSublistValueOptions {
     /** The line number to set in the sublist. */
     line: number;
     /** The column number for the field. */
-    column: number
+    column: number;
     /**
      * The value to set the field to.
      * The value type must correspond to the field type being set. For example:
@@ -232,7 +231,7 @@ interface SetMatrixSublistValueOptions {
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface SetCurrentSublistValueOptions {
@@ -254,7 +253,7 @@ interface SetCurrentSublistValueOptions {
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface SetCurrentSublistTextOptions {
@@ -272,7 +271,7 @@ interface SetCurrentSublistTextOptions {
      */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 export interface SetValueOptions {
@@ -292,7 +291,7 @@ export interface SetValueOptions {
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface SetFieldTextOptions {
@@ -305,7 +304,7 @@ interface SetFieldTextOptions {
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface SetSublistTextOptions {
@@ -320,7 +319,7 @@ interface SetSublistTextOptions {
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface SetSublistValueOptions {
@@ -342,58 +341,63 @@ interface SetSublistValueOptions {
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
-    forceSyncSourcing?: boolean
+    forceSyncSourcing?: boolean;
 }
 
 interface GetSelectOptionsOpts {
     /** The search string to filter the select options that are returned. */
     filter: string;
     /** The following operators are supported: contains, is, startswith. Default is contains. */
-    operator: "contains" | "is" | "startswith";
+    operator: 'contains' | 'is' | 'startswith';
 }
 
 export interface Sublist {
     /**
      * The name of the sublist.
-     */    
-    name: string;   
+     */
+    name: string;
     /**
      * The name of the sublist.
-     */    
-    id: string;     
+     */
+    id: string;
     /**
      * The type of the sublist.
-     */    
-    type: string;    
+     */
+    type: string;
     /**
      * The sublist is changed
-     */    
-    isChanged: boolean;    
+     */
+    isChanged: boolean;
     /**
      * The sublist is hidden
-     */    
-    isHidden: boolean;    
+     */
+    isHidden: boolean;
     /**
      * The sublist is display
-     */    
-    isDisplay: boolean;    
+     */
+    isDisplay: boolean;
     /**
      * A flag to indicate whether or not the sublist supports multi-line buffer feature.
-     */    
-    isMultilineEditable: boolean;  
+     */
+    isMultilineEditable: boolean;
     /**
      * Returns a column in the sublist.
      * Client and server-side scripts
      */
-    getColumn(options: GetColumnOptions): Column
+    getColumn(options: GetColumnOptions): Column;
     /**
      * Returns the object type name (sublist.Sublist)
-     */    
-    toString(): string    
+     */
+    toString(): string;
     /**
      * JSON.stringify() implementation.
-     */    
-    toJSON(): {id: string, type: string, isChanged: boolean, isDisplay: boolean}
+     */
+    toJSON(): {
+        id: string;
+        type: string;
+        isChanged: boolean;
+        isDisplay: boolean;
+    };
 }
 export interface GetColumnOptions {
     /** The internal ID of the column field in the sublist. */
@@ -411,9 +415,9 @@ export interface Column {
     /** Client and server-side scripts. Returns the column type. */
     type: string;
     /** Client and server-side scripts. Returns the UI label for the column. */
-    label: string
+    label: string;
     /** Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column. */
-    sublistId: string
+    sublistId: string;
     /** Indicates whether the column is disabled. */
     isDisabled: boolean;
     /** Indicates whether the column is displayed. */
@@ -425,27 +429,27 @@ export interface Column {
 }
 
 /**
- * Client and server-side scripts. 
- * Encapsulates a body or sublist field on a standard or custom record. 
+ * Client and server-side scripts.
+ * Encapsulates a body or sublist field on a standard or custom record.
  */
 export interface Field {
     /** Adds the select options that appears in the dropdown of a field. */
     insertSelectOption(options: AddSelectOptionOptions): void;
-    /** 
-     * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned. 
-     * 
+    /**
+     * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned.
+     *
      * Returns only the first 1,000 available options are returned in an array. If there are more than 1,000 available options, an empty array [] is returned. This function returns an array in the following format: `[{value: 5, text: 'abc'},{value: 6, text: '123'}]`.
-     * 
+     *
      * This function returns Type Error if the field is not a supported field for this method.
      */
-    getSelectOptions(options?: GetSelectOptionsOpts): { value: any, text: string }[];
+    getSelectOptions(options?: GetSelectOptionsOpts): { value: any; text: string }[];
     /**
      * Removes a single select option from a select or multiselect field added via script.
      * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
-    */
+     */
     removeSelectOption(options?: { value: string }): void;
-    /** get JSON format of the object */    
-    toJSON (options?:any): {id: string, label: string, type: string};
+    /** get JSON format of the object */
+    toJSON(options?: any): { id: string; label: string; type: string };
     toString(options?: any): string;
     /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
@@ -489,9 +493,11 @@ export interface ClientCurrentRecord {
     /** Returns the line number for the first occurrence of a field value in a sublist. */
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
-    getCurrentMatrixSublistValue(options: GetCurrentMatrixSublistValueOptions): number | Date | string | string[] | boolean;
-    /** Returns the line number of the currently selected line. */  
-    
+    getCurrentMatrixSublistValue(
+        options: GetCurrentMatrixSublistValueOptions,
+    ): number | Date | string | string[] | boolean;
+    /** Returns the line number of the currently selected line. */
+
     /**
      * return field object from record's sublist current line. Only available in dynamic record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
@@ -507,10 +513,9 @@ export interface ClientCurrentRecord {
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
 
-    
-    /** 
-     * Returns a field object from a record. 
-     * 
+    /**
+     * Returns a field object from a record.
+     *
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.fieldId is missing or undefined
      */
     getField(options: GetFieldOptions): Field | null;
@@ -547,7 +552,7 @@ export interface ClientCurrentRecord {
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
     /** Gets the subrecord for the associated field. */
-    getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
+    getSubrecord(options: GetFieldOptions): Omit<Record, 'save'>;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string | string[];
     /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
@@ -590,18 +595,18 @@ export interface ClientCurrentRecord {
      * The sublist must contain the _sequence field. The sublist type must be edit machine. When using this method, the order of the other lines is preserved.
      */
     moveLine(options: MoveLineOptions): this;
-    /** 
-     * Removes the subrecord for the associated sublist field on the current line. 
+    /**
+     * Removes the subrecord for the associated sublist field on the current line.
      * @return {Record} same record, for chaining
      */
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): this;
-    /** 
+    /**
      * Removes a sublist line.
-     * @return {Record} same record, for chaining 
+     * @return {Record} same record, for chaining
      */
     removeLine(options: InsertLineOptions): this;
-    /** 
-     * Removes the subrecord for the associated field. 
+    /**
+     * Removes the subrecord for the associated field.
      * @return {Record} same record, for chaining
      */
     removeSubrecord(options: GetFieldOptions): this;
@@ -641,45 +646,45 @@ export interface Record extends ClientCurrentRecord {
     /** Returns all the field names in a sublist. */
     getSublistFields(options: RecordGetLineCountOptions): string[];
     /** Gets the subrecord associated with a sublist field. */
-    getSublistSubrecord(options: GetSublistValueOptions): Omit<Record, "save">;
+    getSublistSubrecord(options: GetSublistValueOptions): Omit<Record, 'save'>;
     /**
      * Removes the subrecord for the associated sublist field.
      * @restriction only available in deferred dynamic record
      * @return {Record} same record, for chaining
      */
     removeSublistSubrecord(options: GetSublistValueOptions): this;
-    /** 
-     * Submits a new record or saves edits to an existing record. 
-     * 
+    /**
+     * Submits a new record or saves edits to an existing record.
+     *
      * @governance 20 units for transactions, 4 for custom records, 10 for all other records
      * @return id of submitted record
-    */
+     */
     save: RecordSaveFunction;
     /** Sets the value of a sublist field by a text representation. */
     setSublistText(options: SetSublistTextOptions): Record;
     /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
-    /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */  
-    toJSON(): RecordToJSONReturnValue
+    /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */
+    toJSON(): RecordToJSONReturnValue;
 }
 
 export type RecordToJSONReturnValue = {
-    id: string,
-    type: string,
-    isDynamic: boolean,
-    fields: {[fieldId: string]: string}
-    sublists: {[sublistId: string]: {[lineDescription: string]: string}}
-}
+    id: string;
+    type: string;
+    isDynamic: boolean;
+    fields: { [fieldId: string]: string };
+    sublists: { [sublistId: string]: { [lineDescription: string]: string } };
+};
 
 interface ExecuteMacroFunction {
-  (options: { id: string, params: Object }): Object;
-  promise(options: { id: string, params: Object }): Object
+    (options: { id: string; params: Object }): Object;
+    promise(options: { id: string; params: Object }): Object;
 }
 
 interface MacroExecuteFunction {
-    (options?: { params?: Object }): { notifications: any[], response: Object };
-    promise(options?: { params?: Object }): Promise<{ notifications: any[], response: Object }>;
+    (options?: { params?: Object }): { notifications: any[]; response: Object };
+    promise(options?: { params?: Object }): Promise<{ notifications: any[]; response: Object }>;
 }
 
 interface Macro {
@@ -727,7 +732,7 @@ interface RecordCopyFunction {
     promise(options: CopyLoadOptions): Promise<Record>;
 }
 
-export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
+export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>;
 
 /**
  * Create a new record object based on provided type
@@ -749,7 +754,7 @@ interface RecordDeleteOptions {
     /**
      * The internal ID of the record instance to be deleted.
      */
-    id: (string | number);
+    id: string | number;
 }
 
 interface RecordDetachFunction {
@@ -761,7 +766,7 @@ interface RecordDetachFunction {
  * Loads an existing nlobjRecord from the database based on provided type, id
  *
  * @governance 10 units for transactions, 2 for custom records, 5 for all other records
- * 
+ *
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 interface RecordLoadFunction {
@@ -822,13 +827,13 @@ export var detach: RecordDetachFunction;
  * Loads an existing nlobjRecord from the database based on provided type, id
  *
  * @governance 10 units for transactions, 2 for custom records, 5 for all other records
- * 
+ *
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
 export var load: RecordLoadFunction;
 /**
  * commit record field updates to the system.
- * 
+ *
  * Updates and submits one or more body fields on an existing record in NetSuite, and returns the internal ID of the parent record.
  * When you use this method, you do not need to load or submit the parent record.
  * You can use this method to edit and submit the following:
@@ -1134,5 +1139,5 @@ export enum Type { // As of 4 June 2024
     WORK_ORDER_COMPLETION = 'workordercompletion',
     WORK_ORDER_ISSUE = 'workorderissue',
     WORKPLACE = 'workplace',
-    ZONE = 'zone'
+    ZONE = 'zone',
 }

@@ -11,75 +11,75 @@
  * @enum {string}
  */
 export enum Locale {
-    COMPANY_DEFAULT = "en_US",
-    CURRENT = "en_US",
-    af_ZA = "af_ZA",
-    ar = "ar",
-    bg_BG = "bg_BG",
-    bn_BD = "bn_BD",
-    bs_BA = "bs_BA",
-    cs_CZ = "cs_CZ",
-    da_DK = "da_DK",
-    de_DE = "de_DE",
-    el_GR = "el_GR",
-    en = "en",
-    en_AU = "en_AU",
-    en_CA = "en_CA",
-    en_GB = "en_GB",
-    en_US = "en_US",
-    es_AR = "es_AR",
-    es_ES = "es_ES",
-    et_EE = "et_EE",
-    fa_IR = "fa_IR",
-    fi_FI = "fi_FI",
-    fr_CA = "fr_CA",
-    fr_FR = "fr_FR",
-    gu_IN = "gu_IN",
-    he_IL = "he_IL",
-    hi_IN = "hi_IN",
-    hr_HR = "hr_HR",
-    hu_HU = "hu_HU",
-    hy_AM = "hy_AM",
-    id_ID = "id_ID",
-    is_IS = "is_IS",
-    it_IT = "it_IT",
-    ja_JP = "ja_JP",
-    kn_IN = "kn_IN",
-    ko_KR = "ko_KR",
-    lb_LU = "lb_LU",
-    lt_LT = "lt_LT",
-    lv_LV = "lv_LV",
-    mr_IN = "mr_IN",
-    ms_MY = "ms_MY",
-    nl_NL = "nl_NL",
-    no_NO = "no_NO",
-    pa_IN = "pa_IN",
-    pl_PL = "pl_PL",
-    pt_BR = "pt_BR",
-    pt_PT = "pt_PT",
-    ro_RO = "ro_RO",
-    ru_RU = "ru_RU",
-    sh_RS = "sh_RS",
-    sk_SK = "sk_SK",
-    sl_SI = "sl_SI",
-    sq_AL = "sq_AL",
-    sr_RS = "sr_RS",
-    sv_SE = "sv_SE",
-    ta_IN = "ta_IN",
-    te_IN = "te_IN",
-    th_TH = "th_TH",
-    tl_PH = "tl_PH",
-    tr_TR = "tr_TR",
-    uk_UA = "uk_UA",
-    vi_VN = "vi_VN",
-    zh_CN = "zh_CN",
-    zh_TW = "zh_TW",
+    COMPANY_DEFAULT = 'en_US',
+    CURRENT = 'en_US',
+    af_ZA = 'af_ZA',
+    ar = 'ar',
+    bg_BG = 'bg_BG',
+    bn_BD = 'bn_BD',
+    bs_BA = 'bs_BA',
+    cs_CZ = 'cs_CZ',
+    da_DK = 'da_DK',
+    de_DE = 'de_DE',
+    el_GR = 'el_GR',
+    en = 'en',
+    en_AU = 'en_AU',
+    en_CA = 'en_CA',
+    en_GB = 'en_GB',
+    en_US = 'en_US',
+    es_AR = 'es_AR',
+    es_ES = 'es_ES',
+    et_EE = 'et_EE',
+    fa_IR = 'fa_IR',
+    fi_FI = 'fi_FI',
+    fr_CA = 'fr_CA',
+    fr_FR = 'fr_FR',
+    gu_IN = 'gu_IN',
+    he_IL = 'he_IL',
+    hi_IN = 'hi_IN',
+    hr_HR = 'hr_HR',
+    hu_HU = 'hu_HU',
+    hy_AM = 'hy_AM',
+    id_ID = 'id_ID',
+    is_IS = 'is_IS',
+    it_IT = 'it_IT',
+    ja_JP = 'ja_JP',
+    kn_IN = 'kn_IN',
+    ko_KR = 'ko_KR',
+    lb_LU = 'lb_LU',
+    lt_LT = 'lt_LT',
+    lv_LV = 'lv_LV',
+    mr_IN = 'mr_IN',
+    ms_MY = 'ms_MY',
+    nl_NL = 'nl_NL',
+    no_NO = 'no_NO',
+    pa_IN = 'pa_IN',
+    pl_PL = 'pl_PL',
+    pt_BR = 'pt_BR',
+    pt_PT = 'pt_PT',
+    ro_RO = 'ro_RO',
+    ru_RU = 'ru_RU',
+    sh_RS = 'sh_RS',
+    sk_SK = 'sk_SK',
+    sl_SI = 'sl_SI',
+    sq_AL = 'sq_AL',
+    sr_RS = 'sr_RS',
+    sv_SE = 'sv_SE',
+    ta_IN = 'ta_IN',
+    te_IN = 'te_IN',
+    th_TH = 'th_TH',
+    tl_PH = 'tl_PH',
+    tr_TR = 'tr_TR',
+    uk_UA = 'uk_UA',
+    vi_VN = 'vi_VN',
+    zh_CN = 'zh_CN',
+    zh_TW = 'zh_TW',
 }
 
 /**
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE The function parameters were not passed as an array.
  */
-export type Translator = (options?: {params: string[]}) => string;
+export type Translator = (options?: { params: string[] }) => string;
 
 /**
  * Creates a translator function for the chosen key in the desired locale
@@ -99,18 +99,12 @@ export type Translator = (options?: {params: string[]}) => string;
  * @since 2019.1
  * @version 2021.1
  */
-export function get(
-    options: {
-        collection: string,
-        key: string,
-        locale?: Locale,
-    },
-): Translator;
+export function get(options: { collection: string; key: string; locale?: Locale }): Translator;
 
 export type Collection = {
-    alias: string,
-    collection: string,
-    keys?: string[],
+    alias: string;
+    collection: string;
+    keys?: string[];
 };
 
 /**
@@ -136,12 +130,7 @@ export type Collection = {
  * @since 2019.1
  * @version 2021.1
  */
-export function load(
-    options: {
-        collections: Collection[],
-        locales?: Locale[],
-    },
-): Handle
+export function load(options: { collections: Collection[]; locales?: Locale[] }): Handle;
 
 /**
  * Creates a translations.Handle from an existing Handle for a specific locale
@@ -159,12 +148,7 @@ export function load(
  * @since 2019.1
  * @version 2021.1
  */
-export function selectLocale(
-    options: {
-        handle: Handle,
-        locale: Locale,
-    }
-): Handle;
+export function selectLocale(options: { handle: Handle; locale: Locale }): Handle;
 
 /**
  * Translations.Handle has a hierarchical structure.
@@ -172,16 +156,15 @@ export function selectLocale(
  * Each of its nodes is either another Handle or a translator function
  */
 export interface Handle {
-
     /**
      * JSON.stringify() implementation.
      */
     toJSON(): {
-        type: string,
-        allRawTranslations: Object,
-        allTranslations: Object,
-        locales: Locale[],
-        recentLocale: Locale
+        type: string;
+        allRawTranslations: Object;
+        allTranslations: Object;
+        locales: Locale[];
+        recentLocale: Locale;
     };
 
     /**

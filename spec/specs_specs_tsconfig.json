@@ -1,22 +1,14 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "moduleResolution": "node",
-    "sourceMap": false,
-    "newLine": "LF",
-    "experimentalDecorators": true,
-    "strict": true,
-    "lib": [
-      "es5"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "./assets",
-    "./typecheck"
-  ],
-  "include": [
-    "./*.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "newLine": "LF",
+        "experimentalDecorators": true,
+        "strict": true,
+        "lib": ["es5"]
+    },
+    "exclude": ["node_modules", "./assets", "./typecheck"],
+    "include": ["./*.ts"]
 }

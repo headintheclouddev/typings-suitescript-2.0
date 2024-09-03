@@ -1,6 +1,6 @@
-import {ServerResponse} from '../http';
-import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from '../portlet';
-import {Message, MessageCreateOptions} from './message';
+import { ServerResponse } from '../http';
+import { AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions } from '../portlet';
+import { Message, MessageCreateOptions } from './message';
 
 export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */
@@ -55,7 +55,7 @@ interface AddFieldOptions {
     /** The label for this field. */
     label: string;
     /** The field type for the field. Use the serverWidget.FieldType enum to define the field type. */
-    type: FieldType|string;
+    type: FieldType | string;
     /**
      * The internalId or scriptId of the source list for this field if it is a select (List/Record) or multi-select field.
      * Note: For radio fields only, the source parameter must contain the internal ID for the field.
@@ -97,7 +97,7 @@ interface AddSecretKeyFieldOptions {
     /** Controls whether use of this secret key is restricted to the same user that originally entered the key. By default, the value is false – multiple users can use the key. */
     restrictToCurrentUser?: boolean;
     /** The script ID of the script that is allowed to use this field. */
-    restrictToScriptIds?: string|string[];
+    restrictToScriptIds?: string | string[];
     /** The internal ID of the tab or field group to add the field to. By default, the field is added to the main section of the form. */
     container?: string;
 }
@@ -164,7 +164,8 @@ interface GetSelectOptionsOpts {
     filteroperator?: 'contains' | 'is' | 'startswith';
 }
 
-interface GetSublistFieldIdsOptions { // Part of Assistant Step.
+interface GetSublistFieldIdsOptions {
+    // Part of Assistant Step.
     /** The sublist internal ID. */
     group: string;
 }
@@ -313,10 +314,10 @@ export interface Assistant {
     /** Indicates whether all steps in an assistant are completed. */
     isFinished(): boolean;
     /**
-      * Manages redirects in an assistant.
-      * This method also addresses the case in which one assistant redirects to another assistant.
-      * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
-      */
+     * Manages redirects in an assistant.
+     * This method also addresses the case in which one assistant redirects to another assistant.
+     * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
+     */
     sendRedirect(options: SendRedirectOptions): void;
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
@@ -527,7 +528,7 @@ export interface Sublist {
     helpText: string;
     label: string;
     lineCount: number;
-    name: string
+    name: string;
 }
 
 export interface Tab {
@@ -601,7 +602,7 @@ export enum FieldType {
     TEXT,
     TEXTAREA,
     TIMEOFDAY,
-    URL
+    URL,
 }
 
 export enum FormPageLinkType {

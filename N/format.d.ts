@@ -9,7 +9,7 @@ interface FormatOptions {
     type: Type;
 }
 
-import {FieldValue} from './record';
+import { FieldValue } from './record';
 
 interface FormatDateTimeOptions {
     /**
@@ -37,18 +37,29 @@ interface FormatNumberOptions {
     /**
      * The field type (for example, DATE, CURRENCY, INTEGER). Set using the format.Type enum.
      */
-    type: Type.CURRENCY | Type.CURRENCY2 | Type.FLOAT | Type.INTEGER | Type.NONNEGCURRENCY | Type.NONNEGFLOAT
-    | Type.PERCENT | Type.POSCURRENCY | Type.POSFLOAT | Type.POSINTEGER | Type.RATE | Type.RATEHIGHPRECISION;
+    type:
+        | Type.CURRENCY
+        | Type.CURRENCY2
+        | Type.FLOAT
+        | Type.INTEGER
+        | Type.NONNEGCURRENCY
+        | Type.NONNEGFLOAT
+        | Type.PERCENT
+        | Type.POSCURRENCY
+        | Type.POSFLOAT
+        | Type.POSINTEGER
+        | Type.RATE
+        | Type.RATEHIGHPRECISION;
 }
 
 /**
- * Use format to convert an Object (like a Date) into a specific NS string format. 
+ * Use format to convert an Object (like a Date) into a specific NS string format.
  * Options: value (Date|string|number), type (format.FormatType).
  */
 export function format(options: FormatOptions): string | any;
 
 /**
- * Use format to convert an Object (like a Date) into a specific NS string format. 
+ * Use format to convert an Object (like a Date) into a specific NS string format.
  * Options: value (Date|string), type (format.FormatType), timezone (enum).
  */
 export function format(options: FormatDateTimeOptions): string | any;
@@ -72,56 +83,56 @@ export function parse(options: FormatDateTimeOptions): Date | string | number;
 export function parse(options: FormatNumberOptions): number;
 
 /**
- * -enum- Holds the string values for the supported field types. 
+ * -enum- Holds the string values for the supported field types.
  * Used to set the value of the options.type parameter.
  */
 export enum Type {
-    ADDRESS = "address",
-    CCEXPDATE = "ccexpdate",
-    CCNUMBER = "ccnumber",
-    CCVALIDFROM = "ccvalidfrom",
-    CHECKBOX = "checkbox",
-    COLOR = "color",
-    CURRENCY = "currency",
-    CURRENCY2 = "currency2",
-    DATE = "date",
-    DATETIME = "datetime",
-    DATETIMETZ = "datetimetz",
-    DOCUMENT = "document",
-    DYNAMICPRECISION = "dynamicprecision",
-    EMAIL = "email",
-    EMAILS = "emails",
-    FLOAT = "float",
-    FULLPHONE = "fullphone",
-    FUNCTION = "function",
-    FURIGANA = "furigana",
-    IDENTIFIER = "identifier",
-    IDENTIFIERANYCASE = "identifieranycase",
-    INTEGER = "integer",
-    MMYYDATE = "mmyydate",
-    NONNEGCURRENCY = "nonnegcurrency",
-    NONNEGFLOAT = "nonnegfloat",
-    PACKAGE = "package",
-    PERCENT = "percent",
-    PHONE = "phone",
-    POSCURRENCY = "poscurrency",
-    POSFLOAT = "posfloat",
-    POSINTEGER = "posinteger",
+    ADDRESS = 'address',
+    CCEXPDATE = 'ccexpdate',
+    CCNUMBER = 'ccnumber',
+    CCVALIDFROM = 'ccvalidfrom',
+    CHECKBOX = 'checkbox',
+    COLOR = 'color',
+    CURRENCY = 'currency',
+    CURRENCY2 = 'currency2',
+    DATE = 'date',
+    DATETIME = 'datetime',
+    DATETIMETZ = 'datetimetz',
+    DOCUMENT = 'document',
+    DYNAMICPRECISION = 'dynamicprecision',
+    EMAIL = 'email',
+    EMAILS = 'emails',
+    FLOAT = 'float',
+    FULLPHONE = 'fullphone',
+    FUNCTION = 'function',
+    FURIGANA = 'furigana',
+    IDENTIFIER = 'identifier',
+    IDENTIFIERANYCASE = 'identifieranycase',
+    INTEGER = 'integer',
+    MMYYDATE = 'mmyydate',
+    NONNEGCURRENCY = 'nonnegcurrency',
+    NONNEGFLOAT = 'nonnegfloat',
+    PACKAGE = 'package',
+    PERCENT = 'percent',
+    PHONE = 'phone',
+    POSCURRENCY = 'poscurrency',
+    POSFLOAT = 'posfloat',
+    POSINTEGER = 'posinteger',
     QUOTEDFUNCTION = "'function'",
-    RADIO = "radio",
-    RATE = "rate",
-    RATEHIGHPRECISION = "ratehighprecision",
-    SELECT = "select",
-    TEXT = "text",
-    TEXTAREA = "textarea",
-    TIME = "time",
-    TIMEOFDAY = "timeofday",
-    TIMETRACK = "timetrack",
-    URL = "url",
+    RADIO = 'radio',
+    RATE = 'rate',
+    RATEHIGHPRECISION = 'ratehighprecision',
+    SELECT = 'select',
+    TEXT = 'text',
+    TEXTAREA = 'textarea',
+    TIME = 'time',
+    TIMEOFDAY = 'timeofday',
+    TIMETRACK = 'timetrack',
+    URL = 'url',
 }
 
 /**
- * -enum- Holds the string values for supported time zone formats. 
+ * -enum- Holds the string values for supported time zone formats.
  * Used to set the value of the options.timezone parameter.
  */
 export enum Timezone {

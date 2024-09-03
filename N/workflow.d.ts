@@ -1,4 +1,4 @@
-import {record} from "../N";
+import { record } from '../N';
 
 interface InitiateOptions {
     recordType: string | record.Type;

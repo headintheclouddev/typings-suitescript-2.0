@@ -39,11 +39,11 @@ interface Attribute {
     name: string;
     ownerElement: {
         name: string;
-        type: NodeType,
-        value: string | null,
-        textContent: string,
-    }
-    specified: boolean,
+        type: NodeType;
+        value: string | null;
+        textContent: string;
+    };
+    specified: boolean;
     value: string;
 }
 

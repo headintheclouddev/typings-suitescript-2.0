@@ -57,10 +57,10 @@ interface User {
     /** The internal ID of the role for the currently logged-in user. */
     role: number;
     /** The script ID of the center type, or role center, for the currently logged-in user.
-      *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
-      *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
-      *  what the documentation claims (just number).
-      */
+     *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
+     *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
+     *  what the documentation claims (just number).
+     */
     roleCenter: string | number;
     /** The custom scriptId of the role for the currently logged-in user. */
     roleId: string;
@@ -102,42 +102,42 @@ export function isFeatureInEffect(options: FeatureOptions): boolean;
 
 /** Enumeration that holds the context information about what triggered the current script. Returned by the runtime.executionContext property of the N/runtime Module. */
 export enum ContextType {
-    ACTION = "ACTION",
-    ADVANCEDREVREC = "ADVANCEDREVREC",
-    BANKCONNECTIVITY = "BANKCONNECTIVITY",
-    BANKSTATEMENTPARSER = "BANKSTATEMENTPARSER",
-    BUNDLE_INSTALLATION = "BUNDLEINSTALLATION",
-    CLIENT = "CLIENT",
-    CONSOLRATEADJUSTOR = "CONSOLRATEADJUSTOR",
-    CSV_IMPORT = "CSVIMPORT",
-    CUSTOMGLLINES = "CUSTOMGLLINES",
-    CUSTOM_MASSUPDATE = "CUSTOMMASSUPDATE",
-    DATASETBUILDER = "DATASETBUILDER",
-    DEBUGGER = "DEBUGGER",
-    EMAIL_CAPTURE = "EMAILCAPTURE",
-    FICONNECTIVITY = "FICONNECTIVITY",
-    FIPARSER = "FIPARSER",
-    MAP_REDUCE = "MAPREDUCE",
-    NONE = "NONE",
-    PAYMENTGATEWAY = "PAYMENTGATEWAY",
-    PAYMENTPOSTBACK = "PAYMENTPOSTBACK",
-    PLATFORMEXTENSION = "PLATFORMEXTENSION",
-    PORTLET = "PORTLET",
-    PROMOTIONS = "PROMOTIONS",
-    RESTLET = "RESTLET",
-    REST_WEBSERVICES = "RESTWEBSERVICES",
-    SCHEDULED = "SCHEDULED",
-    SDF_INSTALLATION = "SDFINSTALLATION",
-    SHIPPING_PARTNERS = "SHIPPINGPARTNERS",
-    SUITELET = "SUITELET",
-    TAX_CALCULATION = "TAXCALCULATION",
-    USEREVENT = "USEREVENT",
-    USER_INTERFACE = "USERINTERFACE",
-    WEBAPPLICATION = "WEBAPPLICATION",
-    WEBSERVICES = "WEBSERVICES",
-    WEBSTORE = "WEBSTORE",
-    WORKBOOKBUILDER = "WORKBOOKBUILDER",
-    WORKFLOW = "WORKFLOW"
+    ACTION = 'ACTION',
+    ADVANCEDREVREC = 'ADVANCEDREVREC',
+    BANKCONNECTIVITY = 'BANKCONNECTIVITY',
+    BANKSTATEMENTPARSER = 'BANKSTATEMENTPARSER',
+    BUNDLE_INSTALLATION = 'BUNDLEINSTALLATION',
+    CLIENT = 'CLIENT',
+    CONSOLRATEADJUSTOR = 'CONSOLRATEADJUSTOR',
+    CSV_IMPORT = 'CSVIMPORT',
+    CUSTOMGLLINES = 'CUSTOMGLLINES',
+    CUSTOM_MASSUPDATE = 'CUSTOMMASSUPDATE',
+    DATASETBUILDER = 'DATASETBUILDER',
+    DEBUGGER = 'DEBUGGER',
+    EMAIL_CAPTURE = 'EMAILCAPTURE',
+    FICONNECTIVITY = 'FICONNECTIVITY',
+    FIPARSER = 'FIPARSER',
+    MAP_REDUCE = 'MAPREDUCE',
+    NONE = 'NONE',
+    PAYMENTGATEWAY = 'PAYMENTGATEWAY',
+    PAYMENTPOSTBACK = 'PAYMENTPOSTBACK',
+    PLATFORMEXTENSION = 'PLATFORMEXTENSION',
+    PORTLET = 'PORTLET',
+    PROMOTIONS = 'PROMOTIONS',
+    RESTLET = 'RESTLET',
+    REST_WEBSERVICES = 'RESTWEBSERVICES',
+    SCHEDULED = 'SCHEDULED',
+    SDF_INSTALLATION = 'SDFINSTALLATION',
+    SHIPPING_PARTNERS = 'SHIPPINGPARTNERS',
+    SUITELET = 'SUITELET',
+    TAX_CALCULATION = 'TAXCALCULATION',
+    USEREVENT = 'USEREVENT',
+    USER_INTERFACE = 'USERINTERFACE',
+    WEBAPPLICATION = 'WEBAPPLICATION',
+    WEBSERVICES = 'WEBSERVICES',
+    WEBSTORE = 'WEBSTORE',
+    WORKBOOKBUILDER = 'WORKBOOKBUILDER',
+    WORKFLOW = 'WORKFLOW',
 }
 
 /** Enumeration that holds all possible environment types that the current script can execute in. */

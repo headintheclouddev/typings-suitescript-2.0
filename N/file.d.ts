@@ -18,7 +18,7 @@ export interface File {
     getSegments: (options: { separator: string }) => FileIterator; // Since 2019.1
     resetStream: () => void;
     appendLine: (option: FileAppendLineOptions) => File;
-    lines: { iterator: () => FileIterator; };
+    lines: { iterator: () => FileIterator };
 }
 
 /** Use for special read operations. Reads from a file until a specified delimiter is reached. Reads an arbitrary number of characters from a file. Since 2019.1. */
@@ -48,12 +48,12 @@ interface FileAppendLineOptions {
 
 interface FileLoadOptions {
     /**  Internal ID of the file as a number or a string, or the relative file path to the file in the file cabinet. */
-    id: (number | string);
+    id: number | string;
 }
 
 interface FileDeleteOptions {
     /** Internal ID of the file. */
-    id: (number | string);
+    id: number | string;
 }
 
 interface FileCopyOptions {
@@ -97,7 +97,7 @@ export function copy(options: FileCopyOptions): File;
 
 /**  Method used to delete an existing file from the NetSuite file cabinet. */
 declare function deleteFunc(options: FileDeleteOptions): void;
-export {deleteFunc as delete};
+export { deleteFunc as delete };
 
 /** Method used to load an existing file from the NetSuite file cabinet. */
 export function load(options: FileLoadOptions): File;
@@ -116,7 +116,7 @@ export enum NameConflictResolution {
      * Add a numeric suffix to the name of the copied file if a conflict occurs.
      * For example, if you are copying a file named file.txt and a conflict occurs, the name of the copied file is file (1).txt.
      */
-    RENAME_TO_UNIQUE
+    RENAME_TO_UNIQUE,
 }
 
 /** Enumeration that holds the string values for supported character encoding. */

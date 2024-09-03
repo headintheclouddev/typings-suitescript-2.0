@@ -1,6 +1,6 @@
-import {File} from './file';
-import {Assistant, Form, List} from './ui/serverWidget';
-import {SecureString} from './https';
+import { File } from './file';
+import { Assistant, Form, List } from './ui/serverWidget';
+import { SecureString } from './https';
 
 interface AddHeaderOptions {
     /** The name of the header. */
@@ -109,7 +109,7 @@ export interface PostOptions extends GetOptions {
 
 export interface PutOptions extends PostOptions {}
 
-export interface RequestOptions  extends GetOptions {
+export interface RequestOptions extends GetOptions {
     /**
      * The HTTP request method. Set using the http.Method enum.
      * Allow usage as string here as N/http is a heavy import just
@@ -207,7 +207,7 @@ export interface ServerRequest {
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
      */
-    method: Method | "DELETE" | "GET" | "POST" | "PUT";
+    method: Method | 'DELETE' | 'GET' | 'POST' | 'PUT';
     /**
      * The server request parameters.
      */
@@ -291,7 +291,7 @@ export var get: HttpGetFunction;
  * Sends an HTTP DELETE request and returns the response.
  */
 declare var deleteFunc: HttpDeleteFunction;
-export {deleteFunc as delete};
+export { deleteFunc as delete };
 
 /**
  * Sends an HTTP request and returns the response.
@@ -324,10 +324,10 @@ export enum CacheDuration {
  * This enum is used to set the value of http.request(options) and ServerRequest.method.
  */
 export enum Method {
-    DELETE = "DELETE",
-    GET = "GET",
-    PUT = "PUT",
-    POST = "POST",
+    DELETE = 'DELETE',
+    GET = 'GET',
+    PUT = 'PUT',
+    POST = 'POST',
 }
 
 export enum RedirectType {
@@ -335,5 +335,5 @@ export enum RedirectType {
     RECORD,
     RESTLET,
     SUITELET,
-    TASK_LINK
+    TASK_LINK,
 }
