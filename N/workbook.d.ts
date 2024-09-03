@@ -1044,8 +1044,6 @@ export function createTableColumnFilter(options: CreateTableColumnFilter): Table
 export function createSimpleRecordKey({ key: number }): number;
 
 /**
-
-/**
  * Lists all existing workbooks.
  */
 export function list(): Object[];
@@ -1055,6 +1053,11 @@ export function list(): Object[];
  */
 export function load(options: { id: string }): Workbook;
 
+/**
+ * A selector for descendant or self nodes object.
+ *
+ * A selector for descendant or self nodes object is used as a parameter in the workbook.createMeasureValueSelector(options), and workbook.createSortByMeasure(options) methods.
+ */
 export const DescendantOrSelfNodesSelector;
 
 declare enum Aggregation {
