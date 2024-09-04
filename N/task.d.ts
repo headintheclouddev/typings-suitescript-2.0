@@ -184,7 +184,7 @@ interface CsvImportTaskStatus {
 interface EntityDeduplicationTaskCreateOptions {
     taskType: TaskType.ENTITY_DEDUPLICATION;
     dedupeMode?: DedupeMode;
-    entityType?: string;
+    entityType?: string | DedupeEntityType;
     masterRecordId?: string | number;
     masterSelectionMode?: MasterSelectionMode;
     recordIds?: number[];
