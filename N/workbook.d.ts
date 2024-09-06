@@ -1058,7 +1058,7 @@ export function load(options: { id: string }): Workbook;
  *
  * A selector for descendant or self nodes object is used as a parameter in the workbook.createMeasureValueSelector(options), and workbook.createSortByMeasure(options) methods.
  */
-export const DescendantOrSelfNodesSelector;
+export const DescendantOrSelfNodesSelector: unknown;
 
 declare enum Aggregation {
   COUNT,
