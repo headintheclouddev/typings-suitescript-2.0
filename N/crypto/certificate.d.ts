@@ -24,11 +24,7 @@ export interface Verifier {
 
 export function createSigner(options: CreateSignerOptions): Signer;
 export function createVerifier(options: CreateSignerOptions): Verifier; // The documentation says this just returns a Parameters object?  May need to verify.
-export function verifyXmlSignature(options: {
-    signedXml: string;
-    rootTag: string;
-    certId?: string;
-}): void;
+export function verifyXmlSignature(options: { signedXml: string; rootTag: string; certId?: string }): void;
 export function signXml(options: {
     xmlString: string;
     certId: string;

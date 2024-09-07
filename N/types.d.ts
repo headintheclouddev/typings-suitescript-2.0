@@ -237,9 +237,7 @@ export namespace EntryPoints {
             ObjectRef: ObjectReference;
         }
 
-        type getInputData = (
-            scriptContext: getInputDataContext,
-        ) => N_search.Search | any | any[] | ObjectReference;
+        type getInputData = (scriptContext: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
 
         interface mapContext {
             readonly isRestarted: boolean;
@@ -274,9 +272,7 @@ export namespace EntryPoints {
         }
 
         interface MapReduceSummaryIterator {
-            each(
-                callback: (key: string, executionCount: number, completionState: string) => boolean,
-            ): void;
+            each(callback: (key: string, executionCount: number, completionState: string) => boolean): void;
         }
 
         interface MapReduceSummaryIteratorContainer {
@@ -377,15 +373,9 @@ export namespace EntryPoints {
 
     namespace RESTlet {
         type get = (requestParameters: { [key: string]: any }) => { [key: string]: any } | string;
-        type delete_ = (requestParameters: {
-            [key: string]: any;
-        }) => { [key: string]: any } | string;
-        type post = (
-            requestBody: { [key: string]: any } | string,
-        ) => { [key: string]: any } | string;
-        type put = (
-            requestBody: { [key: string]: any } | string,
-        ) => { [key: string]: any } | string;
+        type delete_ = (requestParameters: { [key: string]: any }) => { [key: string]: any } | string;
+        type post = (requestBody: { [key: string]: any } | string) => { [key: string]: any } | string;
+        type put = (requestBody: { [key: string]: any } | string) => { [key: string]: any } | string;
     }
 
     namespace BundleInstallation {
@@ -435,13 +425,11 @@ export namespace EntryPoints {
 
     namespace Plugins {
         namespace FiParser {
-            interface getConfigurationPageUrlContext
-                extends N_FiParser.getConfigurationPageUrlContext {}
+            interface getConfigurationPageUrlContext extends N_FiParser.getConfigurationPageUrlContext {}
 
             interface parseDataContext extends N_FiParser.parseDataContext {}
 
-            interface getStandardTransactionCodesContext
-                extends N_FiParser.getStandardTransactionCodesContext {}
+            interface getStandardTransactionCodesContext extends N_FiParser.getStandardTransactionCodesContext {}
 
             interface getExpenseCodesContext extends N_FiParser.getExpenseCodesContext {}
 
@@ -452,13 +440,11 @@ export namespace EntryPoints {
         }
 
         namespace FiConnectivity {
-            interface getTransactionDataContext
-                extends N_FiConnectivity.getTransactionDataContext {}
+            interface getTransactionDataContext extends N_FiConnectivity.getTransactionDataContext {}
 
             interface getAccountsContext extends N_FiConnectivity.getAccountsContext {}
 
-            interface getConfigurationIFrameUrlContext
-                extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
+            interface getConfigurationIFrameUrlContext extends N_FiConnectivity.getConfigurationIFrameUrlContext {}
 
             interface IAccountRequest extends N_FiConnectivity.IAccountRequest {}
 

@@ -7,9 +7,7 @@ describe('samples compilation', () => {
     afterAll(cleanup);
 
     it('compile basic samples with current local typescript', () => {
-        let execOut = exec(
-            'node node_modules/typescript/bin/tsc -p spec/assets/specs_samples_tsconfig.json',
-        );
+        let execOut = exec('node node_modules/typescript/bin/tsc -p spec/assets/specs_samples_tsconfig.json');
         expect(execOut.code).toBe(0, execOut.stdout);
     });
 

@@ -11,15 +11,14 @@ export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
 
     const customerId = ctx.currentRecord.getValue('entity'); // Assume this script is running on a transaction
     search.lookupFields
-        .promise({
-            type: 'customer',
-            id: customerId,
-            columns: ['companyname', 'datecreated', 'entitystatus'],
-        })
+        .promise({ type: 'customer', id: customerId, columns: ['companyname', 'datecreated', 'entitystatus'] })
         .then((values) => {
             const name = values.companyname as string;
             const date = values.datecreated as string;
-            const status = values.entitystatus as { value: string; text: string }[];
+            const status = values.entitystatus as {
+                value: string;
+                text: string;
+            }[];
             console.log('Customer', name, 'created at', date, 'status', status);
         });
 
@@ -27,11 +26,17 @@ export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
         .promise({
             type: 'customer',
             filters: [
-                search.createFilter({ name: 'companyname', operator: search.Operator.ISNOTEMPTY }),
+                search.createFilter({
+                    name: 'companyname',
+                    operator: search.Operator.ISNOTEMPTY,
+                }),
             ],
             columns: [
                 // Not generally recommended to mix column creation formats like this, but it is technically acceptable. This demonstrates different ways to do it:
-                search.createColumn({ name: 'companyname', sort: search.Sort.ASC }),
+                search.createColumn({
+                    name: 'companyname',
+                    sort: search.Sort.ASC,
+                }),
                 { name: 'email' },
                 'fax',
             ],

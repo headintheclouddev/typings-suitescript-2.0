@@ -58,9 +58,7 @@ import { EntryPoints } from 'N/types';
 
 ```typescript
 import { EntryPoints } from 'N/types';
-export let pageInit: EntryPoints.Client.pageInit = (
-    context: EntryPoints.Client.pageInitContext,
-) => {
+export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
     //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
 };
 ```
@@ -82,9 +80,7 @@ Full example for a User Event Script might look something like this:
 import { EntryPoints } from 'N/types';
 import * as log from 'N/log';
 
-export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (
-    context: EntryPoints.UserEvent.beforeSubmitContext,
-) => {
+export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
     let x = context.newRecord.getValue({ fieldId: 'companyname' });
     log.audit('value', `companyname is: ${x}`);
 };
@@ -101,9 +97,7 @@ export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (
 import { EntryPoints } from 'N/types';
 import * as record from 'N/record';
 
-export let onRequest: EntryPoints.Suitelet.onRequest = (
-    context: EntryPoints.Suitelet.onRequestContext,
-) => {
+export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
     let folder = record.load({ type: 'folder', id: 36464 });
     let allfields = folder.getFields().join(', ');
     context.response.write(`<br>all fields: ${allfields}`);

@@ -8,13 +8,7 @@ interface NLObjAssistant {
      * @param {number|string} source script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
      * @param {string} group group name that this field will live on. If empty then the field is added to the main section of the page
      */
-    addField(
-        name: string,
-        type: string,
-        label?: string,
-        source?: number | string,
-        group?: string,
-    ): NLObjField;
+    addField(name: string, type: string, label?: string, source?: number | string, group?: string): NLObjField;
     /**
      * Add a field group to the page.
      * @param {string} name field group name
@@ -869,13 +863,7 @@ interface NLObjForm {
      * @param {string|number} sourceOrRadio Script ID or internal ID for source list (select and multiselects only) -or- radio value for radio fields
      * @param {string} tab Tab name that this field will live on. If empty then the field is added to the main section of the form (immediately below the title bar).
      */
-    addField(
-        name: string,
-        type: string,
-        label: string,
-        sourceOrRadio?: string | number,
-        tab?: string,
-    ): NLObjField;
+    addField(name: string, type: string, label: string, sourceOrRadio?: string | number, tab?: string): NLObjField;
     /**
      * Add a field group to the form.
      * @param {string} name field group name
@@ -1435,12 +1423,7 @@ interface NLObjRecord {
      * @param {number} linenum Line number
      * @param {number} column Matrix column (1-based)
      */
-    getLineItemMatrixField(
-        type: string,
-        fldnam: string,
-        linenum: number,
-        column: number,
-    ): NLObjField;
+    getLineItemMatrixField(type: string, fldnam: string, linenum: number, column: number): NLObjField;
     /**
      * Use this API to get the value of a matrix field that appears on a specific line in a specific column. This API can be used only in the context of a matrix sublist.
      *
@@ -1549,12 +1532,7 @@ interface NLObjRecord {
      * @param {string} value sublist field value
      * @param {string} timezone
      */
-    setCurrentLineItemDateTimeValue(
-        group: string,
-        name: string,
-        value: string,
-        timezone?: string,
-    ): void;
+    setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone?: string): void;
     /**
      * Set the current value of a sublist matrix field.
      *
@@ -1625,13 +1603,7 @@ interface NLObjRecord {
      * @param {string} value Datetime value
      * @param {string} timezone Optional value
      */
-    setLineItemDateTimeValue(
-        group: string,
-        name: string,
-        line: number,
-        value: string,
-        timezone?: string,
-    ): void;
+    setLineItemDateTimeValue(group: string, name: string, line: number, value: string, timezone?: string): void;
     /**
      * Set the value of a sublist field.
      *
@@ -1640,12 +1612,7 @@ interface NLObjRecord {
      * @param {number|string} line line number (1-based)
      * @param {string|number} value sublist field value
      */
-    setLineItemValue(
-        group: string,
-        name: string,
-        line: number | string,
-        value: string | number,
-    ): void;
+    setLineItemValue(group: string, name: string, line: number | string, value: string | number): void;
     /**
      * Set the value of a matrix header field.
      *
@@ -1902,13 +1869,7 @@ interface NLObjResponse {
      * @param {string} pageMode string specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view)
      * @param {Object} parameters Object used to specify additional URL parameters as name/value pairs
      */
-    sendRedirect(
-        type: string,
-        subtype: string,
-        id?: string,
-        pageMode?: boolean,
-        parameters?: Object,
-    ): void;
+    sendRedirect(type: string, subtype: string, id?: string, pageMode?: boolean, parameters?: Object): void;
     /**
      * Sets the content type for the response (and an optional filename for binary output).
      *
@@ -2546,11 +2507,7 @@ declare function nlapiCommitLineItem(type: string): void;
  * @param {number|string} id The internal ID of the record to copy.
  * @param {Object} initializeValues Contains an array of name/value pairs of defaults to be used during record initialization.
  */
-declare function nlapiCopyRecord(
-    type: string,
-    id: number | string,
-    initializeValues?: Object,
-): NLObjRecord;
+declare function nlapiCopyRecord(type: string, id: number | string, initializeValues?: Object): NLObjRecord;
 /**
  * Return a new assistant page.
  * @restriction Suitelets only
@@ -2586,11 +2543,7 @@ declare function nlapiCreateEmailMerger(templateId: number): NLObjEmailMerger;
  * @param {string} details Error description
  * @param {boolean} suppressEmail If true then suppress the error notification emails from being sent out (false by default).
  */
-declare function nlapiCreateError(
-    code: string,
-    details: string,
-    suppressEmail?: boolean,
-): NLObjError;
+declare function nlapiCreateError(code: string, details: string, suppressEmail?: boolean): NLObjError;
 /**
  * Instantiate a file object (specifying the name, type, and contents which are base-64 encoded for binary types.)
  * @restriction Server SuiteScript only
@@ -2685,13 +2638,7 @@ declare function nlapiDeleteRecord(type: string, id: number | string): void;
  * @param {number} id2 The internal ID for the record being attached to.
  * @param {Object} properties Object containing name/value pairs used to configure detach operation.
  */
-declare function nlapiDetachRecord(
-    type1: string,
-    id1: number,
-    type2: string,
-    id2: number,
-    properties?: Object,
-): void;
+declare function nlapiDetachRecord(type1: string, id1: number, type2: string, id2: number, properties?: Object): void;
 /**
  * Sets the given field to disabled or enabled.
  *
@@ -2755,12 +2702,7 @@ declare function nlapiExchangeRate(
  * @param {number} 	column Matrix column index (1-based)
  * @param {string} 	val The value being queried for in a matrix field
  */
-declare function nlapiFindLineItemMatrixValue(
-    type: string,
-    fldnam: string,
-    column: number,
-    val: string,
-): number;
+declare function nlapiFindLineItemMatrixValue(type: string, fldnam: string, column: number, val: string): number;
 /**
  * Return the first line number that a sublist field value appears in.
  *
@@ -2786,11 +2728,7 @@ declare function nlapiGetContext(): NLObjContext;
  * @param {string} fldnam Sublist field name
  * @param {string} timezone Timezone
  */
-declare function nlapiGetCurrentLineItemDateTimeValue(
-    type: string,
-    fldnam: string,
-    timezone?: string,
-): string;
+declare function nlapiGetCurrentLineItemDateTimeValue(type: string, fldnam: string, timezone?: string): string;
 /**
  * Return the line number for the currently selected line.
  *
@@ -2895,12 +2833,7 @@ declare function nlapiGetLineItemField(type: string, fldnam: string, linenum?: n
  * @param {number} linenum Line number (1-based).
  * @param {number} column Matrix column index (1-based).
  */
-declare function nlapiGetLineItemMatrixField(
-    type: string,
-    fldnam: string,
-    linenum: number,
-    column: number,
-): NLObjField;
+declare function nlapiGetLineItemMatrixField(type: string, fldnam: string, linenum: number, column: number): NLObjField;
 /**
  * Return the value of a sublist matrix field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3011,11 +2944,7 @@ declare function nlapiGetUser(): number;
  * @param {number} id Internal ID of the base record.
  * @param {string|number} workflowId Internal ID or script ID for the workflow definition.
  */
-declare function nlapiInitiateWorkflow(
-    recordtype: string,
-    id: number,
-    workflowId: string | number,
-): number;
+declare function nlapiInitiateWorkflow(recordtype: string, id: number, workflowId: string | number): number;
 /**
  * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
  * @governance 20 units
@@ -3064,12 +2993,7 @@ declare function nlapiInsertLineItemOption(
  * @param {string} text Display text for select option
  * @param {boolean} selected If true then option will be selected by default
  */
-declare function nlapiInsertSelectOption(
-    fldnam: string,
-    value: string,
-    text: string,
-    selected?: boolean,
-): void;
+declare function nlapiInsertSelectOption(fldnam: string, value: string, text: string, selected?: boolean): void;
 /**
  * Returns true if any changes have been made to a sublist.
  * @restriction Client SuiteScript only
@@ -3099,11 +3023,7 @@ declare function nlapiLoadFile(id: string | number): NLObjFile;
  * @param {number|string} id The internal ID of the record to copy.
  * @param {Object} initializeValues Key-value pair of supported initial values.
  */
-declare function nlapiLoadRecord(
-    type: string,
-    id: number | string,
-    initializeValues?: any,
-): NLObjRecord;
+declare function nlapiLoadRecord(type: string, id: number | string, initializeValues?: any): NLObjRecord;
 /**
  * Loads an existing saved search.
  *
@@ -3197,12 +3117,7 @@ declare function nlapiOutboundSSO(ssoAppKey: string): string;
  * @param {string} format Output format: html|pdf|default
  * @param {Object} properties Object of properties used to configure print
  */
-declare function nlapiPrintRecord(
-    type: string,
-    id: number,
-    format?: string,
-    properties?: Object,
-): NLObjFile;
+declare function nlapiPrintRecord(type: string, id: number, format?: string, properties?: Object): NLObjFile;
 /**
  * Refresh the sublist table.
  * @restriction Only supported for sublists of type inlineeditor, editor, and staticlist
@@ -3293,12 +3208,7 @@ declare function nlapiResizePortlet(): void;
  * @param {string} id Internal ID specifier (sub-subtype corresponding to type): deploymentid|n/a|recordid|n/a.
  * @param {string|boolean} pageMode String specifier used to configure page (suitelet: external|internal, tasklink|record: edit|view).
  */
-declare function nlapiResolveURL(
-    type: string,
-    subtype: string,
-    id?: string,
-    pageMode?: string | boolean,
-): string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pageMode?: string | boolean): string;
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successful.
  * @restriction Server SuiteScript only
@@ -3320,11 +3230,7 @@ declare function nlapiScheduleScript(
  * @param {string[]} fields Array of field names used to detect duplicate (for example, companyname|email|name|phone|address1|city|state|zipcode).
  * @param {number} id Internal ID of existing record. Depending on the use case, id may or may not be a required argument.
  */
-declare function nlapiSearchDuplicate(
-    type: string,
-    fields?: string[],
-    id?: number,
-): NLObjSearchResult[];
+declare function nlapiSearchDuplicate(type: string, fields?: string[], id?: number): NLObjSearchResult[];
 /**
  * Perform a global record search across the system.
  * @param {string} keywords Global search keywords string or expression.
@@ -3529,11 +3435,7 @@ declare function nlapiSetCurrentLineItemValues(
  * @param {string} value The date and time in format mm/dd/yyyy hh:mm:ss am|pm
  * @param {string|number} [timeZone] One of values (string) or keys (int) from the Olson Values table.
  */
-declare function nlapiSetDateTimeValue(
-    fieldId: string,
-    value: string,
-    timeZone?: string | number,
-): void;
+declare function nlapiSetDateTimeValue(fieldId: string, value: string, timeZone?: string | number): void;
 /**
  * Set whether or not a field is displayed.  This function is not documented but still works as of 2017.1.
  * @param fieldId
@@ -3615,12 +3517,7 @@ declare function nlapiSetLineItemDateTimeValue(
  * @param {boolean} val True to disable, false to enable.
  * @param {number} linenum
  */
-declare function nlapiSetLineItemDisabled(
-    type: string,
-    fldnam: string,
-    val: boolean,
-    linenum?: number,
-): void;
+declare function nlapiSetLineItemDisabled(type: string, fldnam: string, val: boolean, linenum?: number): void;
 /**
  * Set the value of a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3629,12 +3526,7 @@ declare function nlapiSetLineItemDisabled(
  * @param {number} 	linenum Line number (1-based)
  * @param {string|number} value
  */
-declare function nlapiSetLineItemValue(
-    type: string,
-    fldnam: string,
-    linenum: number,
-    value: string | number,
-): void;
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: number, value: string | number): void;
 /**
  * Set the value of a matrix header field.
  * @restriction synchronous arg is only supported in client SuiteScript
@@ -3733,11 +3625,7 @@ declare function nlapiSubmitFile(file: NLObjFile): number;
  * @param {boolean} doSourcing If not set, defaults to false.
  * @param {boolean} ignoreMandatoryFields Disables mandatory field validation for this submit operation.
  */
-declare function nlapiSubmitRecord(
-    record: NLObjRecord,
-    doSourcing?: boolean,
-    ignoreMandatoryFields?: boolean,
-): string;
+declare function nlapiSubmitRecord(record: NLObjRecord, doSourcing?: boolean, ignoreMandatoryFields?: boolean): string;
 /**
  * Create a new record using values from an existing record of a different type.
  * @param {string} type The record type name to transform from.
@@ -3777,11 +3665,7 @@ declare function nlapiTriggerWorkflow(
  *                 provide the Internal Id of File Cabinet folder containing these sub-schemas as the schemaFolderId argument
  * @throws {nlobjError} error containing validation failure message(s) - limited to first 10
  */
-declare function nlapiValidateXML(
-    xmlDocument: XMLDocument,
-    schemaDocument: XMLDocument,
-    schemaFolderId: string,
-): void;
+declare function nlapiValidateXML(xmlDocument: XMLDocument, schemaDocument: XMLDocument, schemaFolderId: string): void;
 /**
  * View a subrecord on a sublist field on the current record on a page.
  * @restriction supported in client and user event scripts only.
@@ -3796,11 +3680,7 @@ declare function nlapiViewCurrentLineItemSubrecord(type: string, fldnam: string)
  * @param {string} fldnam sublist field name
  * @param {number} linenum
  */
-declare function nlapiViewLineItemSubrecord(
-    type: string,
-    fldnam: string,
-    linenum: number,
-): NLObjSubrecord;
+declare function nlapiViewLineItemSubrecord(type: string, fldnam: string, linenum: number): NLObjSubrecord;
 /**
  * view a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.

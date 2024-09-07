@@ -46,6 +46,4 @@ export interface UserEventError {
 }
 
 /** Creates a new error.SuiteScriptError or error.UserEventError object. */
-export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(
-    options: CreateOptions,
-): T;
+export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(options: CreateOptions): T;

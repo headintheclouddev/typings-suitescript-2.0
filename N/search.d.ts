@@ -175,16 +175,7 @@ export interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?:
-        | FieldValue
-        | FieldValue[]
-        | string
-        | Date
-        | number
-        | string[]
-        | Date[]
-        | number[]
-        | boolean;
+    values?: FieldValue | FieldValue[] | string | Date | number | string[] | Date[] | number[] | boolean;
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
@@ -716,9 +707,7 @@ export function createColumn(options: CreateSearchColumnOptions): Column;
  */
 export function createFilter(options: CreateSearchFilterOptions): Filter;
 
-export function createSetting<K extends SettingName>(
-    options: CreateSearchSettingOptions<K>,
-): Setting;
+export function createSetting<K extends SettingName>(options: CreateSearchSettingOptions<K>): Setting;
 
 interface CreateSearchSettingOptions<K extends SettingName> {
     name: K | string;

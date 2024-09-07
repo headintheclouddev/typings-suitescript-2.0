@@ -864,9 +864,7 @@ export function createConditionalFormat(options: CreateConditionalFormat): Condi
 /**
  * Creates a conditional format rule.
  */
-export function createConditionalFormatRule(
-    options: CreateConditionalFormatRule,
-): ConditionalFormatRule;
+export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
 
 /**
  * Creates a constant expression.
@@ -942,9 +940,7 @@ export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 /**
  * Creates a measure value selector.
  */
-export function createMeasureValueSelector(
-    options: CreateMeasureValueSelector,
-): MeasureValueSelector;
+export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
 
 /**
  * Creates a path selector.
@@ -1006,9 +1002,7 @@ export function createSort(options: CreateSort): Sort;
 /**
  * Creates a sort based on data dimension items.
  */
-export function createSortByDataDimensionItem(
-    options: CreateSortByDataDimensionItem,
-): SortByDataDimensionItem;
+export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
 
 /**
  * Creates a sort based on a measure.

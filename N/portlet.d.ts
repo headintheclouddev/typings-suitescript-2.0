@@ -1,11 +1,4 @@
-import {
-    BaseForm,
-    Button,
-    Field,
-    FieldType,
-    LayoutJustification,
-    ListColumn,
-} from './ui/serverWidget';
+import { BaseForm, Button, Field, FieldType, LayoutJustification, ListColumn } from './ui/serverWidget';
 import { Result } from './search';
 
 interface SetSubmitButtonOptions {

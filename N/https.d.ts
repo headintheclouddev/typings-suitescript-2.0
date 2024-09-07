@@ -1,11 +1,5 @@
 import { Encoding } from './encode';
-import {
-    ClientResponse,
-    ServerRequest,
-    ServerResponse,
-    RedirectType,
-    SendRedirectOptions,
-} from './http';
+import { ClientResponse, ServerRequest, ServerResponse, RedirectType, SendRedirectOptions } from './http';
 import { HashAlg, SecretKey } from './crypto';
 
 interface CreateSecretKeyOptions {
