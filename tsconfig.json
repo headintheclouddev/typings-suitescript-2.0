@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "strict": true,
     "module": "amd",
     "target": "es5",
-    "moduleResolution":"node",
+    "moduleResolution": "node",
     "sourceMap": false,
     "newLine": "LF",
     "esModuleInterop": true,
