@@ -112,8 +112,8 @@ interface CreateColumnOptions {
 
     /**
      * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results.
-     * In general, the alias is an optional property. 
-     * 
+     * In general, the alias is an optional property.
+     *
      * To use mapped results, you must specify an alias in the following situations:
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
@@ -149,8 +149,8 @@ interface CreateColumnWithFormulaOptions {
 
     /**
      * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results.
-     * In general, the alias is an optional property. 
-     * 
+     * In general, the alias is an optional property.
+     *
      * To use mapped results, you must specify an alias in the following situations:
      * 1. You must specify an alias for a column when the column uses a formula.
      * 2. You must specify an alias when two columns in a joined query use the same field ID.
@@ -207,7 +207,7 @@ export interface RunSuiteQLOptions {
     query: string;
 
     params?: Array<string | number | boolean>;
-        
+
     customScriptId?: string;
 }
 
@@ -602,7 +602,6 @@ export interface Condition {
     readonly component: Component;
 }
 
-export type QueryResultMap = { [fieldId: string]: string | boolean | number | null }
 /**
  * Set of results returned by the query.
  */
@@ -637,8 +636,7 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<QueryResultMap>;
-    asMappedResults<QueryResultMap>(): Array<QueryResultMap>;
+    asMappedResults(): Array<any>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
@@ -661,8 +659,7 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): QueryResultMap;
-    asMap<QueryResultMap>(): QueryResultMap
+    asMap(): any;
 }
 
 /**
@@ -752,7 +749,7 @@ interface Period {
     readonly code: string;
     /**
      * The type of the period. This property uses values from the query.PeriodType enum.
-     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type 
+     * If you create a period using query.createPeriod(options) and do not specify a value for the options.type
      * parameter, the default value of this property is query.PeriodType.START.
      */
     readonly type: string;
@@ -1259,7 +1256,7 @@ export enum FieldContext {
     CONVERTED = "CONVERTED",
     /** Displays consolidated currency amounts in the base currency. */
     CURRENCY_CONSOLIDATED = "CURRENCY_CONSOLIDATED",
-    /** 
+    /**
      * Displays user-friendly field values.
      * For example, for the entity field on Transaction records, using the DISPLAY enum value displays the name of the entity instead of its ID.
      */
