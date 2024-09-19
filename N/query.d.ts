@@ -602,6 +602,10 @@ export interface Condition {
     readonly component: Component;
 }
 
+export type LowercaseKeys<T> = {
+    [K in keyof T as Lowercase<K & string>]: T[K];
+};
+
 /**
  * Set of results returned by the query.
  */
@@ -636,7 +640,7 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<any>;
+    asMappedResults<T extends LowercaseKeys<T>>(): LowercaseKeys<T>[];
 }
 
 /** Corresponds to a single row of the ResultSet. */
@@ -659,7 +663,7 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): any;
+    asMap<T extends LowercaseKeys<T>>(): LowercaseKeys<T>;
 }
 
 /**
