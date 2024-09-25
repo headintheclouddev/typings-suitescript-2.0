@@ -5,6 +5,7 @@ import * as N_search from './search';
 import * as N_ui_serverWidget from './ui/serverWidget';
 import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
 import * as N_FiParser from "./plugins/fiParserPlugin";
+import * as N_GlPlugin from "./plugins/glPlugin";
 import * as N_dataset from "./dataset";
 import * as N_workbook from "./workbook";
 
@@ -494,6 +495,13 @@ export namespace EntryPoints {
             }
 
             type createWorkbook = (scriptContext: createWorkbookContext) => void;
+        }
+
+        namespace GlPlugin {
+            interface glPluginContext extends N_GlPlugin.glPluginContext {
+            }
+
+            type customizeGlImpact = N_GlPlugin.customizeGlImpact;
         }
     }
 

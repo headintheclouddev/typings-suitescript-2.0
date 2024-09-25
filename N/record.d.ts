@@ -664,6 +664,55 @@ export interface Record extends ClientCurrentRecord {
     toJSON(): RecordToJSONReturnValue
 }
 
+interface FindSublistLineWithValueOptions {
+    fieldId: string;
+    sublistId: string;
+    value: FieldValue; 
+}
+
+interface SublistOptions {
+    sublistId: string;
+}
+
+interface SublistLineOptions {
+    sublistId: string;
+    fieldId: string;
+    line: number;
+}
+interface FieldOptions {
+    fieldId: string;
+}
+export interface ReadOnlySubrecord {
+    readonly fields: string[];
+    readonly sublists: string[];
+    findSublistLineWithValue(optiond: FindSublistLineWithValueOptions): number;
+    getLineCount(options: SublistOptions): number;
+    getSublistFields(options: SublistOptions): string[];
+    getSublistText(options: SublistLineOptions): string;
+    getText(options: FieldOptions): string;
+    getValue(option: FieldOptions): FieldValue;
+}
+
+
+
+export interface ReadOnlyTransactionRecord {
+    readonly id: number | null;
+    readonly recordType: Type | string;
+    readonly fields: string[];
+    readonly sublists: string[];
+    findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
+    getLineCount(options: SublistOptions): number;
+    getSublistFields(options: SublistOptions): string[];
+    getSublistSubrecord(options: SublistLineOptions): ReadOnlySubrecord;
+    getSublistText(options: SublistLineOptions): string;
+    getSublistValue(options: SublistLineOptions): Type | string;
+    getSubrecord(options: FieldOptions): ReadOnlySubrecord;
+    getText(options: FieldOptions): string;
+    getValue(options: FieldOptions): FieldValue;
+    hasSublistSubrecord(options: SublistLineOptions): boolean;
+    hasSubrecord(options: FieldOptions): boolean;
+}
+
 export type RecordToJSONReturnValue = {
     id: string,
     type: string,
