@@ -65,11 +65,13 @@ interface StandardLines {
     getLine(options: GetLineOptions): StandardLine
 }
 
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017096 */
 interface AccountingBook {
     readonly id: number;
     readonly isPrimary: boolean;
 }
 
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1016989 */
 interface glPluginContext {
     standardLines: StandardLines;
     customLines: CustomLines;
