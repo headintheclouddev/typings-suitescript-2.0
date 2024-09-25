@@ -1,52 +1,80 @@
 import * as N_record from '../record';
 
+interface GetSegmentOptions {
+    segmentId: string;
+}
+
+interface SetsegmentOptions extends GetSegmentOptions {
+    segmentValueId: number;
+}
+
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017098 */
 interface CustomLine {
-    isBookSpecific(): boolean;
-    setBookSpecific(bookSpecific: boolean): void;
-    setAccountId(accountId: number): void;
-    setClassId(classId: number): void;
-    setCreditAmount(credit: string): void;
-    setDebitAmount(debit: string): void;
-    setDepartmentId(departmentId: number): void;
-    setEntityId(entityId: number): void;
-    setLocationId(locationId: number): void;
-    setMemo(memo: string): void;
-    setSegmentValueId(segmentId: string, segmentValueId: number): void
+    accountId: number;
+    readonly amount: string;
+    classId: number;
+    creditAmount: string;
+    debitAmount: string;
+    departmentId: number;
+    entityId: number;
+    isBookSpecific: boolean;
+    locationId: number;
+    memo: string;
+    segments: string[];
+    getSegmentValueId(options: GetSegmentOptions):  number;
+    setSegmentValueId(options: SetsegmentOptions): void;
 }
 
+interface GetLineOptions {
+    index: number
+}
+
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017095 */
 interface CustomLines {
+    readonly count: number;
     addNewLine(): CustomLine;
-    getCount(): number;
-    getLine(index: number): StandardLine
+    getLine(options: GetLineOptions): CustomLine
 }
 
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017097 */
 interface StandardLine {
-    getEntityId(): number;
-    getId(): number;
-    getSubsidiaryId(): number;
-    getTaxableAmount(): string;
-    getTaxAmount(): string;
-    getTaxItemId(): number;
-    getTaxType(): string;
-    isPosting(): boolean;
-    isTaxable(): boolean;
+    readonly accountId: number;
+    amount: string;
+    readonly classId: number;
+    readonly creditAmount: string;
+    readonly debitAmount: string;
+    readonly departmentId: string;
+    readonly entityId: string;
+    readonly id: number;
+    readonly isPosting: boolean;
+    readonly isTaxable: boolean;
+    readonly locationId: number;
+    readonly memo: string;
+    readonly subsidiaryId: number;
+    readonly taxAmount: string;
+    readonly taxableAmount: string;
+    readonly taxItemId: number;
+    readonly taxType: string;
+
+    getSegmentValueId(options: GetSegmentOptions):  number;
 }
 
+/* Taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1017094 */
 interface StandardLines {
-    getCount(): number;
-    getLine(index: number): StandardLine
+    readonly count: number;
+    getLine(options: GetLineOptions): StandardLine
 }
 
 interface AccountingBook {
-    getId(): number;
-    isPrimary(): boolean;
+    readonly id: number;
+    readonly isPrimary: boolean;
 }
 
 interface glPluginContext {
     standardLines: StandardLines;
     customLines: CustomLines;
-    readonly transactionRecord: N_record.ReadOnlyTransactionRecord;
-    accountingBook: AccountingBook;
+    transactionRecord: N_record.ReadOnlyTransactionRecord;
+    book: AccountingBook;
 
 }
 
