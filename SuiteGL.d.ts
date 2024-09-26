@@ -1,3 +1,12 @@
+/** 
+ * NOTE: This file is for SSV1 as of Sept 2024 SSV2 is now supported and has been added to the SSV2. To use
+ * the SSV2 version (recommended) the types can be found in EntryPoints namespace in N/types
+ * 
+ * EntryPoints.Plugins.GlPlugin.customizeGlImpact
+ * 
+ * 
+ */
+
 /**
  * Represents the accounting book passed to a Custom GL Lines plug-in implementation when you save a transaction.
  * Use the methods available to the book object to determine if the book is a primary or secondary book or get
