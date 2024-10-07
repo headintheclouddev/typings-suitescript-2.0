@@ -664,46 +664,6 @@ export interface Record extends ClientCurrentRecord {
     toJSON(): RecordToJSONReturnValue
 }
 
-interface SublistOptions {
-    sublistId: string;
-}
-
-interface SublistLineOptions {
-    sublistId: string;
-    fieldId: string;
-    line: number;
-}
-export interface ReadOnlySubrecord {
-    readonly fields: string[];
-    readonly sublists: string[];
-    findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
-    getLineCount(options: SublistOptions): number;
-    getSublistFields(options: SublistOptions): string[];
-    getSublistText(options: SublistLineOptions): string;
-    getText(options: GetFieldOptions): string;
-    getValue(options: GetFieldOptions): FieldValue;
-}
-
-
-
-export interface ReadOnlyTransactionRecord {
-    readonly id: number | null;
-    readonly recordType: Type | string;
-    readonly fields: string[];
-    readonly sublists: string[];
-    findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
-    getLineCount(options: SublistOptions): number;
-    getSublistFields(options: SublistOptions): string[];
-    getSublistSubrecord(options: SublistLineOptions): ReadOnlySubrecord;
-    getSublistText(options: SublistLineOptions): string;
-    getSublistValue(options: SublistLineOptions): Type | string;
-    getSubrecord(options: GetFieldOptions): ReadOnlySubrecord;
-    getText(options: GetFieldOptions): string;
-    getValue(options: GetFieldOptions): FieldValue;
-    hasSublistSubrecord(options: SublistLineOptions): boolean;
-    hasSubrecord(options: GetFieldOptions): boolean;
-}
-
 export type RecordToJSONReturnValue = {
     id: string,
     type: string,
