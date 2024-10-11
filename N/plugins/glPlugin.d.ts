@@ -147,9 +147,9 @@ interface StandardLine {
     /** Returns the debit amount for a StandardLine object. */
     readonly debitAmount: string;
     /** Returns the internal NetSuite ID for the department on a StandardLine object. */
-    readonly departmentId: string;
+    readonly departmentId: number;
     /** Returns the internal NetSuite ID for the entity on a StandardLine object. */
-    readonly entityId: string;
+    readonly entityId: number;
     /** Returns the internal NetSuite database ID for a standard GL impact line. */
     readonly id: number;
     /** Returns true if the transaction is a posting transaction and the associated standard GL impact line posts to the general ledger. Returns false if the transaction is a non-posting transaction. */
