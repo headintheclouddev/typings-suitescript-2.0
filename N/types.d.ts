@@ -93,10 +93,10 @@ export namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
+            sublistId?: string;
             fieldId: string;
-            line: number;
-            column: number;
+            line?: number;
+            column?: number;
         }
 
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
@@ -117,7 +117,7 @@ export namespace EntryPoints {
 
         interface postSourcingContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string;
+            sublistId?: string;
             fieldId: string;
         }
 
@@ -150,7 +150,7 @@ export namespace EntryPoints {
 
         interface validateFieldContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId: string|null;
+            sublistId?: string;
             fieldId: string;
             line?: number;
             column?: number;
