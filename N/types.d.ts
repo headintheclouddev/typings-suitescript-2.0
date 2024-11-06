@@ -93,7 +93,7 @@ export namespace EntryPoints {
     namespace Client {
         interface fieldChangedContext {
             currentRecord: N_record.ClientCurrentRecord;
-            sublistId?: string;
+            sublistId: string | null;
             fieldId: string;
             line?: number;
             column?: number;
