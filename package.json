@@ -8,7 +8,7 @@
     "posttest": "npm run cleanup"
   },
   "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
-  "version": "2024.2.6",
+  "version": "2024.2.7",
   "author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
   "license": "MIT",
   "repository": {
