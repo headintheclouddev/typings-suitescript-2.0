@@ -42,7 +42,7 @@ export interface Cache {
     scope: string | Scope;
 
     /** Retrieves a value from the cache based on a key that you provide. If the requested value is not present in the cache, the method uses the user-defined function identified by the method’s option.loader parameter. The value retrieved by this function is cached and then returned. */
-    get(options: GetOptions): string;
+    get(options: GetOptions): string | null;
 
     /** Puts a value into the cache. If the value provided is not a string, the system uses JSON.stringify() to convert the value to a string. */
     put(options: PutOptions): void;
