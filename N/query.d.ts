@@ -602,7 +602,10 @@ export interface Condition {
     readonly component: Component;
 }
 
-export type QueryResultMap = { [fieldId: string]: string | boolean | number | null }
+export type QueryMapResult<T> = {
+    [K in keyof T as Lowercase<K & string>]: string|number|null;
+};
+
 /**
  * Set of results returned by the query.
  */
@@ -637,8 +640,7 @@ export interface ResultSet {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMappedResults(): Array<QueryResultMap>;
-    asMappedResults<QueryResultMap>(): Array<QueryResultMap>;
+    asMappedResults<T extends QueryMapResult<T>>(): QueryMapResult<T>;
 }
 
 /** Corresponds to a single row of the ResultSet. */
@@ -661,7 +663,6 @@ export interface Result {
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
      */
-    asMap(): QueryResultMap;
     asMap<QueryResultMap>(): QueryResultMap
 }
 
