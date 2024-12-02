@@ -398,7 +398,7 @@ export interface Field {
     /** An alternate name that you can assign to a serverWidget.Field object. */
     alias: string;
     /** The default value for this field. */
-    defaultValue: string | string[];
+    defaultValue: string | string[] | number;
     /** The field internal ID. */
     id: string;
     /** Indicates whether the field is mandatory or optional. */
