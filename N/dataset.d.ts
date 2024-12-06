@@ -58,13 +58,23 @@ export interface Dataset {
    * The maximum number of results per page is 1000. The minimum number of results per page is 5, except for the last page, which may include fewer than 5 results.
    */
   runPaged(options?: { pageSize: number }): PagedData;
-  save(): void; // May need to test what this returns.  Documentation says an object, but what object? The dataset itself?
+  save(options?: SaveOptions): SaveResult;
   columns: Column[];
   condition: Condition;
   description: string;
   id: string;
   name: string;
   type: string;
+}
+
+interface SaveOptions {
+  name: string;
+  description?: string;
+  id?: `custdataset${string}`;
+}
+
+interface SaveResult {
+    id: string;
 }
 
 interface CreateOptions {
@@ -106,6 +116,11 @@ interface CreateJoinOptions {
   join?: Join;
   source?: string;
   target?: string;
+}
+
+interface DataSetCreateFunction {
+    (options?: CreateOptions): Dataset;
+    promise(options?: CreateOptions): Promise<Dataset>;
 }
 
 export function create(options: CreateOptions): Dataset;
