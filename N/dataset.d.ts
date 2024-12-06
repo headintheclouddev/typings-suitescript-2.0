@@ -58,13 +58,25 @@ export interface Dataset {
    * The maximum number of results per page is 1000. The minimum number of results per page is 5, except for the last page, which may include fewer than 5 results.
    */
   runPaged(options?: { pageSize: number }): PagedData;
-  save(): void; // May need to test what this returns.  Documentation says an object, but what object? The dataset itself?
+  save(options: SaveOptions): SaveResult;
   columns: Column[];
   condition: Condition;
   description: string;
   id: string;
   name: string;
   type: string;
+}
+
+type DatasetId = `custdataset${string}`; // This type is a template literal type where the Dataset ID must begin with the fixed prefix "custdataset"
+
+interface SaveOptions {
+  name: string;
+  description?: string;
+  id?: DatasetId;
+}
+
+interface SaveResult {
+    id: string;
 }
 
 interface CreateOptions {
