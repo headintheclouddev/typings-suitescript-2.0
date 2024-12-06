@@ -67,10 +67,12 @@ export interface Dataset {
   type: string;
 }
 
+type DatasetId = `custdataset${string}`; // This type is a template literal type where the Dataset ID must begin with the fixed prefix "custdataset"
+
 interface SaveOptions {
   name: string;
   description?: string;
-  id?: `custdataset${string}`;
+  id?: DatasetId;
 }
 
 interface SaveResult {
