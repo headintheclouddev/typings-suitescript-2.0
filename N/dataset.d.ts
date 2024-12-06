@@ -118,11 +118,6 @@ interface CreateJoinOptions {
   target?: string;
 }
 
-interface DataSetCreateFunction {
-    (options?: CreateOptions): Dataset;
-    promise(options?: CreateOptions): Promise<Dataset>;
-}
-
 export function create(options: CreateOptions): Dataset;
 export function createColumn(options: CreateColumnOptions): Column;
 export function createCondition(options: CreateConditionOptions): Condition;
