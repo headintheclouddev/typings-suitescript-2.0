@@ -58,7 +58,7 @@ export interface Dataset {
    * The maximum number of results per page is 1000. The minimum number of results per page is 5, except for the last page, which may include fewer than 5 results.
    */
   runPaged(options?: { pageSize: number }): PagedData;
-  save(options?: SaveOptions): SaveResult;
+  save(options: SaveOptions): SaveResult;
   columns: Column[];
   condition: Condition;
   description: string;
