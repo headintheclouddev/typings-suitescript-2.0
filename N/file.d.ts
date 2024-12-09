@@ -46,17 +46,17 @@ interface FileAppendLineOptions {
     value: string;
 }
 
-interface FileLoadOptions {
+export interface FileLoadOptions {
     /**  Internal ID of the file as a number or a string, or the relative file path to the file in the file cabinet. */
     id: (number | string);
 }
 
-interface FileDeleteOptions {
+export interface FileDeleteOptions {
     /** Internal ID of the file. */
     id: (number | string);
 }
 
-interface FileCopyOptions {
+export interface FileCopyOptions {
     /** The internal ID of the folder to copy the file to.  This folder must already exist in the File Cabinet. */
     folder: number;
     /** The internal ID of the file to copy. The file must already exist in the file cabinet. */
@@ -70,7 +70,7 @@ interface FileCopyOptions {
     conflictResolution: NameConflictResolution;
 }
 
-interface FileCreateOptions {
+export interface FileCreateOptions {
     /** The file name. */
     name: string;
     /** The file type. */
