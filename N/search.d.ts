@@ -70,19 +70,19 @@ export interface Column {
     /** Returns the object type name */
     toString(): string;
     /** Get JSON format of the object */
-    toJSON(): {
-        name: string;
-        join: string | null | undefined;
-        summary: keyof typeof Summary | null | undefined;
-        label: string | null;
-        type: string | null;
-        formula: string | null | undefined;
-        function: string | null | undefined;
-        sortdir: keyof typeof Sort;
-        whenorderedby: string | null | undefined;
-        whenorderedbyjoin: string | null | undefined;
-        whenorderedbyalias: string | null | undefined;
-    };
+    // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.0/issues/320
+    //     name: string;
+    //     join: string | null | undefined;
+    //     summary: keyof typeof Summary | null | undefined;
+    //     label: string | null;
+    //     type: string | null;
+    //     formula: string | null | undefined;
+    //     function: string | null | undefined;
+    //     sortdir: keyof typeof Sort;
+    //     whenorderedby: string | null | undefined;
+    //     whenorderedbyjoin: string | null | undefined;
+    //     whenorderedbyalias: string | null | undefined;
+    // };
 }
 
 export interface Result {
