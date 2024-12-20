@@ -17,6 +17,8 @@ import * as N_http from './N/http';
 import * as N_https from './N/https';
 import * as N_keyControl from './N/keyControl';
 import * as N_log from './N/log';
+import * as N_llm from './N/llm';
+import * as N_pgp from './N/pgp';
 import * as N_plugin from './N/plugin';
 import * as N_portlet from './N/portlet';
 import * as N_query from './N/query';
@@ -64,6 +66,8 @@ export {N_http as http};
 export {N_https as https};
 export {N_keyControl as keyControl}
 export {N_log as log};
+export {N_llm as llm};
+export {N_pgp as pgp};
 export {N_piRemoval as piremoval};
 export {N_plugin as plugin};
 export {N_portlet as portlet};
