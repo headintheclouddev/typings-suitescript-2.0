@@ -602,7 +602,7 @@ export interface Condition {
     readonly component: Component;
 }
 
-export type QueryResultMap = { [fieldId: string]: string | boolean | number | null }
+export type QueryResultMap = { [fieldId: string]: string | boolean | number | bigint | null }
 /**
  * Set of results returned by the query.
  */
