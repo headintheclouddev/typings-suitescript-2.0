@@ -602,7 +602,8 @@ export interface Condition {
     readonly component: Component;
 }
 
-export type QueryResultMap = { [fieldId: string]: string | boolean | number | null }
+export type QueryResultValue = string | boolean | number | bigint | null;
+export type QueryResultMap = { [fieldId: string]: QueryResultValue };
 /**
  * Set of results returned by the query.
  */
@@ -648,7 +649,7 @@ export interface Result {
      * the array exactly matches the ResultSet.types, ResultSet.columns or Result.columns property.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly values: Array<boolean | string | number | null>;
+    readonly values: Array<QueryResultValue>;
 
     /**
      * The return columns. This is equivalent to ResultSet.columns.
