@@ -153,7 +153,7 @@ interface SearchTaskStatus {
     toString(): string;
     savedSearchId: number;
     fileId: number;
-    status: TaskStatus;
+    status: TaskStatus | `${TaskStatus}`;
     taskId: number;
 }
 
@@ -178,7 +178,7 @@ interface CsvImportTask {
 
 interface CsvImportTaskStatus {
     toString(): string;
-    status: TaskStatus;
+    status: TaskStatus | `${TaskStatus}`;
 }
 
 interface EntityDeduplicationTaskCreateOptions {
@@ -202,7 +202,7 @@ interface EntityDeduplicationTask {
 
 interface EntityDeduplicationTaskStatus {
     toString(): string;
-    status: TaskStatus;
+    status: TaskStatus | `${TaskStatus}`;
 }
 
 interface MapReduceScriptTaskCreateOptions {
@@ -235,8 +235,8 @@ interface MapReduceScriptTaskStatus {
     toString(): string;
     scriptId: string;
     deploymentId: string;
-    stage: MapReduceStage;
-    status: TaskStatus;
+    stage: MapReduceStage | `${MapReduceStage}`;
+    status: TaskStatus | `${TaskStatus}`;
 }
 
 interface ScheduledScriptTaskCreateOptions {
@@ -258,7 +258,7 @@ interface ScheduledScriptTaskStatus {
     toString(): string;
     scriptId: string;
     deploymentId: string;
-    status: TaskStatus;
+    status: TaskStatus | `${TaskStatus}`;
 }
 
 interface WorkflowTriggerTaskCreateOptions {
@@ -280,7 +280,7 @@ interface WorkflowTriggerTask {
 
 interface WorkflowTriggerTaskStatus {
     toString(): string;
-    status: TaskStatus;
+    status: TaskStatus | `${TaskStatus}`;
 }
 
 export function create(options: CsvImportTaskCreateOptions):  CsvImportTask;
@@ -314,11 +314,11 @@ export enum DedupeMode {
     MARK_AS_NOT_DUPES,
 }
 export enum MapReduceStage {
-    GET_INPUT,
-    MAP,
-    SHUFFLE,
-    REDUCE,
-    SUMMARIZE,
+    GET_INPUT = "GET_INPUT",
+    MAP = "MAP",
+    SHUFFLE = "SHUFFLE",
+    REDUCE = "REDUCE",
+    SUMMARIZE = "SUMMARIZE"
 }
 export enum MasterSelectionMode {
     CREATED_EARLIEST,
@@ -327,10 +327,10 @@ export enum MasterSelectionMode {
     SELECT_BY_ID,
 }
 export enum TaskStatus {
-    PENDING,
-    PROCESSING,
-    COMPLETE,
-    FAILED,
+    PENDING = "PENDING",
+    PROCESSING = "PROCESSING",
+    COMPLETE = "COMPLETE",
+    FAILED = "FAILED",
 }
 export enum TaskType {
     SCHEDULED_SCRIPT = "SCHEDULED_SCRIPT",
