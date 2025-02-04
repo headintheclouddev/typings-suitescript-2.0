@@ -115,7 +115,7 @@ export interface RequestOptions  extends GetOptions {
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
      */
-    method: Method | string;
+    method: Method | `${Method}`;
     /**
      * -optional- The POST data if the method is POST. If method is DELETE, body data is ignored.
      */
@@ -207,7 +207,7 @@ export interface ServerRequest {
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
      */
-    method: Method | "DELETE" | "GET" | "POST" | "PUT";
+    method: Method | `${Method}`;
     /**
      * The server request parameters.
      */
