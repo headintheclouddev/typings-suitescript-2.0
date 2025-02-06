@@ -40,6 +40,8 @@ export interface ReadOnlySubrecord {
     getSublistFields(options: SublistOptions): string[];
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: SublistLineOptions): string;
+    /** Returns the value of a sublist field. */
+    getSublistValue(options: SublistLineOptions): N_record.FieldValue;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string;
     /** Returns the value of a field. */
@@ -66,7 +68,7 @@ export interface ReadOnlyTransactionRecord {
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: SublistLineOptions): string;
     /** Returns the value of a sublist field. */
-    getSublistValue(options: SublistLineOptions): N_record.Type | string;
+    getSublistValue(options: SublistLineOptions): N_record.FieldValue;
     /** Returns the subrecord for the associated field. */
     getSubrecord(options: GetFieldOptions): ReadOnlySubrecord;
     /** Returns the text representation of a field value. */
