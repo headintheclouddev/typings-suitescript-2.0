@@ -98,7 +98,7 @@ interface RequestRestletFunction {
     promise(options: RequestRestletOptions): Promise<ClientResponse>;
 }
 
-interface RequestSuiteletOptions extends RequestRestletOptions {
+export interface RequestSuiteletOptions extends RequestRestletOptions {
     /** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
     external?: boolean,
 }
