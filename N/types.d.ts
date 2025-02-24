@@ -11,9 +11,9 @@ import * as N_workbook from "./workbook";
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:
-export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (ctx) => {
+export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context) => {
     //THIS IS WRONG
-    if(ctx.Type == EntryPoints.UserEvent.Type.EDIT) {
+    if(context.Type == EntryPoints.UserEvent.Type.EDIT) {
         ...
     }
 };

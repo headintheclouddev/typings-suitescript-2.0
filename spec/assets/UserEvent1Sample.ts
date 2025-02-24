@@ -6,9 +6,9 @@
 import {EntryPoints} from 'N/types'
 import * as log from 'N/log';
 
-export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
-  if (~[ctx.UserEventType.CREATE, ctx.UserEventType.EDIT].indexOf(ctx.type)) { // If type is create or edit, log the company name (applies to customer records).
-    const companyName = ctx.newRecord.getValue({ fieldId: 'companyname' });
+export function beforeSubmit(context: EntryPoints.UserEvent.beforeSubmitContext) {
+  if (~[context.UserEventType.CREATE, context.UserEventType.EDIT].indexOf(context.type)) { // If type is create or edit, log the company name (applies to customer records).
+    const companyName = context.newRecord.getValue({ fieldId: 'companyname' });
     log.audit('Before Submit', `companyname is: ${companyName}`);
   }
 }
