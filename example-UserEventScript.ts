@@ -4,8 +4,8 @@
  */
 
 import {EntryPoints} from 'N/types'
-import log = require('N/log');
-import query = require('N/query');
+import * as log from 'N/log';
+import * as query from 'N/query';
 
 // Let's assume this example is deployed to sales orders
 export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {

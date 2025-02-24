@@ -4,7 +4,7 @@
  */
 
 import {EntryPoints} from 'N/types'
-import log = require('N/log');
+import * as log from 'N/log';
 
 export function beforeSubmit(ctx: EntryPoints.UserEvent.beforeSubmitContext) {
   if (~[ctx.UserEventType.CREATE, ctx.UserEventType.EDIT].indexOf(ctx.type)) { // If type is create or edit, log the company name (applies to customer records).

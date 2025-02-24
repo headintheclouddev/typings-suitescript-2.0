@@ -4,7 +4,7 @@
  */
 
 import {EntryPoints} from 'N/types'
-import search = require('N/search');
+import * as search from 'N/search';
 
 export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
   if (ctx.mode != 'edit') return;

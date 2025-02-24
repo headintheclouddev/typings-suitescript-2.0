@@ -4,7 +4,7 @@
  */
 
 import {EntryPoints} from 'N/types'
-import log = require('N/log');
+import * as log from 'N/log';
 
 const del: EntryPoints.RESTlet.delete_ = requestParams => {
   const type = requestParams.type;
