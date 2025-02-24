@@ -9,7 +9,7 @@ interface TransactionVoidFunction {
     promise(options: VoidOptions): Promise<number>;
 }
 
-declare var voidFunc: TransactionVoidFunction;
+declare const voidFunc: TransactionVoidFunction;
 export {voidFunc as void};
 
 export enum Type { // As of 15 July 2020

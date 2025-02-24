@@ -48,7 +48,7 @@ interface ActionExecuteFunction {
  * Returns an executable record action for the specified record type.
  * If the recordId parameter is specified, the action object is returned only if the specified action can be executed on the specified record instance.
  */
-export var get: ActionGetFunction;
+export const get: ActionGetFunction;
 
 /**
  * Performs a search for available record actions.
@@ -61,14 +61,14 @@ export var get: ActionGetFunction;
  *
  * If the recordId is specified in this call, the actions that are found are considered qualified. You do not have to provide the recordId to execute a qualified action.
  */
-export var find: ActionFindFunction;
+export const find: ActionFindFunction;
 
 /**
  * Executes the record action and returns the action results in a plain JavaScript object.
  * If the action fails, it is listed in the results object’s notifications property.
  * If the action executes successfully, the notifications property is usually empty.
  */
-export var execute: ActionExecuteFunction;
+export const execute: ActionExecuteFunction;
 
 /**
  * Executes an asynchronous bulk record action and returns its task ID for status queries with action.getBulkStatus(options).

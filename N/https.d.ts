@@ -160,12 +160,12 @@ export {get, delete as delete, request, post, put, CacheDuration, Method, Client
 
 // METHODS \\
 /** Creates a key for the contents of a credential field. */
-export var createSecretKey: HttpsCreateSecretKeyFunction;
+export const createSecretKey: HttpsCreateSecretKeyFunction;
 
 /**
  * Creates an https.SecureString object.
  */
-export var createSecureString: HttpsCreateSecureStringFunction;
+export const createSecureString: HttpsCreateSecureStringFunction;
 
 /**
  * Sends an HTTPS request to a RESTlet and returns the response. Authentication headers are automatically added.
@@ -173,7 +173,7 @@ export var createSecureString: HttpsCreateSecureStringFunction;
  * 
  * @governance 10 units
  */
-export var requestRestlet: RequestRestletFunction;
+export const requestRestlet: RequestRestletFunction;
 
 /**
  * Sends an HTTPS request to a Suitelet and returns the response.
@@ -184,13 +184,13 @@ export var requestRestlet: RequestRestletFunction;
  *
  * @governance 10 units
  */
-export var requestSuitelet: RequestSuiteletFunction;
+export const requestSuitelet: RequestSuiteletFunction;
 
 /**
  * Sends an HTTPS request to a SuiteTalk REST endpoint and returns the response. Authentication headers are automatically added.
  * 
  * @governance 10 units
  */
-export var requestSuiteTalkRest: RequestSuiteTalkRestFunction;
+export const requestSuiteTalkRest: RequestSuiteTalkRestFunction;
 
 export {Encoding} from './encode';

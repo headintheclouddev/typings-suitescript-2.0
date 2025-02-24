@@ -5,4 +5,4 @@ interface GetCurrentRecordFunction {
     promise(): Promise<ClientCurrentRecord>;
 }
 
-export var get: GetCurrentRecordFunction;
+export const get: GetCurrentRecordFunction;

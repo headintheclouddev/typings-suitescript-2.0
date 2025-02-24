@@ -808,16 +808,16 @@ interface RecordTransformOptions {
 }
 
 /** Attaches a record to another record. */
-export var attach: RecordAttachFunction;
+export const attach: RecordAttachFunction;
 /** Creates a new record by copying an existing record in NetSuite. */
-export var copy: RecordCopyFunction;
+export const copy: RecordCopyFunction;
 /** Creates a new record. */
-export var create: RecordCreateFunction;
+export const create: RecordCreateFunction;
 /** Deletes a record. */
-declare var deleteFunc: RecordDeleteFunction;
+declare const deleteFunc: RecordDeleteFunction;
 export { deleteFunc as delete };
 /** Detaches a record from another record. */
-export var detach: RecordDetachFunction;
+export const detach: RecordDetachFunction;
 /**
  * Loads an existing nlobjRecord from the database based on provided type, id
  *
@@ -825,7 +825,7 @@ export var detach: RecordDetachFunction;
  * 
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
  */
-export var load: RecordLoadFunction;
+export const load: RecordLoadFunction;
 /**
  * commit record field updates to the system.
  * 
@@ -846,9 +846,9 @@ export var load: RecordLoadFunction;
  *
  * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if type or id is missing
  */
-export var submitFields: SubmitFieldsFunction;
+export const submitFields: SubmitFieldsFunction;
 /** Transforms a record from one type into another, using data from an existing record. */
-export var transform: RecordTransformFunction;
+export const transform: RecordTransformFunction;
 
 /** N/record.Type enum */
 export enum Type { // As of 4 June 2024
