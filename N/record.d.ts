@@ -1,4 +1,4 @@
-import { AddSelectOptionOptions } from './ui/serverWidget';
+import type {AddSelectOptionOptions} from './ui/serverWidget';
 
 /** 
  * Submits a new record or saves edits to an existing record. 

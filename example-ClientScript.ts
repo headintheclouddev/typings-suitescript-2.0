@@ -3,7 +3,7 @@
  * @NScriptType ClientScript
  */
 
-import {EntryPoints} from 'N/types'
+import type {EntryPoints} from 'N/types';
 import * as search from 'N/search';
 
 export function pageInit(context: EntryPoints.Client.pageInitContext) {

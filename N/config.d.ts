@@ -1,4 +1,4 @@
-import {Record} from './record';
+import type {Record} from './record';
 
 interface LoadOptions {
     /**

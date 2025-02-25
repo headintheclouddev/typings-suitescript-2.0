@@ -3,7 +3,7 @@
  * @NScriptType Suitelet
  */
 
-import {EntryPoints} from 'N/types';
+import type {EntryPoints} from 'N/types';
 import * as record from 'N/record';
 
 export const onRequest: EntryPoints.Suitelet.onRequest = (context) => {

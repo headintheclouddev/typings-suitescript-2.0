@@ -40,10 +40,10 @@ import * as N_util from './N/util';
 import * as N_workbook from './N/workbook';
 import * as N_workflow from './N/workflow';
 import * as N_xml from './N/xml';
-import * as N_commerce_recordView from './N/commerce/recordView';
-import * as N_ui_dialog from './N/ui/dialog';
-import * as N_ui_message from './N/ui/message';
-import * as N_ui_serverWidget from './N/ui/serverWidget';
+import type * as N_commerce_recordView from './N/commerce/recordView';
+import type * as N_ui_dialog from './N/ui/dialog';
+import type * as N_ui_message from './N/ui/message';
+import type * as N_ui_serverWidget from './N/ui/serverWidget';
 // import * as N_crypto_certificate from './N/crypto/certificate';
 // import * as N_https_clientCertificate from './N/https/clientCertificate';
 

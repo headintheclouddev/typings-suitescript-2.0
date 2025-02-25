@@ -1,13 +1,13 @@
-import * as N_http from './http';
-import * as N_portlet from './portlet';
-import * as N_record from './record';
-import * as N_search from './search';
-import * as N_ui_serverWidget from './ui/serverWidget';
-import * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
-import * as N_FiParser from "./plugins/fiParserPlugin";
-import * as N_GlPlugin from "./plugins/glPlugin";
-import * as N_dataset from "./dataset";
-import * as N_workbook from "./workbook";
+import type * as N_http from './http';
+import type * as N_portlet from './portlet';
+import type * as N_record from './record';
+import type * as N_search from './search';
+import type * as N_ui_serverWidget from './ui/serverWidget';
+import type * as N_FiConnectivity from "./plugins/fiConnectivityPlugin";
+import type * as N_FiParser from "./plugins/fiParserPlugin";
+import type * as N_GlPlugin from "./plugins/glPlugin";
+import type * as N_dataset from "./dataset";
+import type * as N_workbook from "./workbook";
 
 /*Don't export these into the Namespace as we don't
 want to accidentally use a comparison like this:

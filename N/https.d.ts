@@ -1,6 +1,6 @@
-import {Encoding} from './encode';
-import {ClientResponse, ServerRequest, ServerResponse, RedirectType, SendRedirectOptions} from './http'
-import {HashAlg, SecretKey} from './crypto';
+import type {Encoding} from './encode';
+import type {ClientResponse} from './http'
+import type {HashAlg, SecretKey} from './crypto';
 
 interface CreateSecretKeyOptions {
     /** Specifies the encoding for the SecureKey. */

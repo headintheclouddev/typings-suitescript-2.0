@@ -3,7 +3,7 @@
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/types'
+import type {EntryPoints} from 'N/types';
 import * as log from 'N/log';
 import * as query from 'N/query';
 

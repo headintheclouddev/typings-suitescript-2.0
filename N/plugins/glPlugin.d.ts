@@ -1,4 +1,4 @@
-import * as N_record from '../record';
+import type {FieldValue} from '../record';
 
 interface FindSublistLineWithValueOptions {
     /** The internal ID of the sublist. */
@@ -6,7 +6,7 @@ interface FindSublistLineWithValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The value to search for. */
-    value: N_record.FieldValue;
+    value: FieldValue;
 }
 
 interface GetFieldOptions {
@@ -41,18 +41,18 @@ export interface ReadOnlySubrecord {
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: SublistLineOptions): string;
     /** Returns the value of a sublist field. */
-    getSublistValue(options: SublistLineOptions): N_record.FieldValue;
+    getSublistValue(options: SublistLineOptions): FieldValue;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string;
     /** Returns the value of a field. */
-    getValue(options: GetFieldOptions): N_record.FieldValue;
+    getValue(options: GetFieldOptions): FieldValue;
 }
 
 export interface ReadOnlyTransactionRecord {
     /** Use this property to get the internal ID of a record when editing an existing transaction. */
     readonly id: number | null;
     /** Returns the record type internal ID. */
-    readonly recordType: N_record.Type | string;
+    readonly recordType: Type | string;
     /** Returns the body field names (internal IDs) of all the fields in the transaction record, including the machine header field and matrix header fields. */
     readonly fields: string[];
     /** Returns all the names (internal IDs) of all the sublists in the transaction record. */
@@ -68,13 +68,13 @@ export interface ReadOnlyTransactionRecord {
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: SublistLineOptions): string;
     /** Returns the value of a sublist field. */
-    getSublistValue(options: SublistLineOptions): N_record.FieldValue;
+    getSublistValue(options: SublistLineOptions): FieldValue;
     /** Returns the subrecord for the associated field. */
     getSubrecord(options: GetFieldOptions): ReadOnlySubrecord;
     /** Returns the text representation of a field value. */
     getText(options: GetFieldOptions): string;
     /** Returns the value of a field. */
-    getValue(options: GetFieldOptions): N_record.FieldValue;
+    getValue(options: GetFieldOptions): FieldValue;
     /** Returns the value indicating whether the associated sublist field contains a subrecord */
     hasSublistSubrecord(options: SublistLineOptions): boolean;
     /** Returns the value indicating whether the field contains a subrecord. */

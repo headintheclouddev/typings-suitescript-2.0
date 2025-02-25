@@ -5,7 +5,7 @@
  * behaves differently based on the context.
  */
 
-import record = require('./record');
+import type {ClientCurrentRecord, Record} from './record';
 
 interface GetContextOptions {
     /** The record type. Required if the record is not loaded in your script. */
@@ -13,7 +13,7 @@ interface GetContextOptions {
     /** The record ID. Required if the record is not loaded in your script. */
     recordId?: string;
     /** The record object. Required if the record is loaded in your script. */
-    record?: record.Record | record.ClientCurrentRecord;
+    record?: Record | ClientCurrentRecord;
     /** The available context types. Optional. */
     contextTypes?: ContextType[];
 }

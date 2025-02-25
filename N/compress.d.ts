@@ -6,11 +6,11 @@
  * You can create an archive by using compress.createArchiver() and add multiple files to the archive.
  */
 
-import file = require('./file');
+import type {File} from './file';
 
 interface ArchiverAddOptions {
     /** The file to be archived. */
-    file: file.File;
+    file: File;
     /** The target directory in the archive. If this parameter is not specified, the file is placed in the root directory of the archive. */
     directory?: string;
 }
@@ -25,21 +25,21 @@ interface ArchiverArchiveOptions {
 /** The functionality for creating an archive file. Use compress.createArchiver() to create this object. */
 export interface Archiver {
     add(options: ArchiverAddOptions): void;
-    archive(options: ArchiverArchiveOptions): file.File;
+    archive(options: ArchiverArchiveOptions): File;
 }
 
 interface GZipOptions {
     /** The file to be compressed. */
-    file: file.File;
+    file: File;
     /** The compression level. 0 is no compression. 9 is the best compression level. */
     level?: number;
 }
 
 /** Compresses a file by using gzip and returns it as a temporary file object. 0 is no compression. */
-export function gzip(options: GZipOptions): file.File;
+export function gzip(options: GZipOptions): File;
 
 /** Decompresses a file that was compressed using gzip and returns it as a temporary file object. */
-export function gunzip(options: { file: file.File }): file.File;
+export function gunzip(options: { file: File }): File;
 
 /** Creates a compress.Archiver object that can be used for creating file archives, such as ZIP or TAR files. */
 export declare function createArchiver(): Archiver;

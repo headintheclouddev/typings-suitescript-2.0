@@ -1,4 +1,4 @@
-import file = require('./file');
+import type {File} from './file';
 
 /**
  * The N/certificateControl module enables scripting access to the Digital Certificates list found in the UI at Setup > Company > Certificates.
@@ -12,7 +12,7 @@ export interface Certificate {
   /** Describes the certificate record. */
   description: string;
   /** The File Object Members object of the certificate uploaded to the certificate record. */
-  file: file.File;
+  file: File;
   /** The name of the certificate record. */
   name: string;
   /**
@@ -68,7 +68,7 @@ export function loadCertificate(options: { scriptId: string }): Certificate;
 
 interface CreateCertificateOptions {
   /** A File Object Members object. The file must already be uploaded to the File Cabinet. */
-  file: file.File;
+  file: File;
   /** If applicable, the password associated with your digital certificate. */
   password?: string;
   /** The desired script ID of the certificate record. The script ID is automatically prefixed with ‘custcertificate_’ */

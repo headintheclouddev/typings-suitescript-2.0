@@ -1,5 +1,5 @@
-import {BaseForm, Button, Field, FieldType, LayoutJustification, ListColumn} from './ui/serverWidget';
-import {Result} from './search';
+import type {BaseForm, Button, Field, FieldType, LayoutJustification, ListColumn} from './ui/serverWidget';
+import type {Result} from './search';
 
 interface SetSubmitButtonOptions {
     url: string;

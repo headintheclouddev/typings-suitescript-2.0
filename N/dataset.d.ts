@@ -10,8 +10,8 @@
  * For more information on using workbooks, see N/workbook Module.
  */
 
-import {PagedData, RelativeDate, ResultSet} from "./query";
-import {Expression} from "./workbook";
+import type {PagedData, RelativeDate, ResultSet} from "./query";
+import type {Expression} from "./workbook";
 
 /** Encapsulates the record fields in the dataset. Columns are equivalent to the fields you use when you build a dataset in SuiteAnalytics. */
 interface Column {

@@ -1,4 +1,4 @@
-import {File} from './file';
+import type {File} from './file';
 
 interface SendOptions {
     /**

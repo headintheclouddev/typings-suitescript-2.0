@@ -3,7 +3,7 @@
  * PGP stands for Pretty Good Privacy and is most commonly used for encrypting emails.
  */
 
-import {Signer} from "./crypto/certificate";
+import type {Signer} from "./crypto/certificate";
 
 /** Stores general configuration options that can be used for message decryption. Use the pgp.createConfig(options) method to create a new configuration object. */
 interface Config {

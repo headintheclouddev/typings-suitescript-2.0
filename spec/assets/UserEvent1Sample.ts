@@ -3,7 +3,7 @@
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/types'
+import type {EntryPoints} from 'N/types';
 import * as log from 'N/log';
 
 export function beforeSubmit(context: EntryPoints.UserEvent.beforeSubmitContext) {
