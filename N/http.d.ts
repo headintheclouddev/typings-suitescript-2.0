@@ -90,7 +90,7 @@ export interface GetOptions {
     /** The HTTP URL being requested. */
     url: string | SecureString;
     /** -optional- The HTTP headers. */
-    headers?: any;
+    headers?: object;
     /**
      * Pass an array of GUIDs here to be decoded by the server. Reference GUIDs must be in curly braces where used.
      * For example, if you have a GUID for a username:password for basic auth, your header would be: { Authorization: `Basic {${guid}}` }
@@ -162,7 +162,7 @@ export interface ClientResponse {
     /**
      * The response header or headers.
      */
-    headers: any;
+    headers: object;
 }
 
 interface GetSublistValueOptions {
@@ -201,7 +201,7 @@ export interface ServerRequest {
     /**
      * The server request headers.
      */
-    headers: any;
+    headers: object;
     /**
      * The server request http method.
      * Allow usage as string here as N/http is a heavy import just
@@ -279,7 +279,7 @@ export interface ServerResponse {
     /**
      * The server response headers. This property is read-only.
      */
-    headers: any;
+    headers: object;
 }
 
 /**
