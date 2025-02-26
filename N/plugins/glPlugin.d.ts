@@ -1,4 +1,4 @@
-import type {FieldValue} from '../record';
+import type {Type, FieldValue} from '../record';
 
 interface FindSublistLineWithValueOptions {
     /** The internal ID of the sublist. */
