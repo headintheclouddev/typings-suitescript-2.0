@@ -3,13 +3,13 @@
  * @NScriptType ClientScript
  */
 
-import {EntryPoints} from 'N/types'
-import search = require('N/search');
+import type {EntryPoints} from 'N/types';
+import * as search from 'N/search';
 
-export function pageInit(ctx: EntryPoints.Client.pageInitContext) {
-  if (ctx.mode != 'edit') return;
+export function pageInit(context: EntryPoints.Client.pageInitContext) {
+  if (context.mode != 'edit') return;
 
-  const customerId = ctx.currentRecord.getValue('entity'); // Assume this script is running on a transaction
+  const customerId = context.currentRecord.getValue('entity'); // Assume this script is running on a transaction
   search.lookupFields.promise({ type: 'customer', id: customerId, columns: ['companyname', 'datecreated', 'entitystatus'] }).then((values) => {
     const name   = values.companyname as string;
     const date   = values.datecreated as string;

@@ -3,7 +3,7 @@
  * By using the SSH keys, you can manage files and directories by using the SSH file transfer (SFTP) protocol.
  */
 
-import file = require('./file');
+import type {File} from './file';
 
 export function createKey(options: CreateKeyOptions): Key;
 export function findKeys(options: FindKeysOptions): { [key: string]: any }; // TODO: Confirm return type. Documentation says its "meta-data"
@@ -18,7 +18,7 @@ export enum Operator {
 }
 
 interface Key {
-  file: file.File;
+  file: File;
   /** The password of the key. GUID or secret token for working with passwords is accepted. */
   password: string;
   /** The script ID of the key. Using Key.save() and keyControl.findKeys(options) returns the script ID. */
@@ -31,7 +31,7 @@ interface Key {
 }
 
 interface CreateKeyOptions {
-  file?: file.File;
+  file?: File;
   /** The password of the key. GUID or secret token for working with passwords is accepted. */
   password?: string;
   /** The script ID of the key. Using Key.save() and keyControl.findKeys(options) returns the script ID. */

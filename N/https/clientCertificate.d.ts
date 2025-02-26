@@ -1,16 +1,16 @@
 /** Load the clientCertificate module to send SSL requests with a digital certificate. */
 
-import https = require('../https');
+import type {ClientResponse} from '../https';
 
-export function post(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): https.ClientResponse;
-export function get(options: GetDeleteOptions): https.ClientResponse;
-export function put(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): https.ClientResponse;
+export function post(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
+export function get(options: GetDeleteOptions): ClientResponse;
+export function put(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
 declare const deleteFunc: DeleteMethod; // Workaround for the fact that "delete" is a JS keyword.
 export {deleteFunc as delete};
-export function request(options: RequestOptions): https.ClientResponse;
+export function request(options: RequestOptions): ClientResponse;
 
 interface DeleteMethod {
-  (options: GetDeleteOptions): https.ClientResponse;
+  (options: GetDeleteOptions): ClientResponse;
 }
 
 interface GetDeleteOptions {

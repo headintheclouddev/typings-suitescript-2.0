@@ -52,13 +52,13 @@ At the top of every script you will want to have the following lines added:
  * @NScriptType ClientScript
  */
 
-import {EntryPoints} from 'N/types';
+import type {EntryPoints} from 'N/types';
 ```
 
 `N/types` and `EntryPoints` isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
 
 ```typescript
-import {EntryPoints} from 'N/types';
+import type {EntryPoints} from 'N/types';
 export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
   //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
 }
@@ -78,7 +78,7 @@ Full example for a User Event Script might look something like this:
  * @NScriptType UserEventScript
  */
 
-import {EntryPoints} from 'N/types';
+import type {EntryPoints} from 'N/types';
 import * as log from 'N/log';
 
 export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
@@ -95,7 +95,7 @@ export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoi
  * @NScriptType Suitelet
  */
 
-import {EntryPoints} from 'N/types';
+import type {EntryPoints} from 'N/types';
 import * as record from 'N/record';
 
 export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {

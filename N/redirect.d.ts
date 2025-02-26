@@ -1,5 +1,5 @@
-import {Search} from './search';
-import record = require('./record');
+import type {Search} from './search';
+import type {Type} from './record';
 
 interface RedirectOptions {
     /** The URL of a Suitelet that is available externally. */
@@ -12,7 +12,7 @@ interface ToRecordOptions {
     /** The internal id of the target record. */
     id: string | number;
     /** Type of record. */
-    type: string | record.Type;
+    type: string | Type;
     /** Determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode. */
     isEditMode?: boolean;
     /** Contains additional URL parameters as key/value pairs. */
@@ -23,9 +23,9 @@ interface ToRecordTransformOptions {
     /** The internal ID of the source record. */
     fromId: string | number;
     /** Type of the source record. */
-    fromType: string | record.Type;
+    fromType: string | Type;
     /** Type of the target record. */
-    toType: string | record.Type;
+    toType: string | Type;
     /** Contains additional parameters as key/value pairs. */
     parameters?: any;
 }

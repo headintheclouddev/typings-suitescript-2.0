@@ -1,6 +1,6 @@
-import {ServerResponse} from '../http';
-import {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from '../portlet';
-import {Message, MessageCreateOptions} from './message';
+import type {ServerResponse} from '../http';
+import type {AddColumnOptions, AddEditColumnOptions, AddRowOptions, AddRowsOptions} from '../portlet';
+import type {Message, MessageCreateOptions} from './message';
 
 export interface AddButtonOptions {
     /** The internal ID of the button. If you are adding the button to an existing page, the internal ID must be in lowercase, contain no spaces, and include the prefix custpage. */

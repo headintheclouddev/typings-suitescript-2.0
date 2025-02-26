@@ -1,5 +1,5 @@
-import {Encoding} from './encode';
-import { Type } from './record';
+import type {Encoding} from './encode';
+import type {Type} from './record';
 export {Encoding} from './encode';
 
 /** Encapsulates a cipher. */

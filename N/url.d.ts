@@ -1,4 +1,4 @@
-import {record} from "../N";
+import type {Type} from "./record";
 
 interface formatOptions {
     domain: string;
@@ -13,7 +13,7 @@ interface resolveHostOptions {
 }
 
 interface resolveRecordOptions {
-    recordType: string | record.Type; // Documentation says it just accepts string, but record.Type values are strings.
+    recordType: string | Type; // Documentation says it just accepts string, but Type values are strings.
     recordId?: string | number; // Omitting this property produces a URL to a NEW record
     isEditMode?: boolean;
     params?: any;

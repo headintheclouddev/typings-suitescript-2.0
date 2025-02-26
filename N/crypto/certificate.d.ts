@@ -3,13 +3,13 @@
  * In addition to signing XML documents, you can create signer and verifier objects and verify signed documents with this module.
  */
 
-import N_file = require('../file');
-import N_xml  = require('../xml');
+import type {File} from '../file';
+import type {NSXMLDocument} from '../xml';
 
 export interface SignedXml {
-  asFile(): N_file.File;
+  asFile(): File;
   asString(): string;
-  asXml(): N_xml.NSXMLDocument;
+  asXml(): NSXMLDocument;
 }
 
 export interface Signer {

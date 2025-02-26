@@ -14,7 +14,7 @@ interface LogFunction {
     (options: LogOptions): void;
 }
 
-export var debug: LogFunction;
-export var audit: LogFunction;
-export var error: LogFunction;
-export var emergency: LogFunction;
+export const debug: LogFunction;
+export const audit: LogFunction;
+export const error: LogFunction;
+export const emergency: LogFunction;

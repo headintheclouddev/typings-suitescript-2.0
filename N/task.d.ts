@@ -1,5 +1,5 @@
-import {File} from './file';
-import {Query} from './query';
+import type {File} from './file';
+import type {Query} from './query';
 
 interface CheckStatusOptions {
     taskId: string;

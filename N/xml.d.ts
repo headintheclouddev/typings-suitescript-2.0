@@ -253,12 +253,12 @@ interface SelectOptions {
     xpath: string;
 }
 
-export var Parser: ParserObject;
-export var XPath: XPathObject;
-export var Node: NSNode;
-export var Document: NSXMLDocument;
-export var Element: NSElement;
-export var Attr: NSAttr;
+export const Parser: ParserObject;
+export const XPath: XPathObject;
+export const Node: NSNode;
+export const Document: NSXMLDocument;
+export const Element: NSElement;
+export const Attr: NSAttr;
 export function escape(options: EscapeOptions): string;
 export function validate(options: ValidateOptions): void;
 export enum NodeType {

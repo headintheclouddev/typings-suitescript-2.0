@@ -9,7 +9,7 @@ interface FormatOptions {
     type: Type;
 }
 
-import {FieldValue} from './record';
+import type {FieldValue} from './record';
 
 interface FormatDateTimeOptions {
     /**

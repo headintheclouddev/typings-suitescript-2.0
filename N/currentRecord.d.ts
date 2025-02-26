@@ -1,8 +1,8 @@
-import {ClientCurrentRecord} from './record';
+import type {ClientCurrentRecord} from './record';
 
 interface GetCurrentRecordFunction {
     (): ClientCurrentRecord;
     promise(): Promise<ClientCurrentRecord>;
 }
 
-export var get: GetCurrentRecordFunction;
+export const get: GetCurrentRecordFunction;

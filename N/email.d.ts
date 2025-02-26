@@ -1,4 +1,4 @@
-import {File} from './file';
+import type {File} from './file';
 
 interface SendOptions {
     /**
@@ -106,13 +106,13 @@ interface EmailSendCampaignFunction {
 /**
  * Method used to send transactional email asynchronously and receive bounceback notifications if the email is not successfully delivered.
  */
-export var send: EmailSendFunction;
+export const send: EmailSendFunction;
 /**
  * This method is used to send bulk email when a bounceback notification is not required.
  */
-export var sendBulk: EmailSendFunction;
+export const sendBulk: EmailSendFunction;
 /**
  * Method used to send a single “on-demand” campaign email to a specified recipient and return a campaign response ID to track the email.
  * Email (campaignemail) sublists are not supported. The campaign must use a Lead Nurturing (campaigndrip) sublist.
  */
-export var sendCampaignEvent: EmailSendCampaignFunction;
+export const sendCampaignEvent: EmailSendCampaignFunction;

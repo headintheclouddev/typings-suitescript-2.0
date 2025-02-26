@@ -1,6 +1,6 @@
-import {File} from './file';
-import {Assistant, Form, List} from './ui/serverWidget';
-import {SecureString} from './https';
+import type {File} from './file';
+import type {Assistant, Form, List} from './ui/serverWidget';
+import type {SecureString} from './https';
 
 interface AddHeaderOptions {
     /** The name of the header. */
@@ -285,28 +285,28 @@ export interface ServerResponse {
 /**
  * Sends an HTTP GET request and returns the response.
  */
-export var get: HttpGetFunction;
+export const get: HttpGetFunction;
 
 /**
  * Sends an HTTP DELETE request and returns the response.
  */
-declare var deleteFunc: HttpDeleteFunction;
+declare const deleteFunc: HttpDeleteFunction;
 export {deleteFunc as delete};
 
 /**
  * Sends an HTTP request and returns the response.
  */
-export var request: HttpRequestFunction;
+export const request: HttpRequestFunction;
 
 /**
  * Sends an HTTP POST request and returns the response.
  */
-export var post: HttpPostFunction;
+export const post: HttpPostFunction;
 
 /**
  * Sends an HTTP PUT request and returns the response.
  */
-export var put: HttpPutFunction;
+export const put: HttpPutFunction;
 
 /**
  * Holds the string values for supported cache durations.

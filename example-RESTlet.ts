@@ -3,10 +3,10 @@
  * @NScriptType UserEventScript
  */
 
-import { EntryPoints } from 'N/types'
+import type {EntryPoints} from 'N/types';
 import * as log from 'N/log'
 
-var del: EntryPoints.RESTlet.delete_ = requestParams => {
+const del: EntryPoints.RESTlet.delete_ = requestParams => {
     let type = requestParams.type;
     let id = requestParams.id;
 
@@ -16,6 +16,6 @@ var del: EntryPoints.RESTlet.delete_ = requestParams => {
 }
 export { del as delete };
 
-export var post: EntryPoints.RESTlet.post = requestBody => {
+export const post: EntryPoints.RESTlet.post = requestBody => {
     return { success: true };
 } 

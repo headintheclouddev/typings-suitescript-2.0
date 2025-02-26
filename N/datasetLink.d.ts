@@ -11,8 +11,8 @@
  * 
  * For more information about linking datasets in SuiteAnalytics Workbook, see Dataset Linking in SuiteAnalytics Workbook.
  */
-import { Dataset } from "./dataset";
-import { Expression } from "./workbook";
+import type {Dataset} from "./dataset";
+import type {Expression} from "./workbook";
 
 
 interface CreateDatasetLinkOptions {

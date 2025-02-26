@@ -1,4 +1,4 @@
-import {FieldValue} from './record';
+import type {FieldValue} from './record';
 
 /**
  * Encapsulates a search filter used in a search.
@@ -677,11 +677,11 @@ export enum Type { // As of 15 June 2020
  *    column with a formula using name: 'formulatext'.
  *
  */
-export var create: SearchCreateFunction;
-export var load: SearchLoadFunction;
-declare var deleteFunc: SearchDeleteFunction;
+export const create: SearchCreateFunction;
+export const load: SearchLoadFunction;
+declare const deleteFunc: SearchDeleteFunction;
 export { deleteFunc as delete };
-export var duplicates: SearchDuplicatesFunction;
+export const duplicates: SearchDuplicatesFunction;
 
 /**
  * Performs a global search against a single keyword or multiple keywords.
@@ -692,7 +692,7 @@ export var duplicates: SearchDuplicatesFunction;
  * @returns search.Result[] as an array of result objects containing these columns: name, type, info1, and info2
  * Results are limited to 1000 records. If there are no search results, this method returns null.
  */
-export var global: SearchGlobalFunction;
+export const global: SearchGlobalFunction;
 
 /**
  * Performs a search for one or more body fields on a record. You can use joined-field lookups with this method, with
@@ -718,7 +718,7 @@ export var global: SearchGlobalFunction;
  * @returns Returns select fields as an object with value and text properties. Returns multiselect fields as an 
  array of object with value:text pairs.
  */
-export var lookupFields: SearchLookupFieldsFunction;
+export const lookupFields: SearchLookupFieldsFunction;
 
 export function createColumn(options: CreateSearchColumnOptions): Column;
 /** Creates a new search filter as a search.Filter object.

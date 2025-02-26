@@ -1,9 +1,9 @@
-import {File} from './file';
-import {Record} from './record';
-import {ServerResponse} from './http';
-import {Result} from './search';
-import {NSXMLDocument} from './xml';
-import query = require('./query');
+import type {File} from './file';
+import type {Record} from './record';
+import type {ServerResponse} from './http';
+import type {Result} from './search';
+import type {NSXMLDocument} from './xml';
+import type {Query} from './query';
 
 interface AddCustomDataSourceOptions {
     /** Data source alias. */
@@ -138,7 +138,7 @@ interface TemplateRenderer {
     addCustomDataSource(options: AddCustomDataSourceOptions): void;
     /**
      * Uses Query as the renderer’s data source.
-     * You can specify the SuiteAnalytics workbook query either in the query.Query object, or provide a workbook ID to use the query from an existing SuiteAnalytics workbook.
+     * You can specify the SuiteAnalytics workbook query either in the Query object, or provide a workbook ID to use the query from an existing SuiteAnalytics workbook.
      * One of options.query or options.id is required in the script.
      */
     addQuery(options: AddQueryOptions): void;
@@ -168,7 +168,7 @@ interface AddQueryOptions {
     /** Template name. */
     templateName: string;
     /** Workbook query definition. Required if options.id is not specified. */
-    query?: query.Query;
+    query?: Query;
     /** Workbook query ID. Required if options.query is not specified. */
     id?: string;
 }
