@@ -217,7 +217,7 @@ export namespace EntryPoints {
             InvocationType: ScheduledInvocationTypes;
         }
 
-        type execute = (scriptContext: executeContext) => void;
+        type execute = (scriptContext: executeContext) => void | Promise<void>;
     }
 
     namespace MapReduce {
