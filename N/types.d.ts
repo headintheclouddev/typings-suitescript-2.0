@@ -373,10 +373,10 @@ export namespace EntryPoints {
     }
 
     namespace RESTlet {
-        type get = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type delete_ = (requestParameters: {[key: string]: any}) => {[key: string]: any} | string;
-        type post = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
-        type put = (requestBody: {[key: string]: any} | string) => {[key: string]: any} | string;
+        type get<T = unknown, Y = string> = (requestParams: T) => Y;
+        type delete_<T = unknown, Y = string> = (requestParams: T) => Y;
+        type post<T = unknown, Y = string> = (requestBody: T | string) => Y;
+        type put<T = unknown, Y = string> = (requestBody: T | string) => Y;
     }
 
     namespace BundleInstallation {
