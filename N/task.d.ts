@@ -104,7 +104,7 @@ interface SuiteQLTask {
      * Dependent tasks are indexed in the order they are added to the SuiteQL task.
      * Each nested object contains the task type, script ID, script deployment ID, and script parameters.
      */
-    readonly inboundDependencies: {}[];
+    readonly inboundDependencies: Record<string, {id: string; type: TaskType.SCHEDULED_SCRIPT | TaskType.MAP_REDUCE, scriptId: string; deploymentId: string; params?: {}}>;
     /** Parameters for the SuiteQL query. */
     params: (string|boolean|number)[];
 }
