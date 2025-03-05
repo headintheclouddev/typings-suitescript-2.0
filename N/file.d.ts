@@ -37,8 +37,12 @@ interface FileReader {
     readChars: (options: { number: number }) => string;
 }
 
+interface FileIteratorEachFunction {
+    (callback: (line: {value: string}) => boolean): void;
+}
+
 interface FileIterator {
-    each: (options: any) => boolean;
+    each: FileIteratorEachFunction;
 }
 
 interface FileAppendLineOptions {
