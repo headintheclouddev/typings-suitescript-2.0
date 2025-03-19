@@ -238,7 +238,8 @@ export namespace EntryPoints {
             ObjectRef: ObjectReference;
         }
 
-        type getInputData = (scriptContext: getInputDataContext) => N_search.Search | any | any[] | ObjectReference;
+        type GetInputDataResponse = N_search.Search | any | any[] | ObjectReference;
+        type getInputData = (scriptContext: getInputDataContext) => Promise<GetInputDataResponse> | GetInputDataResponse;
 
         interface mapContext {
             readonly isRestarted: boolean;
@@ -250,7 +251,7 @@ export namespace EntryPoints {
             write(options: IKeyValuePair): void;
         }
 
-        type map = (scriptContext: mapContext) => void;
+        type map = (scriptContext: mapContext) => Promise<void> | void;
 
         interface reduceContext {
             readonly isRestarted: boolean;
@@ -262,7 +263,7 @@ export namespace EntryPoints {
             write(options: IKeyValuePair): void;
         }
 
-        type reduce = (scriptContext: reduceContext) => void;
+        type reduce = (scriptContext: reduceContext) => Promise<void> | void;
 
         interface MapReduceOutputIterator {
             each(callback: (key: string, value: string) => boolean): void;
@@ -328,7 +329,7 @@ export namespace EntryPoints {
             output: MapReduceOutputIteratorContainer;
         }
 
-        type summarize = (summary: summarizeContext) => void;
+        type summarize = (summary: summarizeContext) => Promise<void> | void;
     }
 
     namespace Portlet {
