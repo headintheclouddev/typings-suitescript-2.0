@@ -629,7 +629,7 @@ export interface ClientCurrentRecord {
     setValue(fieldId: string, value: FieldValue): this;
 
     /** The record type. */
-    type: Type | string;
+    readonly type: Type | `${Type}`;
 }
 
 // Exported for other modules to be able to consume this type
