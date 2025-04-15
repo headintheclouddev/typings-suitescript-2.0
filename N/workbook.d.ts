@@ -1041,7 +1041,7 @@ export function createTableColumnFilter(options: CreateTableColumnFilter): Table
 /**
 * Creates a record key.
 */
-export function createSimpleRecordKey({ key: number }): number;
+export function createSimpleRecordKey(options: { key: number }): number;
 
 /**
  * Lists all existing workbooks.
