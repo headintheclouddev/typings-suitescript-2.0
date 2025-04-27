@@ -6,7 +6,7 @@ interface EventType {
 
 interface CreateOptions {
     /** A user-defined name (error code). */
-    name: string;
+    name: string | Type;
     /** The error message displayed. This value displays on the Execution Log, in the Details column. */
     message: string | Error | SuiteScriptError | UserEventError;
     /** Sets whether email notification is suppressed. The default value is false. */
@@ -20,7 +20,7 @@ export interface SuiteScriptError {
     /** Text that displays on the SuiteScript Execution Log, in the Details column. */
     readonly message: string;
     /** A user-defined name (error code). */
-    readonly name: string;
+    readonly name: string | Type;
     /** A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top. */
     readonly stack: string[];
     /** The cause of the error message. */
@@ -38,7 +38,7 @@ export interface UserEventError {
     /** Text that displays on the SuiteScript Execution Log, in the Details column. */
     readonly message: string;
     /** A user-defined name (error code). */
-    readonly name: string;
+    readonly name: string | Type;
     /** The internal ID of the submitted record that triggered the script. This property only holds a value when the error is thrown by an afterSubmit user event script. */
     readonly recordId: string;
     /** A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top. */
