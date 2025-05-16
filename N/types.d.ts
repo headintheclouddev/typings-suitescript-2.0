@@ -194,7 +194,7 @@ export namespace EntryPoints {
 
         interface beforeSubmitContext {
             newRecord: N_record.Record;
-            oldRecord: N_record.Record;
+            oldRecord?: N_record.Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -203,7 +203,7 @@ export namespace EntryPoints {
 
         interface afterSubmitContext {
             newRecord: N_record.Record & { id: number };
-            oldRecord: N_record.Record;
+            oldRecord?: N_record.Record;
             type: UserEventType;
             UserEventType: UserEventTypes;
         }
@@ -364,7 +364,7 @@ export namespace EntryPoints {
     namespace WorkflowAction {
         interface onActionContext {
             newRecord: N_record.Record;
-            oldRecord: N_record.Record;
+            oldRecord?: N_record.Record;
             form?: N_ui_serverWidget.Form;
             type?: string;
             workflowId?: number;
