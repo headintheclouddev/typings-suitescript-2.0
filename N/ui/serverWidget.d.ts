@@ -220,6 +220,15 @@ interface SublistGetSublistValueOptions {
     line: number;
 }
 
+interface SublistInsertFieldOptions {
+    /** The Field object to insert. */
+    field: Field;
+    /** Used to specify whether the field is inserted before or after the next field (options.nextfield).*/
+    isBefore: boolean;
+    /** The internal ID name of the field you are inserting a field in front of. */
+    nextfield: string;
+}
+
 interface SublistSetSublistValueOptions {
     /** The internal ID name of the line item field being set. */
     id: string;
@@ -313,10 +322,10 @@ export interface Assistant {
     /** Indicates whether all steps in an assistant are completed. */
     isFinished(): boolean;
     /**
-      * Manages redirects in an assistant.
-      * This method also addresses the case in which one assistant redirects to another assistant.
-      * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
-      */
+     * Manages redirects in an assistant.
+     * This method also addresses the case in which one assistant redirects to another assistant.
+     * In this scenario, the second assistant must return to the first assistant if the user Cancels or Finishes. This method, when used in the second assistant, ensures that users are redirected back to the first assistant.
+     */
     sendRedirect(options: SendRedirectOptions): void;
     /** Defines a splash message. */
     setSplash(options: SetSplashOptions): void;
@@ -517,6 +526,8 @@ export interface Sublist {
     getField(options: IDOptions): Field;
     /** Gets a field value on a sublist. */
     getSublistValue(options: SublistGetSublistValueOptions): string;
+    /** Insert a field in a sublist before or after another field. */
+    insertField(options: SublistInsertFieldOptions): void;
     /** Sets the value of a sublist field. */
     setSublistValue(options: SublistSetSublistValueOptions): string;
     /** Updates the ID of a field designated as a totalling column, which is used to calculate and display a running total for the sublist. */
