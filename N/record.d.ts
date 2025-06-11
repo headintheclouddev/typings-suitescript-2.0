@@ -669,7 +669,7 @@ export type RecordToJSONReturnValue = {
     type: string,
     isDynamic: boolean,
     fields: {[fieldId: string]: string}
-    sublists: {[sublistId: string]: {[lineDescription: string]: string}}
+    sublists: {[sublistId: string]: {[lineDescription: string]: {[fieldId: string]: string}}}
 }
 
 interface ExecuteMacroFunction {
