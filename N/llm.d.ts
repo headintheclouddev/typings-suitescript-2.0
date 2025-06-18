@@ -101,32 +101,32 @@ export const getRemainingFreeEmbedUsage: GetRemainingFreeUsageFunction;
 
 interface IEmbededFunction {
     (options: IEmbedOptions): EmbeddedResponse;
-    promise(options: IEmbedOptions): EmbeddedResponse;
+    promise(options: IEmbedOptions): Promise<EmbeddedResponse>;
 }
 
 interface IEvaluatePromptFunction {
     (options: IEvaluatePromptOptions): Response;
-    promise(options: IEvaluatePromptOptions): Response;
+    promise(options: IEvaluatePromptOptions): Promise<Response>;
 }
 
 interface IEvaluatePromptStreamedFunction {
     (options: IEvaluatePromptOptions): StreamedResponse;
-    promise(options: IEvaluatePromptOptions): StreamedResponse;
+    promise(options: IEvaluatePromptOptions): Promise<StreamedResponse>;
 }
 
 interface GenerateTextFunction {
     (options: IGenerateTextOptions): Response;
-    promise(options: IGenerateTextOptions): Response;
+    promise(options: IGenerateTextOptions): Promise<Response>;
 }
 
 interface GenerateTextStreamedFunction {
     (options: IGenerateTextOptions): StreamedResponse;
-    promise(options: IGenerateTextOptions): StreamedResponse;
+    promise(options: IGenerateTextOptions): Promise<StreamedResponse>;
 }
 
 interface GetRemainingFreeUsageFunction {
     (): number;
-    promise(): number;
+    promise(): Promise<number>;
 }
 
 interface EmbeddedResponse {
@@ -139,7 +139,7 @@ interface EmbeddedResponse {
 
 interface IEmbedOptions {
     /** An array of inputs to get embeddings for. */
-    inputs: string[];
+    inputs: string[] | readonly string[];
     /** The embed model family to use. Use values from llm.EmbedModelFamily to set this value. If not specified, the Cohere Embed Multilingual model is used. */
     embededModelFamily?: string;
     /** Configuration needed for unlimited usage through OCI Generative AI Service. Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service. SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration. */
