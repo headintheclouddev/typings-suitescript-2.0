@@ -1,4 +1,4 @@
-import type {AddSelectOptionOptions} from './ui/serverWidget';
+import type { AddSelectOptionOptions } from './ui/serverWidget';
 
 /** 
  * Submits a new record or saves edits to an existing record. 
@@ -54,7 +54,7 @@ export interface CopyLoadOptions {
      */
     isDynamic?: boolean;
     /** Name-value pairs containing default values of fields in the new record. */
-    defaultValues?: {[fieldId: string]: any};
+    defaultValues?: { [fieldId: string]: any };
 }
 
 interface DetachOptions {
@@ -133,7 +133,7 @@ interface GetMatrixSublistValueOptions {
     /** The line number for the field. */
     line: number;
     /** the column number for the field */
-    column: number; 
+    column: number;
 }
 
 interface GetSublistValueOptions {
@@ -177,8 +177,8 @@ interface InsertLineOptions {
 
 interface MoveLineOptions {
     sublistId: string;
-    from:      number;
-    to:        number;
+    from: number;
+    to: number;
 }
 
 interface SelectLineOptions {
@@ -355,32 +355,32 @@ interface GetSelectOptionsOpts {
 export interface Sublist {
     /**
      * The name of the sublist.
-     */    
-    name: string;   
+     */
+    name: string;
     /**
      * The name of the sublist.
-     */    
-    id: string;     
+     */
+    id: string;
     /**
      * The type of the sublist.
-     */    
-    type: string;    
+     */
+    type: string;
     /**
      * The sublist is changed
-     */    
-    isChanged: boolean;    
+     */
+    isChanged: boolean;
     /**
      * The sublist is hidden
-     */    
-    isHidden: boolean;    
+     */
+    isHidden: boolean;
     /**
      * The sublist is display
-     */    
-    isDisplay: boolean;    
+     */
+    isDisplay: boolean;
     /**
      * A flag to indicate whether or not the sublist supports multi-line buffer feature.
-     */    
-    isMultilineEditable: boolean;  
+     */
+    isMultilineEditable: boolean;
     /**
      * Returns a column in the sublist.
      * Client and server-side scripts
@@ -388,12 +388,12 @@ export interface Sublist {
     getColumn(options: GetColumnOptions): Column
     /**
      * Returns the object type name (sublist.Sublist)
-     */    
-    toString(): string    
+     */
+    toString(): string
     /**
      * JSON.stringify() implementation.
-     */    
-    toJSON(): {id: string, type: string, isChanged: boolean, isDisplay: boolean}
+     */
+    toJSON(): { id: string, type: string, isChanged: boolean, isDisplay: boolean }
 }
 export interface GetColumnOptions {
     /** The internal ID of the column field in the sublist. */
@@ -444,8 +444,8 @@ export interface Field {
      * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
     */
     removeSelectOption(options?: { value: string }): void;
-    /** get JSON format of the object */    
-    toJSON (options?:any): {id: string, label: string, type: string};
+    /** get JSON format of the object */
+    toJSON(options?: any): { id: string, label: string, type: string };
     toString(options?: any): string;
     /** Returns the UI label for a standard or custom field body or sublist field. */
     label: string;
@@ -490,8 +490,8 @@ export interface ClientCurrentRecord {
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
     getCurrentMatrixSublistValue(options: GetCurrentMatrixSublistValueOptions): number | Date | string | string[] | boolean;
-    /** Returns the line number of the currently selected line. */  
-    
+    /** Returns the line number of the currently selected line. */
+
     /**
      * return field object from record's sublist current line. Only available in dynamic record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
@@ -507,7 +507,7 @@ export interface ClientCurrentRecord {
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
 
-    
+
     /** 
      * Returns a field object from a record. 
      * 
@@ -660,7 +660,7 @@ export interface Record extends ClientCurrentRecord {
     /** Sets the value of a sublist field. (standard mode only). */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
-    /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */  
+    /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */
     toJSON(): RecordToJSONReturnValue
 }
 
@@ -668,13 +668,13 @@ export type RecordToJSONReturnValue = {
     id: string,
     type: string,
     isDynamic: boolean,
-    fields: {[fieldId: string]: string}
-    sublists: {[sublistId: string]: {[lineDescription: string]: {[fieldId: string]: string}}}
+    fields: { [fieldId: string]: string }
+    sublists: { [sublistId: string]: { [lineDescription: string]: { [fieldId: string]: string } } }
 }
 
 interface ExecuteMacroFunction {
-  (options: { id: string, params: Object }): Object;
-  promise(options: { id: string, params: Object }): Object
+    (options: { id: string, params: Object }): Object;
+    promise(options: { id: string, params: Object }): Object
 }
 
 interface MacroExecuteFunction {
@@ -851,11 +851,12 @@ export const submitFields: SubmitFieldsFunction;
 export const transform: RecordTransformFunction;
 
 /** N/record.Type enum */
-export enum Type { // As of 4 June 2024
+export enum Type { // As of 26 June 2025
     ACCOUNT = 'account',
     ACCOUNTING_BOOK = 'accountingbook',
     ACCOUNTING_CONTEXT = 'accountingcontext',
     ACCOUNTING_PERIOD = 'accountingperiod',
+    ADDRESS = 'address',
     ADV_INTER_COMPANY_JOURNAL_ENTRY = 'advintercompanyjournalentry',
     ALLOCATION_SCHEDULE = 'allocationschedule',
     AMORTIZATION_SCHEDULE = 'amortizationschedule',
