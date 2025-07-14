@@ -340,6 +340,7 @@ export type NetSuiteFeature =
     | "SUPPLYCHAINMANAGEMENT"
     | "SUPPLYCHAINPREDICTEDRISKS"
     | "SUPPORT"
+    | "SUBSIDIARIES"
     | "TABLEAU"
     | "TAXAUDITFILES"
     | "TAX_OVERHAULING"
