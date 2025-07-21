@@ -18,6 +18,7 @@ import * as N_https from './N/https';
 import * as N_keyControl from './N/keyControl';
 import * as N_log from './N/log';
 import * as N_llm from './N/llm';
+import * as N_machineTranslation from './N/machineTranslation';
 import * as N_pgp from './N/pgp';
 import * as N_plugin from './N/plugin';
 import * as N_portlet from './N/portlet';
@@ -67,6 +68,7 @@ export {N_https as https};
 export {N_keyControl as keyControl}
 export {N_log as log};
 export {N_llm as llm};
+export {N_machineTranslation as machineTranslation};
 export {N_pgp as pgp};
 export {N_piRemoval as piremoval};
 export {N_plugin as plugin};
@@ -99,14 +101,6 @@ declare interface N_UI_Module {
 declare interface N_Commerce_Module {
   recordView: typeof N_commerce_recordView;
 }
-
-// declare interface N_Crypto_Module {
-//     certificate: typeof N_crypto_certificate;
-// }
-//
-// declare interface N_Https_Module {
-//     clientCertificate: typeof N_https_clientCertificate;
-// }
 
 declare const N_ui:       N_UI_Module;
 declare const N_commerce: N_Commerce_Module;
