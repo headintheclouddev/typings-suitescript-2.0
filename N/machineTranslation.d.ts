@@ -12,7 +12,7 @@
 interface Document {
     /** The ID of the document. When passing documents to machineTranslation.translate(options), all document IDs must be unique. */
     readonly id: string;
-    readonly language: string;
+    readonly language?: string;
     readonly text: string;
 }
 
