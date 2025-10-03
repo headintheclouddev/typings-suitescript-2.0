@@ -91,7 +91,7 @@ interface GetCurrentSublistValueOptions {
     fieldId: string;
 }
 
-interface GetFieldOptions {
+export interface GetFieldOptions {
     /** The internal ID of a standard or custom body field. */
     fieldId: string;
 }
