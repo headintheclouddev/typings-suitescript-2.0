@@ -1,5 +1,5 @@
-import type { EntryPoints } from '../types'
-import type { Form } from '../ui/serverWidget'
+import type {EntryPoints} from '../types'
+import type {Form} from '../ui/serverWidget'
 
 /** Taken from https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0724075122.html */
 interface epForm {
@@ -86,10 +86,22 @@ interface epForm {
 	BuildUI(context: EntryPoints.Suitelet.onRequestContext): void;
 	/** Get the form and generate it. */
 	GetForm(): Form;
-	/** Removes an existing (default) field from the Payment Information group of the Invoice Payment Processing page. */
-	RemoveField(fieldId: string): void;
-	/** Removes an existing (default) filter from the “Search Filter” group of the Invoice Payment Processing page. */
-	RemoveFilter(fieldId: string): void;
+	/**
+	 * Removes an existing (default) field from the Payment Information group of the Invoice Payment Processing page.
+	 * Some fields cannot be removed, see https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4024135775.html for details.
+	 */
+	RemoveField(
+		/** The field ID of the existing field that you want to remove */
+		fieldId: string
+	): void;
+	/**
+	 * Removes an existing (default) filter from the “Search Filter” group of the Invoice Payment Processing page.
+	 * Some filters cannot be removed, see https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0724030613.html for details.
+	 */
+	RemoveFilter(
+		/** The field ID from the “Search Filter” group of the Invoice Payment Processing page that you want to remove */
+		fieldId: string
+	): void;
 	/** Use the setPaymentType method to setup the payment type */
 	setPaymentType(type: PaymentType): void;
 	/** Use setGlobalPayment to setup the global payments Suitelet */
