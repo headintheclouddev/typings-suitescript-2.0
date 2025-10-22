@@ -1,8 +1,8 @@
-import type {EntryPoints} from '../types'
-import type {Form} from '../ui/serverWidget'
+import type {EntryPoints} from './N/types'
+import type {Form} from './N/ui/serverWidget'
 
 /** Taken from https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0724075122.html */
-interface epForm {
+interface EPForm {
 	/** Adds a column on the sublist of the Invoice Payment Processing page to display field values from the records searched */
 	AddColumn(
 		/**
@@ -108,44 +108,17 @@ interface epForm {
 	setGlobalPayment(isGlobal: boolean): void;
 }
 
-export enum ColumnType {
-	TEXT = 'text',
-	INTEGER = 'integer',
-	DATE = 'date',
-	CURRENCY = 'currency',
-}
+type ColumnType = 'text' | 'integer' | 'date' | 'currency';
 
-export enum ColumnDisplayType {
-	NORMAL = 'normal',
-	HIDDEN = 'hidden',
-}
+type ColumnDisplayType = 'normal' | 'hidden';
 
-export enum FilterType {
-	TEXT = 'text',
-	DATE = 'date',
-	CHECKBOX = 'checkbox',
-	SELECT = 'select',
-	MULTISELECT = 'multiselect',
-	INTEGER = 'integer',
-	CURRENCY = 'currency',
-	LONGTEXT = 'longtext',
-}
+type FilterType = 'text' | 'date' | 'checkbox' | 'select' | 'multiselect' | 'integer' | 'currency' | 'longtext';
 
-export enum FilterDisplayType {
-	INLINE = 'inline',
-	NORMAL = 'normal',
-	HIDDEN = 'hidden',
-	DISABLED = 'disabled',
-}
+type FilterDisplayType = 'inline' | 'normal' | 'hidden' | 'disabled';
 
-export enum PaymentType {
-	DD = 'DD',
-	EFT = 'EFT',
-	CR = 'CR',
-	PP = 'PP',
-}
+type PaymentType = 'DD' | 'EFT' | 'CR' | 'PP';
 
-export interface epPlugin extends Record<string, (...s: unknown[]) => unknown> {
+export interface EPPlugin extends Record<string, (...s: unknown[]) => unknown> {
 	/** Returns an epForm object to customize the Invoice Payment Processing page */
-	getEPForm: () => epForm;
+	getEPForm: () => EPForm;
 }
