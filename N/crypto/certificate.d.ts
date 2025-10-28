@@ -31,7 +31,7 @@ interface CreateSignerOptions {
   /** The script ID of the digital certificate. */
   certId: string;
   /** The hash algorithm. */
-  algorithm: string;
+  algorithm: HashAlg;
 }
 
 interface UpdateCertificateOptions {
@@ -52,7 +52,7 @@ interface VerifyOptions {
 }
 
 export enum HashAlg {
-  SHA1,
+  // SHA1,
   SHA256,
   SHA384,
   SHA512
