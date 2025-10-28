@@ -238,7 +238,7 @@ interface IModelParameters {
     topP?: number;
 }
 
-interface IOCIConfig {
+export interface IOCIConfig { // Also referenced in N/documentCapture
     /** Compartment OCID. For more information, refer to Managing Compartments in the Oracle Cloud Infrastructure Documentation. */
     compartmentId?: string;
     /**
