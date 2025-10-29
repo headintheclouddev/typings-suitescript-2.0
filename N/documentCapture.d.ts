@@ -9,8 +9,25 @@
 import file = require('N/file');
 import { IOCIConfig } from './llm';
 
+/** The extracted data from a document. */
 interface Document {
+    /**
+     * The MIME type of the document.
+     * This property can contain the following MIME types, depending on the extension of the file provided to
+     * documentCapture.documentToStructure(options) or parsed using documentCapture.parseResult(options):
+     *     JPG – image/jpeg
+     *     PDF – application/pdf
+     *     PNG – image/png
+     *     TIFF – image/tiff
+     */
     readonly mimeType: string;
+    /**
+     * The pages of the document.
+     * The documentCapture.documentToStructure(options) method supports documents up to five pages in length, so the
+     * returned documentCapture.Document object can contain up to five pages (as documentCapture.Page objects).
+     * When you submit an asynchronous extraction task using the N/task module, you can provide documents of any length,
+     * so the returned object contains as many pages as were in the provided document.
+     */
     readonly pages: Page[];
     /** Returns the entire text of the document. */
     getText: () => string;
@@ -95,6 +112,46 @@ interface DocumentToStructureFunction {
 }
 
 export const documentToStructure: DocumentToStructureFunction;
+
+interface DocumentToTextOptions {
+    /**
+     * The PDF file to extract content from.
+     * The specified file must be located in the NetSuite File Cabinet and be in PDF format.
+     * You can specify the file using its internal ID or the path to the file in the File Cabinet.
+     * For more information, see N/file Module. Encrypted files are not supported.
+     */
+    file: file.File;
+    /**
+     * The timeout period to wait for a response from the service.
+     * By default, the timeout period is 30,000 milliseconds (30 seconds).
+     * You can specify a longer timeout period, but you can't specify one that's shorter than 30,000 milliseconds.
+     * If you try to specify a shorter timeout period, the default value of 30,000 milliseconds is used instead.
+     */
+    timeout?: number;
+}
+
+interface DocumentToTextFunction {
+    (options: DocumentToTextOptions): string;
+    promise(options: DocumentToTextFunction): Promise<string>;
+}
+
+export const documentToText: DocumentToTextFunction;
+
+interface GetRemainingConcurrencyFunction {
+    (): number;
+    promise(): Promise<number>;
+}
+
+export const getRemainingConcurrency: GetRemainingConcurrencyFunction;
+
+interface GetRemainingFreeUsageFunction {
+    (): number;
+    promise(): Promise<number>;
+}
+
+export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
+
+export function parseResult(options: { file: file.File }): Document;
 
 // @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
 enum DocumentType {
