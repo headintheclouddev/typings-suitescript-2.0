@@ -3,6 +3,7 @@
  * In addition to signing XML documents, you can create signer and verifier objects and verify signed documents with this module.
  */
 
+import type {Encoding} from '../encode';
 import type {File} from '../file';
 import type {NSXMLDocument} from '../xml';
 
@@ -14,7 +15,7 @@ export interface SignedXml {
 
 export interface Signer {
   update(options: UpdateCertificateOptions): void;
-  sign(options?: { outputEncoding?: string }): string; // Specify encoding of the signed string in Base64 format.
+  sign(options?: SignOptions): string;
 }
 
 export interface Verifier {
@@ -42,6 +43,13 @@ interface UpdateCertificateOptions {
    * Note: This must be a text value. Values from encode.Encoding (N/encode module) are not accepted.
    */
   inputEncoding?: string;
+}
+
+interface SignOptions {
+  /** Encoding of the signed string in Base64 format. */
+  outputEncoding?: Encoding
+  /** Returns ECDSA signatures in raw format. Default value is set to false. */
+  useRawFormatForECDSA?: boolean;
 }
 
 interface VerifyOptions {
