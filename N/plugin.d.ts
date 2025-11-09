@@ -9,14 +9,17 @@ interface LoadImplementationOptions {
     /** The script ID of the custom plug-in type. */
     type: string;
     /** The script ID of the custom plug-in implementation. */
-    implementation?: string;
+    implementation?: 'default' | (string & {});
 }
 
 /**
  * Returns the script IDs of custom plug-in type implementations.
  * Returns an empty list when there is no custom plug-in type with the script ID available for the executing script.
  */
-export function findImplementations(options: FindImplementationsOptions): string[];
+// When includeDefault is false, returns string[]
+export function findImplementations(options: {type: string; includeDefault: false}): string[];
+// When includeDefault is true or undefined, returns at least ['default']
+export function findImplementations(options: {type: string; includeDefault?: true}): ['default', ...string[]];
 
 /**
  * Instantiates an implementation of the custom plugin type.
