@@ -23,6 +23,9 @@ export function findImplementations(options: {type: string; includeDefault?: tru
 
 /**
  * Instantiates an implementation of the custom plugin type.
- * Returns the implementation which is currently selected in the UI (Manage Plug-ins page) when no implementation ID is explicitly provided.
+ *
+ * @param options - The options for loading the implementation.
+ * @returns The implementation which is currently selected in the UI (Manage Plug-ins page) when no implementation ID is explicitly provided.
+ * @throws {error.SuiteScriptError} UNABLE_TO_FIND_IMPLEMENTATION_1_FOR_PLUGIN_2 - Thrown when either there is no such implementation of the provided plug-in type, or the plug-in type does not exist.
  */
 export function loadImplementation<T extends Record<string, (...s: any) => any>>(options: LoadImplementationOptions): T;
