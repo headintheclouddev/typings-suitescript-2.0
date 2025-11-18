@@ -21,7 +21,7 @@ interface IAttachment {
 /** Object that represents an email message sent to the Email Capture plug-in implementation. */
 interface IEmail {
   getAttachments(): IAttachment[];
-  getCc():          IAddress;
+  getCc():          IAddress[];
   getFrom():        IAddress; // Documentation incorrectly shows this as an array, but an email only comes from one address.
   getHtmlBody():    string;
   getReplyTo():     IAddress;
