@@ -22,11 +22,11 @@ interface IAttachment {
 interface IEmail {
   getAttachments(): IAttachment[];
   getCc():          IAddress;
-  getFrom():        IAddress[];
+  getFrom():        IAddress; // Documentation incorrectly shows this as an array, but an email only comes from one address.
   getHtmlBody():    string;
   getReplyTo():     IAddress;
   getSentDate():    Date;
   getSubject():     string;
   getTextBody():    string;
-  getTo():          IAddress;
+  getTo():          IAddress[]; // Documentation incorrectly shows this as a single address, but testing confirms that it's an array.
 }
