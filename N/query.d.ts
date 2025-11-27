@@ -489,19 +489,19 @@ export interface Column {
      * Formula.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly formula: string | null;
+    readonly formula?: string | null;
 
     /**
      * Desired value type of the formula (if it was explicitly stated upon Column creation).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly type: string | null;
+    readonly type?: string | null;
 
     /**
      * Aggregate function (value from Aggregate enum).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly aggregate: string | null;
+    readonly aggregate?: string | null;
 
     /**
      * The group-by flag.
@@ -561,7 +561,7 @@ export interface Condition {
      * logical operation.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly children: Condition[];
+    readonly children?: Condition[];
 
     /**
      * Field id. This is only applicable to "leaf" conditions (equivalent to the former Filter).
@@ -579,34 +579,34 @@ export interface Condition {
      * Values. This is only applicable to "leaf" conditions (equivalent to the former Filter).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly values: string[];
+    readonly values?: string[];
 
     /**
      * Formula. This is only applicable to "leaf" conditions (equivalent to the former Filter).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly formula: string;
+    readonly formula?: string;
 
     /**
      * Return type of the formula, if explicitly specified. This is only applicable to "leaf" conditions
      * (equivalent to the former Filter). (values from the ReturnType enum)
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly type: string;
+    readonly type?: string;
 
     /**
      * Aggregate function. This is only applicable to "leaf" conditions (equivalent to the former Filter).
      * (values from the Aggregate enum)
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly aggregate: string;
+    readonly aggregate?: string;
 
     /**
      * Query component to which this condition belongs. This is only applicable to "leaf" conditions (equivalent to the
      * former Filter).
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
-    readonly component: Component;
+    readonly component?: Component;
 }
 
 export type QueryResultValue = string | boolean | number | bigint | null;
