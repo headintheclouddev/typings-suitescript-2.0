@@ -155,7 +155,7 @@ export function parseResult(options: { file: file.File }): Document;
 
 // @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
 enum DocumentType {
-    BANK_STATEMEN,
+    BANK_STATEMENT,
     CHECK,
     DRIVER_LICENSE,
     HEALTH_INSURANCE_ID,
