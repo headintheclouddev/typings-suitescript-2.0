@@ -233,10 +233,10 @@ interface MapReduceScriptTaskStatus {
     getTotalReduceCount(): number;
     getTotalOutputCount(): number;
     toString(): string;
-    scriptId: string;
-    deploymentId: string;
-    stage: MapReduceStage | `${MapReduceStage}`;
-    status: TaskStatus | `${TaskStatus}`;
+    scriptId: string | null;
+    deploymentId: string | null;
+    stage: MapReduceStage | `${MapReduceStage}` | null;
+    status: TaskStatus | `${TaskStatus}` | null;
 }
 
 interface ScheduledScriptTaskCreateOptions {
