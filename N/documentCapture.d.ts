@@ -154,7 +154,7 @@ export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 export function parseResult(options: { file: file.File }): Document;
 
 // @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
-enum DocumentType {
+export enum DocumentType {
     BANK_STATEMENT,
     CHECK,
     DRIVER_LICENSE,
@@ -168,14 +168,14 @@ enum DocumentType {
     TAX_FORM
 }
 
-enum Feature {
+export enum Feature {
     DOCUMENT_CLASSIFICATION,
     FIELD_EXTRACTION,
     TABLE_EXTRACTION,
     TEXT_EXTRACTION
 }
 
-enum FieldType {
+export enum FieldType {
     KEY_VALUE,
     LINE_ITEM,
     LINE_ITEM_FIELD,
@@ -183,7 +183,7 @@ enum FieldType {
     UNKNOWN
 }
 
-enum Language {
+export enum Language {
     ARA,
     CES,
     CHI_SIM,
