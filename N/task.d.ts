@@ -288,9 +288,9 @@ interface WorkflowTriggerTaskStatus {
 
 interface DocumentCaptureTaskCreateOptions {
     taskType: TaskType.DOCUMENT_CAPTURE;
-    inputFile: File;
-    documentType: DocumentType;
-    outputFilePath: string;
+    inputFile?: File;
+    documentType?: DocumentType;
+    outputFilePath?: string;
     features?: Feature[];
     language?: Language;
     ociConfig?: IOCIConfig;
@@ -304,9 +304,9 @@ interface DocumentCaptureTask {
     inputFile: File;
     documentType: DocumentType;
     outputFilePath: string;
-    features?: Feature[];
-    language?: Language;
-    ociConfig?: IOCIConfig;
+    features: Feature[];
+    language: Language;
+    ociConfig: IOCIConfig;
 }
 
 interface DocumentCaptureTaskStatus {
