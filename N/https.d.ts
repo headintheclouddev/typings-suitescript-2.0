@@ -1,5 +1,5 @@
 import type {Encoding} from './encode';
-import type {ClientResponse} from './http'
+import type {ClientResponse, Method} from './http'
 import type {HashAlg, SecretKey} from './crypto';
 
 interface CreateSecretKeyOptions {
@@ -76,7 +76,7 @@ interface HttpsCreateSecureStringFunction {
 }
 
 export interface RequestRestletOptions {
-    /** The PUT/POST data. This is ignored if the options.method is not POST or PUT. */
+    /** The body content to send in the HTTPS request. Only the PUT, POST, and PATCH https.Method values support this parameter; all other methods ignore it. */
     body?: string | Object,
     /** The script ID of the script deployment record. */
     deploymentId: string,
@@ -84,11 +84,8 @@ export interface RequestRestletOptions {
     scriptId: string,
     /** The HTTPS headers. */
     headers?: Object,
-    /**
-     * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
-     * The default value is GET if options.body is not specified, and POST if options.body is specified.
-     */
-    method?: string,
+    /** The HTTPS method (DELETE, GET, HEAD, POST, PUT). */
+    method: Method | `${Method}`;
     /** The parameters to be appended to the target URL as a query string. */
     urlParams?: Object
 }
