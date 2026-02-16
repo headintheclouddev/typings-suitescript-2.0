@@ -326,8 +326,10 @@ export enum CacheDuration {
 export enum Method {
     DELETE = "DELETE",
     GET = "GET",
+    HEAD = "HEAD",
     PUT = "PUT",
     POST = "POST",
+    PATCH = "PATCH"
 }
 
 export enum RedirectType {
