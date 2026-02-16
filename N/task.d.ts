@@ -1,5 +1,7 @@
 import type {File} from './file';
 import type {Query} from './query';
+import type {IOCIConfig} from './llm'
+import type {DocumentType, Feature, Language} from './documentCapture';
 
 interface CheckStatusOptions {
     taskId: string;
@@ -14,7 +16,8 @@ type TaskCreateOptions =
     | QueryTaskCreateOptions
     | RecordActionTaskCreateOptions
     | SuiteQLTaskCreateOptions
-    | SearchTaskCreateOptions;
+    | SearchTaskCreateOptions
+    | DocumentCaptureTaskCreateOptions;
 
 interface RecordActionTaskCreateOptions {
     taskType: TaskType.RECORD_ACTION
@@ -283,6 +286,34 @@ interface WorkflowTriggerTaskStatus {
     status: TaskStatus | `${TaskStatus}`;
 }
 
+interface DocumentCaptureTaskCreateOptions {
+    taskType: TaskType.DOCUMENT_CAPTURE;
+    inputFile?: File;
+    documentType?: DocumentType;
+    outputFilePath?: string;
+    features?: Feature[];
+    language?: Language;
+    ociConfig?: IOCIConfig;
+    addInboundDependency?: AddInboundDependencyOptions;
+}
+
+interface DocumentCaptureTask {
+    submit(): string;
+    addInboundDependency(dependency: ScheduledScriptTask): void;
+    toString(): string;
+    inputFile: File;
+    documentType: DocumentType;
+    outputFilePath: string;
+    features: Feature[];
+    language: Language;
+    ociConfig: IOCIConfig;
+}
+
+interface DocumentCaptureTaskStatus {
+    toString(): string;
+    status: TaskStatus | `${TaskStatus}`;
+}
+
 export function create(options: CsvImportTaskCreateOptions):  CsvImportTask;
 export function create(options: EntityDeduplicationTaskCreateOptions): EntityDeduplicationTask;
 export function create(options: MapReduceScriptTaskCreateOptions): MapReduceScriptTask;
@@ -292,7 +323,8 @@ export function create(options: SearchTaskCreateOptions): SearchTask;
 export function create(options: QueryTaskCreateOptions): QueryTask;
 export function create(options: RecordActionTaskCreateOptions): RecordActionTask;
 export function create(options: SuiteQLTaskCreateOptions): SuiteQLTask;
-export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus | SuiteQLTaskStatus | QueryTaskStatus | RecordActionTaskStatus;
+export function create(options: DocumentCaptureTaskCreateOptions): DocumentCaptureTask;
+export function checkStatus(options: CheckStatusOptions): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus | CsvImportTaskStatus | EntityDeduplicationTaskStatus | WorkflowTriggerTaskStatus | SuiteQLTaskStatus | QueryTaskStatus | RecordActionTaskStatus | DocumentCaptureTaskStatus;
 
 /** Holds the string values for the possible record action conditions. */
 declare enum ActionCondition {
@@ -341,5 +373,6 @@ export enum TaskType {
     SEARCH = "SEARCH",
     RECORD_ACTION = "RECORD_ACTION",
     SUITE_QL = "SUITE_QL",
-    QUERY = "QUERY"
+    QUERY = "QUERY",
+    DOCUMENT_CAPTURE = "DOCUMENT_CAPTURE"
 }
