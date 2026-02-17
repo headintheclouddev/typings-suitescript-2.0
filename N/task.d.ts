@@ -236,10 +236,11 @@ interface MapReduceScriptTaskStatus {
     getTotalReduceCount(): number;
     getTotalOutputCount(): number;
     toString(): string;
-    scriptId: string | null;
-    deploymentId: string | null;
-    stage: MapReduceStage | `${MapReduceStage}` | null;
-    status: TaskStatus | `${TaskStatus}` | null;
+    readonly scriptId: number | null;
+    readonly deploymentId: string | null;
+    readonly stage: MapReduceStage | `${MapReduceStage}` | null;
+    readonly status: TaskStatus | `${TaskStatus}` | null;
+    readonly taskId: string;
 }
 
 interface ScheduledScriptTaskCreateOptions {
