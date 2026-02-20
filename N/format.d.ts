@@ -55,21 +55,21 @@ export function format(options: FormatDateTimeOptions): string | any;
 
 /**
  * Use parse to convert a string into an object, like a Date.
- * Options: value (Date|string|number), type (format.FormatType).
- */
-export function parse(options: FormatOptions): Date | string | number;
-
-/**
- * Use parse to convert a string into an object, like a Date.
  * Options: value (Date|string), type (format.FormatType), timezone (enum).
  */
-export function parse(options: FormatDateTimeOptions): Date | string | number;
+export function parse(options: FormatDateTimeOptions): Date;
 
 /**
  * Use parse to convert a string into a number.
  * Options: value (number|string), type (format.FormatType).
  */
 export function parse(options: FormatNumberOptions): number;
+
+/**
+ * Use parse to convert a string into an object, like a Date.
+ * Options: value (Date|string|number), type (format.FormatType).
+ */
+export function parse(options: FormatOptions): Date | string | number;
 
 /**
  * -enum- Holds the string values for the supported field types. 
