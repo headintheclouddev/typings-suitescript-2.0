@@ -84,8 +84,11 @@ export interface RequestRestletOptions {
     scriptId: string,
     /** The HTTPS headers. */
     headers?: Object,
-    /** The HTTPS method (DELETE, GET, HEAD, POST, PUT). */
-    method: Method | `${Method}`;
+    /**
+     * The HTTPS method (DELETE, GET, HEAD, POST, PUT).
+     * The default value is GET if options.body is not specified, and POST if options.body is specified.
+     */
+    method?: Method | `${Method}`;
     /** The parameters to be appended to the target URL as a query string. */
     urlParams?: Object
 }
