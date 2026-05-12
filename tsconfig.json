@@ -8,7 +8,8 @@
 		"strict": true,
 
 		/* Modules */
-		"module": "preserve",
+		"module": "amd",
+		"moduleResolution": "node10",
 		"paths": {
 			// "N": ["./N"],
 			"N/*": ["./N/*"]
@@ -16,17 +17,20 @@
 		"resolveJsonModule": true,
 
 		/* Emit */
+		"newLine": "LF",
 		"noEmit": true,
+		"sourceMap": false,
 
 		/* JavaScript Support */
 		"allowJs": false,
 
 		/* Interop Constraints */
+		"esModuleInterop": true,
 		"isolatedModules": true,
-		"verbatimModuleSyntax": true,
+		// "verbatimModuleSyntax": true,
 
 		/* Language and Environment */
-		"lib": ["ES2024", "dom"], // https://suiteadvanced.com/suitescript-caniuse/
+		"lib": ["ES2024", "dom", "dom.iterable"], // https://suiteadvanced.com/suitescript-caniuse/
 		"moduleDetection": "force",
 		"target": "ES2024", // https://suiteadvanced.com/suitescript-caniuse/
 
