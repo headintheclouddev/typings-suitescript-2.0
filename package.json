@@ -1,32 +1,36 @@
 {
-	"name": "@hitc/netsuite-types",
-	"version": "2026.1.4",
-	"description": "TypeScript typings for SuiteScript 2.0",
-	"keywords": [
-		"netsuite",
-		"suitescript",
-		"typescript"
-	],
-	"homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
-	"bugs": {
-		"url": "https://github.com/headintheclouddev/typings-suitescript-2.0/issues",
-		"email": "gurus@headintheclouddev.com"
-	},
-	"license": "MIT",
-	"author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
-	"files": [
-		"./N.d.ts",
-		"./N/**/*.d.ts"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/headintheclouddev/typings-suitescript-2.0.git"
-	},
-	"scripts": {
-		"test": "exit 0",
-		"tsc": "tsc"
-	},
-	"devDependencies": {
-		"typescript": "^5.9.3"
-	}
+  "name": "@hitc/netsuite-types",
+  "version": "2026.1.4",
+  "description": "TypeScript typings for SuiteScript 2.0",
+  "keywords": [
+    "netsuite",
+    "suitescript",
+    "typescript"
+  ],
+  "homepage": "https://github.com/headintheclouddev/typings-suitescript-2.0",
+  "bugs": {
+    "url": "https://github.com/headintheclouddev/typings-suitescript-2.0/issues",
+    "email": "gurus@headintheclouddev.com"
+  },
+  "license": "MIT",
+  "author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
+  "files": [
+    "./N.d.ts",
+    "./N/**/*.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/headintheclouddev/typings-suitescript-2.0.git"
+  },
+  "scripts": {
+    "check": "biome check",
+    "format": "biome check --write",
+    "lint": "biome lint",
+    "test": "exit 0",
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "typescript": "^5.9.3"
+  }
 }
