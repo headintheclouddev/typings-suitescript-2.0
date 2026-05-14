@@ -8,7 +8,7 @@
 
 import file = require("N/file");
 
-import { IOCIConfig } from "./llm";
+import type { IOCIConfig } from "./llm";
 
 /** The extracted data from a document. */
 interface Document {
@@ -157,7 +157,7 @@ export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 
 export function parseResult(options: { file: file.File }): Document;
 
-// @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
+// @ts-expect-error Ignore the fact that this interface name conflicts with others (not NetSuite related)
 export enum DocumentType {
   BANK_STATEMENT,
   CHECK,

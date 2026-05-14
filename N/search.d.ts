@@ -5,11 +5,11 @@ import type { FieldValue } from "./record";
  * Use the properties for the Filter object to get and set the filter properties.
  *
  * You create a search filter object with `search.createFilter(options)` and add it to a `search.Search` object that you create with `search.create(options)` or load with search.load(options).
- * 
+ *
  * Note: NetSuite uses an implicit AND operator with search filters, as opposed to filter expressions which explicitly use either AND and OR operators. Use the following guidelines with the Filter object:
- * 
+ *
  * * To search for a "none of null" value, meaning do not show results without a value for the specified field, use a value of @NONE@ in the Filter.formula property.
- * 
+ *
  * * To search on checkbox fields, use the IS operator with a value of T or F to search for checked
 or unchecked fields, respectively.
  */
@@ -714,11 +714,11 @@ export const global: SearchGlobalFunction;
 /**
  * Performs a search for one or more body fields on a record. You can use joined-field lookups with this method, with
  * the following syntax: join_id.field_name The search.lookupFields(options) method also includes a promise version,
- * search.lookupFields.promise(options). 
+ * search.lookupFields.promise(options).
  *
  * Note that the return contains either an object or a scalar value, depending on whether the looked-up field holds a
  * single value, or a collection of values. Single select fields are returned as an object with value and text
- * properties. Multi-select fields are returned as an object with value: text pairs. 
+ * properties. Multi-select fields are returned as an object with value: text pairs.
  *
  * In the following example, a select field like my_select would return an array of objects containing a value and text
  * property. This select field contains multiple entries to select from, so each entry would have a numerical id (the
@@ -726,13 +726,13 @@ export const global: SearchGlobalFunction;
  * internal id of a record is a single value, so a scalar is returned:
 ```
 {
- internalid: 1234, 
- firstname: 'Joe', 
+ internalid: 1234,
+ firstname: 'Joe',
  my_select: [{value: 1, text: 'US Sub'}],
  my_multiselect: [{"value": "1,2", "text": "US Sub, EU Sub" }]
 }
 ```
- * @returns Returns select fields as an object with value and text properties. Returns multiselect fields as an 
+ * @returns Returns select fields as an object with value and text properties. Returns multiselect fields as an
  array of object with value:text pairs.
  */
 export const lookupFields: SearchLookupFieldsFunction;

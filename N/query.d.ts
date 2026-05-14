@@ -820,7 +820,7 @@ interface deleteQuery {
  * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
-export { deleteQuery as delete };
+export type { deleteQuery as delete };
 
 interface RunSuiteQL {
   (options: RunSuiteQLOptions): ResultSet;
