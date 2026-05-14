@@ -503,6 +503,7 @@ export interface ClientCurrentRecord {
     getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
     /** Returns a text representation of the field value in the currently selected line. */
     getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
+    getCurrentSublistText(sublistId: string, fieldId: string): string;
     /** Returns the value of a sublist field on the currently selected sublist line. */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
