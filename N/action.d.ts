@@ -1,15 +1,15 @@
 interface Action {
-  id:          string;
-  recordType:  string;
-  label:       string;
+  id: string;
+  recordType: string;
+  label: string;
   description: string;
-  parameters:  Object;
+  parameters: Object;
 }
 
 interface ExecuteBulkOptions {
   recordType: string;
   /** The action ID */
-  id:     string;
+  id: string;
   params: { recordId: string };
   condition: string;
   paramCallback: string;
@@ -18,13 +18,13 @@ interface ExecuteBulkOptions {
 interface ExecuteOptions {
   recordType: string;
   /** The action ID */
-  id:     string;
+  id: string;
   params: { recordId: string };
 }
 
 interface FindGetOptions {
   recordType: string;
-  recordId?:  string;
+  recordId?: string;
   /** The ID of the action. */
   id?: string;
 }

@@ -10,10 +10,10 @@
  * This object includes properties for the document ID (Document.id), document language (Document.language), and document text (Document.text).
  */
 interface Document {
-    /** The ID of the document. When passing documents to machineTranslation.translate(options), all document IDs must be unique. */
-    readonly id: string;
-    readonly language?: string;
-    readonly text: string;
+  /** The ID of the document. When passing documents to machineTranslation.translate(options), all document IDs must be unique. */
+  readonly id: string;
+  readonly language?: string;
+  readonly text: string;
 }
 
 /**
@@ -23,18 +23,18 @@ interface Document {
  * This object includes properties for the ID of the document that the error relates to (Error.documentId) and the text of the error message (Error.message).
  */
 interface IMachineTranslationError {
-    /** The ID of the document that the error relates to. */
-    readonly documentId: string;
-    /** The text of the error message. */
-    readonly message: string;
+  /** The ID of the document that the error relates to. */
+  readonly documentId: string;
+  /** The text of the error message. */
+  readonly message: string;
 }
 
 /** A response returned from machineTranslation.translate(options). */
 interface Response {
-    /** The errors returned from the translation service. */
-    readonly errors: IMachineTranslationError[];
-    /** The translation documents. */
-    readonly results: Document[];
+  /** The errors returned from the translation service. */
+  readonly errors: IMachineTranslationError[];
+  /** The translation documents. */
+  readonly results: Document[];
 }
 
 /**
@@ -53,45 +53,57 @@ interface Response {
  * - You can't pass an empty document (one where the Document.text property is empty).
  * - If you pass a document that doesn't specify its source language (one where the Document.language property is null or undefined), the translation service detects the source language automatically.
  */
-export function createDocument(options: { id: string, text: string, language?: string }): Document;
+export function createDocument(options: {
+  id: string;
+  text: string;
+  language?: string;
+}): Document;
 
 interface ITranslateFunction {
-    (options: { documents: Document[], targetLanguage: string, timeout?: number }): Response;
-    promise(options: { documents: Document[], targetLanguage: string, timeout?: number }): Promise<Response>;
+  (options: {
+    documents: Document[];
+    targetLanguage: string;
+    timeout?: number;
+  }): Response;
+  promise(options: {
+    documents: Document[];
+    targetLanguage: string;
+    timeout?: number;
+  }): Promise<Response>;
 }
 
 export const translate: ITranslateFunction;
 
 declare enum Language {
-    ARABIC = 'ARABIC',
-    BRAZILIAN_PORTUGUESE = 'BRAZILIAN_PORTUGUESE',
-    CANADIAN_FRENCH = 'CANADIAN_FRENCH',
-    CROATIAN = 'CROATIAN',
-    CZECH = 'CZECH',
-    DANISH = 'DANISH',
-    DUTCH = 'DUTCH',
-    ENGLISH = 'ENGLISH',
-    FINNISH = 'FINNISH',
-    FRENCH = 'FRENCH',
-    GERMAN = 'GERMAN',
-    GREEK = 'GREEK',
-    HEBREW = 'HEBREW',
-    HUNGARIAN = 'HUNGARIAN',
-    ITALIAN = 'ITALIAN',
-    JAPANESE = 'JAPANESE',
-    KOREAN = 'KOREAN',
-    NORWEGIAN = 'NORWEGIAN',
-    POLISH = 'POLISH',
-    PORTUGUESE = 'PORTUGUESE',
-    ROMANIAN = 'ROMANIAN',
-    RUSSIAN = 'RUSSIAN',
-    SIMPLIFIED_CHINESE = 'SIMPLIFIED_CHINESE',
-    SLOVAK = 'SLOVAK',
-    SLOVENIAN = 'SLOVENIAN',
-    SPANISH = 'SPANISH',
-    SWEDISH = 'SWEDISH',
-    THAI = 'THAI',
-    TRADITIONAL_CHINESE = 'TRADITIONAL_CHINESE',
-    TURKISH = 'TURKISH',
-    VIETNAMESE = 'VIETNAMESE',
+  ARABIC = "ARABIC",
+  BRAZILIAN_PORTUGUESE = "BRAZILIAN_PORTUGUESE",
+  CANADIAN_FRENCH = "CANADIAN_FRENCH",
+  CROATIAN = "CROATIAN",
+  CZECH = "CZECH",
+  DANISH = "DANISH",
+  DUTCH = "DUTCH",
+  ENGLISH = "ENGLISH",
+  FINNISH = "FINNISH",
+  FRENCH = "FRENCH",
+  GERMAN = "GERMAN",
+  GREEK = "GREEK",
+  HEBREW = "HEBREW",
+  HUNGARIAN = "HUNGARIAN",
+  ITALIAN = "ITALIAN",
+  JAPANESE = "JAPANESE",
+  KOREAN = "KOREAN",
+  NORWEGIAN = "NORWEGIAN",
+  POLISH = "POLISH",
+  PORTUGUESE = "PORTUGUESE",
+  ROMANIAN = "ROMANIAN",
+  RUSSIAN = "RUSSIAN",
+  SIMPLIFIED_CHINESE = "SIMPLIFIED_CHINESE",
+  SLOVAK = "SLOVAK",
+  SLOVENIAN = "SLOVENIAN",
+  SPANISH = "SPANISH",
+  SWEDISH = "SWEDISH",
+  THAI = "THAI",
+  TRADITIONAL_CHINESE = "TRADITIONAL_CHINESE",
+  TURKISH = "TURKISH",
+  VIETNAMESE = "VIETNAMESE",
 }

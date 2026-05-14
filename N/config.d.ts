@@ -1,10 +1,10 @@
-import type {Record} from './record';
+import type { Record } from "./record";
 
 interface LoadOptions {
-    /**
-     * Use the config.Type enumeration.
-     */
-    type: Type;
+  /**
+   * Use the config.Type enumeration.
+   */
+  type: Type;
 }
 
 /**
@@ -13,18 +13,18 @@ interface LoadOptions {
 export declare function load(options: LoadOptions): Record;
 
 /**
- * Enumeration that holds the string values for supported configuration pages. 
+ * Enumeration that holds the string values for supported configuration pages.
  * This enum is used to set the value of the Record.type property.
  * Note that the Record.type property is read-only.
  */
 export declare enum Type {
-    USER_PREFERENCES,
-    COMPANY_INFORMATION,
-    COMPANY_PREFERENCES,
-    ACCOUNTING_PREFERENCES,
-    ACCOUNTING_PERIODS,
-    TAX_PERIODS,
-    FEATURES,
-    TIME_POST,
-    TIME_VOID
+  USER_PREFERENCES,
+  COMPANY_INFORMATION,
+  COMPANY_PREFERENCES,
+  ACCOUNTING_PREFERENCES,
+  ACCOUNTING_PERIODS,
+  TAX_PERIODS,
+  FEATURES,
+  TIME_POST,
+  TIME_VOID,
 }

@@ -1,10 +1,10 @@
-/** 
+/**
  * NOTE: This file is for SSV1 as of Sept 2024 SSV2 is now supported and has been added to the SSV2. To use
  * the SSV2 version (recommended) the types can be found in EntryPoints namespace in N/types
- * 
+ *
  * EntryPoints.Plugins.GlPlugin.customizeGlImpact
- * 
- * 
+ *
+ *
  */
 
 /**
@@ -45,7 +45,7 @@ interface GLLine {
   getSegmentValueId(segmentId: string): number;
 }
 
-/** 
+/**
  * Contains all properties for a single custom line for the GL impact on a transaction.
  * Use the methods available to the CustomLine object to set the values for the custom
  * line and define plug-in implementation functionality based on the values. The CustomLines
@@ -56,49 +56,49 @@ interface CustomLine extends GLLine {
    * Sets the account ID property for a CustomLine object in a primary or secondary book.
    * @param {number} accountId Internal NetSuite ID for an account.
    */
-  setAccountId (accountId: number): void; 
+  setAccountId(accountId: number): void;
   /**
    * Sets the class ID property for a CustomLine object in a primary or secondary book.
    * @param {number} classId Internal NetSuite ID for a class
    */
-  setClassId (classId: number): void;
+  setClassId(classId: number): void;
   /**
    * Sets the credit amount of a CustomLine object in a primary or secondary book.
    * @param {string|number} credit String value of a credit on a general ledger account. Requires a positive value.
    */
-  setCreditAmount (credit: string|number): void;
+  setCreditAmount(credit: string | number): void;
   /**
    * Sets the credit amount of a CustomLine object in a primary or secondary book.
    * @param {string|number} debit String value of a debit on a general ledger account. Requires a positive value.
    */
-  setDebitAmount (debit: string|number): void;
+  setDebitAmount(debit: string | number): void;
   /**
    * Sets the department ID of a CustomLine object in a primary or secondary book.
    * @param {number} departmentId
    */
-  setDepartmentId (departmentId: number): void;
+  setDepartmentId(departmentId: number): void;
   /**
    * Sets the entity ID property for a CustomLine object in a primary or secondary book to the internal NetSuite ID.
    * @param {number} entityId
    */
-  setEntityId (entityId: number): void;
+  setEntityId(entityId: number): void;
   /**
    * Sets the Location ID of a CustomLine object in a primary or secondary book.
    * @param {number} locationId
    */
-  setLocationId (locationId: number): void;
+  setLocationId(locationId: number): void;
   /**
    * Sets the Memo field on a CustomLine object. See also getMemo().
    * @param {string} memo
    */
-  setMemo (memo: string): void;
+  setMemo(memo: string): void;
   /**
    * Sets custom segment values on a CustomLine object. See also getSegmentValueId().
    * @param {string} segmentId
    * @param {string} segmentValueId
    */
-  setSegmentValueId (segmentId: string, segmentValueId: number): void;
-   /**
+  setSegmentValueId(segmentId: string, segmentValueId: number): void;
+  /**
    * Sets a custom GL impact line to affect only the primary book in a Custom GL plug-in implementation.
    * If you use this method and set the value to false,
    * the plug-in implementation copies the custom line to secondary books and the custom line is also subject to the any mapping set up for the Multi-Book Accounting feature.
@@ -114,7 +114,7 @@ interface CustomLine extends GLLine {
   isBookSpecific(): boolean;
 }
 
-/** 
+/**
  * Contains an array of all custom lines with GL impact in a transaction as CustomLine objects.
  * Use this object to add and modify custom lines with GL impact on a transaction.
  * Create a new CustomLine object with addNewLine().
@@ -128,7 +128,7 @@ interface CustomLines {
    * ledger account ID and the amount of the custom line.
    */
   addNewLine(): CustomLine;
-    /**
+  /**
    * Returns the number of custom lines with GL impact for a specific accounting book in a transaction.
    * Use this method in conjunction with getLine(index) to read individual custom lines.
    */
@@ -138,10 +138,10 @@ interface CustomLines {
    * CustomLine objects are stored in the CustomLines object starting at index 0.
    * @param {number} index
    */
-  getLine (index: number): CustomLine;
+  getLine(index: number): CustomLine;
 }
 
-/** 
+/**
  * Contains all properties for a single standard line on the GL impact on a transaction.
  * Use the methods available to the StandardLine object to get the values for the standard
  * line and define plug-in implementation functionality based on the values. The
@@ -170,7 +170,7 @@ interface StandardLine extends GLLine {
   isTaxable(): boolean;
 }
 
-/** 
+/**
  * Contains an array of all standard lines with GL impact in a transaction as StandardLine objects.
  * Standard lines are the general ledger impacts that appear on the GL Impact report for a transaction.
  * Use this object to access individual standard lines for an accounting book in a transaction.
@@ -186,5 +186,5 @@ interface StandardLines {
    * StandardLine objects are stored in the StandardLines object starting at index 0.
    * @param {number} index
    */
-  getLine (index: number): StandardLine;
+  getLine(index: number): StandardLine;
 }

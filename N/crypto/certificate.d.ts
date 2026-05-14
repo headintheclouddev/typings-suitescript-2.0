@@ -3,9 +3,9 @@
  * In addition to signing XML documents, you can create signer and verifier objects and verify signed documents with this module.
  */
 
-import type {Encoding} from '../encode';
-import type {File} from '../file';
-import type {NSXMLDocument} from '../xml';
+import type { Encoding } from "../encode";
+import type { File } from "../file";
+import type { NSXMLDocument } from "../xml";
 
 export interface SignedXml {
   asFile(): File;
@@ -25,8 +25,18 @@ export interface Verifier {
 
 export function createSigner(options: CreateSignerOptions): Signer;
 export function createVerifier(options: CreateSignerOptions): Verifier; // The documentation says this just returns a Parameters object?  May need to verify.
-export function verifyXmlSignature(options: { signedXml: string; rootTag: string; certId?: string }): void;
-export function signXml(options: { xmlString: string; certId: string; algorithm: string; rootTag: string; insertionTag?: string; }): SignedXml;
+export function verifyXmlSignature(options: {
+  signedXml: string;
+  rootTag: string;
+  certId?: string;
+}): void;
+export function signXml(options: {
+  xmlString: string;
+  certId: string;
+  algorithm: string;
+  rootTag: string;
+  insertionTag?: string;
+}): SignedXml;
 
 interface CreateSignerOptions {
   /** The script ID of the digital certificate. */
@@ -47,7 +57,7 @@ interface UpdateCertificateOptions {
 
 interface SignOptions {
   /** Encoding of the signed string in Base64 format. */
-  outputEncoding?: Encoding
+  outputEncoding?: Encoding;
   /** Returns ECDSA signatures in raw format. Default value is set to false. */
   useRawFormatForECDSA?: boolean;
 }
@@ -63,5 +73,5 @@ export enum HashAlg {
   // SHA1,
   SHA256,
   SHA384,
-  SHA512
+  SHA512,
 }

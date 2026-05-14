@@ -6,33 +6,33 @@
  * You can create an archive by using compress.createArchiver() and add multiple files to the archive.
  */
 
-import type {File} from './file';
+import type { File } from "./file";
 
 interface ArchiverAddOptions {
-    /** The file to be archived. */
-    file: File;
-    /** The target directory in the archive. If this parameter is not specified, the file is placed in the root directory of the archive. */
-    directory?: string;
+  /** The file to be archived. */
+  file: File;
+  /** The target directory in the archive. If this parameter is not specified, the file is placed in the root directory of the archive. */
+  directory?: string;
 }
 
 interface ArchiverArchiveOptions {
-    /** The name of the archive file. */
-    name: string;
-    /** The archive type. See the compress.Type enum. This parameter does not need to be specified if options.name has one of the following extensions: cpio, tar, tar.gz, tgz, tbz2, zip. */
-    type: string|Type;
+  /** The name of the archive file. */
+  name: string;
+  /** The archive type. See the compress.Type enum. This parameter does not need to be specified if options.name has one of the following extensions: cpio, tar, tar.gz, tgz, tbz2, zip. */
+  type: string | Type;
 }
 
 /** The functionality for creating an archive file. Use compress.createArchiver() to create this object. */
 export interface Archiver {
-    add(options: ArchiverAddOptions): void;
-    archive(options: ArchiverArchiveOptions): File;
+  add(options: ArchiverAddOptions): void;
+  archive(options: ArchiverArchiveOptions): File;
 }
 
 interface GZipOptions {
-    /** The file to be compressed. */
-    file: File;
-    /** The compression level. 0 is no compression. 9 is the best compression level. */
-    level?: number;
+  /** The file to be compressed. */
+  file: File;
+  /** The compression level. 0 is no compression. 9 is the best compression level. */
+  level?: number;
 }
 
 /** Compresses a file by using gzip and returns it as a temporary file object. 0 is no compression. */
@@ -45,9 +45,9 @@ export function gunzip(options: { file: File }): File;
 export declare function createArchiver(): Archiver;
 
 export enum Type {
-    CPIO,
-    TAR,
-    TBZ2,
-    TGZ,
-    ZIP
+  CPIO,
+  TAR,
+  TBZ2,
+  TGZ,
+  ZIP,
 }

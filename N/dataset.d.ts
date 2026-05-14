@@ -10,8 +10,8 @@
  * For more information on using workbooks, see N/workbook Module.
  */
 
-import type {PagedData, RelativeDate, ResultSet} from "./query";
-import type {Expression} from "./workbook";
+import type { PagedData, RelativeDate, ResultSet } from "./query";
+import type { Expression } from "./workbook";
 
 /** Encapsulates the record fields in the dataset. Columns are equivalent to the fields you use when you build a dataset in SuiteAnalytics. */
 interface Column {
@@ -29,13 +29,13 @@ interface Condition {
   readonly children: Condition[];
   readonly column: Column;
   readonly operator: string;
-  readonly values: string[]|number[]|boolean[]|Date[];
+  readonly values: string[] | number[] | boolean[] | Date[];
 }
 
 /**
-* Encapsulates joined records used in the dataset. This object is created using the dataset.createJoin(options) method.
-* For more information on using joins in SuiteAnalytics, see Joining Records Types in a Dataset.
-*/
+ * Encapsulates joined records used in the dataset. This object is created using the dataset.createJoin(options) method.
+ * For more information on using joins in SuiteAnalytics, see Joining Records Types in a Dataset.
+ */
 interface Join {
   readonly fieldId: string;
   readonly join: Join;
@@ -46,11 +46,14 @@ interface Join {
 /** Encapsulates the entire dataset, including columns, conditions, and joins. This object is created using the dataset.create(options) method. */
 export interface Dataset {
   /**
-  * Returns an expression which can be used in workbook.
-  * The Help Center documentation shows alias is optional and columnId is required.
-  * Testing on version 2021.2 indicates that alias is required and columnId is optional.
-  */
-  getExpressionFromColumn(options: { alias: string, columnId?: number }): Expression;
+   * Returns an expression which can be used in workbook.
+   * The Help Center documentation shows alias is optional and columnId is required.
+   * Testing on version 2021.2 indicates that alias is required and columnId is optional.
+   */
+  getExpressionFromColumn(options: {
+    alias: string;
+    columnId?: number;
+  }): Expression;
   /** Executes the dataset and returns the result set (the same as in N/query Module). */
   run(): ResultSet;
   /**
@@ -76,7 +79,7 @@ interface SaveOptions {
 }
 
 interface SaveResult {
-    id: string;
+  id: string;
 }
 
 interface CreateOptions {
@@ -110,7 +113,13 @@ interface CreateConditionOptions {
   /** Uses the query.Operator enumeration, otherwise can be 'AND' or 'OR' when you are combining condition children. */
   operator: string;
   /** The values attribute is required unless the operator is 'AND' or 'OR', as it is when you are combining condition children. */
-  values?: string[]|number[]|boolean[]|Date[]|{ dateId: string, type: string }[]|RelativeDate[]; // For example, for after Start of Last Fiscal Year, use: { dateId: "SOLFY", type: "end" }
+  values?:
+    | string[]
+    | number[]
+    | boolean[]
+    | Date[]
+    | { dateId: string; type: string }[]
+    | RelativeDate[]; // For example, for after Start of Last Fiscal Year, use: { dateId: "SOLFY", type: "end" }
 }
 
 interface CreateJoinOptions {
@@ -124,5 +133,10 @@ export function create(options: CreateOptions): Dataset;
 export function createColumn(options: CreateColumnOptions): Column;
 export function createCondition(options: CreateConditionOptions): Condition;
 export function createJoin(options: CreateJoinOptions): Join;
-export function list(): { id: string, name: string, record: string, description?: string }[];
+export function list(): {
+  id: string;
+  name: string;
+  record: string;
+  description?: string;
+}[];
 export function load(options: { id: string }): Dataset;

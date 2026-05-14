@@ -1,17 +1,26 @@
 /** Load the clientCertificate module to send SSL requests with a digital certificate. */
 
-import type {ClientResponse} from '../https';
+import type { ClientResponse } from "../https";
 
-export function post(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
+export function post(options: {
+  url: string;
+  certId: string;
+  body: string;
+  headers?: { [key: string]: any };
+}): ClientResponse;
 export function get(options: GetDeleteOptions): ClientResponse;
-export function put(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
+export function put(options: {
+  url: string;
+  certId: string;
+  body: string;
+  headers?: { [key: string]: any };
+}): ClientResponse;
 declare const deleteFunc: DeleteMethod; // Workaround for the fact that "delete" is a JS keyword.
-export {deleteFunc as delete};
+
+export { deleteFunc as delete };
 export function request(options: RequestOptions): ClientResponse;
 
-interface DeleteMethod {
-  (options: GetDeleteOptions): ClientResponse;
-}
+type DeleteMethod = (options: GetDeleteOptions) => ClientResponse;
 
 interface GetDeleteOptions {
   /** The URL address of the remote server. */

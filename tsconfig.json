@@ -1,40 +1,40 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"compilerOptions": {
-		/* Type Checking */
-		"erasableSyntaxOnly": true,
-		"noImplicitOverride": true,
-		"noUncheckedIndexedAccess": true,
-		"strict": true,
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    /* Type Checking */
+    "erasableSyntaxOnly": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
 
-		/* Modules */
-		"module": "amd",
-		"moduleResolution": "node10",
-		"paths": {
-			// "N": ["./N"],
-			"N/*": ["./N/*"]
-		},
-		"resolveJsonModule": true,
+    /* Modules */
+    "module": "amd",
+    "moduleResolution": "node10",
+    "paths": {
+      // "N": ["./N"],
+      "N/*": ["./N/*"]
+    },
+    "resolveJsonModule": true,
 
-		/* Emit */
-		"newLine": "LF",
-		"noEmit": true,
-		"sourceMap": false,
+    /* Emit */
+    "newLine": "LF",
+    "noEmit": true,
+    "sourceMap": false,
 
-		/* JavaScript Support */
-		"allowJs": false,
+    /* JavaScript Support */
+    "allowJs": false,
 
-		/* Interop Constraints */
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		// "verbatimModuleSyntax": true,
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    // "verbatimModuleSyntax": true,
 
-		/* Language and Environment */
-		"lib": ["ES2024", "dom", "dom.iterable"], // https://suiteadvanced.com/suitescript-caniuse/
-		"moduleDetection": "force",
-		"target": "ES2024", // https://suiteadvanced.com/suitescript-caniuse/
+    /* Language and Environment */
+    "lib": ["ES2024", "dom", "dom.iterable"], // https://suiteadvanced.com/suitescript-caniuse/
+    "moduleDetection": "force",
+    "target": "ES2024", // https://suiteadvanced.com/suitescript-caniuse/
 
-		/* Completeness */
-		"skipLibCheck": true
-	}
+    /* Completeness */
+    "skipLibCheck": true
+  }
 }

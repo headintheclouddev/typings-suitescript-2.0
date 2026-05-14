@@ -1,18 +1,17 @@
-
 interface AlertOptions {
-    title?: string;
-    message?: string;
+  title?: string;
+  message?: string;
 }
 
 interface CreateDialogOptions {
-    buttons?: DialogButton[];
-    title?: string;
-    message?: string;
+  buttons?: DialogButton[];
+  title?: string;
+  message?: string;
 }
 
 interface DialogButton {
-    label: string;
-    value: number | string;
+  label: string;
+  value: number | string;
 }
 
 export function alert(options: AlertOptions): Promise<boolean>;

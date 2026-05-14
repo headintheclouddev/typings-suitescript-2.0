@@ -1,6 +1,7 @@
-import type {Encoding} from './encode';
-import type {Type} from './record';
-export {Encoding} from './encode';
+import type { Encoding } from "./encode";
+import type { Type } from "./record";
+
+export { Encoding } from "./encode";
 
 /** Encapsulates a cipher. */
 export interface Cipher {
@@ -123,11 +124,11 @@ export interface CheckPasswordFieldOptions {
   /**
    * ID of the sublist if the password field is on a sublist line.
    */
-  sublistId?: string
+  sublistId?: string;
   /**
    * Input password value to be checked against the password stored in the record.
    */
-  value: string
+  value: string;
 }
 
 export declare enum EncryptionAlg {
@@ -140,7 +141,7 @@ export declare enum EncryptionAlg {
  */
 export declare enum HashAlg {
   SHA256,
-  SHA512
+  SHA512,
 }
 
 export declare enum Padding {
@@ -154,13 +155,17 @@ export declare enum Padding {
  */
 export declare function createCipher(options: CreateCipherOptions): Cipher;
 /** Method used to create a new crypto.Decipher object. */
-export declare function createDecipher(options: CreateDecipherOptions): Decipher;
+export declare function createDecipher(
+  options: CreateDecipherOptions,
+): Decipher;
 /** Method used to create a new crypto.Hash object. */
 export declare function createHash(options?: CreateHashOptions): Hash;
 /** Method used to create a new crypto.Hmac object. */
 export declare function createHmac(options: CreateHmacOptions): Hmac;
 /** Method used to create a new crypto.SecretKey object. */
-export declare function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
+export declare function createSecretKey(
+  options: CreateSecretKeyOptions,
+): SecretKey;
 
 /**
  * Checks whether a password in a record corresponds to the password entered by the user.
@@ -169,4 +174,6 @@ export declare function createSecretKey(options: CreateSecretKeyOptions): Secret
  * You should no longer use those methods for custom password fields.
  * This method provides a more secure way to check custom password fields.
  */
-export declare function checkPasswordField(options: CheckPasswordFieldOptions): boolean;
+export declare function checkPasswordField(
+  options: CheckPasswordFieldOptions,
+): boolean;

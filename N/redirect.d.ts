@@ -1,64 +1,64 @@
-import type {Search} from './search';
-import type {Type} from './record';
+import type { Type } from "./record";
+import type { Search } from "./search";
 
 interface RedirectOptions {
-    /** The URL of a Suitelet that is available externally. */
-    url: string;
-    /** Contains additional URL parameters as key/value pairs. */
-    parameters?: any;
+  /** The URL of a Suitelet that is available externally. */
+  url: string;
+  /** Contains additional URL parameters as key/value pairs. */
+  parameters?: any;
 }
 
 interface ToRecordOptions {
-    /** The internal id of the target record. */
-    id: string | number;
-    /** Type of record. */
-    type: string | Type;
-    /** Determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode. */
-    isEditMode?: boolean;
-    /** Contains additional URL parameters as key/value pairs. */
-    parameters?: any;
+  /** The internal id of the target record. */
+  id: string | number;
+  /** Type of record. */
+  type: string | Type;
+  /** Determines whether to return a URL for the record in edit mode or view mode. If set to true, returns the URL to an existing record in edit mode. */
+  isEditMode?: boolean;
+  /** Contains additional URL parameters as key/value pairs. */
+  parameters?: any;
 }
 
 interface ToRecordTransformOptions {
-    /** The internal ID of the source record. */
-    fromId: string | number;
-    /** Type of the source record. */
-    fromType: string | Type;
-    /** Type of the target record. */
-    toType: string | Type;
-    /** Contains additional parameters as key/value pairs. */
-    parameters?: any;
+  /** The internal ID of the source record. */
+  fromId: string | number;
+  /** Type of the source record. */
+  fromType: string | Type;
+  /** Type of the target record. */
+  toType: string | Type;
+  /** Contains additional parameters as key/value pairs. */
+  parameters?: any;
 }
 
 interface ToSavedSearchOptions {
-    /** Internal ID of the search. */
-    id: number;
+  /** Internal ID of the search. */
+  id: number;
 }
 
 interface ToSearchOptions {
-    search: Search;
+  search: Search;
 }
 
 interface ToSearchResultOptions {
-    Search: Search;
+  Search: Search;
 }
 
 interface ToSuiteletOptions {
-    /** The script ID for the Suitelet. */
-    scriptId: string;
-    /** The deployment ID for the Suitelet. */
-    deploymentId: string;
-    /** The default value is false – indicates an external Suitelet URL. */
-    isExternal?: boolean;
-    /** Contains additional URL parameters as key/value pairs. */
-    parameters?: any;
+  /** The script ID for the Suitelet. */
+  scriptId: string;
+  /** The deployment ID for the Suitelet. */
+  deploymentId: string;
+  /** The default value is false – indicates an external Suitelet URL. */
+  isExternal?: boolean;
+  /** Contains additional URL parameters as key/value pairs. */
+  parameters?: any;
 }
 
 interface ToTaskLinkOptions {
-    /** The taskId for a tasklink. */
-    id: string;
-    /** Contains additional URL parameters as key/value pairs. */
-    parameters?: any;
+  /** The taskId for a tasklink. */
+  id: string;
+  /** Contains additional URL parameters as key/value pairs. */
+  parameters?: any;
 }
 
 /** Method used to set the redirect to the URL of a Suitelet that is available externally (Suitelets set to Available Without Login on the Script Deployment page). */
