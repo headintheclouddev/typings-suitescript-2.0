@@ -3,7 +3,7 @@
  * By using the SSH keys, you can manage files and directories by using the SSH file transfer (SFTP) protocol.
  */
 
-import type {File} from './file';
+import type { File } from "./file";
 
 export function createKey(options: CreateKeyOptions): Key;
 export function findKeys(options: FindKeysOptions): { [key: string]: any }; // TODO: Confirm return type. Documentation says its "meta-data"
@@ -14,7 +14,7 @@ export enum Operator {
   STARTS_WITH = "startswith",
   CONTAINS = "contains",
   ENDS_WITH = "endswith",
-  EQUALS = "equals"
+  EQUALS = "equals",
 }
 
 interface Key {
@@ -39,7 +39,7 @@ interface CreateKeyOptions {
   name?: string;
   description?: string;
   /** An array of employee IDs. Only these employees can access the key. */
-  restrictions?: string[]|number[];
+  restrictions?: string[] | number[];
 }
 
 interface FindKeysOptions {
@@ -51,7 +51,7 @@ interface FindKeysOptions {
    * - ignoreCase is either true or false.
    * If the object is used, the value is mandatory. Operator defaults to equals and ignoreCase defaults to true.
    */
-  name?: string|{ value: string, operator?: string, ignoreCase?: boolean };
+  name?: string | { value: string; operator?: string; ignoreCase?: boolean };
   description?: string;
   /** The internal ID of an employee selected in the Restrict to Employees field. */
   restriction?: number;

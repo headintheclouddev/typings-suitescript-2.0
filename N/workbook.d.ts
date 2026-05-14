@@ -1,8 +1,8 @@
 /** Load the N/workbook module when you want to create a new workbook, load an existing workbook, or list all existing workbooks. */
 
-import type {Dataset} from "./dataset";
-import type {PagedData, ResultSet, SortLocale} from "./query";
-import type {DatasetLink} from "./datasetLink";
+import type { Dataset } from "./dataset";
+import type { DatasetLink } from "./datasetLink";
+import type { PagedData, ResultSet, SortLocale } from "./query";
 
 interface Aspect {
   measure: Measure;
@@ -17,7 +17,7 @@ interface CalculatedMeasure {
 interface Category {
   axis: ChartAxis;
   /** The root data (i.e., fields) that defines the category. */
-  root: DataDimension|Section;
+  root: DataDimension | Section;
   sortDefinitions: SortDefinition[];
 }
 
@@ -34,7 +34,7 @@ interface ChartAxis {
  */
 interface ChartDefinition {
   /** The limiting and conditional filters of the chart definition. */
-  aggregationFilters: (LimitingFilter|ConditionalFilter)[];
+  aggregationFilters: (LimitingFilter | ConditionalFilter)[];
   /** The category of the chart definition. */
   category: Category;
   /** The underlying dataset for the chart definition. */
@@ -79,11 +79,11 @@ interface ColorRGBA {
  */
 interface ConditionalFilter {
   /** The selected filters in the condition filter. */
-  filteredNodesSelector: PathSelector|DimensionSelector;
+  filteredNodesSelector: PathSelector | DimensionSelector;
   /** The measure of the conditional filter. */
   measure: Measure;
   /** The selector for the other axis in the conditional filter. */
-  otherAxisSelector: PathSelector|DimensionSelector;
+  otherAxisSelector: PathSelector | DimensionSelector;
   /** The actual predicate for the conditional filter, which indicates whether the condition is met. */
   predicate: Expression;
   /** The row axis indicator for the conditional filter. */
@@ -112,7 +112,7 @@ interface Currency {
  */
 interface DataDimension {
   /** The children of the data dimension. */
-  children: (DataDimension|Section|Measure)[];
+  children: (DataDimension | Section | Measure)[];
   /** The items of the data dimension. */
   items: DataDimensionItem[];
   /**  The formatting specification for the total line of the data dimension. */
@@ -125,9 +125,9 @@ interface DataDimension {
  */
 interface DataDimensionItem {
   /** The expression for data dimension item. */
-   expression: Expression;
-   /** The label for the data dimension item. */
-   label: string;
+  expression: Expression;
+  /** The label for the data dimension item. */
+  label: string;
 }
 
 interface DataDimensionItemValue {
@@ -141,7 +141,7 @@ interface DataDimensionValue {
 }
 
 interface DataMeasure {
-  aggregation: string|Aggregation;
+  aggregation: string | Aggregation;
   /** This property is used if the data measure is a single-expression measure. */
   expression: Expression;
   /** This property is used if the data measure is a multiple-expression measure. */
@@ -155,7 +155,7 @@ interface DataMeasure {
  */
 interface DimensionSelector {
   /** The dimension of the dimension selector. */
-  dimension: DataDimension|Section;
+  dimension: DataDimension | Section;
 }
 
 /**
@@ -213,7 +213,7 @@ interface Legend {
   /** The axes for the legend. */
   axes: ChartAxis[];
   /** The root data (i.e., fields) that defines the legend. */
-  root: DataDimension|Section;
+  root: DataDimension | Section;
   /** The sort definitions of the legend. */
   sortDefinitions: SortDefinition[];
 }
@@ -224,13 +224,13 @@ interface Legend {
  */
 interface LimitingFilter {
   /** The selections for the limiting filter. */
-  filteredNodesSelector: PathSelector|DimensionSelector;
+  filteredNodesSelector: PathSelector | DimensionSelector;
   /** The limit number for the limiting filter. */
   limit: number;
   /** The row axis indicator for the limiting factor.*/
   row: boolean;
   /** The ordering elements of the limiting filter.*/
-  sortBys: (DimensionSort|MeasureSort)[];
+  sortBys: (DimensionSort | MeasureSort)[];
 }
 
 /**
@@ -260,7 +260,7 @@ interface MeasureSort {
   /** The sort of the measure sort. */
   measure: Measure;
   /** The other axis selector for the measure sort. */
-  otherAxisSelector: PathSelector|DimensionSelector;
+  otherAxisSelector: PathSelector | DimensionSelector;
   /** The sort for the measure sort. */
   sort: Sort;
 }
@@ -282,7 +282,10 @@ interface MeasureValueSelector {
  */
 interface PathSelector {
   /** The elements denoting 'xpath' of the path selector. */
-  elements: PathSelector|DimensionSelector|(PathSelector|DimensionSelector)[];
+  elements:
+    | PathSelector
+    | DimensionSelector
+    | (PathSelector | DimensionSelector)[];
 }
 
 /** A pivot axis. A pivot axis is used with you create a pivot definition.
@@ -290,9 +293,9 @@ interface PathSelector {
  */
 interface PivotAxis {
   /** The root data for the pivot axis. */
-  root: DataDimension|Section;
+  root: DataDimension | Section;
   /** The sort definitions of the pivot axis. */
-  sortDefinitions: SortDefinition|SortDefinition[];
+  sortDefinitions: SortDefinition | SortDefinition[];
 }
 
 /**
@@ -300,7 +303,7 @@ interface PivotAxis {
  * You can create a pivot using workbook.createPivot(options).
  */
 interface Pivot {
-  aggregationFilters: (ConditionalFilter|LimitingFilter)[];
+  aggregationFilters: (ConditionalFilter | LimitingFilter)[];
   columnAxis: PivotAxis;
   dataset: Dataset;
   filterExpressions: Expression[];
@@ -347,7 +350,7 @@ interface Record {
 }
 
 interface RecordKey {
-  properties: unknown
+  properties: unknown;
 }
 
 interface ReportStyle {
@@ -367,7 +370,7 @@ interface ReportStyleRule {
  */
 interface Section {
   /** The children of the section. */
-  children: (DataDimension|Measure|Section)[];
+  children: (DataDimension | Measure | Section)[];
   /** The format for the total line on a section. */
   totalLine: TotalLine;
 }
@@ -406,9 +409,9 @@ interface Sort {
  */
 interface SortDefinition {
   /** The selector for the sort definition. */
-  selector: DimensionSelector|PathSelector;
+  selector: DimensionSelector | PathSelector;
   /** The ordering elements for the sort definition. */
-  sortBys: (DimensionSort|MeasureSort)[];
+  sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface SortByDataDimensionItem {
@@ -482,7 +485,7 @@ interface TableColumnFilter {
   /** The operator of the table filter. */
   operator: Operator;
   /** The values of the table filter. */
-  values: (null|Object|boolean|number|string|Date)[];
+  values: (null | Object | boolean | number | string | Date)[];
 }
 
 /**
@@ -526,7 +529,7 @@ interface CreateOptions {
 }
 
 interface CreateAspectOptions {
-  measure: Measure|DataMeasure;
+  measure: Measure | DataMeasure;
   type?: AspectType;
 }
 
@@ -540,7 +543,7 @@ interface CreateCalculatedMeasure {
 
 interface CreateCategoryOptions {
   axis: ChartAxis;
-  root: DataDimension|Section;
+  root: DataDimension | Section;
   sortDefinitions?: SortDefinition[];
 }
 
@@ -549,7 +552,7 @@ interface CreateChartAxis {
 }
 
 interface CreateChartDefinition {
-  aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
+  aggregationFilters?: (ConditionalFilter | LimitingFilter)[];
   category: Category;
   dataset?: Dataset;
   filterExpressions?: Expression[];
@@ -572,9 +575,9 @@ interface CreateColor {
 }
 
 interface CreateConditionalFilter {
-  filteredNodesSelector: DimensionSelector|PathSelector;
+  filteredNodesSelector: DimensionSelector | PathSelector;
   measure: Measure;
-  otherAxisSelector: DimensionSelector|PathSelector;
+  otherAxisSelector: DimensionSelector | PathSelector;
   predicate: Expression;
   row: boolean;
 }
@@ -589,12 +592,12 @@ interface CreateConditionalFormatRule {
 }
 
 interface CreateConstant {
-  constant: string|number|boolean|Date;
+  constant: string | number | boolean | Date;
   type?: ConstantType;
 }
 
 interface CreateDataDimension {
-  children?: (DataDimension|Section|Measure)[];
+  children?: (DataDimension | Section | Measure)[];
   items: DataDimensionItem[];
   totalLine?: TotalLine | string;
 }
@@ -605,14 +608,14 @@ interface CreateDataDimensionItem {
 }
 
 interface CreateDataMeasure {
-  aggregation: string|Aggregation;
+  aggregation: string | Aggregation;
   expression?: Expression;
   expressions?: Expression[];
   label: string;
 }
 
 interface CreateDimensionSelector {
-  dimension: DataDimension|Section;
+  dimension: DataDimension | Section;
 }
 
 interface CreateDimensionSort {
@@ -637,15 +640,15 @@ interface CreateFontSize {
 
 interface CreateLegend {
   axes: ChartAxis[];
-  root: Section|DataDimension;
+  root: Section | DataDimension;
   sortDefinitions?: SortDefinition[];
 }
 
 interface CreateLimitingFilter {
-  filteredNodesSelector: DimensionSelector|PathSelector;
+  filteredNodesSelector: DimensionSelector | PathSelector;
   limit: number;
   row: boolean;
-  sortBys: (DimensionSort|MeasureSort)[];
+  sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface CreateMeasure {
@@ -661,8 +664,8 @@ interface CreateMeasureSelector {
 
 interface CreateMeasureSort {
   measure: Measure;
-  otherAxisSelector: DimensionSelector|PathSelector;
-  selector: DimensionSelector|PathSelector;
+  otherAxisSelector: DimensionSelector | PathSelector;
+  selector: DimensionSelector | PathSelector;
   sort: Sort;
 }
 
@@ -677,12 +680,12 @@ interface CreatePathSelector {
 }
 
 interface CreatePivotAxis {
-  root: DataDimension|Section;
+  root: DataDimension | Section;
   sortDefinitions?: SortDefinition[];
 }
 
 interface CreatePivotDefinition {
-  aggregationFilters?: (ConditionalFilter|LimitingFilter)[];
+  aggregationFilters?: (ConditionalFilter | LimitingFilter)[];
   columnAxis: PivotAxis;
   dataset?: Dataset;
   filterExpressions?: Expression[];
@@ -719,7 +722,7 @@ interface CreateReportStyleRule {
 }
 
 interface CreateSection {
-  children: (DataDimension|Measure|Section|DataMeasure)[];
+  children: (DataDimension | Measure | Section | DataMeasure)[];
   totalLine?: TotalLine;
 }
 
@@ -747,8 +750,8 @@ interface CreateSortByMeasure {
 }
 
 interface CreateSortDefinition {
-  selector: DimensionSelector|PathSelector;
-  sortBys: (DimensionSort|MeasureSort)[];
+  selector: DimensionSelector | PathSelector;
+  sortBys: (DimensionSort | MeasureSort)[];
 }
 
 interface CreateStyle {
@@ -785,7 +788,7 @@ interface CreateTableDefinition {
 
 interface CreateTableColumnFilter {
   operator: string;
-  values?: (null|Object|number|string|boolean|Date)[];
+  values?: (null | Object | number | string | boolean | Date)[];
 }
 
 interface Load {
@@ -825,7 +828,9 @@ export function createAspect(options: CreateAspectOptions): Aspect;
 /**
  * Creates a calculated measure.
  */
-export function createCalculatedMeasure(options: CreateCalculatedMeasure): CalculatedMeasure;
+export function createCalculatedMeasure(
+  options: CreateCalculatedMeasure,
+): CalculatedMeasure;
 
 /**
  * Creates a chart category, which includes an axis, a data root, and a sort definition. A chart category is used in a workbook.ChartDefinition.
@@ -854,17 +859,23 @@ export function createColor(options: CreateColor): ColorRGBA;
  * Creates a conditional filter, which includes a selector of what to filter, a row axis and other axis, a measure and a predicate.
  * Conditional filters can be used in pivot definitions and chart definitions.
  */
-export function createConditionalFilter(options: CreateConditionalFilter): ConditionalFilter;
+export function createConditionalFilter(
+  options: CreateConditionalFilter,
+): ConditionalFilter;
 
 /**
  * Creates a conditional format.
  */
-export function createConditionalFormat(options: CreateConditionalFormat): ConditionalFormat;
+export function createConditionalFormat(
+  options: CreateConditionalFormat,
+): ConditionalFormat;
 
 /**
  * Creates a conditional format rule.
  */
-export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
+export function createConditionalFormatRule(
+  options: CreateConditionalFormatRule,
+): ConditionalFormatRule;
 
 /**
  * Creates a constant expression.
@@ -875,12 +886,16 @@ export function createConstant(options: CreateConstant): Expression;
  * Creates a data dimension, which includes items, child data items, and a total line.
  * A data dimension is used in a workbook.Category, a workbook.Legend a workbook.PivotAxis, a workbook.DimensionSelector, and a workbook.Section.
  */
-export function createDataDimension(options: CreateDataDimension): DataDimension;
+export function createDataDimension(
+  options: CreateDataDimension,
+): DataDimension;
 
 /**
  * Creates a data dimension item, which includes an expression and a label.
  */
-export function createDataDimensionItem(options: CreateDataDimensionItem): DataDimensionItem;
+export function createDataDimensionItem(
+  options: CreateDataDimensionItem,
+): DataDimensionItem;
 
 /** Creates a data measure. TODO: Test this, this method doesn't seem to actually exist in NetSuite as of December 2021. */
 export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
@@ -888,12 +903,16 @@ export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
 /**
  * Creates a dimension selector.
  */
-export function createDimensionSelector(options: CreateDimensionSelector): DimensionSelector;
+export function createDimensionSelector(
+  options: CreateDimensionSelector,
+): DimensionSelector;
 
 /**
  * Creates a dimension sort.
  */
-export function createDimensionSort(options: CreateDimensionSort): DimensionSort;
+export function createDimensionSort(
+  options: CreateDimensionSort,
+): DimensionSort;
 
 /**
  * Creates an expression, that includes a function ID and parameters.
@@ -920,7 +939,9 @@ export function createLegend(options: CreateLegend): Legend;
  * Creates a limiting filter, which includes a selector of what to filter, a row axis, a limit, and a sorting order.
  * Limiting filters can be used in pivot definitions and chart definitions to limit the data shown on a pivot or chart.
  */
-export function createLimitingFilter(options: CreateLimitingFilter): LimitingFilter;
+export function createLimitingFilter(
+  options: CreateLimitingFilter,
+): LimitingFilter;
 
 /**
  * Creates a measure, which includes an aggregation, a label, and one or more expressions.
@@ -930,7 +951,9 @@ export function createMeasure(options: CreateMeasure): Measure;
 /**
  * Creates a measure selector.
  */
-export function createMeasureSelector(options: CreateMeasureSelector): MeasureSelector;
+export function createMeasureSelector(
+  options: CreateMeasureSelector,
+): MeasureSelector;
 
 /**
  * Creates a measure sort, which defines a sort on a measure.
@@ -940,7 +963,9 @@ export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 /**
  * Creates a measure value selector.
  */
-export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
+export function createMeasureValueSelector(
+  options: CreateMeasureValueSelector,
+): MeasureValueSelector;
 
 /**
  * Creates a path selector.
@@ -962,17 +987,23 @@ export function createPivot(options: CreatePivotDefinition): Pivot;
 /**
  * Creates a percent-defined background position.
  */
-export function createPositionPercent(options: CreatePositionPercent): PositionPercent;
+export function createPositionPercent(
+  options: CreatePositionPercent,
+): PositionPercent;
 
 /**
  * Creates a background position defined using x-y coordinates and units.
  */
-export function createPositionUnits(options: CreatePositionUnits): PositionUnits;
+export function createPositionUnits(
+  options: CreatePositionUnits,
+): PositionUnits;
 
 /**
  * Creates a background position defined using position values.
  */
-export function createPositionValues(options: CreatePositionValues): PositionValues;
+export function createPositionValues(
+  options: CreatePositionValues,
+): PositionValues;
 
 /**
  * Creates a report style.
@@ -982,7 +1013,9 @@ export function createReportStyle(options: CreateReportStyle): ReportStyle;
 /**
  * Creates a report style formatting rule.
  */
-export function createReportStyleRule(options: CreateReportStyleRule): ReportStyleRule;
+export function createReportStyleRule(
+  options: CreateReportStyleRule,
+): ReportStyleRule;
 
 /**
  * Creates a section, which includes children and a total line.
@@ -1002,18 +1035,24 @@ export function createSort(options: CreateSort): Sort;
 /**
  * Creates a sort based on data dimension items.
  */
-export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
+export function createSortByDataDimensionItem(
+  options: CreateSortByDataDimensionItem,
+): SortByDataDimensionItem;
 
 /**
  * Creates a sort based on a measure.
  */
-export function createSortByMeasure(options: CreateSortByMeasure): SortByMeasure;
+export function createSortByMeasure(
+  options: CreateSortByMeasure,
+): SortByMeasure;
 
 /**
  * Creates a sort definition.
  * A sort definition is used to specify sorting for a category, legend, pivot definition, or pivot axis.
  */
-export function createSortDefinition(options: CreateSortDefinition): SortDefinition;
+export function createSortDefinition(
+  options: CreateSortDefinition,
+): SortDefinition;
 
 /**
  * Creates a style to be used for conditional formatting.
@@ -1036,11 +1075,13 @@ export function createTable(options: CreateTableDefinition): TableDefinition;
 /**
  * Creates a table filter, which includes an operator and values.
  */
-export function createTableColumnFilter(options: CreateTableColumnFilter): TableColumnFilter;
+export function createTableColumnFilter(
+  options: CreateTableColumnFilter,
+): TableColumnFilter;
 
 /**
-* Creates a record key.
-*/
+ * Creates a record key.
+ */
 export function createSimpleRecordKey(options: { key: number }): number;
 
 /**
@@ -1066,12 +1107,12 @@ declare enum Aggregation {
   MAX,
   MEDIAN,
   MIN,
-  SUM
+  SUM,
 }
 
 declare enum AspectType {
-  COLOR = 'color',
-  VALUE = 'value'
+  COLOR = "color",
+  VALUE = "value",
 }
 
 declare enum Color {
@@ -1085,14 +1126,14 @@ declare enum Color {
   PURPLE,
   RED,
   WHITE,
-  YELLOW
+  YELLOW,
 }
 
 declare enum ChartType {
   AREA,
   BAR,
   COLUMN,
-  LINE
+  LINE,
 }
 
 declare enum ConstantType {
@@ -1102,12 +1143,12 @@ declare enum ConstantType {
   DATE_TIME,
   DURATION,
   NUMBER,
-  TEXT
+  TEXT,
 }
 
 declare enum DateTimeHierarchy {
   MONTH_BASED,
-  WEEK_BASED
+  WEEK_BASED,
 }
 
 declare enum DateTimeProperty {
@@ -1117,7 +1158,7 @@ declare enum DateTimeProperty {
   MONTH,
   QUARTER,
   WEEK_OF_YEAR,
-  YEAR
+  YEAR,
 }
 
 declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 2022.1
@@ -1150,7 +1191,7 @@ declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 202
   RECORD_KEY,
   SIMPLE_CONSOLIDATE,
   TRANSLATE,
-  TRUNCATE_DATE_TIME
+  TRUNCATE_DATE_TIME,
 }
 
 declare enum FontSize {
@@ -1162,7 +1203,7 @@ declare enum FontSize {
   XX_LARGE,
   XX_SMALL,
   X_LARGE,
-  X_SMALL
+  X_SMALL,
 }
 
 declare enum FontStyle {
@@ -1173,13 +1214,13 @@ declare enum FontStyle {
 
 declare enum FontWeight {
   BOLD,
-  NORMAL
+  NORMAL,
 }
 
 declare enum Image {
   EXCLAMATION,
   QUESTION,
-  SMILE
+  SMILE,
 }
 
 declare enum Position {
@@ -1187,32 +1228,32 @@ declare enum Position {
   CENTER,
   LEFT,
   RIGHT,
-  TOP
+  TOP,
 }
 
 declare enum Stacking {
   DISABLED,
   NORMAL,
-  PERCENT
+  PERCENT,
 }
 
 declare enum TemporalUnit {
   HOURS,
-  MINUTES
+  MINUTES,
 }
 
 declare enum TextAlign {
   CENTER,
   JUSTIFY,
   LEFT,
-  RIGHT
+  RIGHT,
 }
 
 declare enum TextDecorationLine {
   LINE_THROUGH,
   NONE,
   OVERLINE,
-  UNDERLINE
+  UNDERLINE,
 }
 
 declare enum TextDecorationStyle {
@@ -1220,13 +1261,13 @@ declare enum TextDecorationStyle {
   DOTTED,
   DOUBLE,
   SOLID,
-  WAVY
+  WAVY,
 }
 
 declare enum TotalLine {
   FIRST_LINE,
   HIDDEN,
-  LAST_LINE
+  LAST_LINE,
 }
 
 declare enum Unit {
@@ -1243,50 +1284,50 @@ declare enum Unit {
   VH,
   VMAX,
   VMIN,
-  VW
+  VW,
 }
 
 declare enum Operator {
-  AFTER                 = 'AFTER',
-  AFTER_NOT	            =	'AFTER_NOT',
-  ANY_OF		            = 'ANY_OF',
-  ANY_OF_NOT            = 'ANY_OF_NOT',
-  BEFORE                =	'BEFORE',
-  BEFORE_NOT	          =	'BEFORE_NOT',
-  BETWEEN		            = 'BETWEEN',
-  BETWEEN_NOT	          = 'BETWEEN_NOT',
-  CONTAIN		            = 'CONTAIN',
-  CONTAIN_NOT           = 'CONTAIN_NOT',
-  EMPTY		              = 'EMPTY',
-  EMPTY_NOT		          = 'EMPTY_NOT',
-  ENDWITH		            = 'ENDWITH',
-  ENDWITH_NOT           = 'ENDWITH_NOT',
-  EQUAL		              = 'EQUAL',
-  EQUAL_NOT		          = 'EQUAL_NOT',
-  EXCLUDE_ALL	          =	'MN_EXCLUDE',
-  EXCLUDE_ANY	          =	'MN_EXCLUDE_ALL',
-  EXCLUDE_EXACTLY	      = 'MN_EXCLUDE_EXACTLY',
-  GREATER		            = 'GREATER',
-  GREATER_NOT		        = 'GREATER_NOT',
-  GREATER_OR_EQUAL      = 'GREATER_OR_EQUAL',
-  GREATER_OR_EQUAL_NOT	= 'GREATER_OR_EQUAL_NOT',
-  INCLUDE_ALL		        = 'MN_INCLUDE_ALL',
-  INCLUDE_ANY		        = 'MN_INCLUDE',
-  INCLUDE_EXACTLY	      = 'MN_INCLUDE_EXACTLY',
-  IS		                = 'IS',
-  IS_NOT		            = 'IS_NOT',
-  LESS		              = 'LESS',
-  LESS_NOT		          = 'LESS_NOT',
-  LESS_OR_EQUAL		      = 'LESS_OR_EQUAL',
-  LESS_OR_EQUAL_NOT		  = 'LESS_OR_EQUAL_NOT',
-  ON	                  =	'ON',
-  ON_NOT	              =	'ON_NOT',
-  ON_OR_AFTER	          =	'ON_OR_AFTER',
-  ON_OR_AFTER_NOT	      =	'ON_OR_AFTER_NOT',
-  ON_OR_BEFORE		      = 'ON_OR_BEFORE',
-  ON_OR_BEFORE_NOT	    =	'ON_OR_BEFORE_NOT',
-  START_WITH	          = 'START_WITH',
-  START_WITH_NOT	      =	'START_WITH_NOT',
-  WITHIN	              =	'WITHIN',
-  WITHIN_NOT	          =	'WITHIN_NOT'
+  AFTER = "AFTER",
+  AFTER_NOT = "AFTER_NOT",
+  ANY_OF = "ANY_OF",
+  ANY_OF_NOT = "ANY_OF_NOT",
+  BEFORE = "BEFORE",
+  BEFORE_NOT = "BEFORE_NOT",
+  BETWEEN = "BETWEEN",
+  BETWEEN_NOT = "BETWEEN_NOT",
+  CONTAIN = "CONTAIN",
+  CONTAIN_NOT = "CONTAIN_NOT",
+  EMPTY = "EMPTY",
+  EMPTY_NOT = "EMPTY_NOT",
+  ENDWITH = "ENDWITH",
+  ENDWITH_NOT = "ENDWITH_NOT",
+  EQUAL = "EQUAL",
+  EQUAL_NOT = "EQUAL_NOT",
+  EXCLUDE_ALL = "MN_EXCLUDE",
+  EXCLUDE_ANY = "MN_EXCLUDE_ALL",
+  EXCLUDE_EXACTLY = "MN_EXCLUDE_EXACTLY",
+  GREATER = "GREATER",
+  GREATER_NOT = "GREATER_NOT",
+  GREATER_OR_EQUAL = "GREATER_OR_EQUAL",
+  GREATER_OR_EQUAL_NOT = "GREATER_OR_EQUAL_NOT",
+  INCLUDE_ALL = "MN_INCLUDE_ALL",
+  INCLUDE_ANY = "MN_INCLUDE",
+  INCLUDE_EXACTLY = "MN_INCLUDE_EXACTLY",
+  IS = "IS",
+  IS_NOT = "IS_NOT",
+  LESS = "LESS",
+  LESS_NOT = "LESS_NOT",
+  LESS_OR_EQUAL = "LESS_OR_EQUAL",
+  LESS_OR_EQUAL_NOT = "LESS_OR_EQUAL_NOT",
+  ON = "ON",
+  ON_NOT = "ON_NOT",
+  ON_OR_AFTER = "ON_OR_AFTER",
+  ON_OR_AFTER_NOT = "ON_OR_AFTER_NOT",
+  ON_OR_BEFORE = "ON_OR_BEFORE",
+  ON_OR_BEFORE_NOT = "ON_OR_BEFORE_NOT",
+  START_WITH = "START_WITH",
+  START_WITH_NOT = "START_WITH_NOT",
+  WITHIN = "WITHIN",
+  WITHIN_NOT = "WITHIN_NOT",
 }

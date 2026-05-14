@@ -1,16 +1,16 @@
 interface ConvertOptions {
-    string: string;
-    inputEncoding: Encoding;
-    outputEncoding: Encoding;
+  string: string;
+  inputEncoding: Encoding;
+  outputEncoding: Encoding;
 }
 
 export declare enum Encoding {
-    UTF_8,
-    BASE_16,
-    BASE_32,
-    BASE_64,
-    BASE_64_URL_SAFE,
-    HEX,
+  UTF_8,
+  BASE_16,
+  BASE_32,
+  BASE_64,
+  BASE_64_URL_SAFE,
+  HEX,
 }
 
 /**

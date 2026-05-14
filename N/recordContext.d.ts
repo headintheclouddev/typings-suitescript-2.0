@@ -5,17 +5,17 @@
  * behaves differently based on the context.
  */
 
-import type {ClientCurrentRecord, Record} from './record';
+import type { ClientCurrentRecord, Record } from "./record";
 
 interface GetContextOptions {
-    /** The record type. Required if the record is not loaded in your script. */
-    recordType?: string;
-    /** The record ID. Required if the record is not loaded in your script. */
-    recordId?: string;
-    /** The record object. Required if the record is loaded in your script. */
-    record?: Record | ClientCurrentRecord;
-    /** The available context types. Optional. */
-    contextTypes?: ContextType[];
+  /** The record type. Required if the record is not loaded in your script. */
+  recordType?: string;
+  /** The record ID. Required if the record is not loaded in your script. */
+  recordId?: string;
+  /** The record object. Required if the record is loaded in your script. */
+  record?: Record | ClientCurrentRecord;
+  /** The available context types. Optional. */
+  contextTypes?: ContextType[];
 }
 
 /**
@@ -36,8 +36,10 @@ interface GetContextOptions {
  * - For records that are loaded in your script, the record is defined by the record object.
  *   In this case, you must use the record parameter to specify the record to obtain the context for. You do not use the recordType and recordId parameters.
  */
-export declare function getContext(options: GetContextOptions): { [contextType: string]: string|string[] }; // The example shows: { "localization": ["CA"] }
+export declare function getContext(options: GetContextOptions): {
+  [contextType: string]: string | string[];
+}; // The example shows: { "localization": ["CA"] }
 
 export enum ContextType {
-    LOCALIZATION
+  LOCALIZATION,
 }

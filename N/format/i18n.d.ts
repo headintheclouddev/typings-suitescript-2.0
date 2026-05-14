@@ -33,21 +33,36 @@ interface PhoneNumberFormatter {
 
 /** The object that parses the string with the phone number to an object. */
 interface PhoneNumberParser {
-  parse(options: { number: string }): { countryCode: string, extension: string, nationalNumber: string, numberOfLeadingZeroes: number, carrierCode: string, rawInput: string };
+  parse(options: { number: string }): {
+    countryCode: string;
+    extension: string;
+    nationalNumber: string;
+    numberOfLeadingZeroes: number;
+    carrierCode: string;
+    rawInput: string;
+  };
 }
 
 /** Spells out positive and negative number as a string in a specific language. For more information, see Codes for the Representation of Names of Languages. */
 export function spellOut(options: SpellOutOptions): string;
 
 /** Create format.CurrencyFormatter object to format numbers into currency strings. Costs 10 governance units. */
-export function getCurrencyFormatter(options: GetCurrencyFormatterOptions): CurrencyFormatter;
+export function getCurrencyFormatter(
+  options: GetCurrencyFormatterOptions,
+): CurrencyFormatter;
 
 /** Create format.NumberFormatter object to format numbers into strings. Costs 10 governance units. */
-export function getNumberFormatter(options?: GetNumberFormatterOptions): NumberFormatter;
+export function getNumberFormatter(
+  options?: GetNumberFormatterOptions,
+): NumberFormatter;
 
-export function getPhoneNumberFormatter(options: { defaultCountry: Country }): PhoneNumberFormatter; // TODO: This isn't documented, but shows up in release preview
+export function getPhoneNumberFormatter(options: {
+  defaultCountry: Country;
+}): PhoneNumberFormatter; // TODO: This isn't documented, but shows up in release preview
 
-export function getPhoneNumberParser(options: { defaultCountry: Country }): PhoneNumberParser; // TODO: Test this; it's not documented but shows up in the example
+export function getPhoneNumberParser(options: {
+  defaultCountry: Country;
+}): PhoneNumberParser; // TODO: Test this; it's not documented but shows up in the example
 
 interface GetCurrencyFormatterOptions {
   /** Code of the currency that is used by formatter. */
@@ -55,9 +70,9 @@ interface GetCurrencyFormatterOptions {
 }
 
 interface GetNumberFormatterOptions {
-  groupSeparator?:       string;
-  decimalSeparator?:     string;
-  precision?:            number;
+  groupSeparator?: string;
+  decimalSeparator?: string;
+  precision?: number;
   negativeNumberFormat?: NegativeNumberFormat;
 }
 
@@ -80,19 +95,19 @@ export enum Currency { // Note The currency values depend on the company. Exampl
   CAD,
   EUR,
   GBP,
-  JPY
+  JPY,
 }
 
 export enum NegativeNumberFormat {
   BRACKETS,
-  MINUS
+  MINUS,
 }
 
 export enum PhoneNumberFormatType {
   E164,
   INTERNATIONAL,
   NATIONAL,
-  RFC3966
+  RFC3966,
 }
 
 export enum Country { // As of 17 August 2020
@@ -345,5 +360,5 @@ export enum Country { // As of 17 August 2020
   WESTERN_SAHARA,
   YEMEN,
   ZAMBIA,
-  ZIMBABWE
+  ZIMBABWE,
 }

@@ -5,8 +5,8 @@
 
 /* This example is taken from https://suiteanswers.custhelp.com/app/answers/detail/a_id/1016997 */
 
-import type {EntryPoints} from "N/types";
 import * as log from "N/log";
+import type { EntryPoints } from "N/types";
 
 export const customizeGlImpact: EntryPoints.Plugins.GlPlugin.customizeGlImpact =
   (context: EntryPoints.Plugins.GlPlugin.glPluginContext) => {

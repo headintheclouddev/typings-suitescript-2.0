@@ -1,12 +1,12 @@
 interface ChangePasswordOptions {
-    currentPassword: string;
-    newPassword: string;
+  currentPassword: string;
+  newPassword: string;
 }
 
 interface ChangeEmailOptions {
-    password: string;
-    newEmail: string;
-    onlyThisAccount?: boolean;
+  password: string;
+  newEmail: string;
+  onlyThisAccount?: boolean;
 }
 
 /**

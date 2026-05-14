@@ -69,12 +69,12 @@ interface PiRemovalTask {
 
 interface PiRemovalTaskStatus {
   logList: PiRemovalTaskLogItem[];
-  readonly status: 'PENDING' | 'PROCESSING' | 'COMPLETE' | 'FAILED';
+  readonly status: "PENDING" | "PROCESSING" | "COMPLETE" | "FAILED";
 }
 
 interface PiRemovalTaskLogItem {
   readonly exception: string;
   readonly message: string;
-  readonly status: 'PENDING' | 'PROCESSING' | 'COMPLETE' | 'FAILED';
+  readonly status: "PENDING" | "PROCESSING" | "COMPLETE" | "FAILED";
   readonly type: string;
 }

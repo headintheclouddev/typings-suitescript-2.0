@@ -3,12 +3,12 @@
  * You can use this module to send requests to the large language models (LLMs) supported by NetSuite and to receive LLM responses to use in your scripts.
  */
 
-import type {File} from './file';
+import type { File } from "./file";
 
 /** The chat message object returned by the llm.createChatMessage(options) method. */
 interface ChatMessage {
-    text: string;
-    readonly role: ChatRole;
+  text: string;
+  readonly role: ChatRole;
 }
 
 /**
@@ -23,27 +23,27 @@ interface ChatMessage {
  * The object includes properties that specify the documents used (Citation.documentIds), the start and end points of the cited text (Citation.start and Citation.end), and the content itself (Citation.text).
  */
 interface Citation {
-    documentIds: string[];
-    readonly end: number;
-    readonly start: number;
-    readonly text: string;
+  documentIds: string[];
+  readonly end: number;
+  readonly start: number;
+  readonly text: string;
 }
 
 /** The response returned from LLM. Use the llm.generateText(options) or the llm.generateText.promise(options) method to retrieve a response from the LLM. */
 interface Response {
-    readonly citations: Citation[];
-    readonly documents: Document[];
-    readonly text: string;
-    readonly model: string;
-    readonly chatHistory: ChatMessage[];
+  readonly citations: Citation[];
+  readonly documents: Document[];
+  readonly text: string;
+  readonly model: string;
+  readonly chatHistory: ChatMessage[];
 }
 
 interface StreamedResponse {
-    readonly citations: Citation[];
-    readonly documents: Document[];
-    readonly text: string;
-    readonly model: string;
-    readonly chatHistory: ChatMessage[];
+  readonly citations: Citation[];
+  readonly documents: Document[];
+  readonly text: string;
+  readonly model: string;
+  readonly chatHistory: ChatMessage[];
 }
 
 /**
@@ -51,7 +51,10 @@ interface StreamedResponse {
  * Chat messages can be used in the chatHistory parameter of the llm.generateText(options) method.
  * Supported roles are defined by the llm.ChatRole enum.
  */
-export function createChatMessage(options: { role: string, text: string }): ChatMessage;
+export function createChatMessage(options: {
+  role: string;
+  text: string;
+}): ChatMessage;
 
 /**
  * Creates a document with the specified ID and content.
@@ -63,9 +66,9 @@ export function createChatMessage(options: { role: string, text: string }): Chat
  * You do not need to use this method to create a document before providing the document to llm.generateText(options) or llm.generateText.promise(options).
  * You can also provide a plain JavaScript object that uses the id and data properties.
  */
-export function createDocument(options: { data: string, id: string }): Document;
+export function createDocument(options: { data: string; id: string }): Document;
 
-export const embed: IEmbededFunction
+export const embed: IEmbededFunction;
 
 /**
  * Takes the ID of an existing prompt and values for variables used in the prompt and returns the response from the LLM.
@@ -100,196 +103,197 @@ export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 export const getRemainingFreeEmbedUsage: GetRemainingFreeUsageFunction;
 
 interface IEmbededFunction {
-    (options: IEmbedOptions): EmbeddedResponse;
-    promise(options: IEmbedOptions): Promise<EmbeddedResponse>;
+  (options: IEmbedOptions): EmbeddedResponse;
+  promise(options: IEmbedOptions): Promise<EmbeddedResponse>;
 }
 
 interface IEvaluatePromptFunction {
-    (options: IEvaluatePromptOptions): Response;
-    promise(options: IEvaluatePromptOptions): Promise<Response>;
+  (options: IEvaluatePromptOptions): Response;
+  promise(options: IEvaluatePromptOptions): Promise<Response>;
 }
 
 interface IEvaluatePromptStreamedFunction {
-    (options: IEvaluatePromptOptions): StreamedResponse;
-    promise(options: IEvaluatePromptOptions): Promise<StreamedResponse>;
+  (options: IEvaluatePromptOptions): StreamedResponse;
+  promise(options: IEvaluatePromptOptions): Promise<StreamedResponse>;
 }
 
 interface GenerateTextFunction {
-    (options: IGenerateTextOptions): Response;
-    promise(options: IGenerateTextOptions): Promise<Response>;
+  (options: IGenerateTextOptions): Response;
+  promise(options: IGenerateTextOptions): Promise<Response>;
 }
 
 interface GenerateTextStreamedFunction {
-    (options: IGenerateTextOptions): StreamedResponse;
-    promise(options: IGenerateTextOptions): Promise<StreamedResponse>;
+  (options: IGenerateTextOptions): StreamedResponse;
+  promise(options: IGenerateTextOptions): Promise<StreamedResponse>;
 }
 
 interface GetRemainingFreeUsageFunction {
-    (): number;
-    promise(): Promise<number>;
+  (): number;
+  promise(): Promise<number>;
 }
 
 interface EmbeddedResponse {
-    readonly embeddings: number[];
-    /** The list of inputs used to generate the embeddings response. */
-    readonly inputs: string[];
-    /** The model used to generate the embeddings response. */
-    readonly model: string;
+  readonly embeddings: number[];
+  /** The list of inputs used to generate the embeddings response. */
+  readonly inputs: string[];
+  /** The model used to generate the embeddings response. */
+  readonly model: string;
 }
 
 interface IEmbedOptions {
-    /** An array of inputs to get embeddings for. */
-    inputs: string[] | readonly string[];
-    /** The embed model family to use. Use values from llm.EmbedModelFamily to set this value. If not specified, the Cohere Embed Multilingual model is used. */
-    embededModelFamily?: string;
-    /** Configuration needed for unlimited usage through OCI Generative AI Service. Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service. SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration. */
-    ociConfig?: IOCIConfig;
-    /** The amount of time to wait for a response from the LLM, in milliseconds. If not specified, the default value is 30,000. */
-    timeout?: number;
-    /** The truncation method to use when embeddings input exceeds 512 tokens. Use values from llm.Truncate to set this value. If not specified, no truncation method is used. */
-    truncate?: string;
+  /** An array of inputs to get embeddings for. */
+  inputs: string[] | readonly string[];
+  /** The embed model family to use. Use values from llm.EmbedModelFamily to set this value. If not specified, the Cohere Embed Multilingual model is used. */
+  embededModelFamily?: string;
+  /** Configuration needed for unlimited usage through OCI Generative AI Service. Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service. SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration. */
+  ociConfig?: IOCIConfig;
+  /** The amount of time to wait for a response from the LLM, in milliseconds. If not specified, the default value is 30,000. */
+  timeout?: number;
+  /** The truncation method to use when embeddings input exceeds 512 tokens. Use values from llm.Truncate to set this value. If not specified, no truncation method is used. */
+  truncate?: string;
 }
 
 interface IEvaluatePromptOptions {
-    id: string|number;
-    /**
-     * Configuration needed for unlimited usage through OCI Generative AI Service.
-     * Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service.
-     * SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration.
-     *
-     * Instead of specifying OCI configuration details using this parameter, you can specify them on the SuiteScript tab of the AI Preferences page.
-     * When you do so, those OCI configuration details are used for all scripts in your account that use N/llm module methods, and unlimited usage mode is enabled for those scripts.
-     * If you specify OCI configuration details in both places (using this parameter and using the SuiteScript tab of the AI Preferences page), the details provided in this parameter override those that are specified on the SuiteScript tab.
-     * For more information, see Using Your Own OCI Configuration for SuiteScript Generative AI APIs.
-     */
-    ociConfig?: IOCIConfig;
-    /** Timeout in milliseconds, defaults to 30,000. */
-    timeout?: number;
-    /**
-     * Values for the variables that are used in the prompt. Provide these values as an object with key-value pairs.
-     * For an example, see the Syntax section.
-     *
-     * You can use Prompt Studio to generate a SuiteScript example that uses this method and includes the variables for a prompt in the correct format.
-     * When viewing a prompt in Prompt Studio, click Show SuiteScript Example to generate SuiteScript code with all the variables that prompt uses.
-     * You can then use this code in your scripts and provide a value for each variable.
-     */
-    variables?: object;
+  id: string | number;
+  /**
+   * Configuration needed for unlimited usage through OCI Generative AI Service.
+   * Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service.
+   * SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration.
+   *
+   * Instead of specifying OCI configuration details using this parameter, you can specify them on the SuiteScript tab of the AI Preferences page.
+   * When you do so, those OCI configuration details are used for all scripts in your account that use N/llm module methods, and unlimited usage mode is enabled for those scripts.
+   * If you specify OCI configuration details in both places (using this parameter and using the SuiteScript tab of the AI Preferences page), the details provided in this parameter override those that are specified on the SuiteScript tab.
+   * For more information, see Using Your Own OCI Configuration for SuiteScript Generative AI APIs.
+   */
+  ociConfig?: IOCIConfig;
+  /** Timeout in milliseconds, defaults to 30,000. */
+  timeout?: number;
+  /**
+   * Values for the variables that are used in the prompt. Provide these values as an object with key-value pairs.
+   * For an example, see the Syntax section.
+   *
+   * You can use Prompt Studio to generate a SuiteScript example that uses this method and includes the variables for a prompt in the correct format.
+   * When viewing a prompt in Prompt Studio, click Show SuiteScript Example to generate SuiteScript code with all the variables that prompt uses.
+   * You can then use this code in your scripts and provide a value for each variable.
+   */
+  variables?: object;
 }
 
 interface IGenerateTextOptions {
-    /** Prompt for the LLM. */
-    prompt: string;
-    /** Chat history to be taken into consideration. */
-    chatHistory?: ChatMessage[];
-    /** A list of documents to provide additional context for the LLM to generate the response. */
-    documents?: Document[];
-    /**
-     * An image to query. You can send an image (as a file.File object) to the LLM and ask questions about the image and get text outputs, such as:
-     * - Advanced image captions
-     * - Detailed description of an image
-     * - Answers to questions about an image
-     * - Information about charts and graphs in an image
-     */
-    image?: File;
-    /** Specifies the LLM to use. Use llm.ModelFamily to set the value. If not specified, the Cohere Command R LLM is used. */
-    modelFamily?: ModelFamily;
-    modelParameters?: IModelParameters;
-    /**
-     * Configuration needed for unlimited usage through OCI Generative AI Service.
-     * Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service.
-     * SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration.
-     */
-    ociConfig?: IOCIConfig;
-    /** Preamble override for the LLM. A preamble is the Initial context or guiding message for an LLM. For more details about using a preamble, refer to About the Chat Models in Generative AI (Chat Model Parameters section) in the Oracle Cloud Infrastructure Documentation. */
-    preamble?: string;
-    /** Timeout in milliseconds, defaults to 30,000. */
-    timeout?: number;
+  /** Prompt for the LLM. */
+  prompt: string;
+  /** Chat history to be taken into consideration. */
+  chatHistory?: ChatMessage[];
+  /** A list of documents to provide additional context for the LLM to generate the response. */
+  documents?: Document[];
+  /**
+   * An image to query. You can send an image (as a file.File object) to the LLM and ask questions about the image and get text outputs, such as:
+   * - Advanced image captions
+   * - Detailed description of an image
+   * - Answers to questions about an image
+   * - Information about charts and graphs in an image
+   */
+  image?: File;
+  /** Specifies the LLM to use. Use llm.ModelFamily to set the value. If not specified, the Cohere Command R LLM is used. */
+  modelFamily?: ModelFamily;
+  modelParameters?: IModelParameters;
+  /**
+   * Configuration needed for unlimited usage through OCI Generative AI Service.
+   * Required only when accessing the LLM through an Oracle Cloud Account and the OCI Generative AI Service.
+   * SuiteApps installed to target accounts are prevented from using the free usage pool for N/llm and must use the OCI configuration.
+   */
+  ociConfig?: IOCIConfig;
+  /** Preamble override for the LLM. A preamble is the Initial context or guiding message for an LLM. For more details about using a preamble, refer to About the Chat Models in Generative AI (Chat Model Parameters section) in the Oracle Cloud Infrastructure Documentation. */
+  preamble?: string;
+  /** Timeout in milliseconds, defaults to 30,000. */
+  timeout?: number;
 }
 
 interface Document {
-    readonly data: string;
-    readonly id: string;
+  readonly data: string;
+  readonly id: string;
 }
 
 interface IModelParameters {
-    /** A penalty that is assigned to a token when that token appears frequently. The higher the value, the stronger a penalty is applied to previously present tokens, proportional to how many times they have already appeared in the prompt or prior generation. See Model Parameter Values by LLM for valid values. */
-    frequencyPenalty?: number;
-    /** The maximum number of tokens the LLM is allowed to generate. The average number of tokens per word is 3. See Model Parameter Values by LLM for valid values. */
-    maxTokens?: number;
-    /**
-     * A penalty that is assigned to each token when it appears in the output to encourage generating outputs with tokens that haven't been used.
-     * Similar to frequencyPenalty, except that this penalty is applied equally to all tokens that have already appeared, regardless of their exact frequencies.
-     * See Model Parameter Values by LLM for valid values.
-     */
-    presencePenalty?: number;
-    /**
-     * Defines a range of randomness for the response.
-     * A lower temperature will lean toward the highest probability tokens and expected answers, while a higher temperature will deviate toward random and unconventional responses.
-     * A lower value works best for responses that must be more factual or accurate, and a higher value works best for getting more creative responses.
-     * See Model Parameter Values by LLM for valid values.
-     */
-    temperature?: number;
-    /** Determines how many tokens are considered for generation at each step. See Model Parameter Values by LLM for valid values. */
-    topK?: number;
-    /**
-     * Sets the probability, which ensures that only the most likely tokens with total probability mass of p are considered for generation at each step.
-     * If both topK and topP are set, topP acts after topK. See Model Parameter Values by LLM for valid values.
-     */
-    topP?: number;
+  /** A penalty that is assigned to a token when that token appears frequently. The higher the value, the stronger a penalty is applied to previously present tokens, proportional to how many times they have already appeared in the prompt or prior generation. See Model Parameter Values by LLM for valid values. */
+  frequencyPenalty?: number;
+  /** The maximum number of tokens the LLM is allowed to generate. The average number of tokens per word is 3. See Model Parameter Values by LLM for valid values. */
+  maxTokens?: number;
+  /**
+   * A penalty that is assigned to each token when it appears in the output to encourage generating outputs with tokens that haven't been used.
+   * Similar to frequencyPenalty, except that this penalty is applied equally to all tokens that have already appeared, regardless of their exact frequencies.
+   * See Model Parameter Values by LLM for valid values.
+   */
+  presencePenalty?: number;
+  /**
+   * Defines a range of randomness for the response.
+   * A lower temperature will lean toward the highest probability tokens and expected answers, while a higher temperature will deviate toward random and unconventional responses.
+   * A lower value works best for responses that must be more factual or accurate, and a higher value works best for getting more creative responses.
+   * See Model Parameter Values by LLM for valid values.
+   */
+  temperature?: number;
+  /** Determines how many tokens are considered for generation at each step. See Model Parameter Values by LLM for valid values. */
+  topK?: number;
+  /**
+   * Sets the probability, which ensures that only the most likely tokens with total probability mass of p are considered for generation at each step.
+   * If both topK and topP are set, topP acts after topK. See Model Parameter Values by LLM for valid values.
+   */
+  topP?: number;
 }
 
-export interface IOCIConfig { // Also referenced in N/documentCapture
-    /** Compartment OCID. For more information, refer to Managing Compartments in the Oracle Cloud Infrastructure Documentation. */
-    compartmentId?: string;
-    /**
-     * Endpoint ID. This value is needed only when a custom OCI DAC (dedicated AI cluster) is to be used.
-     * For more information, refer to Managing an Endpoint in Generative AI in the Oracle Cloud Infrastructure Documentation.
-     */
-    endpointId?: string;
-    /**
-     * Fingerprint of the public key (only a NetSuite secret is accepted—see Creating Secrets).
-     * For more information, refer to Required Keys and OCIDs in the Oracle Cloud Infrastructure Documentation.
-     */
-    fingerprint?: string;
-    /**
-     * Private key of the OCI user (only a NetSuite secret is accepted—see Creating Secrets).
-     * For more information, refer to Required Keys and OCIDs in the Oracle Cloud Infrastructure Documentation.
-     */
-    privateKey?: string;
-    /** Tenancy OCID. For more information, refer to Managing the Tenancy in the Oracle Cloud Infrastructure Documentation. */
-    tenancyId?: string;
-    /** User OCID. For more information, refer to Managing Users in the Oracle Cloud Infrastructure Documentation. */
-    userId?: string;
+export interface IOCIConfig {
+  // Also referenced in N/documentCapture
+  /** Compartment OCID. For more information, refer to Managing Compartments in the Oracle Cloud Infrastructure Documentation. */
+  compartmentId?: string;
+  /**
+   * Endpoint ID. This value is needed only when a custom OCI DAC (dedicated AI cluster) is to be used.
+   * For more information, refer to Managing an Endpoint in Generative AI in the Oracle Cloud Infrastructure Documentation.
+   */
+  endpointId?: string;
+  /**
+   * Fingerprint of the public key (only a NetSuite secret is accepted—see Creating Secrets).
+   * For more information, refer to Required Keys and OCIDs in the Oracle Cloud Infrastructure Documentation.
+   */
+  fingerprint?: string;
+  /**
+   * Private key of the OCI user (only a NetSuite secret is accepted—see Creating Secrets).
+   * For more information, refer to Required Keys and OCIDs in the Oracle Cloud Infrastructure Documentation.
+   */
+  privateKey?: string;
+  /** Tenancy OCID. For more information, refer to Managing the Tenancy in the Oracle Cloud Infrastructure Documentation. */
+  tenancyId?: string;
+  /** User OCID. For more information, refer to Managing Users in the Oracle Cloud Infrastructure Documentation. */
+  userId?: string;
 }
 
 declare enum ChatRole {
-    /** Identifies the author of the chat message (prompt) sent to the large language model. */
-    USER = "USER",
-    /** Identifies the author of the chat message (response text) received from the large language model. */
-    CHATBOT = "CHATBOT"
+  /** Identifies the author of the chat message (prompt) sent to the large language model. */
+  USER = "USER",
+  /** Identifies the author of the chat message (response text) received from the large language model. */
+  CHATBOT = "CHATBOT",
 }
 
 /** The large language model to be used to generate embeddings. */
 declare enum EmbedModelFamily {
-    COHERE_EMBED_ENGLISH = 'cohere.embed-english-v3.0',
-    /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
-    COHERE_EMBED_ENGLISH_LIGHT = 'cohere.embed-english-light-v3.0',
-    COHERE_EMBED_MULTILINGUAL = 'cohere.embed-multilingual-v3.0',
-    /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
-    COHERE_EMBED_MULTILINGUAL_LIGHT = 'cohere.embed-multilingual-light-v3.0'
+  COHERE_EMBED_ENGLISH = "cohere.embed-english-v3.0",
+  /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
+  COHERE_EMBED_ENGLISH_LIGHT = "cohere.embed-english-light-v3.0",
+  COHERE_EMBED_MULTILINGUAL = "cohere.embed-multilingual-v3.0",
+  /** Light versions of embedding models might generate embeddings faster than regular embedding models, but the output might not be as accurate. */
+  COHERE_EMBED_MULTILINGUAL_LIGHT = "cohere.embed-multilingual-light-v3.0",
 }
 
 /** The large language model to be used. */
 declare enum ModelFamily {
-    /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
-    COHERE_COMMAND = 'cohere.command-r-16k',
-    /** Always uses the latest supported Meta Llama model. */
-    META_LLAMA = 'meta.llama-3.1-70b-instruct'
+  /** Always uses the latest supported Cohere model. Cohere Command-R is the default when the options.modelFamily parameter is omitted. */
+  COHERE_COMMAND = "cohere.command-r-16k",
+  /** Always uses the latest supported Meta Llama model. */
+  META_LLAMA = "meta.llama-3.1-70b-instruct",
 }
 
 /** The truncation method to use when embeddings input exceeds 512 tokens. Use this enum to set the value of the options.truncate parameter in llm.embed(options). */
 declare enum Truncate {
-    END = 'END',
-    NONE = 'NONE',
-    START = 'START'
+  END = "END",
+  NONE = "NONE",
+  START = "START",
 }

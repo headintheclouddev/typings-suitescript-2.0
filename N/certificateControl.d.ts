@@ -1,4 +1,4 @@
-import type {File} from './file';
+import type { File } from "./file";
 
 /**
  * The N/certificateControl module enables scripting access to the Digital Certificates list found in the UI at Setup > Company > Certificates.
@@ -60,8 +60,12 @@ export interface Certificate {
   weekReminder: boolean;
 }
 
-export function createCertificate(options: CreateCertificateOptions): Certificate;
-export function findCertificates(options: FindCertificatesOptions): { [key: string]: string };
+export function createCertificate(
+  options: CreateCertificateOptions,
+): Certificate;
+export function findCertificates(options: FindCertificatesOptions): {
+  [key: string]: string;
+};
 export function findUsages(options: FindUsagesOptions): Operation[];
 export function deleteCertificate(options: DeleteCertificateOptions): string;
 export function loadCertificate(options: { scriptId: string }): Certificate;
@@ -76,11 +80,11 @@ interface CreateCertificateOptions {
   /** Description of the certificate record. */
   description?: string;
   /** The internal ID of subsidiaries associated with the certificate in either number or string format. */
-  subsidiaries?: (string|number)[];
+  subsidiaries?: (string | number)[];
   /** The internal ID of employees selected in the Restricted to Employees field for a certificate. */
-  restrictions?: (string|number)[];
+  restrictions?: (string | number)[];
   /** The internal ID of employees selected in the Copy Employees field on the certificate record. */
-  notifications?: (string|number)[];
+  notifications?: (string | number)[];
   /** The name of the certificate record. */
   name: string;
   /** The setting for the Expiration Reminder : Week checkbox. */
@@ -144,18 +148,18 @@ export enum Operation {
   SIGN_STRING,
   SIGN_XML,
   VERIFY_STRING,
-  VERIFY_XML
+  VERIFY_XML,
 }
 
 export enum Operator {
   CONTAINS,
   ENDS_WITH,
   EQUALS,
-  STARTS_WITH
+  STARTS_WITH,
 }
 
 export enum Type {
   PFX,
   P12,
-  PEM
+  PEM,
 }

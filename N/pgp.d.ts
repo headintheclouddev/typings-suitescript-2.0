@@ -3,7 +3,7 @@
  * PGP stands for Pretty Good Privacy and is most commonly used for encrypting emails.
  */
 
-import type {Signer} from "./crypto/certificate";
+import type { Signer } from "./crypto/certificate";
 
 /** Stores general configuration options that can be used for message decryption. Use the pgp.createConfig(options) method to create a new configuration object. */
 interface Config {
@@ -19,9 +19,8 @@ interface Config {
  * Stores multiple cryptographic keys and metadata.
  * You can use this object in the Message.decrypt(options) and MessageData.encrypt(options) methods.
  */
-interface Key {
-  // TODO: Nothing in the documentation?
-}
+type Key = {};
+// TODO: Nothing in the documentation?
 
 /** Stores an octet scalar that identifies a (sub)key. This object is used for verification signatures. */
 interface KeyId {
@@ -67,9 +66,9 @@ interface MessageData {
 /** Stores verification results. Use the pgp.createVerification() method to create a Verification object. */
 interface Verification {
   /** Indicates whether the message verification was successful. */
-  readonly verified: null|boolean;
+  readonly verified: null | boolean;
   /** List of individual verifications, one per each signature. */
-  readonly signatures: null|VerificationSignature[];
+  readonly signatures: null | VerificationSignature[];
 }
 
 /** Stores a verification result for single signature. */
@@ -88,14 +87,16 @@ interface VerificationSignature {
 export function createConfig(options: CreateConfigOptions): Config;
 
 /** Creates a new pgp.MessageData object. A message data object stores message content with metadata. */
-export function createMessageData(options: CreateMessageDataOptions): MessageData;
+export function createMessageData(
+  options: CreateMessageDataOptions,
+): MessageData;
 
 /**
  * Creates a certificate.Signer object for signing plain strings.
  * If the given PGP key contains multiple valid signing sub keys, the most recently added will be used.
  * This behavior is consistent with MessageData.encrypt(options) method.
  */
-export function createSigner(options: { key: Key, algorithm: string }): Signer;
+export function createSigner(options: { key: Key; algorithm: string }): Signer;
 
 /** Creates an empty verification object. */
 export function createVerification(): Verification;
@@ -110,12 +111,12 @@ export function parseKey(options: ParseKeyOptions): Key;
 export function parseMessage(options: { value: string }): Message;
 
 export enum CompressionAlgorithm {
-  ZLIB
+  ZLIB,
 }
 
 export enum Format {
   UTF8,
-  BINARY
+  BINARY,
 }
 
 interface CreateConfigOptions {
@@ -140,13 +141,13 @@ interface CreateMessageDataOptions {
 
 interface DecryptMessageOptions {
   /** Uses one or more keys to attempt message decryption. */
-  decryptionKeys: Key|Key[];
+  decryptionKeys: Key | Key[];
   /**
    * Uses zero or more keys to attempt message signature verification. If you do not provide a verification key, the message's signature (if any) will be ignored.
    * If you do provide a verification key, at least one signature must be verifiable by one of the provided keys, otherwise an error will be thrown.
    * An expired key works if the signature was made before the expiration. Default value = [].
    */
-  verificationKeys?: Key|Key[];
+  verificationKeys?: Key | Key[];
   /** An empty verification object. If you provide a value for this parameter, the verification results will be flushed instead of throwing an error for invalid signature. Default value = null. */
   verification?: Verification;
   /** If set to true, the verification errors will not be thrown. This value is implicitly set to true when the verification parameter is provided. Default value = false. */
@@ -157,9 +158,9 @@ interface DecryptMessageOptions {
 
 interface EncryptMessageDataOptions {
   /** One or more keys used to encrypt a message. If a key contains multiple valid encryption (sub)keys, the most recent key added will be used. */
-  encryptionKeys: Key|Key[];
+  encryptionKeys: Key | Key[];
   /** Zero or more keys used for signing. If a key contains multiple valid signing (sub)keys, the most recent key added will be used. Default value = []. */
-  signingKeys?: Key|Key[];
+  signingKeys?: Key | Key[];
   /** The compression algorithm to use. Default value = CompressionAlgorithm.ZLIB. */
   compressionAlgorithm?: CompressionAlgorithm;
 }
