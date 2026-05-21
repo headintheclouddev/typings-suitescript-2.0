@@ -15,7 +15,7 @@
 	"license": "MIT",
 	"author": "Head in the Cloud Development <gurus@headintheclouddev.com> (www.headintheclouddev.com)",
 	"files": [
-		"./N.d.ts",
+		"./*.d.ts",
 		"./N/**/*.d.ts"
 	],
 	"repository": {
