@@ -234,8 +234,8 @@ interface SublistSetSublistValueOptions {
     id: string;
     /** The line number for this field (starts at 0). */
     line: number;
-    /** The value for the field being set. */
-    value: string;
+    /** The value for the field being set. Use null instead of an empty string. */
+    value: string|null;
 }
 
 interface SetSplashOptions {
