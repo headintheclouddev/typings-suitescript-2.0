@@ -45,9 +45,9 @@ export function getCurrencyFormatter(options: GetCurrencyFormatterOptions): Curr
 /** Create format.NumberFormatter object to format numbers into strings. Costs 10 governance units. */
 export function getNumberFormatter(options?: GetNumberFormatterOptions): NumberFormatter;
 
-export function getPhoneNumberFormatter(options: { defaultCountry: Country }): PhoneNumberFormatter; // TODO: This isn't documented, but shows up in release preview
+export function getPhoneNumberFormatter(options: { formatType: PhoneNumberFormatType }): PhoneNumberFormatter;
 
-export function getPhoneNumberParser(options: { defaultCountry: Country }): PhoneNumberParser; // TODO: Test this; it's not documented but shows up in the example
+export function getPhoneNumberParser(options: { defaultCountry: Country }): PhoneNumberParser;
 
 interface GetCurrencyFormatterOptions {
   /** Code of the currency that is used by formatter. */
