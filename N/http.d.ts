@@ -178,43 +178,27 @@ interface GetSublistValueOptions {
  * Encapsulates the HTTP request information sent to an HTTP server. For example, a request received by a Suitelet or RESTlet.
  */
 export interface ServerRequest {
-    /**
-     * Method used to return the number of lines in a sublist.
-     */
+    /** Method used to return the number of lines in a sublist. */
     getLineCount(options: GetLineCountOptions): number;
-    /**
-     * Method used to return the value of a sublist line item.
-     */
+    /** Method used to return the value of a sublist line item. */
     getSublistValue(options: GetSublistValueOptions): string;
-    /**
-     * The server request body.
-     */
+    /** The server request body. */
     body: string;
-    /**
-     * The remote IP address that made this request.
-     */
+    /** The remote IP address that made this request. */
     clientIpAddress: string;
-    /**
-     * The server request files.
-     */
+    /** The server request files. */
     files: any;
-    /**
-     * The server request headers.
-     */
-    headers: object;
+    /** The server request headers. */
+    headers: { [key: string]: string };
     /**
      * The server request http method.
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
      */
     method: Method | `${Method}`;
-    /**
-     * The server request parameters.
-     */
+    /** The server request parameters. */
     parameters: any;
-    /**
-     * The server request URL.
-     */
+    /** The server request URL. */
     url: string;
 }
 
