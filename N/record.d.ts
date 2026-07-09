@@ -478,7 +478,7 @@ export type FieldValue = Date | number | number[] | string | string[] | boolean 
 export interface ClientCurrentRecord {
     /** Cancels the currently selected line on a sublist. */
     cancelLine(options: CancelCommitLineOptions): Record;
-    cancelLine(sublistId: string): Record;
+    // cancelLine(sublistId: string): Record; // Deprecated in 2026.1.8
     /** Commits the currently selected line on a sublist. */
     commitLine(options: CommitLineOptions): Record;
     copy: RecordCopyFunction;
@@ -490,14 +490,13 @@ export interface ClientCurrentRecord {
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
     /** Gets the value for the currently selected line in the matrix. */
     getCurrentMatrixSublistValue(options: GetCurrentMatrixSublistValueOptions): number | Date | string | string[] | boolean;
-    /** Returns the line number of the currently selected line. */  
-    
     /**
      * return field object from record's sublist current line. Only available in dynamic record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @restriction only available in dynamic record
      */
     getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field;
+    /** Returns the line number of the currently selected line. */
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     /** Gets the subrecord for the associated sublist field on the current line. */
     getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
@@ -505,9 +504,7 @@ export interface ClientCurrentRecord {
     getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
     /** Returns the value of a sublist field on the currently selected sublist line. */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
-    getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue;
-
-    
+    // getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue; // Deprecated in 2026.1.8
     /** 
      * Returns a field object from a record. 
      * 
@@ -516,7 +513,7 @@ export interface ClientCurrentRecord {
     getField(options: GetFieldOptions): Field | null;
     /** Returns the number of lines in a sublist. */
     getLineCount(options: RecordGetLineCountOptions): number;
-    getLineCount(sublistId: string): number;
+    // getLineCount(sublistId: string): number; // Deprecated in 2026.1.8
     /** Provides a macro to be executed. */
     getMacro(options: { id: string }): Function; // TODO: Test this!
     /** Provides a plain JavaScript object of available macro objects defined for a record type, indexed by the Macro ID. */
@@ -545,7 +542,7 @@ export interface ClientCurrentRecord {
     getSublistText(options: GetSublistValueOptions): string;
     /** Returns the value of a sublist field. */
     getSublistValue(options: GetSublistValueOptions): FieldValue;
-    getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue;
+    // getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue; // Deprecated in 2026.1.8
     /** Gets the subrecord for the associated field. */
     getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
     /** Returns the text representation of a field value. */
@@ -607,7 +604,7 @@ export interface ClientCurrentRecord {
     removeSubrecord(options: GetFieldOptions): this;
     /** Selects an existing line in a sublist. */
     selectLine(options: SelectLineOptions): this;
-    selectLine(sublistId: string, line: number): this;
+    // selectLine(sublistId: string, line: number): this; // Deprecated in 2026.1.8
     /** Selects a new line at the end of a sublist. */
     selectNewLine(options: RecordGetLineCountOptions): this;
     /** Sets the value for the line currently selected in the matrix. */
@@ -616,7 +613,7 @@ export interface ClientCurrentRecord {
     setCurrentSublistText(options: SetCurrentSublistTextOptions): this;
     /** Sets the value for the field in the currently selected line. */
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): this;
-    setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): this;
+    // setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): this;  // Deprecated in 2026.1.8
     /** Sets the value for the associated header in the matrix. */
     setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
     /** Sets the value for the associated field in the matrix. */
