@@ -671,7 +671,7 @@ export type RecordToJSONReturnValue = {
 
 interface ExecuteMacroFunction {
   (options: { id: string, params: Object }): Object;
-  promise(options: { id: string, params: Object }): Object
+  promise(options: { id: string, params: Object }): Promise<Object>
 }
 
 interface MacroExecuteFunction {
