@@ -10,7 +10,7 @@ interface LogOptions {
 }
 
 interface LogFunction {
-    (title: string, details: any): void;
+    (title: string, details?: any): void;
     (options: LogOptions): void;
 }
 
