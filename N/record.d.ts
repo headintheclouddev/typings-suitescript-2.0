@@ -669,14 +669,69 @@ export type RecordToJSONReturnValue = {
     sublists: {[sublistId: string]: {[lineDescription: string]: {[fieldId: string]: string}}}
 }
 
+/** The severity of a macro notification, such as { label: 'Information', value: 1 }. */
+export interface MacroNotificationSeverity {
+    /** The display label of the severity, such as 'Information', 'Warning', or 'Error'. */
+    label: string;
+    /** The numeric severity. The documented values are 1 (Information), 2 (Warning), and 3 (Error). */
+    value: number;
+}
+
+/** A notification returned from a macro, such as a limit check result or a confirmation that the macro ran. */
+export interface MacroNotification {
+    /** The notification title, such as 'Time is within limits'. */
+    title: string;
+    /** The notification message, such as 'All time records meet their respective rules'. */
+    message: string;
+    /** The severity of the notification. Not every macro includes it (autoAssignLocations, for example, returns only a title and message). */
+    severity?: MacroNotificationSeverity;
+}
+
+/**
+ * The plain JavaScript object returned from Record.executeMacro(options) and Macro.execute(options).
+ *
+ * Oracle documents the shape as {notifications: [], response: {}}. The contents of response vary by macro,
+ * so use the TResponse type parameter to describe the response for a specific macro.
+ *
+ * @example
+ *  // Shape returned from the weekly timesheet checkTimeLimits macro, as observed in a NetSuite account.
+ *  interface CheckTimeLimitsResponse {
+ *      result: {
+ *          details: { continueWithErrors: boolean, message: string, severity: MacroNotificationSeverity },
+ *          notifications: { list: MacroNotification[] }
+ *      }
+ *  }
+ *  const limitCheckResult = timesheet.executeMacro<CheckTimeLimitsResponse>({ id: 'checkTimeLimits', params: { action: 'submit' } });
+ *  const canContinue = limitCheckResult.response.result.details.continueWithErrors;
+ */
+export interface MacroExecuteResult<TResponse = { [key: string]: any }> {
+    /** Notifications returned from the macro. This array can be empty, and some macros return their notifications inside response instead. */
+    notifications: MacroNotification[];
+    /** The macro-specific response data. For example, autoAssignLocations returns { assignedLines: number[] } and copyFromWeek returns {}. */
+    response: TResponse;
+    /** Returned by some macros (such as autoAssignLocations) in place of notifications and response when the macro fails. */
+    error?: string;
+}
+
+interface ExecuteMacroOptions {
+    /** The macro ID, such as 'calculateTax' or 'checkTimeLimits'. Use Record.getMacros() to see the macros available for a record type. */
+    id: string;
+    /** The macro arguments. */
+    params?: object;
+}
+
 interface ExecuteMacroFunction {
-  (options: { id: string, params: Object }): Object;
-  promise(options: { id: string, params: Object }): Promise<Object>
+    /** Performs a macro operation and returns its result in a plain JavaScript object. */
+    <TResponse = { [key: string]: any }>(options: ExecuteMacroOptions): MacroExecuteResult<TResponse>;
+    /** Asynchronously performs a macro operation and returns its result in a plain JavaScript object. */
+    promise<TResponse = { [key: string]: any }>(options: ExecuteMacroOptions): Promise<MacroExecuteResult<TResponse>>;
 }
 
 interface MacroExecuteFunction {
-    (options?: { params?: Object }): { notifications: any[], response: Object };
-    promise(options?: { params?: Object }): Promise<{ notifications: any[], response: Object }>;
+    /** Executes the macro and returns its result in a plain JavaScript object. */
+    <TResponse = { [key: string]: any }>(options?: { params?: object }): MacroExecuteResult<TResponse>;
+    /** Asynchronously executes the macro and returns its result in a plain JavaScript object. */
+    promise<TResponse = { [key: string]: any }>(options?: { params?: object }): Promise<MacroExecuteResult<TResponse>>;
 }
 
 interface Macro {
