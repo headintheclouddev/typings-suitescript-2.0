@@ -1,19 +1,62 @@
+/**
+ * Use the N/transaction module to void transactions. When you void a transaction, the total and all the line items for the transaction are set to zero.
+ * The transaction is not removed from the system.
+ * The type of void performed (direct void or void by reversing journal) depends on the account's Using Reversing Journals preference.
+ * Supported script types: Client and server scripts.
+ */
+
+import type {Type as RecordType} from './record';
 
 interface VoidOptions {
-    id: number|string;
-    type: string|Type;
+    /** Internal ID of the specific transaction record instance to void. */
+    id: number | string;
+    /** The type of transaction record to void. Use the transaction.Type enum. */
+    type: Type | RecordType | string;
 }
 
 interface TransactionVoidFunction {
+    /**
+     * Voids a transaction record.
+     * @returns The ID of the voided record for a direct void, or the ID of the newly created voiding journal for a void by reversing journal.
+     * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+     * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+     * @governance 10 units
+     * @since 2015.2
+     */
     (options: VoidOptions): number;
+    /**
+     * Voids a transaction record asynchronously. The parameters and errors are the same as those for transaction.void(options).
+     * @returns A promise for the ID of the voided record (direct void) or of the newly created voiding journal (void by reversing journal).
+     * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+     * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: VoidOptions): Promise<number>;
 }
 
+/**
+ * Voids a transaction record. After you successfully void a transaction, you can no longer make changes to the transaction that impact the general ledger.
+ * For transaction types that use direct void, the Void Transactions Using Reversing Journals preference must be disabled to avoid an error.
+ *
+ * @returns The ID of the voided record for a direct void, or the ID of the newly created voiding journal for a void by reversing journal.
+ * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+ * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+ * @governance 10 units
+ * @since 2015.2
+ */
 declare const voidFunc: TransactionVoidFunction;
 export {voidFunc as void};
 
-/** N/transaction.Type enum */
-export enum Type { // As of 6 June 2025
+/**
+ * N/transaction.Type enum. Holds the string values for supported transaction record types.
+ * Used for the options.type parameter of transaction.void(options). Not every type supports voiding; see the "transaction.Type" Help Center topic.
+ * @since 2015.2
+ */
+export enum Type { // Matches Oracle's transaction.Type values as of 2026.2
     ASSEMBLY_BUILD = 'assemblybuild',
     ASSEMBLY_UNBUILD = 'assemblyunbuild',
     BIN_TRANSFER = 'bintransfer',

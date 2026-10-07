@@ -1,64 +1,230 @@
-/** The N/format/i18n module has methods that allows for formatting of strings in international context and for formatting of numbers to currency or number strings. */
+/**
+ * The N/format/i18n module has methods that allows for formatting of strings in international context and for formatting of numbers to currency or number strings.
+ *
+ * Supported script types: Client and server scripts.
+ */
 
-/** The object that formats the number to currency string */
+/**
+ * The object that formats the number to currency string. Use format.getCurrencyFormatter(options) to create this object.
+ * @since 2019.2
+ */
 interface CurrencyFormatter {
-  /** Describes the currency code. */
+  /**
+   * Describes the currency code.
+   * @since 2019.2
+   */
   readonly currency: string;
-  /** Describes the symbol of the currency code. */
+  /**
+   * The locale of the currency formatter.
+   * @since 2021.1
+   */
+  readonly locale: string;
+  /**
+   * Describes the symbol of the currency code.
+   * @since 2019.2
+   */
   readonly symbol: string;
-  /** Contains the format.NumberFormatter object derived from format.CurrencyFormatter with the same number formatting parameters without currency symbol. */
-  readonly numberFormatter: string;
-  /** Formats the number to the currency string. Costs 10 governance units. */
-  format(options: { number: number }): string;
+  /**
+   * Contains the format.NumberFormatter object derived from format.CurrencyFormatter with the same number formatting parameters without currency symbol.
+   * Note: Oracle's property page lists the type as string, but its description says it is a format.NumberFormatter object.
+   * @since 2019.2
+   */
+  readonly numberFormatter: NumberFormatter;
+  /**
+   * Formats the number to the currency string.
+   * @returns The formatted currency string.
+   * @governance 10 units
+   * @since 2019.2
+   */
+  format(options: FormatNumberOptions): string;
 }
 
-/** Object that formats number to string. */
+/**
+ * The object that formats number to string. Use format.getNumberFormatter(options) to create this object.
+ * @since 2019.2
+ */
 interface NumberFormatter {
-  /** Indicates the group separator. */
+  /**
+   * Indicates the group separator.
+   * @since 2019.2
+   */
   readonly groupSeparator: string;
-  /** Indicates the decimal separator. */
+  /**
+   * Indicates the decimal separator.
+   * @since 2019.2
+   */
   readonly decimalSeparator: string;
-  /** Indicates the precision. */
+  /**
+   * The locale of the number formatter.
+   * @since 2021.1
+   */
+  readonly locale: string;
+  /**
+   * Indicates the precision.
+   * @since 2019.2
+   */
   readonly precision: number;
-  /** Indicates the negative number format. */
-  negativeNumberFormat: NegativeNumberFormat;
-  /** Formats number to the number string. Costs 10 governance units. */
-  format(options: { number: number }): string;
+  /**
+   * Indicates the negative number format.
+   * Note: Not listed in Oracle's NumberFormatter members; mirrors the format.getNumberFormatter(options) parameter.
+   */
+  readonly negativeNumberFormat: NegativeNumberFormat;
+  /**
+   * Formats number to the number string.
+   * @returns The formatted number string.
+   * @governance 10 units
+   * @since 2019.2
+   */
+  format(options: FormatNumberOptions): string;
 }
 
-/** The object that formats the phone number to string. */
+interface FormatNumberOptions {
+  /** The number to be formatted. */
+  number: number;
+}
+
+/** A phone number object, as returned by PhoneNumberParser.parse(options). */
+interface PhoneNumber {
+  /** The country calling code, for example '1' or '420'. */
+  countryCode: string;
+  /** The phone number extension. */
+  extension: string;
+  /** The national (significant) number. */
+  nationalNumber: string;
+  /** The number of leading zeros. */
+  numberOfLeadingZeros: number;
+  /**
+   * @deprecated Misspelled; not documented by Oracle. Use numberOfLeadingZeros.
+   */
+  numberOfLeadingZeroes?: number;
+  /** The carrier code. */
+  carrierCode: string;
+  /** The raw input string that was parsed. */
+  rawInput: string;
+}
+
+/**
+ * The object that formats the phone number to string. Use format.getPhoneNumberFormatter(options) to create this object.
+ * @since 2020.2
+ */
 interface PhoneNumberFormatter {
-  format(options: { number: string }): string;
+  /**
+   * Formats phone number object to string.
+   * @returns The formatted phone number.
+   * @governance none
+   * @since 2020.2
+   */
+  format(options: {
+    /** The phone number to be formatted, as returned by PhoneNumberParser.parse(options). */
+    number: PhoneNumber;
+  }): string;
 }
 
-/** The object that parses the string with the phone number to an object. */
+/**
+ * The object that parses the string with the phone number to an object. Use format.getPhoneNumberParser(options) to create this object.
+ * @since 2020.2
+ */
 interface PhoneNumberParser {
-  parse(options: { number: string }): { countryCode: string, extension: string, nationalNumber: string, numberOfLeadingZeroes: number, carrierCode: string, rawInput: string };
+  /**
+   * Parses the string containing the phone number and returns the phone number object.
+   * If the input string does not contain the country code, the defaultCountry given to format.getPhoneNumberParser(options) is used.
+   * @returns The phone number object.
+   * @governance none
+   * @since 2020.2
+   */
+  parse(options: {
+    /** The string to be parsed. */
+    number: string;
+  }): PhoneNumber;
 }
 
-/** Spells out positive and negative number as a string in a specific language. For more information, see Codes for the Representation of Names of Languages. */
+/**
+ * Spells out positive and negative number as a string in a specific language. For more information, see Codes for the Representation of Names of Languages.
+ * @returns The number spelled out as a string.
+ * @governance none
+ * @since 2019.1
+ */
 export function spellOut(options: SpellOutOptions): string;
 
-/** Create format.CurrencyFormatter object to format numbers into currency strings. Costs 10 governance units. */
+/**
+ * Creates a format.CurrencyFormatter object to format numbers into currency strings.
+ * options.currency and options.locale are mutually exclusive; specify only one of them.
+ * @returns The currency formatter.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getCurrencyFormatter(options: GetCurrencyFormatterOptions): CurrencyFormatter;
 
-/** Create format.NumberFormatter object to format numbers into strings. Costs 10 governance units. */
+/**
+ * Creates a format.NumberFormatter object to format numbers into strings.
+ * If no options are given, the default number formatter object is returned.
+ * @returns The number formatter.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getNumberFormatter(options?: GetNumberFormatterOptions): NumberFormatter;
 
-export function getPhoneNumberFormatter(options: { formatType: PhoneNumberFormatType }): PhoneNumberFormatter;
+/**
+ * Creates a format.PhoneNumberFormatter object to format phone numbers to strings.
+ * If no format type is given, the default formatter is returned (international format, for example '+420 602 547 854 ext. 154').
+ * Note: Oracle's parameter table marks options.formatType as required, but Oracle's own samples call
+ * getPhoneNumberFormatter() and getPhoneNumberFormatter({}), so options and formatType are typed as optional.
+ * Note: Oracle's Since row says 2019.2; the formatType parameter is listed as 2020.2.
+ * @returns The phone number formatter.
+ * @throws {SuiteScriptError} SSS_INVALID_FORMAT_TYPE if an invalid value is specified for the formatType option.
+ * @governance 10 units
+ * @since 2019.2
+ */
+export function getPhoneNumberFormatter(options?: {
+  /** Phone number format type. Use the format.PhoneNumberFormatType enum to set this value. */
+  formatType?: PhoneNumberFormatType;
+}): PhoneNumberFormatter;
 
-export function getPhoneNumberParser(options: { defaultCountry: Country }): PhoneNumberParser;
+/**
+ * Creates a format.PhoneNumberParser object to parse phone numbers from strings.
+ * Note: Oracle's Since row says 2019.2; the defaultCountry parameter is listed as 2020.2.
+ * @returns The phone number parser.
+ * @throws {SuiteScriptError} SSS_INVALID_COUNTRY_ID if an invalid value is specified for the defaultCountry parameter.
+ * @governance 10 units
+ * @since 2019.2
+ */
+export function getPhoneNumberParser(options: {
+  /**
+   * Parser point of reference. Specify this value if the phone number is not in international format.
+   * If a value is not specified, the company country is used.
+   */
+  defaultCountry?: Country;
+}): PhoneNumberParser;
 
-interface GetCurrencyFormatterOptions {
-  /** Code of the currency that is used by formatter. */
-  currency: string;
-}
+/** options.currency and options.locale are mutually exclusive; specify exactly one of them. */
+type GetCurrencyFormatterOptions = {
+  /** Code of the currency that is used by formatter. Use the format.Currency enum to set this value. */
+  currency: Currency | string;
+  locale?: never;
+} | {
+  /**
+   * Code of the locale that is used by formatter, for example 'en_US'.
+   * @since 2021.1
+   */
+  locale: string;
+  currency?: never;
+};
 
 interface GetNumberFormatterOptions {
-  groupSeparator?:       string;
-  decimalSeparator?:     string;
-  precision?:            number;
+  /** Indicates the group separator. */
+  groupSeparator?: string;
+  /** Indicates the decimal separator. */
+  decimalSeparator?: string;
+  /** Indicates the precision. */
+  precision?: number;
+  /** Indicates the negative number format. */
   negativeNumberFormat?: NegativeNumberFormat;
+  /**
+   * Indicates the locale from which default settings are determined.
+   * The other format.getNumberFormatter(options) parameters can override this parameter.
+   * @since 2021.1
+   */
+  locale?: string;
 }
 
 interface SpellOutOptions {
@@ -75,19 +241,38 @@ interface SpellOutOptions {
   locale: string;
 }
 
-export enum Currency { // Note The currency values depend on the company. Examples of currency value include:
+/**
+ * Holds the values for the currency code. Used to set the value of the options.currency parameter of format.getCurrencyFormatter(options).
+ * Note: Currency values depend on the company.
+ * @since 2019.1
+ */
+export enum Currency {
   USD,
   CAD,
   EUR,
   GBP,
-  JPY
+  JPY,
+  AED,
+  CZK,
+  EEK,
+  IDR,
+  INR,
+  UYU
 }
 
+/**
+ * Holds the values for the negative number format. Used to set the options.negativeNumberFormat parameter of format.getNumberFormatter(options).
+ * @since 2019.2
+ */
 export enum NegativeNumberFormat {
   BRACKETS,
   MINUS
 }
 
+/**
+ * Holds the values for the phone number format type. Used to set the options.formatType parameter of format.getPhoneNumberFormatter(options).
+ * @since 2020.2
+ */
 export enum PhoneNumberFormatType {
   E164,
   INTERNATIONAL,
@@ -95,7 +280,14 @@ export enum PhoneNumberFormatType {
   RFC3966
 }
 
-export enum Country { // As of 17 August 2020
+/**
+ * Holds the values for the countries. Used to set the options.defaultCountry parameter of format.getPhoneNumberParser(options).
+ * Note: Oracle's values table spells several keys differently (AMERICAN_SOMOA, BOSIA_AND_HERZEGOVINA, GIBRALTER, NORFOLKISAND,
+ * SAINT_VICENT_AND_THE_GRENADINES, SENGAL). Which spelling exists at runtime cannot be verified from the docs, so only the
+ * correctly spelled keys are declared.
+ * @since 2020.2
+ */
+export enum Country {
   AFGHANISTAN,
   ALAND_ISLANDS,
   ALBANIA,
@@ -156,6 +348,8 @@ export enum Country { // As of 17 August 2020
   CYPRUS,
   CZECH_REPUBLIC,
   DENMARK,
+  /** Listed in Oracle's format.Country values table. */
+  DEMOCRATIC_REPUBLIC_OF_CONGO,
   DJIBOUTI,
   DOMINICA,
   DOMINICAN_REPUBLIC,
@@ -253,6 +447,8 @@ export enum Country { // As of 17 August 2020
   NAURU,
   NEPAL,
   NETHERLANDS,
+  /** Listed in Oracle's format.Country values table. */
+  NETHERLANDS_ANTILLES,
   NEWCALEDONIA,
   NEWZEALAND,
   NICARAGUA,
@@ -345,5 +541,7 @@ export enum Country { // As of 17 August 2020
   WESTERN_SAHARA,
   YEMEN,
   ZAMBIA,
-  ZIMBABWE
+  ZIMBABWE,
+  COTE_DIVOIRE,
+  SERBIA_AND_MONTENEGRO
 }

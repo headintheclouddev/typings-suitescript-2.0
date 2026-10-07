@@ -18,7 +18,16 @@
  * Applies to transaction lines that are credit lines (quantity less than 0), are of type
  * Non-Inventory, Service, or Other Charge, use items designated for Purchase or Resale, and use
  * items whose cost category is not of type Outsourcing Charge, Landed, or Service.
+ *
+ * Supported script types: Server scripts.
  * @governance none
+ * @throws {SuiteScriptError} INVALID_NUMBER_MUST_BE_GREATER_THAN_1 if options.transactionId or options.transactionLineIds is not a positive integer.
+ * @throws {SuiteScriptError} FEATURE_1_MUST_BE_ENABLED_TO_USE_2_API if the Assembly Items feature is not enabled.
+ * @throws {SuiteScriptError} PREFERENCE_1_REQUIRED_FOR_THIS_OPERATION if the "Allow bulk cost updates for Production Charges" preference is not enabled.
+ * @throws {SuiteScriptError} ACCESS_DENIED if the user lacks at least Edit permission on the relevant transactions.
+ * @throws {SuiteScriptError} TRANSACTION_1_IS_INVALID_OR_HAS_NO_EDITABLE_TRANSACTION_LINES if the transaction does not exist or has no lines editable through this API.
+ * @throws {SuiteScriptError} PROVIDED_TRANSACTION_LINES_ARE_NOT_EDITABLE_OR_INVALID_1 if any provided transaction line does not exist or cannot be edited through this API.
+ * @since 2026.1
  */
 export function updateChargesToCustomUnitCost(options: {
     /** ID of transaction to be updated. */
@@ -40,7 +49,16 @@ export function updateChargesToCustomUnitCost(options: {
  * Updates cost on specific transaction lines according to the current purchase price of the originating item.
  *
  * Applies to the same transaction line criteria as updateChargesToCustomUnitCost.
+ *
+ * Supported script types: Server scripts.
  * @governance none
+ * @throws {SuiteScriptError} INVALID_NUMBER_MUST_BE_GREATER_THAN_1 if options.transactionId or options.transactionLineIds is not a positive integer.
+ * @throws {SuiteScriptError} FEATURE_1_MUST_BE_ENABLED_TO_USE_2_API if the Assembly Items feature is not enabled.
+ * @throws {SuiteScriptError} PREFERENCE_1_REQUIRED_FOR_THIS_OPERATION if the "Allow bulk cost updates for Production Charges" preference is not enabled.
+ * @throws {SuiteScriptError} ACCESS_DENIED if the user lacks at least Edit permission on the relevant transactions.
+ * @throws {SuiteScriptError} TRANSACTION_1_IS_INVALID_OR_HAS_NO_EDITABLE_TRANSACTION_LINES if the transaction does not exist or has no lines editable through this API.
+ * @throws {SuiteScriptError} PROVIDED_TRANSACTION_LINES_ARE_NOT_EDITABLE_OR_INVALID_1 if any provided transaction line does not exist or cannot be edited through this API.
+ * @since 2026.1
  */
 export function updateChargesToItemPurchasePrice(options: {
     /** ID of transaction to be updated. */
@@ -51,7 +69,15 @@ export function updateChargesToItemPurchasePrice(options: {
 
 /**
  * Updates cost on all routing and non-inventory transaction lines on a specified transaction to the current price.
+ *
+ * Supported script types: Server scripts.
  * @governance none
+ * @throws {SuiteScriptError} INVALID_NUMBER_MUST_BE_GREATER_THAN_1 if options.transactionId or options.transactionLineIds is not a positive integer.
+ * @throws {SuiteScriptError} FEATURE_1_MUST_BE_ENABLED_TO_USE_2_API if the Assembly Items feature is not enabled.
+ * @throws {SuiteScriptError} PREFERENCE_1_REQUIRED_FOR_THIS_OPERATION if the "Allow bulk cost updates for Production Charges" preference is not enabled.
+ * @throws {SuiteScriptError} ACCESS_DENIED if the user lacks at least Edit permission on the relevant transactions.
+ * @throws {SuiteScriptError} TRANSACTION_1_IS_INVALID_OR_HAS_NO_EDITABLE_TRANSACTION_LINES if the transaction does not exist or has no lines editable through this API.
+ * @since 2026.1
  */
 export function updateAllChargesToItemPurchasePrice(options: {
     /** ID of transaction to be updated. */

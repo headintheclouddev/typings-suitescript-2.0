@@ -11,7 +11,7 @@ interface pluginConfiguration {
 
     /**
      * This is an object function of pluginConfiguration that allows the plug-in to retrieve a named
-     * configuration value. For all Financial Institution Connectivity Plug-ins that you develop, the
+     * configuration value. For all Financial Institution Parser Plug-ins that you develop, the
      * configuration_id value is available. This is a unique identifier at the format profile level.
      * It can be used to refer to a format profile, even if the record is not created
      */
@@ -23,17 +23,21 @@ interface createNewTransactionOptions {
     /** The date of the transaction. NetSuite currently accepts the ISO 8601 extended local date format */
     date: string;
 
-    /** The amount of the transactio */
+    /** The amount of the transaction */
     amount: number;
 
     /**
+     * Required for bank reconciliation.
      * The raw bank transaction code used to map to a valid bank data type in NetSuite.
      * You can set a transaction code from the Code Type Mapping subtab on the Format Profile page,
      * or via SuiteScript using the getStandardTransactionCodes(context) interface function
      */
     transactionTypeCode?: string;
 
-    /** The unique identifier of a transaction, which is used to detect duplicate imports */
+    /**
+     * The unique identifier of a transaction, which is used to detect duplicate transactions. The uniqueId
+     * automatically prevents a transaction from getting imported into NetSuite as a duplicate.
+     */
     uniqueId?: string;
 
     /** The transaction number. For example, a cash sale transaction could have a transaction number of CS0001 */
@@ -45,7 +49,7 @@ interface createNewTransactionOptions {
     /** One of the standard currency codes to which the user has access */
     currency?: string;
 
-    /** The memo of the transactiont */
+    /** The memo of the transaction */
     memo?: string;
 
     /** The status of the transaction */
@@ -54,13 +58,13 @@ interface createNewTransactionOptions {
     /** The customer ID for the transaction */
     customerReferenceId?: string;
 
-    /** The customer name for the transactiont */
+    /** The customer name for the transaction */
     customerName?: string;
 
     /** The list of invoice reference numbers for the transaction */
     invoiceReferenceIds?: string[];
 
-    /** The amount of the billed tax in the account's billing currency */
+    /** The amount of the billed tax in the account's billing currency. Required for employee expenses. */
     billedTaxAmount?: number;
 
     /** The transaction amount in local currency */
@@ -81,18 +85,27 @@ interface createNewTransactionOptions {
      * or via SuiteScript using the getExpenseCodes(context) interface function
      */
     expenseCode?: string;
+
+    /**
+     * A map of additional key-value pairs that can be passed to the backend in the format "name" -> "value".
+     * Plug-in authors can include a category field (for example, category: 'Automotive Expenses') if a transaction
+     * category is supplied by the financial institution as part of the transaction data.
+     * @since 2021.2
+     */
+    additionalFields?: Record<string, string>;
 }
 
 interface createAccountDataOptions {
 
     /**
+     * Required for bank reconciliation.
      * The raw ID of the external account, which is used to link to a valid account in NetSuite via the
      * Format Profile or Upload File page
      */
     accountId?: string;
 
     /**
-     * The NetSuite employee ID, if provided To link corporate card expense accounts to employee accounts,
+     * The NetSuite employee ID, if provided. To link corporate card expense accounts to employee accounts,
      * the employee ID or cardholder name must be provided.
      */
     employeeId?: string;
@@ -127,32 +140,51 @@ interface createAccountDataOptions {
     /** The amount of money in the account at the start of an accounting period */
     openingBalance?: number;
 
-    /** The amount of money left in the account at the end of an accounting perio */
+    /** The amount of money left in the account at the end of an accounting period */
     closingBalance?: number;
 
-    /** The current amount of money in the accoun */
+    /** The current amount of money in the account */
     currentBalance?: number;
 
     /** The amount of money owed on an account */
     dueBalance?: number;
 }
 
+/** The context for an account for which transactions may be created */
 interface accountData {
 
     /** Add a new imported transaction to the account data set */
     createNewTransaction: (options: createNewTransactionOptions) => void;
 }
 
+interface addErrorOptions {
+
+    /** Standardized parser error code (see Bank Import Error Codes (Reference)) */
+    errorCode: string;
+
+    /** The line number of the input data where the error occurred */
+    lineNumber?: number | string;
+
+    /** The character offset within the line where the error occurred */
+    characterOffset?: number | string;
+}
+
 export interface parseDataContext {
 
-    /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
-    /** Access the input data to be parsed */
-    inputData: File
+    /**
+     * Access the input data to be parsed. This is a file object that contains the bank statement content.
+     * You can use the file API (for example, File.lines.iterator()) to stream large files.
+     */
+    inputData: File;
 
     /** Create a new account data set */
     createAccountData: (options: createAccountDataOptions) => accountData;
+
+    /** Adds a parser error, using a standardized parser error code */
+    addError: (options: addErrorOptions) => void;
 }
 
 /** Transform a data file into account and transaction data */
@@ -219,7 +251,7 @@ export interface getStandardTransactionCodesContext {
  * Mapping subtab displays a grid where you can provide custom transaction codes and map them to corresponding bank
  * data types in NetSuite
  */
-export type  getStandardTransactionCodes = (options: getStandardTransactionCodesContext) => void;
+export type getStandardTransactionCodes = (options: getStandardTransactionCodesContext) => void;
 
 interface createNewExpenseCodeOptions {
 
@@ -242,11 +274,11 @@ export interface getExpenseCodesContext {
  * values returned by getExpenseCodes(). This subtab enables you to map expense codes to expense categories to
  * automatically populate expense categories in expense reports
  */
-export type  getExpenseCodes = (options: getExpenseCodesContext) => void;
+export type getExpenseCodes = (options: getExpenseCodesContext) => void;
 
 export interface getConfigurationPageUrlContext {
 
-    /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
     /** Set the URL to use for parser configuration */
@@ -255,6 +287,6 @@ export interface getConfigurationPageUrlContext {
 
 /**
  * Access the user interface for configuring the plug-in. For most plug-in authors, this is a URL to a Suitelet.
- * This URL appears on the Parser Configuration subtab on a format profile recor
+ * This URL appears on the Parser Configuration subtab on a format profile record
  */
 export type getConfigurationPageUrl = (options: getConfigurationPageUrlContext) => void;

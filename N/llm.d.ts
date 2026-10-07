@@ -5,13 +5,27 @@
  * Methods in this module that send requests to an LLM consume NetSuite AI Units.
  * Use llm.getRemainingUsage() to check the number of AI Units remaining.
  * For more information, see NetSuite AI Units and NetSuite Features and AI Units FAQ in the NetSuite Help Center.
+ *
+ * Supported script types: Server scripts (SuiteScript 2.1).
  */
 
 import type {File} from './file';
 
-/** The chat message object returned by the llm.createChatMessage(options) method. */
+/**
+ * The chat message object returned by the llm.createChatMessage(options) method.
+ * @since 2024.1
+ */
 interface ChatMessage {
+    /**
+     * Text of the chat message. This text can be either the prompt sent by the script or the response returned by the LLM.
+     * @since 2024.1
+     */
     text: string;
+    /**
+     * The author (role) of the chat message.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2024.1
+     */
     readonly role: ChatRole;
 }
 
@@ -25,29 +39,80 @@ interface ChatMessage {
  * Citation objects are included in the llm.Response object that is returned from llm.generateText(options) or llm.generateText.promise(options), if applicable, through the Response.citations property.
  * You can use the citation object to identify the documents that the LLM used for its response, as well as where the cited text appears in the response.
  * The object includes properties that specify the documents used (Citation.documentIds), the start and end points of the cited text (Citation.start and Citation.end), and the content itself (Citation.text).
+ * @since 2025.1
  */
 interface Citation {
+    /**
+     * The IDs of the documents where the cited text is located.
+     * @since 2025.1
+     */
     documentIds: string[];
+    /**
+     * The ending position of the cited text.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly end: number;
+    /**
+     * The starting position of the cited text.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly start: number;
+    /**
+     * The cited text from the documents.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly text: string;
 }
 
-/** The response returned from LLM. Use the llm.generateText(options) or the llm.generateText.promise(options) method to retrieve a response from the LLM. */
+/**
+ * The response returned from LLM. Use the llm.generateText(options) or the llm.generateText.promise(options) method to retrieve a response from the LLM.
+ * @since 2024.1
+ */
 interface Response {
-    /** List of chat messages. */
+    /**
+     * List of chat messages.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2024.1
+     */
     readonly chatHistory: ChatMessage[];
-    /** List of citations used to generate the response. */
+    /**
+     * List of citations used to generate the response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly citations: Citation[];
-    /** List of documents used to generate the response. */
+    /**
+     * List of documents used to generate the response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly documents: Document[];
-    /** Model used to produce the LLM response. */
+    /**
+     * Model used to produce the LLM response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2024.1
+     */
     readonly model: string;
-    /** Text returned by the LLM. */
+    /**
+     * Text returned by the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2024.1
+     */
     readonly text: string;
-    /** Tool calls requested by the LLM. @since 2025.2 */
+    /**
+     * Tool calls requested by the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly toolCalls: ToolCall[];
-    /** Token usage for a request to the LLM. @since 2025.2 */
+    /**
+     * Token usage for a request to the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly usage: Usage;
 }
 
@@ -57,19 +122,44 @@ interface Response {
  *
  * You can access the partial response (using the StreamedResponse.text property) before the entire response has been generated, as well as StreamedResponse.model.
  * Other properties (such as StreamedResponse.documents and StreamedResponse.citations) are accessible only after the entire response has been generated.
+ * @since 2025.1
  */
 interface StreamedResponse {
-    /** List of chat messages. */
+    /**
+     * List of chat messages.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly chatHistory: ChatMessage[];
-    /** List of citations used to generate the streamed response. */
+    /**
+     * List of citations used to generate the streamed response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly citations: Citation[];
-    /** List of documents used to generate the streamed response. */
+    /**
+     * List of documents used to generate the streamed response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly documents: Document[];
-    /** Model used to produce the streamed response. */
+    /**
+     * Model used to produce the streamed response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly model: string;
-    /** Text returned by the LLM. While streaming, this contains the partial response received so far. */
+    /**
+     * Text returned by the LLM. While streaming, this contains the partial response received so far.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly text: string;
-    /** Tool calls requested by the LLM. @since 2025.2 */
+    /**
+     * Tool calls requested by the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly toolCalls: ToolCall[];
     /**
      * Returns an iterator that lets you examine each token returned by the LLM as it is generated.
@@ -102,11 +192,23 @@ interface StreamedResponseIterator {
  * @since 2025.2
  */
 interface Tool {
-    /** The description of the tool. Helps the LLM understand when to request the tool. */
+    /**
+     * The description of the tool. Helps the LLM understand when to request the tool.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly description: string;
-    /** The name of the tool. Used when the LLM refers to this tool in tool call requests. */
+    /**
+     * The name of the tool. Used when the LLM refers to this tool in tool call requests.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly name: string;
-    /** The parameters of the tool. */
+    /**
+     * The parameters of the tool.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly parameters: ToolParameter[];
 }
 
@@ -120,7 +222,11 @@ interface Tool {
  * @since 2025.2
  */
 interface ToolCall {
-    /** The name of the requested tool. */
+    /**
+     * The name of the requested tool.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly name: string;
     /**
      * The parameters of the requested tool as key-value pairs for each input parameter required by the tool, as specified in the tool definition.
@@ -128,8 +234,10 @@ interface ToolCall {
      * Note: The N/llm Module Members table lists this property's type as llm.ToolParameter[], but the llm.ToolCall object description and the
      * examples in "Tooling in the N/llm Module" show a plain object of key-value pairs (e.g. TOOL_HANDLERS[call.name](call.parameters) where
      * the handler reads options.userName).
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
      */
-    readonly parameters: { [name: string]: any };
+    readonly parameters: Record<string, any>;
 }
 
 /**
@@ -139,11 +247,23 @@ interface ToolCall {
  * @since 2025.2
  */
 interface ToolParameter {
-    /** The description of the tool parameter. Helps the LLM prompt for and fill in the value correctly. */
+    /**
+     * The description of the tool parameter. Helps the LLM prompt for and fill in the value correctly.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly description: string;
-    /** The name of the tool parameter. Used when the LLM refers to this specific input in tool call requests. */
+    /**
+     * The name of the tool parameter. Used when the LLM refers to this specific input in tool call requests.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly name: string;
-    /** The type of the tool parameter. Values are from the llm.ToolParameterType enum. */
+    /**
+     * The type of the tool parameter. Values are from the llm.ToolParameterType enum.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly type: string;
 }
 
@@ -155,19 +275,42 @@ interface ToolParameter {
  * @since 2025.2
  */
 interface ToolResult {
-    /** The originating tool call request from the LLM. */
+    /**
+     * The originating tool call request from the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly call: ToolCall;
-    /** The outputs from running the tool specified in the tool call request. */
+    /**
+     * The outputs from running the tool specified in the tool call request.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.2
+     */
     readonly outputs: object[];
 }
 
-/** Token usage for a request to the LLM. Returned through the Response.usage property. @since 2025.2 */
+/**
+ * Token usage for a request to the LLM. Returned through the Response.usage property.
+ * @since 2025.1
+ */
 interface Usage {
-    /** The number of tokens in the response from the LLM. */
+    /**
+     * The number of tokens in the response from the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly completionTokens: number;
-    /** The number of tokens in the request to the LLM. */
+    /**
+     * The number of tokens in the request to the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly promptTokens: number;
-    /** The total number of tokens for the entire request to the LLM. */
+    /**
+     * The total number of tokens for the entire request to the LLM.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly totalTokens: number;
 }
 
@@ -175,8 +318,15 @@ interface Usage {
  * Creates a chat message based on a specified role and text.
  * Chat messages can be used in the chatHistory parameter of the llm.generateText(options) method.
  * Supported roles are defined by the llm.ChatRole enum.
+ * @governance none
+ * @since 2024.1
  */
-export function createChatMessage(options: { role: string, text: string }): ChatMessage;
+export function createChatMessage(options: {
+    /** Author of the message (as a role). Use llm.ChatRole to set the value. */
+    role: ChatRole | string,
+    /** Text of the chat message. */
+    text: string,
+}): ChatMessage;
 
 /**
  * Creates a document with the specified ID and content.
@@ -187,6 +337,8 @@ export function createChatMessage(options: { role: string, text: string }): Chat
  *
  * You do not need to use this method to create a document before providing the document to llm.generateText(options) or llm.generateText.promise(options).
  * You can also provide a plain JavaScript object that uses the id and data properties.
+ * @governance none
+ * @since 2025.1
  */
 export function createDocument(options: { data: string, id: string }): Document;
 
@@ -246,8 +398,18 @@ export function createToolResult(options: {
  * You can use embeddings to compare the similarity of a set of inputs, which is useful for finding similar items based on item attributes,
  * implementing semantic search, and applying text classification or text clustering.
  *
+ * Embeddings include the semantic information of the original data; protect, store, log, and delete them according to the same rules as the original data.
+ *
  * This method consumes AI Units.
- * @governance 50
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.inputs is not provided.
+ * @throws {SuiteScriptError} INVALID_MODEL_FAMILY_VALUE if options.embedModelFamily is not included in the llm.EmbedModelFamily enum.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if the number of parallel requests to the LLM is greater than 5.
+ * @throws {SuiteScriptError} NO_INPUTS_TO_EMBED if options.inputs has a length of 0.
+ * @throws {SuiteScriptError} CAN_EMBED_1_INPUTS_AT_MAXIMUM if options.inputs has a length greater than 96.
+ * @throws {SuiteScriptError} INVALID_TRUNCATION_METHOD if options.truncate is not included in the llm.Truncate enum.
+ * @throws {SuiteScriptError} UNSUPPORTED_NUMBER_OF_TOKENS if too many tokens were provided as embeddings input.
+ * @governance 50 units
+ * @since 2025.1
  */
 export const embed: IEmbedFunction;
 
@@ -259,31 +421,79 @@ export const embed: IEmbedFunction;
  * For more information about Prompt Studio, see Prompt Studio.
  *
  * This method consumes AI Units.
- * @governance 100
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.id is missing.
+ * @throws {SuiteScriptError} INVALID_ID_PREFIX if the prefix of options.id is not custprompt.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if the number of parallel requests to the LLM is greater than 5.
+ * @throws {SuiteScriptError} TEMPLATE_PROCESSING_EXCEPTION if the template for the prompt contains errors and cannot be processed (for example, required variables are missing from options.variables).
+ * @governance 100 units
+ * @since 2025.1
  */
 export const evaluatePrompt: IEvaluatePromptFunction;
 
-/** Alias for llm.evaluatePrompt(options). Uses the same parameters and can throw the same errors. */
+/**
+ * Alias for llm.evaluatePrompt(options). Uses the same parameters and can throw the same errors.
+ * @governance 100 units
+ * @since 2025.1
+ */
 export const executePrompt: IEvaluatePromptFunction;
 
 /**
  * Takes the ID of an existing prompt and values for variables used in the prompt and returns the streamed response from the LLM.
  * This method consumes AI Units.
- * @governance 100
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.id is missing.
+ * @throws {SuiteScriptError} INVALID_ID_PREFIX if the prefix of options.id is not custprompt.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if the number of parallel requests to the LLM is greater than 5.
+ * @throws {SuiteScriptError} TEMPLATE_PROCESSING_EXCEPTION if the template for the prompt contains errors and cannot be processed (for example, required variables are missing from options.variables).
+ * @governance 100 units
+ * @since 2025.1
  */
 export const evaluatePromptStreamed: IEvaluatePromptStreamedFunction;
 
-/** Alias for llm.evaluatePromptStreamed(options). Uses the same parameters and can throw the same errors. */
+/**
+ * Alias for llm.evaluatePromptStreamed(options). Uses the same parameters and can throw the same errors.
+ * @governance 100 units
+ * @since 2025.1
+ */
 export const executePromptStreamed: IEvaluatePromptStreamedFunction;
 
 /**
  * Takes a prompt and parameters for the LLM and returns the response from the LLM.
  * This method consumes AI Units.
- * @governance 100
+ * @throws {SuiteScriptError} COHERE_VISION_DOES_NOT_SUPPORT_TOOLING if options.tools or options.toolResults is used with the COHERE_COMMAND_VISION or COHERE_COMMAND_VISION_LATEST model.
+ * @throws {SuiteScriptError} DOCUMENT_IDS_MUST_BE_UNIQUE if documents provided using options.documents have duplicate IDs.
+ * @throws {SuiteScriptError} DUPLICATE_PARAMETER_NAME if the options object includes duplicate parameter names.
+ * @throws {SuiteScriptError} DUPLICATE_TOOL_NAME if options.tools includes duplicate tool names.
+ * @throws {SuiteScriptError} DUPLICATE_TOOL_RESULT if options.toolResults includes duplicate tool results.
+ * @throws {SuiteScriptError} INAPPROPRIATE_CONTENT_DETECTED if the response from the LLM included sensitive or inappropriate content that is restricted by the safety mode.
+ * @throws {SuiteScriptError} INVALID_FREQUENCY_PENALTY_VALUE if options.modelParameters.frequencyPenalty is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_IMAGE if options.image references an invalid image.
+ * @throws {SuiteScriptError} INVALID_MAX_TOKENS_VALUE if options.modelParameters.maxTokens is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_MODEL_FAMILY_VALUE if options.modelFamily is not set to a valid option.
+ * @throws {SuiteScriptError} INVALID_PRESENCE_PENALTY_VALUE if options.modelParameters.presencePenalty is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_REASONING_EFFORT if options.modelParameters.reasoningEffort is not a valid llm.ReasoningEffort value.
+ * @throws {SuiteScriptError} INVALID_TEMPERATURE_VALUE if options.modelParameters.temperature is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_TOP_K_VALUE if options.modelParameters.topK is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_TOP_P_VALUE if options.modelParameters.topP is incorrect for the model.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if the number of parallel requests to the LLM is greater than 5.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_DOCUMENTS if options.documents is provided but the model does not support RAG.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_IMAGE if options.image is provided but the model does not support image processing.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_SAFETY_MODE if options.safetyMode is provided but the model does not support safety mode.
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both presencePenalty and frequencyPenalty are used with COHERE_COMMAND or COHERE_COMMAND_LATEST, or if options.responseFormat is used with options.documents, options.tools, or options.toolResults.
+ * @throws {SuiteScriptError} REASONING_EFFORT_PARAMETER_NOT_AVAILABLE if options.modelParameters.reasoningEffort is provided but the model does not support reasoning effort.
+ * @throws {SuiteScriptError} RESPONSE_FORMAT_HAS_INVALID_JSON_SCHEMA if options.responseFormat does not represent a valid JSON schema.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.prompt is missing.
+ * @throws {SuiteScriptError} UNRECOGNIZED_MODEL_PARAMETERS if one or more unrecognized model parameters are used.
+ * @throws {SuiteScriptError} UNSUPPORTED_SAFETY_MODE if options.safetyMode is not a valid llm.SafetyMode value.
+ * @governance 100 units
+ * @since 2024.1
  */
 export const generateText: GenerateTextFunction;
 
-/** Alias for llm.generateText(options). Uses the same parameters and can throw the same errors. */
+/**
+ * Alias for llm.generateText(options). Uses the same parameters and can throw the same errors.
+ * @governance 100 units
+ * @since 2024.1
+ */
 export const chat: GenerateTextFunction;
 
 /**
@@ -294,11 +504,41 @@ export const chat: GenerateTextFunction;
  * You can also use an iterator to examine each token returned by the LLM.
  *
  * This method consumes AI Units.
- * @governance 100
+ * @throws {SuiteScriptError} COHERE_VISION_DOES_NOT_SUPPORT_TOOLING if options.tools or options.toolResults is used with the COHERE_COMMAND_VISION or COHERE_COMMAND_VISION_LATEST model.
+ * @throws {SuiteScriptError} DOCUMENT_IDS_MUST_BE_UNIQUE if documents provided using options.documents have duplicate IDs.
+ * @throws {SuiteScriptError} DUPLICATE_PARAMETER_NAME if the options object includes duplicate parameter names.
+ * @throws {SuiteScriptError} DUPLICATE_TOOL_NAME if options.tools includes duplicate tool names.
+ * @throws {SuiteScriptError} DUPLICATE_TOOL_RESULT if options.toolResults includes duplicate tool results.
+ * @throws {SuiteScriptError} INAPPROPRIATE_CONTENT_DETECTED if the response from the LLM included sensitive or inappropriate content that is restricted by the safety mode.
+ * @throws {SuiteScriptError} INVALID_FREQUENCY_PENALTY_VALUE if options.modelParameters.frequencyPenalty is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_IMAGE if options.image references an invalid image.
+ * @throws {SuiteScriptError} INVALID_MAX_TOKENS_VALUE if options.modelParameters.maxTokens is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_MODEL_FAMILY_VALUE if options.modelFamily is not set to a valid option.
+ * @throws {SuiteScriptError} INVALID_PRESENCE_PENALTY_VALUE if options.modelParameters.presencePenalty is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_REASONING_EFFORT if options.modelParameters.reasoningEffort is not a valid llm.ReasoningEffort value.
+ * @throws {SuiteScriptError} INVALID_TEMPERATURE_VALUE if options.modelParameters.temperature is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_TOP_K_VALUE if options.modelParameters.topK is incorrect for the model.
+ * @throws {SuiteScriptError} INVALID_TOP_P_VALUE if options.modelParameters.topP is incorrect for the model.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if the number of parallel requests to the LLM is greater than 5.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_DOCUMENTS if options.documents is provided but the model does not support RAG.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_IMAGE if options.image is provided but the model does not support image processing.
+ * @throws {SuiteScriptError} MODEL_1_DOES_NOT_ACCEPT_SAFETY_MODE if options.safetyMode is provided but the model does not support safety mode.
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both presencePenalty and frequencyPenalty are used with COHERE_COMMAND or COHERE_COMMAND_LATEST, or if options.responseFormat is used with options.documents, options.tools, or options.toolResults.
+ * @throws {SuiteScriptError} REASONING_EFFORT_PARAMETER_NOT_AVAILABLE if options.modelParameters.reasoningEffort is provided but the model does not support reasoning effort.
+ * @throws {SuiteScriptError} RESPONSE_FORMAT_HAS_INVALID_JSON_SCHEMA if options.responseFormat does not represent a valid JSON schema.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.prompt is missing.
+ * @throws {SuiteScriptError} UNRECOGNIZED_MODEL_PARAMETERS if one or more unrecognized model parameters are used.
+ * @throws {SuiteScriptError} UNSUPPORTED_SAFETY_MODE if options.safetyMode is not a valid llm.SafetyMode value.
+ * @governance 100 units
+ * @since 2025.1
  */
 export const generateTextStreamed: GenerateTextStreamedFunction;
 
-/** Alias for llm.generateTextStreamed(options). Uses the same parameters and can throw the same errors. */
+/**
+ * Alias for llm.generateTextStreamed(options). Uses the same parameters and can throw the same errors.
+ * @governance 100 units
+ * @since 2025.1
+ */
 export const chatStreamed: GenerateTextStreamedFunction;
 
 /**
@@ -311,44 +551,78 @@ export const getRemainingUsage: GetRemainingUsageFunction;
 
 /**
  * Returns the number of free requests in the current month.
+ * @governance none
+ * @since 2024.1
  * @deprecated As of 2026.2, use llm.getRemainingUsage() instead. This method remains available for compatibility and calls llm.getRemainingUsage().
  */
 export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 
 /**
  * Returns the number of free embeddings requests in the current month.
+ * @governance none
+ * @since 2025.1
  * @deprecated As of 2026.2, use llm.getRemainingUsage() instead. Embed usage is no longer tracked separately.
  * This method remains available for compatibility and calls llm.getRemainingUsage().
  */
-export const getRemainingFreeEmbedUsage: GetRemainingFreeUsageFunction;
+export const getRemainingFreeEmbedUsage: GetRemainingFreeEmbedUsageFunction;
 
 interface IEmbedFunction {
     (options: IEmbedOptions): EmbedResponse;
+    /**
+     * Asynchronously returns the embeddings from the LLM for a given input. The parameters and errors thrown are the same as those for llm.embed(options).
+     * @governance 50 units
+     * @since 2025.1
+     */
     promise(options: IEmbedOptions): Promise<EmbedResponse>;
 }
 
 interface IEvaluatePromptFunction {
     (options: IEvaluatePromptOptions): Response;
+    /**
+     * Asynchronously returns the response from the LLM for an existing prompt. The parameters and errors thrown are the same as those for llm.evaluatePrompt(options).
+     * @governance 100 units
+     * @since 2025.1
+     */
     promise(options: IEvaluatePromptOptions): Promise<Response>;
 }
 
 interface IEvaluatePromptStreamedFunction {
     (options: IEvaluatePromptOptions): StreamedResponse;
+    /**
+     * Asynchronously returns the streamed response from the LLM for an existing prompt. The parameters and errors thrown are the same as those for llm.evaluatePrompt(options).
+     * @governance 100 units
+     * @since 2025.1
+     */
     promise(options: IEvaluatePromptOptions): Promise<StreamedResponse>;
 }
 
 interface GenerateTextFunction {
     (options: IGenerateTextOptions | IGenerateTextToolResultsOptions): Response;
+    /**
+     * Asynchronously returns the response from the LLM. The parameters and errors thrown are the same as those for llm.generateText(options).
+     * @governance 100 units
+     * @since 2024.1
+     */
     promise(options: IGenerateTextOptions | IGenerateTextToolResultsOptions): Promise<Response>;
 }
 
 interface GenerateTextStreamedFunction {
     (options: IGenerateTextStreamedOptions | IGenerateTextStreamedToolResultsOptions): StreamedResponse;
+    /**
+     * Asynchronously returns the streamed response from the LLM. The parameters and errors thrown are the same as those for llm.generateTextStreamed(options).
+     * @governance 100 units
+     * @since 2025.1
+     */
     promise(options: IGenerateTextStreamedOptions | IGenerateTextStreamedToolResultsOptions): Promise<StreamedResponse>;
 }
 
 interface GetRemainingUsageFunction {
     (): number;
+    /**
+     * Asynchronously returns the number of NetSuite AI Units remaining.
+     * @governance none
+     * @since 2026.1
+     */
     promise(): Promise<number>;
 }
 
@@ -356,17 +630,49 @@ interface GetRemainingUsageFunction {
 interface GetRemainingFreeUsageFunction {
     /** @deprecated As of 2026.2, use llm.getRemainingUsage() instead. Remains available for compatibility and calls llm.getRemainingUsage(). */
     (): number;
-    /** @deprecated As of 2026.2, use llm.getRemainingUsage.promise() instead. Remains available for compatibility and calls llm.getRemainingUsage.promise(). */
+    /**
+     * @governance none
+     * @since 2024.1
+     * @deprecated As of 2026.2, use llm.getRemainingUsage.promise() instead. Remains available for compatibility and calls llm.getRemainingUsage.promise().
+     */
     promise(): Promise<number>;
 }
 
-/** The embeddings response returned from the LLM. */
+/** @deprecated As of 2026.2, use llm.getRemainingUsage() and llm.getRemainingUsage.promise() instead. */
+interface GetRemainingFreeEmbedUsageFunction {
+    /** @deprecated As of 2026.2, use llm.getRemainingUsage() instead. Remains available for compatibility and calls llm.getRemainingUsage(). */
+    (): number;
+    /**
+     * @governance none
+     * @since 2025.1
+     * @deprecated As of 2026.2, use llm.getRemainingUsage.promise() instead. Remains available for compatibility and calls llm.getRemainingUsage.promise().
+     */
+    promise(): Promise<number>;
+}
+
+/**
+ * The embeddings response returned from the LLM.
+ * @since 2025.1
+ */
 interface EmbedResponse {
-    /** The embeddings returned from the LLM. */
+    /**
+     * The embeddings returned from the LLM.
+     * Note: Oracle's N/llm members table types this property as number[], but the EmbedResponse.embeddings page types it as number[][]; typed as number[] here.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly embeddings: number[];
-    /** The list of inputs used to generate the embeddings response. */
+    /**
+     * The list of inputs used to generate the embeddings response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly inputs: string[];
-    /** The model used to generate the embeddings response. */
+    /**
+     * The model used to generate the embeddings response.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly model: string;
 }
 
@@ -464,7 +770,7 @@ interface IGenerateTextOptions extends IGenerateTextBaseOptions {
      * You can provide an object that represents a valid JSON schema, and the response will contain keys and values as defined in your schema that are populated by the generated content.
      * You can then parse the response (Response.text) as JSON content.
      *
-     * This parameter is supported for Cohere models only, and cannot be used with the documents, tools, or toolResults parameters (MUTUALLY_EXCLUSIVE_ARGUMENTS).
+     * Cannot be used with the documents, tools, or toolResults parameters (MUTUALLY_EXCLUSIVE_ARGUMENTS).
      * @since 2025.1
      */
     responseFormat?: object;
@@ -474,7 +780,7 @@ interface IGenerateTextOptions extends IGenerateTextBaseOptions {
      *
      * Image processing is available only when using the Cohere Command A Vision model (cohere.command-a-vision), so set options.modelFamily to llm.ModelFamily.COHERE_COMMAND_VISION.
      * This parameter was previously supported by the Meta Llama model family, which is no longer listed in llm.ModelFamily.
-     * @since 2026.2
+     * @since 2026.1
      */
     image?: File;
 }
@@ -498,9 +804,18 @@ interface IGenerateTextStreamedOptions extends IGenerateTextBaseOptions {
     /** Prompt for the LLM. Required if options.toolResults is not specified. */
     prompt: string;
     /**
+     * A JSON schema specifying the format of the response.
+     * You can provide an object that represents a valid JSON schema, and the response will contain keys and values as defined in your schema that are populated by the generated content.
+     *
+     * Cannot be used with the documents, tools, or toolResults parameters (MUTUALLY_EXCLUSIVE_ARGUMENTS).
+     * Note: Oracle lists this parameter as Since 2025.1 for llm.generateText(options) but Since 2026.1 for llm.generateTextStreamed(options).
+     * @since 2026.1
+     */
+    responseFormat?: object;
+    /**
      * An image to query. You can send an image (as a file.File object) to the LLM and ask questions about the image.
      * Image processing is available only when using the Cohere Command A Vision model (cohere.command-a-vision), so set options.modelFamily to llm.ModelFamily.COHERE_COMMAND_VISION.
-     * @since 2026.2
+     * @since 2026.1
      */
     image?: File;
 }
@@ -520,8 +835,22 @@ interface IGenerateTextStreamedToolResultsOptions extends IGenerateTextBaseOptio
     toolResults: ToolResult[];
 }
 
+/**
+ * A document to be used as source content when calling the LLM. Created using llm.createDocument(options).
+ * @since 2025.1
+ */
 interface Document {
+    /**
+     * The content of the document.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly data: string;
+    /**
+     * The ID of the document.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly id: string;
 }
 
@@ -536,6 +865,14 @@ interface IModelParameters {
      * See Model Parameter Values by LLM for valid values.
      */
     presencePenalty?: number;
+    /**
+     * The reasoning effort to use for LLM requests. Reasoning effort controls how much internal reasoning a model uses before providing a response.
+     * Higher values can improve performance on complex tasks but may increase token usage and response time.
+     * Use values from the llm.ReasoningEffort enum. If not specified, llm.ReasoningEffort.MEDIUM is used.
+     * Supported only when using the GPT OSS (openai.gpt-oss-120b) model.
+     * @since 2026.2
+     */
+    reasoningEffort?: ReasoningEffort | string;
     /**
      * Defines a range of randomness for the response.
      * A lower temperature will lean toward the highest probability tokens and expected answers, while a higher temperature will deviate toward random and unconventional responses.
@@ -580,6 +917,10 @@ export interface IOCIConfig { // Also referenced in N/documentCapture
     userId?: string;
 }
 
+/**
+ * The author (role) of a chat message. Use this enum to set the value of the options.role parameter in llm.createChatMessage(options).
+ * @since 2024.1
+ */
 declare enum ChatRole {
     /** Identifies the author of the chat message (prompt) sent to the large language model. */
     USER = "USER",
@@ -587,7 +928,10 @@ declare enum ChatRole {
     CHATBOT = "CHATBOT"
 }
 
-/** The large language model to be used to generate embeddings. Use this enum to set the value of the options.embedModelFamily parameter in llm.embed(options). */
+/**
+ * The large language model to be used to generate embeddings. Use this enum to set the value of the options.embedModelFamily parameter in llm.embed(options).
+ * @since 2025.1
+ */
 declare enum EmbedModelFamily {
     /** Cohere Embed v4.0. This is the default when the options.embedModelFamily parameter is omitted. */
     COHERE_EMBED = 'cohere.embed-v4.0',
@@ -595,20 +939,45 @@ declare enum EmbedModelFamily {
     COHERE_EMBED_LATEST = 'cohere.embed-v4.0'
 }
 
-/** The large language model to be used. Use this enum to set the value of the options.modelFamily parameter in llm.generateText(options) and llm.generateTextStreamed(options). */
+/**
+ * The large language model to be used. Use this enum to set the value of the options.modelFamily parameter in llm.generateText(options) and llm.generateTextStreamed(options).
+ * @since 2024.2
+ */
 declare enum ModelFamily {
     /** Cohere Command A. Supports RAG (documents) and preambles. This is the default when the options.modelFamily parameter is omitted. */
     COHERE_COMMAND = 'cohere.command-a-03-2025',
     /** Always uses the latest supported Cohere Command model. Supports RAG (documents) and preambles. */
     COHERE_COMMAND_LATEST = 'cohere.command-a-03-2025',
-    /** Cohere Command A Vision. Required when providing an image using the options.image parameter. @since 2026.2 */
+    /**
+     * Cohere Command A Vision. Required when providing an image using the options.image parameter.
+     * Note: Oracle's llm.ModelFamily page gives no Since value for individual values; the options.image parameter that requires this model is Since 2026.1.
+     */
     COHERE_COMMAND_VISION = 'cohere.command-a-vision',
-    /** Always uses the latest supported Cohere Command Vision model. Required when providing an image using the options.image parameter. @since 2026.2 */
+    /**
+     * Always uses the latest supported Cohere Command Vision model. Required when providing an image using the options.image parameter.
+     * Note: Oracle's llm.ModelFamily page gives no Since value for individual values; the options.image parameter that requires this model is Since 2026.1.
+     */
     COHERE_COMMAND_VISION_LATEST = 'cohere.command-a-vision',
     /** OpenAI gpt-oss 120B. Supports preambles; does not support RAG (documents). */
     GPT_OSS = 'openai.gpt-oss-120b',
     /** Always uses the latest supported OpenAI gpt-oss model. Supports preambles; does not support RAG (documents). */
     GPT_OSS_LATEST = 'openai.gpt-oss-120b'
+}
+
+/**
+ * The reasoning effort to use for LLM requests. Reasoning effort is available only for GPT OSS models.
+ * Choose the lowest value that meets your response quality requirements.
+ *
+ * Use this enum to set the value of the options.modelParameters.reasoningEffort parameter in llm.generateText(options) and llm.generateTextStreamed(options).
+ * @since 2026.2
+ */
+declare enum ReasoningEffort {
+    /** Uses minimal reasoning to prioritize faster responses and lower token use. Suitable for straightforward tasks and time-sensitive workflows. */
+    LOW = 'LOW',
+    /** Provides a balanced level of reasoning, quality, timeliness, and token use. This is the default value for GPT OSS models. */
+    MEDIUM = 'MEDIUM',
+    /** Uses more thorough reasoning for complex problems where quality is more important than response time. */
+    HIGH = 'HIGH'
 }
 
 /**
@@ -618,6 +987,7 @@ declare enum ModelFamily {
  * When using strict mode or contextual mode, the LLM may refuse to provide certain responses that include sensitive, harmful, or illegal suggestions.
  *
  * Use this enum to set the value of the options.safetyMode parameter in llm.generateText(options) and llm.generateTextStreamed(options).
+ * Note: The INAPPROPRIATE_CONTENT_DETECTED error description mentions llm.SafetyMode.OFF, but the llm.SafetyMode page lists only CONTEXTUAL and STRICT.
  * @since 2025.1
  */
 declare enum SafetyMode {
@@ -627,7 +997,10 @@ declare enum SafetyMode {
     STRICT = 'STRICT'
 }
 
-/** The data type for a tool parameter. Use this enum to set the value of the options.type parameter in llm.createToolParameter(options). @since 2025.2 */
+/**
+ * The data type for a tool parameter. Use this enum to set the value of the options.type parameter in llm.createToolParameter(options).
+ * @since 2025.2
+ */
 declare enum ToolParameterType {
     ARRAY = 'ARRAY',
     BOOLEAN = 'BOOLEAN',
@@ -637,9 +1010,15 @@ declare enum ToolParameterType {
     STRING = 'STRING'
 }
 
-/** The truncation method to use when embeddings input exceeds 512 tokens. Use this enum to set the value of the options.truncate parameter in llm.embed(options). */
+/**
+ * The truncation method to use when embeddings input exceeds 512 tokens. Use this enum to set the value of the options.truncate parameter in llm.embed(options).
+ * @since 2025.1
+ */
 declare enum Truncate {
+    /** Truncates the embeddings input from the end of the input string. */
     END = 'END',
+    /** Doesn't truncate the embeddings input. */
     NONE = 'NONE',
+    /** Truncates the embeddings input from the start of the input string. */
     START = 'START'
 }

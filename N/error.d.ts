@@ -1,3 +1,9 @@
+/**
+ * Use the N/error module to create custom SuiteScript errors that you can use in try-catch statements to abort script execution.
+ * This module creates errors but does not throw them; your script must throw the created error.
+ * Supported script types: Server scripts.
+ */
+
 interface EventType {
     beforeLoad:   string;
     beforeSubmit: string;
@@ -5,31 +11,65 @@ interface EventType {
 }
 
 interface CreateOptions {
-    /** A user-defined name (error code). */
+    /** User-defined error code. You can create a custom name such as "My_Custom_Error" or use the values in the error.Type enum. */
     name: string | Type;
-    /** The error message displayed. This value displays on the Execution Log, in the Details column. */
+    /** Error message text displayed in the Details column of the Execution Log. */
     message: string | Error | SuiteScriptError | UserEventError;
-    /** Sets whether email notification is suppressed. The default value is false. */
+    /**
+     * -optional- Sets whether email notification is suppressed. If false, the system emails the users identified on the
+     * script record's Unhandled Errors subtab when the error is thrown. The default value is false.
+     */
     notifyOff?: boolean;
 }
 
-/** Encapsulates a SuiteScript error thrown by any script type that is not a user event script. */
+/**
+ * Encapsulates a custom SuiteScript error. Create one with error.create(options).
+ * @since 2015.2
+ */
 export interface SuiteScriptError {
-    /** Error ID that is automatically generated when a new error is created. */
+    /**
+     * Error ID that is automatically generated when a new error is created.
+     * @since 2015.2
+     */
     readonly id: string;
-    /** Text that displays on the SuiteScript Execution Log, in the Details column. */
+    /**
+     * Error message text displayed in the Details column of the Execution Log. Set from options.message in error.create(options).
+     * @since 2015.2
+     */
     readonly message: string;
-    /** A user-defined name (error code). */
+    /**
+     * Error name or error code. Set from options.name in error.create(options).
+     * @since 2015.2
+     */
     readonly name: string | Type;
-    /** A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top. */
+    /**
+     * A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top.
+     * @since 2015.2
+     */
     readonly stack: string[];
-    /** The cause of the error message. */
+    /**
+     * The cause of the error.
+     * Oracle documents this as a string (read-only); it is kept as any for backward compatibility.
+     * @since 2015.2
+     */
     readonly cause: any;
-    /** Whether email notification is suppressed. */
-    notifyOff?: boolean;
+    /**
+     * Suppresses email notification when set to true. Set from options.notifyOff in error.create(options).
+     * Oracle's members table lists this as boolean; the property page says string.
+     * @since 2015.2
+     */
+    readonly notifyOff?: boolean;
+    /**
+     * Error type (error.SuiteScriptError).
+     * @since 2015.2
+     */
+    readonly type: string;
 }
 
-/** Encapsulates a SuiteScript error thrown by a user event script. */
+/**
+ * Encapsulates a SuiteScript error thrown by a user event script.
+ * Note: error.UserEventError is no longer listed in Oracle's N/error module documentation.
+ */
 export interface UserEventError {
     /** The user event type. Holds one of the following values: beforeLoad, beforeSubmit, afterSubmit. */
     readonly eventType: EventType;
@@ -45,9 +85,21 @@ export interface UserEventError {
     readonly stack: string[];
 }
 
-/** Creates a new error.SuiteScriptError or error.UserEventError object. */
+/**
+ * Creates a new error.SuiteScriptError (or error.UserEventError) object, which can be thrown to abort script execution.
+ * This method creates the error but does not throw it.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.message or options.name is not specified.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if a parameter is not the correct type (options.message and options.name must be strings, options.notifyOff must be a boolean).
+ * @governance none
+ * @since 2015.2
+ */
 export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(options: CreateOptions): T;
 
+/**
+ * Holds the string values for error types.
+ * Use this enum to set the value for options.name of error.create(options). This sets the value of the SuiteScriptError.type property.
+ * @since 2015.2
+ */
 export enum Type {
     AT_LEAST_ONE_EXPRESSION_IS_NEEDED = "AT_LEAST_ONE_EXPRESSION_IS_NEEDED",
     A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD = "A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD",
@@ -60,17 +112,23 @@ export enum Type {
     CANNOT_RESUBMIT_SUBMITTED_ASYNC_QUERY_TASK = "CANNOT_RESUBMIT_SUBMITTED_ASYNC_QUERY_TASK",
     CANNOT_RESUBMIT_SUBMITTED_ASYNC_SEARCH_TASK = "CANNOT_RESUBMIT_SUBMITTED_ASYNC_SEARCH_TASK",
     CANNOT_RESUBMIT_SUBMITTED_ASYNC_SUITEQL_TASK = "CANNOT_RESUBMIT_SUBMITTED_ASYNC_SUITEQL_TASK",
+    /** Not listed in Oracle's documented error.Type values. */
     CAN_EMBED_1_INPUTS_AT_MAXIMUM = "CAN_EMBED_1_INPUTS_AT_MAXIMUM",
     CAN_REFERENCE_ONLY_PERSISTED_DATASET = "CAN_REFERENCE_ONLY_PERSISTED_DATASET",
     CAN_SELECT_ONLY_ONE_DEFAULT_CHOICE = "CAN_SELECT_ONLY_ONE_DEFAULT_CHOICE",
     COLOR_VALUE_MUST_BE_6_HEXADECIMAL_DIGITS_OF_THE_FORM_RRGGBB__EXAMPLE_FF0000_FOR_RED = "COLOR_VALUE_MUST_BE_6_HEXADECIMAL_DIGITS_OF_THE_FORM_RRGGBB__EXAMPLE_FF0000_FOR_RED",
+    /** Not listed in Oracle's documented error.Type values; Oracle lists CREDIT_CARD_NUMBER_MUST_CONTAIN_BETWEEN_13_AND_20_DIGITS. */
     CREDIT_CARD_NUMBERS_MUST_CONTAIN_BETWEEN_13_AND_20_DIGITS = "CREDIT_CARD_NUMBERS_MUST_CONTAIN_BETWEEN_13_AND_20_DIGITS",
     CREDIT_CARD_NUMBER_IS_NOT_VALID__PLEASE_CHECK_THAT_ALL_DIGITS_WERE_ENTERED_CORRECTLY = "CREDIT_CARD_NUMBER_IS_NOT_VALID__PLEASE_CHECK_THAT_ALL_DIGITS_WERE_ENTERED_CORRECTLY",
+    CREDIT_CARD_NUMBER_MUST_CONTAIN_BETWEEN_13_AND_20_DIGITS = "CREDIT_CARD_NUMBER_MUST_CONTAIN_BETWEEN_13_AND_20_DIGITS",
     CREDIT_CARD_NUMBER_MUST_CONTAIN_ONLY_DIGITS = "CREDIT_CARD_NUMBER_MUST_CONTAIN_ONLY_DIGITS",
     DATASET_NAME_IS_MISSING = "DATASET_NAME_IS_MISSING",
     DEFAULT_CHOICE_IS_MISSING = "DEFAULT_CHOICE_IS_MISSING",
+    /** Not listed in Oracle's documented error.Type values. */
     DOCUMENT_CANNOT_BE_EMPTY = "DOCUMENT_CANNOT_BE_EMPTY",
+    /** Not listed in Oracle's documented error.Type values. */
     DOCUMENT_IDS_MUST_BE_UNIQUE = "DOCUMENT_IDS_MUST_BE_UNIQUE",
+    /** Not listed in Oracle's documented error.Type values. */
     DOCUMENT_TOO_LARGE = "DOCUMENT_TOO_LARGE",
     EACH_VIEW_MUST_HAVE_AN_ID = "EACH_VIEW_MUST_HAVE_AN_ID",
     EACH_VIEW_MUST_HAVE_A_NAME = "EACH_VIEW_MUST_HAVE_A_NAME",
@@ -89,6 +147,7 @@ export enum Type {
     HISTORY_IS_ONLY_AVAILABLE_FOR_THE_LAST_30_DAYS = "HISTORY_IS_ONLY_AVAILABLE_FOR_THE_LAST_30_DAYS",
     IDENTIFIERS_CAN_CONTAIN_ONLY_DIGITS_ALPHABETIC_CHARACTERS_OR__WITH_NO_SPACES = "IDENTIFIERS_CAN_CONTAIN_ONLY_DIGITS_ALPHABETIC_CHARACTERS_OR__WITH_NO_SPACES",
     ID_CANNOT_HAVE_MORE_THAN_N_CHARACTERS = "ID_CANNOT_HAVE_MORE_THAN_N_CHARACTERS",
+    /** Not listed in Oracle's documented error.Type values. */
     INPUT_TOO_LARGE = "INPUT_TOO_LARGE",
     INVALID_AGGREGATE_TYPE = "INVALID_AGGREGATE_TYPE",
     INVALID_AGGREGATION = "INVALID_AGGREGATION",
@@ -97,6 +156,7 @@ export enum Type {
     INVALID_ASPECT_TYPE = "INVALID_ASPECT_TYPE",
     INVALID_CERTIFICATE_TYPE = "INVALID_CERTIFICATE_TYPE",
     INVALID_CHART_TYPE = "INVALID_CHART_TYPE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_CHAT_ROLE = "INVALID_CHAT_ROLE",
     INVALID_COLOR_VALUE = "INVALID_COLOR_VALUE",
     INVALID_COLUMN_ALIAS = "INVALID_COLUMN_ALIAS",
@@ -113,6 +173,7 @@ export enum Type {
     INVALID_DATE_VALUE_MUST_BE_ON_OR_AFTER_1CUTOFF_DATE = "INVALID_DATE_VALUE_MUST_BE_ON_OR_AFTER_1CUTOFF_DATE",
     INVALID_DIRECTION_FOR_SORTING = "INVALID_DIRECTION_FOR_SORTING",
     INVALID_EMAILS_FOUND = "INVALID_EMAILS_FOUND",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_EMBED_MODEL_FAMILY_VALUE = "INVALID_EMBED_MODEL_FAMILY_VALUE",
     INVALID_EXPRESSION = "INVALID_EXPRESSION",
     INVALID_FIELD_CONTEXT = "INVALID_FIELD_CONTEXT",
@@ -125,14 +186,18 @@ export enum Type {
     INVALID_FONT_STYLE = "INVALID_FONT_STYLE",
     INVALID_FONT_WEIGHT = "INVALID_FONT_WEIGHT",
     INVALID_FORMULA_TYPE = "INVALID_FORMULA_TYPE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_FREQUENCY_PENALTY_VALUE = "INVALID_FREQUENCY_PENALTY_VALUE",
     INVALID_HTTP_METHOD = "INVALID_HTTP_METHOD",
     INVALID_ID_PREFIX = "INVALID_ID_PREFIX",
     INVALID_IMAGE = "INVALID_IMAGE",
     INVALID_KEY_TYPE = "INVALID_KEY_TYPE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_LANGUAGE = "INVALID_LANGUAGE",
     INVALID_LOCALE = "INVALID_LOCALE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_MAX_TOKENS_VALUE = "INVALID_MAX_TOKENS_VALUE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_MODEL_FAMILY_VALUE = "INVALID_MODEL_FAMILY_VALUE",
     INVALID_NUMBER_MUST_BE_BETWEEN_1_AND_2 = "INVALID_NUMBER_MUST_BE_BETWEEN_1_AND_2",
     INVALID_NUMBER_MUST_BE_GREATER_THAN_1 = "INVALID_NUMBER_MUST_BE_GREATER_THAN_1",
@@ -148,6 +213,7 @@ export enum Type {
     INVALID_PERIOD_CODE = "INVALID_PERIOD_CODE",
     INVALID_PERIOD_TYPE = "INVALID_PERIOD_TYPE",
     INVALID_POSITION = "INVALID_POSITION",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_PRESENCE_PENALTY_VALUE = "INVALID_PRESENCE_PENALTY_VALUE",
     INVALID_RETURN_TYPE_EXPECTED_1 = "INVALID_RETURN_TYPE_EXPECTED_1",
     INVALID_SEARCH_OPERATOR = "INVALID_SEARCH_OPERATOR",
@@ -160,14 +226,19 @@ export enum Type {
     INVALID_SUBRECORD_MERGE = "INVALID_SUBRECORD_MERGE",
     INVALID_SUITEAPP_APPLICATION_ID = "INVALID_SUITEAPP_APPLICATION_ID",
     INVALID_TASK_TYPE = "INVALID_TASK_TYPE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_TEMPERATURE_VALUE = "INVALID_TEMPERATURE_VALUE",
+    /** Oracle's error.Type list spells this INVALID_TEPORAL_UNIT (apparent typo). */
     INVALID_TEMPORAL_UNIT = "INVALID_TEMPORAL_UNIT",
     INVALID_TEXT_ALIGN = "INVALID_TEXT_ALIGN",
     INVALID_TEXT_DECORATION_LINE = "INVALID_TEXT_DECORATION_LINE",
     INVALID_TEXT_DECORATION_STYLE = "INVALID_TEXT_DECORATION_STYLE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_TOP_K_VALUE = "INVALID_TOP_K_VALUE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_TOP_P_VALUE = "INVALID_TOP_P_VALUE",
     INVALID_TOTAL_LINE = "INVALID_TOTAL_LINE",
+    /** Not listed in Oracle's documented error.Type values. */
     INVALID_TRUNCATION_METHOD = "INVALID_TRUNCATION_METHOD",
     INVALID_TYPE_1_USE_2 = "INVALID_TYPE_1_USE_2",
     INVALID_UNIT = "INVALID_UNIT",
@@ -175,8 +246,11 @@ export enum Type {
     INVALID_URL_URL_MUST_START_WITH_HTTP_HTTPS_FTP_OR_FILE = "INVALID_URL_URL_MUST_START_WITH_HTTP_HTTPS_FTP_OR_FILE",
     INVALID_WORKBOOK_ID = "INVALID_WORKBOOK_ID",
     MISSING_MANDATORY_FIELDS = "MISSING_MANDATORY_FIELDS",
+    /** Not listed in Oracle's documented error.Type values. */
     MODEL_1_DOES_NOT_ACCEPT_DOCUMENTS = "MODEL_1_DOES_NOT_ACCEPT_DOCUMENTS",
+    /** Not listed in Oracle's documented error.Type values. */
     MODEL_1_DOES_NOT_ACCEPT_IMAGE = "MODEL_1_DOES_NOT_ACCEPT_IMAGE",
+    /** Not listed in Oracle's documented error.Type values. */
     MODEL_1_DOES_NOT_ACCEPT_PREAMBLE = "MODEL_1_DOES_NOT_ACCEPT_PREAMBLE",
     MUTUALLY_EXCLUSIVE_ARGUMENTS = "MUTUALLY_EXCLUSIVE_ARGUMENTS",
     NAME_CANNOT_BE_EMPTY = "NAME_CANNOT_BE_EMPTY",
@@ -191,12 +265,15 @@ export enum Type {
     NO_DATASET_DEFINED = "NO_DATASET_DEFINED",
     NO_DIMENSION_ITEM_DEFINED = "NO_DIMENSION_ITEM_DEFINED",
     NO_ELEMENTS_DEFINED = "NO_ELEMENTS_DEFINED",
+    /** Not listed in Oracle's documented error.Type values. */
     NO_INPUTS_TO_EMBED = "NO_INPUTS_TO_EMBED",
     NO_MEASURES_DEFINED = "NO_MEASURES_DEFINED",
     NO_RULE_DEFINED = "NO_RULE_DEFINED",
     NO_SELECTORS_DEFINED = "NO_SELECTORS_DEFINED",
     NO_SORT_BY_DEFINED = "NO_SORT_BY_DEFINED",
+    /** Not listed in Oracle's documented error.Type values. */
     NOTHING_TO_TRANSLATE = "NOTHING_TO_TRANSLATE",
+    /** Not listed in Oracle's documented error.Type values. */
     ONLY_API_SECRET_IS_ACCEPTED = "ONLY_API_SECRET_IS_ACCEPTED",
     OPERATION_IS_NOT_ALLOWED = "OPERATION_IS_NOT_ALLOWED",
     OPERATOR_ARITY_MISMATCH = "OPERATOR_ARITY_MISMATCH",
@@ -250,15 +327,20 @@ export enum Type {
     THE_FIELD_1_CONTAINED_MORE_THAN_THE_MAXIMUM_NUMBER__2__OF_CHARACTERS_ALLOWED = "THE_FIELD_1_CONTAINED_MORE_THAN_THE_MAXIMUM_NUMBER__2__OF_CHARACTERS_ALLOWED",
     THE_OPTIONS_ARE_MUTUALLY_EXCLUSIVE_1_2_ARG2_ = "THE_OPTIONS_ARE_MUTUALLY_EXCLUSIVE_1_2_ARG2_",
     TOO_MANY_RESULTS = "TOO_MANY_RESULTS",
+    /** Not listed in Oracle's documented error.Type values. */
     TOP_K_VALUE_INVALID = "TOP_K_VALUE_INVALID",
     TRANSLATION_HANDLE_IS_IN_AN_ILLEGAL_STATE = "TRANSLATION_HANDLE_IS_IN_AN_ILLEGAL_STATE",
     UNHANDLED_ERRORS_ON_RESTORE = "UNHANDLED_ERRORS_ON_RESTORE",
     UNKNOWN_CONTEXT_TYPE = "UNKNOWN_CONTEXT_TYPE",
     UNKNOWN_PARAM = "UNKNOWN_PARAM",
+    /** Not listed in Oracle's documented error.Type values. */
     UNRECOGNIZED_MODEL_PARAMETERS = "UNRECOGNIZED_MODEL_PARAMETERS",
+    /** Not listed in Oracle's documented error.Type values. */
     UNRECOGNIZED_OCI_CONFIG_PARAMETERS = "UNRECOGNIZED_OCI_CONFIG_PARAMETERS",
     UNSUPPORTED_COLOR = "UNSUPPORTED_COLOR",
+    /** Not listed in Oracle's documented error.Type values. */
     UNSUPPORTED_NUMBER_OF_TOKENS = "UNSUPPORTED_NUMBER_OF_TOKENS",
+    /** Oracle's error.Type list spells this VALUE_1_OUTSIDE_OF_VALID_MINMAX_RANGE_FOR_FIELD2. */
     VALUE_1_OUTSIDE_OF_VALID_MINMAX_RANGE_FOR_FIELD_2 = "VALUE_1_OUTSIDE_OF_VALID_MINMAX_RANGE_FOR_FIELD_2",
     WORKBOOK_NAME_IS_MISSING = "WORKBOOK_NAME_IS_MISSING",
     WRONG_PARAMETER_TYPE = "WRONG_PARAMETER_TYPE",
@@ -269,6 +351,7 @@ export enum Type {
     INVALID_GETSELECTOPTION_FILTER_OPERATOR = "SSS_INVALID_GETSELECTOPTION_FILTER_OPERATOR",
     INVALID_KEY_OR_REF = "WS_INVALID_REFERENCE_KEY_1",
     INVALID_SCRIPT_OPERATION_ON_READONLY_SUBLIST_FIELD = "A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD",
+    /** Oracle's error.Type list spells this INVALID_SUBLST_OPERATION (apparent typo). */
     INVALID_SUBLIST_OPERATION = "SSS_INVALID_SUBLIST_OPERATION",
     INVALID_UI_OBJECT_TYPE = "SSS_INVALID_UI_OBJECT_TYPE",
     METHOD_IS_ONLY_ALLOWED_FOR_MATRIX_FIELD = "SSS_METHOD_IS_ONLY_ALLOWED_FOR_MATRIX_FIELD",

@@ -1,11 +1,59 @@
+/**
+ * Load the N/query module to create and run queries using the SuiteAnalytics Workbook query engine,
+ * and to run arbitrary SuiteQL queries.
+ * Supported script types: client and server scripts.
+ */
+
+interface SuiteQLRunOptions {
+    /**
+     * A unique identifier used for potential performance issues in a query.
+     * If your query produces performance issues, the custom script ID identifies where the update will need to occur.
+     * The script ID must be unique or the performance enhancements will affect each query with the same customScriptId.
+     */
+    customScriptId?: string;
+}
+
+interface SuiteQLRunPagedOptions extends SuiteQLRunOptions {
+    /**
+     * The size of each page in the query results. The default value is 50 results per page.
+     * The minimum page size is 5 results per page, and the maximum page size is 1000 results per page.
+     */
+    pageSize?: number;
+}
+
+/**
+ * Indicates whether the query should fail if you lack the necessary permissions for some fields or records.
+ * SUITE_QL (default): the query fails if you access fields or records without the necessary permissions.
+ * STATIC: the query succeeds, but returns no data for fields or records you lack permissions for.
+ */
+export type MetaDataProvider = "SUITE_QL" | "STATIC";
+
+interface RunOptions extends SuiteQLRunOptions {
+    /**
+     * Indicates whether the query should fail if you lack the necessary permissions for some fields or records.
+     * If set to SUITE_QL, the query fails. If set to STATIC, the query succeeds but returns no data for those fields or records.
+     * Defaults to SUITE_QL.
+     */
+    metaDataProvider?: MetaDataProvider;
+}
+
+interface RunPagedOptions extends RunOptions {
+    /**
+     * The size of each page in the query results. The default page size is 50 results per page.
+     * The minimum page size is 5 results per page, and the maximum page size is 1000 results per page.
+     * (Oracle's Query.runPaged(options) page lists this parameter as a string; the PagedData.pageSize page documents it as a number.)
+     */
+    pageSize?: number;
+}
+
 interface RunMethodType {
-    (): ResultSet;
-    promise(): Promise<ResultSet>;
+    (options?: RunOptions): ResultSet;
+    promise(options?: RunOptions): Promise<ResultSet>;
 }
 
 interface RunPagedMethodType {
-    (options: { pageSize: number }): PagedData;
-    promise(options: { pageSize: number }): Promise<PagedData>;
+    (options?: RunPagedOptions): PagedData;
+    promise(options?: RunPagedOptions): Promise<PagedData>;
 }
 
 interface AutoJoinOptions {
@@ -51,10 +99,10 @@ export interface CreateConditionOptions {
     operator: Operator;
 
     /**
-     * Array of values to use for the condition.
+     * Value or array of values to use for the condition.
      * Required if options.fieldId and options.operator are used, and options.operator does not have a value of query.Operator.EMPTY or query.Operator.EMPTY_NOT.
      */
-    values?: string | boolean |
+    values?: string | boolean | number | Date |
         string[] | readonly string[] |
         boolean[] | readonly boolean[] | // You wouldn't have multiple boolean values in an array, obviously. But you might specify it like: [true].
         number[] | readonly number[] |
@@ -62,29 +110,34 @@ export interface CreateConditionOptions {
         RelativeDate[] | readonly RelativeDate[] |
         Period[] | readonly Period[];
 
-    /**
-     * If you use the options.formula parameter, use this parameter to explicitly define the formula’s return type. This value sets the Condition.type property.
-     * Use the appropriate query.ReturnType enum value to pass in your argument. This enum holds all the supported values for this parameter.
-     * Required if options.fieldId is not used.
-     */
+    /** The formula used to create the condition. Required if options.fieldId is not used. */
     formula?: string;
 
-    /** Required if options.formula is used. */
-    type?: string;
+    /**
+     * If you use the options.formula parameter, use this parameter to explicitly define the formula’s return type. This value sets the Condition.type property.
+     * Use the appropriate query.ReturnType enum value to pass in your argument. Required if options.formula is used.
+     */
+    type?: ReturnType | string;
 
-    /** Aggregate function. Use the Aggregate enum. */
-    aggregate?: string;
+    /** Aggregate function. Use the query.Aggregate enum. */
+    aggregate?: Aggregate | string;
+
+    /**
+     * Whether filtered text is case sensitive. Only valid for text fields; you may encounter script errors
+     * if this parameter is set with number or date values.
+     */
+    caseSensitive?: boolean;
 }
 
 interface CreateConditionWithFormulaOptions {
     /** Formula */
     formula: string;
 
-    /** Explicitly define value type in case it is not determined correctly from the formula. Use the ReturnType enum. */
-    type?: string;
+    /** Explicitly define value type in case it is not determined correctly from the formula. Use the query.ReturnType enum. */
+    type?: ReturnType | string;
 
-    /** Aggregate function. Use the Aggregate enum. */
-    aggregate?: string;
+    /** Aggregate function. Use the query.Aggregate enum. */
+    aggregate?: Aggregate | string;
 }
 
 interface ColumnContextOptions {
@@ -128,6 +181,12 @@ interface CreateColumnOptions {
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
     context?: string | FieldContext | ColumnContextOptions
+
+    /**
+     * The label for the column. A label is important if the query is used as the data source for printing,
+     * such as in render.TemplateRenderer.addQuery(options). This value sets the Column.label property.
+     */
+    label?: string;
 }
 
 interface CreateColumnWithFormulaOptions {
@@ -165,6 +224,9 @@ interface CreateColumnWithFormulaOptions {
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
     context?: string | FieldContext | ColumnContextOptions
+
+    /** The label for the column. This value sets the Column.label property. */
+    label?: string;
 }
 
 interface CreateSortOptions {
@@ -183,28 +245,36 @@ interface CreateSortOptions {
      */
     nullsLast?: boolean;
 
+    /** Indicates whether the sort is case sensitive. */
     caseSensitive?: boolean;
 
+    /** The locale to use for the sort. Use the query.SortLocale enum. */
     locale?: SortLocale;
 }
 
 interface CreateQueryOptions {
-    /** The query type. Use the Type enum. */
-    type: string;
+    /** The query type. Use the query.Type enum. */
+    type: Type | string;
+    /** The columns of the query. Equivalent to setting Query.columns. */
     columns?: Column[] | readonly Column[];
+    /** The condition of the query. Equivalent to setting Query.condition. */
     condition?: Condition;
+    /** The sort of the query. Equivalent to setting Query.sort. */
     sort?: Sort[] | readonly Sort[];
 }
 
 interface LoadQueryOptions {
-    /** Id of query to be loaded. */
+    /** The workbook ID or dataset ID of the query definition to load. */
     id: string;
 }
 
 interface DeleteQueryOptions {
-    /** The id of query to be deleted. */
-    id: number;
+    /** The script ID of the query to delete. */
+    id: string;
 }
+
+/** A value that can be bound to a `?` placeholder in a SuiteQL query. */
+export type SuiteQLParam = string | number | boolean;
 
 export interface RunSuiteQLOptions {
     /**
@@ -212,152 +282,240 @@ export interface RunSuiteQLOptions {
      */
     query: string;
 
-    params?: Array<string | number | boolean> |
-        ReadonlyArray<string | number | boolean>;
+    /**
+     * Parameters for the query. Each value is bound to a `?` placeholder in options.query.
+     * Values must be strings, numbers, or booleans (otherwise SSS_INVALID_TYPE_ARG is thrown).
+     * Security: use params instead of concatenating untrusted values into the query string to prevent SuiteQL injection.
+     */
+    params?: SuiteQLParam[] | readonly SuiteQLParam[];
 
+    /**
+     * A unique identifier used for potential performance issues in a query.
+     * If your query produces performance issues, the custom script ID identifies where the update will need to occur.
+     */
     customScriptId?: string;
+
+    /**
+     * Indicates whether the query should fail if you lack the necessary permissions for some fields or records.
+     * If set to SUITE_QL, the query fails. If set to STATIC, the query succeeds but returns no data for those fields or records.
+     * Defaults to SUITE_QL. (Documented for query.runSuiteQL(options) and query.runSuiteQLPaged(options), but not for their promise versions.)
+     */
+    metaDataProvider?: MetaDataProvider;
 }
 
 export interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
+    /**
+     * The size of each page in the query results. The default value is 50 results per page.
+     * The minimum page size is 5 results per page, and the maximum page size is 1000 results per page.
+     */
     pageSize?: number;
 }
 
-interface SuiteQL {
-    readonly columns: Column[];
-    readonly params: (string | number | boolean)[];
-    readonly query: string;
-    readonly type: string;
-
-    run(): ResultSet;
-
-    runPaged(options: { pageSize: number }): PagedData;
-}
-
-export interface Query {
+/**
+ * A SuiteQL query. Create this object by calling Query.toSuiteQL().
+ * @since 2020.1
+ */
+export interface SuiteQL {
     /**
-     * Query type. Returns the query type given upon the creation of the query object.
+     * The result columns to return from the query.
+     * @since 2020.1
+     */
+    readonly columns: Column[];
+    /**
+     * The parameters for the query.
+     * @since 2020.1
+     */
+    readonly params: SuiteQLParam[];
+    /**
+     * The string representation of the SuiteQL query.
+     * @since 2020.1
+     */
+    readonly query: string;
+    /**
+     * The type of the query. This property uses values from the query.Type enum.
+     * @since 2020.1
      */
     readonly type: string;
 
     /**
-     * Query condition.
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting value of different type than Query.Condition
+     * Runs the SuiteQL query and returns the query results.
+     * If the SuiteAnalytics Connect feature is not enabled, this method can return a maximum of 100,000 results.
+     * Oracle documents no promise version of this method.
+     * @governance 10 units
+     * @since 2020.1
+     */
+    run(options?: SuiteQLRunOptions): ResultSet;
+
+    /**
+     * Runs the SuiteQL query as a paged query and returns the paged query results. Returns a maximum of 1000 pages.
+     * If the SuiteAnalytics Connect feature is not enabled, this method can return a maximum of 100,000 results across all pages.
+     * Oracle documents no promise version of this method.
+     * @governance 10 units
+     * @since 2020.1
+     */
+    runPaged(options?: SuiteQLRunPagedOptions): PagedData;
+}
+
+/**
+ * The query definition. Use query.create(options) or query.load(options) to create this object.
+ * @since 2018.1
+ */
+export interface Query {
+    /**
+     * The initial query type of the query definition. This property is set when query.create(options) is called.
+     * @since 2018.1
+     */
+    readonly type: string;
+
+    /**
+     * The simple or nested condition (a query.Condition object) that narrows the query results.
+     * @since 2018.1
      */
     condition: Condition | null;
 
     /**
-     * Columns to be returned from the query.
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting value of different type than Query.Column array
+     * An array of result columns (query.Column objects) returned from the query.
+     * Before you run the query, you must assign all created columns as values to this property.
+     * @since 2018.1
      */
     columns: Column[];
 
     /**
-     * Specifies how the results will be sorted.
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting value of different type than Query.Sort array
+     * An array of query.Sort objects used for sorting.
+     * @since 2018.1
      */
     sort: Sort[];
 
     /**
-     * Children of the root component of the query. It is an object with key/value pairs where key is the name of the
-     * child component and value is the corresponding Component object.
-     * This is a shortcut for the Query.root.child expression.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * A reference to children of the root component of the query definition. The value of this property is an object of
+     * key-value pairs. Each key is the name of a child component. Each value is the corresponding query.Component object.
+     * @since 2018.1
      */
-    readonly child: object;
+    readonly child: Record<string, Component>;
 
     /**
-     * Id of this query, null if query is not saved
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The ID of the query definition. This property has a value only for existing queries that are loaded using
+     * query.load(options). If you create a query using query.create(options) but do not save it, this property is null.
+     * Oracle documents this property as a number, although query.load(options) and query.delete(options) take string IDs.
+     * @since 2018.1
      */
     readonly id: number;
 
     /**
-     * Name of this query, null if query is not saved
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The name of the query definition. This property has a value only for existing queries that are loaded using
+     * query.load(options). If you create a query using query.create(options) but do not save it, this property is null.
+     * @since 2018.1
      */
     readonly name: string;
 
     /**
-     * Access the root component of the query. It is the component that corresponds to the query type given upon the
-     * creation of the whole Query object.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The root component of the query definition. It encapsulates the initial query type passed to query.create(options).
+     * @since 2018.1
      */
     readonly root: Component;
 
     /**
-     * Execute the query and return results.
-     * @governance 10 points
+     * Executes the query and returns the query result set.
+     * Returns a maximum of 5000 results; use Query.runPaged(options) to retrieve more.
+     * Also available as Query.run.promise(), which has the same parameters, errors, and governance.
+     * @governance 10 units
+     * @since 2018.1
      */
     readonly run: RunMethodType;
 
     /**
-     * Execute the query and return paged results.
-     * @governance 10 points
+     * Executes the query and returns a set of paged results.
+     * The default page size is 50; the minimum is 5 and the maximum is 1000 results per page.
+     * Also available as Query.runPaged.promise(options), which has the same parameters, errors, and governance.
+     * @governance 10 units
+     * @since 2018.1
      */
     readonly runPaged: RunPagedMethodType;
 
     /**
-     * join the root component of the Query with another query type. This is a shortcut for Query.root.autoJoin.
-     * @see Component.autoJoin
+     * Creates a join relationship from the root component of the query. This method selects the correct join type automatically.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     autoJoin(options: AutoJoinOptions): Component;
 
     /**
-     * join the root component of the Query with another query type. This is a shortcut for Query.root.autoJoin.
-     * @see Component.join
+     * Creates a join relationship. This method is an alias to Query.autoJoin(options).
+     * @governance none
+     * @since 2018.1
      */
     join(options: JoinOptions): Component;
 
     /**
-     * join the root component of the Query with another (target) query type. This is a shortcut for Query.root.joinTo.
-     * @see Component.joinTo
+     * Creates an explicit directional join relationship from the root component to another component (a forward join).
+     * This method sets the Component.target property on the returned query.Component object.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     joinTo(options: JoinToOptions): Component;
 
     /**
-     * join the root component of the Query with another (source) query type. This is a shortcut
-     * for Query.root.joinFrom.
-     * @see Component.joinFrom
+     * Creates an explicit directional join relationship from another component to the root component (an inverse join).
+     * This method sets the Component.source property on the returned query.Component object.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     joinFrom(options: JoinFromOptions): Component;
 
     /**
-     * Create a Condition object based on the root component of the Query. This is a shortcut
-     * for Query.root.createCondition.
-     * @see Component.createCondition
+     * Creates a condition (query filter) based on the query.Query object.
+     * Use either fieldId + operator + values, or formula + (optional) type.
+     * @governance none
+     * @since 2018.1
      */
     createCondition(options: CreateConditionOptions | CreateConditionWithFormulaOptions): Condition;
 
     /**
-     * Create a Column object based on the root component of the Query. This is a shortcut for Query.root.createColumn.
-     * @see Component.createColumn
+     * Creates a query result column based on the query.Query object.
+     * @governance none
+     * @since 2018.1
      */
     createColumn(options: CreateColumnOptions | CreateColumnWithFormulaOptions): Column;
 
     /**
-     * Create a Sort object based on the root component of the Query. This is a shortcut for Query.root.createSort.
-     * @see Component.createSort
+     * Creates a sort based on the query.Query object.
+     * @governance none
+     * @since 2018.1
      */
     createSort(options: CreateSortOptions): Sort;
 
     /**
-     * Create a new Condition object that corresponds to a logical conjunction (AND) of the Condition objects given to
-     * the method as arguments. The arguments must be one or more Condition objects.
+     * Creates a new condition (a query.Condition object) that corresponds to a logical conjunction (AND) of the arguments
+     * passed to the method. The arguments must be one or more query.Condition objects.
+     * @governance none
+     * @since 2018.1
      */
     and(...conditions: Condition[]): Condition;
 
     /**
-     * Create a new Condition object that corresponds to a logical disjunction (OR) of the Condition objects given to
-     * the method as arguments. The arguments must be one or more Condition objects.
+     * Creates a new condition (a query.Condition object) that corresponds to a logical disjunction (OR) of the arguments
+     * passed to the method. The arguments must be one or more query.Condition objects.
+     * @governance none
+     * @since 2018.1
      */
     or(...conditions: Condition[]): Condition;
 
     /**
-     * Create a new Condition object that corresponds to a logical negation (NOT) of the Condition object given
-     * to the method as argument.
+     * Creates a new condition (a query.Condition object) that corresponds to a logical negation (NOT) of the argument
+     * passed to the method. The argument must be a query.Condition object.
+     * @governance none
+     * @since 2018.1
      */
     not(condition: Condition): Condition;
 
+    /**
+     * Converts this query.Query object to its corresponding SuiteQL representation (a query.SuiteQL object).
+     * @governance none
+     * @since 2020.1
+     */
     toSuiteQL(): SuiteQL;
 
     /**
@@ -375,268 +533,292 @@ export interface Query {
  * One component of the query definition. The Query object always contains at least one Component object called
  * the root component. Queries with multi-level joins contain multiple Component objects linked together into
  * a parent/child hierarchy.
+ * @since 2018.1
  */
 export interface Component {
     /**
-     * Query type. Returns the query type of this component.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The query type of this component.
+     * @since 2018.1
      */
     readonly type: string;
 
     /**
-     * Inverse target. Returns the source query type from which is this component joined.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The query type of the component joined to this component (the inverse relationship).
+     * This property is set when Query.joinFrom(options) or Component.joinFrom(options) is called.
+     * @since 2018.1
      */
     readonly source: string | null;
 
     /**
-     * Polymorphic target. Returns the target target of this component.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The target query type of this component (the relationship).
+     * This property is set when Query.joinTo(options) or Component.joinTo(options) is called.
+     * @since 2018.1
      */
     readonly target: string | null;
 
     /**
-     * Returns the Component that corresponds to the ancestor of this component in the query object model.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * A reference to the parent query.Component object of this component.
+     * Oracle's property page lists the type as string, but its description says this is a reference to the parent query.Component object.
+     * @since 2018.1
      */
-    readonly parent: string | null;
+    readonly parent: Component | null;
 
     /**
-     * Children of this component. It is an object with key/value pairs where key is the name of the child component
-     * and value is the corresponding Component object.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * A reference to children of this component. The value of this property is an object of key-value pairs.
+     * Each key is the name of a child component. Each value is the corresponding query.Component object.
+     * @since 2018.1
      */
-    readonly child: object;
+    readonly child: Record<string, Component>;
 
     /**
-     * join this component with another query type. A new component corresponding to the given relationship is created
-     * and joined with this one.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if fieldId is undefined
-     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if relationship is already used
+     * Creates a join relationship. This method selects the correct join type automatically.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     autoJoin(options: AutoJoinOptions): Component;
 
     /**
-     * join this component with another query type. A new component corresponding to the given relationship is created
-     * and joined with this one.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if name is undefined
-     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if relationship is already used
+     * Creates a join relationship. This method is an alias to Component.autoJoin(options).
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.1
      */
     join(options: JoinOptions): Component;
 
     /**
-     * join this component with another query type. A new component corresponding to the given relationship is created
-     * and joined with this one.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if relationship is undefined
-     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if relationship is already used
+     * Creates an explicit directional join relationship from this component to its child component (a forward join).
+     * This method sets the Component.target property on the returned query.Component object.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     joinTo(options: JoinToOptions): Component;
 
     /**
-     * join this component with another query type. A new component corresponding to the given relationship is created
-     * and joined with this one.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if relationship is undefined
-     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if relationship is already used
+     * Creates an explicit directional join relationship from a child component to this component (an inverse join).
+     * This method sets the Component.source property on the returned query.Component object.
+     * @throws {SuiteScriptError} RELATIONSHIP_ALREADY_USED if the specified join relationship already exists
+     * @governance none
+     * @since 2018.2
      */
     joinFrom(options: JoinFromOptions): Component;
 
     /**
-     * Create a Condition object based on this query component. Use either fieldId + operator + values or
+     * Creates a condition (query filter) based on this component. Use either fieldId + operator + values or
      * formula + (optional) type.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options are undefined
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object
-     * @throws {SuiteScriptError} OPERATOR_ARITY_MISMATCH if requested operator cannot work with specified number of
-     *                                                    arguments
-     * @throws {SuiteScriptError} INVALID_SEARCH_OPERATOR if wrong query operator is used
+     * @governance none
+     * @since 2018.1
      */
     createCondition(options: CreateConditionOptions | CreateConditionWithFormulaOptions): Condition;
 
     /**
-     * Create a Column object based on this query component. Use either name or formula + (optional) type.
-     * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options are undefined
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object
-     * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS when two mutually arguments are defined
-     * @throws {SuiteScriptError} NEITHER_ARGUMENT_DEFINED when neither of two mandatory arguments is defined
+     * Creates a query result column based on this component. Use either fieldId or formula + (optional) type.
+     * @governance none
+     * @since 2018.1
      */
     createColumn(options: CreateColumnOptions | CreateColumnWithFormulaOptions): Column;
 
     /**
-     * Create a Sort object based on this query component.
+     * Creates a sort based on this component.
+     * @governance none
+     * @since 2018.1
      */
     createSort(options: CreateSortOptions): Sort;
 }
 
 /**
- * Specifies a return column.
+ * A query result column. Use Query.createColumn(options) or Component.createColumn(options) to create this object.
+ * @since 2018.1
  */
 export interface Column {
     /**
      * Id of column field.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * @deprecated Not documented by Oracle. Use Column.fieldId instead.
      */
     readonly prototype?: string;
 
     /**
-     * Query component. Returns the Component to which this column belongs.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * A reference to the query.Component object to which this query result column belongs.
+     * @since 2018.1
      */
     readonly component?: Component;
 
-    /** Holds the name of the query result column. */
+    /**
+     * The name of the query result column. This property and the Column.formula property cannot be set at the same time.
+     * @since 2018.1
+     */
     readonly fieldId: string;
 
     /**
-     * Formula.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The formula used to create the query result column. This property and the Column.fieldId property cannot be set at the same time.
+     * @since 2018.1
      */
     readonly formula?: string | null;
 
     /**
-     * Desired value type of the formula (if it was explicitly stated upon Column creation).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The return type of the formula used to create the query result column. Uses values from the query.ReturnType enum.
+     * @since 2018.1
      */
-    readonly type?: string | null;
+    readonly type?: ReturnType | string | null;
 
     /**
-     * Aggregate function (value from Aggregate enum).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An aggregate function that is performed on the query result column (value from the query.Aggregate enum).
+     * @since 2018.1
      */
-    readonly aggregate?: string | null;
+    readonly aggregate?: Aggregate | string | null;
 
     /**
-     * The group-by flag.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * Whether the query results are grouped by this query result column.
+     * @since 2018.1
      */
     readonly groupBy?: boolean;
 
+    /**
+     * The label for the column. A label is important if the query object is used as the data source for printing
+     * (for example, in render.TemplateRenderer.addQuery(options)).
+     * @since 2019.2
+     */
     readonly label?: string;
+
+    /**
+     * An alias for this column. An alias is an alternate name for a column, and the alias is used in mapped results
+     * (Result.asMap(), ResultSet.asMappedResults()).
+     * @since 2019.2
+     */
     readonly alias?: string;
 
-    /** The field context for values in the query result column. */
+    /**
+     * The field context for values in the query result column. The field context determines how field values are displayed.
+     * @since 2019.1
+     */
     readonly context?: ColumnContextOptions;
 }
 
 /**
- * Specifies sorting by the values of a given column and the sort direction.
+ * A sort that is placed on a particular query result column.
+ * Use Query.createSort(options) or Component.createSort(options) to create this object.
+ * @since 2018.1
  */
 export interface Sort {
     /**
-     * The query column by which we want to sort.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The query result column that the query results are sorted by.
+     * @since 2018.1
      */
     readonly column: Column;
 
     /**
-     * Flag indicating if sort is ascending
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting wrong sort order is attempted
+     * Whether the sort direction is ascending. The default value is true.
+     * @since 2018.2
      */
     ascending: boolean;
 
     /**
-     * Sort case sensitivity.
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting non-boolean parameter
+     * Whether the sort is case sensitive. The default value is false.
+     * @since 2018.2
      */
     caseSensitive: boolean;
 
     /**
-     * Flag indicating where results with null value should be sorted
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting non-boolean parameter
+     * Whether query results with null values are listed at the end of the query results.
+     * The default value is the value of the Sort.ascending property.
+     * @since 2018.2
      */
     nullsLast: boolean;
 
     /**
-     * Sort locale
-     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE when setting non-boolean parameter
+     * The locale to use for the sort. Uses values from the query.SortLocale enum.
+     * @since 2018.2
      */
-    locale: string;
+    locale: SortLocale | string;
 }
 
 /**
- * Specifies the condition used to filter the results. It can consist of other Condition objects.
+ * A condition that narrows the query results. Use Query.createCondition(options) or Component.createCondition(options)
+ * to create this object.
+ * @since 2018.1
  */
 export interface Condition {
     /**
-     * This is only applicable to "non-leaf" conditions that were created by AND-ing, OR-ing or NOT-ing other
-     * Condition objects. In such case this property holds the child Component objects that are arguments of the
-     * logical operation.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An array of child conditions used to create the parent condition. Only applicable to parent conditions created
+     * with Query.and(conditions), Query.or(conditions), or Query.not(condition).
+     * @since 2018.1
      */
     readonly children?: Condition[];
 
     /**
-     * Field id. This is only applicable to "leaf" conditions (equivalent to the former Filter).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The name of the field that is used in the condition. Not applicable to parent conditions.
+     * @since 2018.1
      */
     readonly fieldId: string;
 
     /**
-     * Operator. This is only applicable to "leaf" conditions (equivalent to the former Filter).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The name of the operator used to create the condition. Not applicable to parent conditions.
+     * @since 2018.1
      */
     readonly operator: Operator;
 
     /**
-     * Values. This is only applicable to "leaf" conditions (equivalent to the former Filter).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An array of values used by an operator to create the condition.
+     * Oracle's members table also lists a single string, number, or boolean value.
+     * @since 2018.1
      */
-    readonly values?: string[];
+    readonly values?: string[] | number[] | boolean[] | Date[] | RelativeDate[] | Period[];
 
     /**
-     * Formula. This is only applicable to "leaf" conditions (equivalent to the former Filter).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The formula used to create the condition.
+     * @since 2018.1
      */
     readonly formula?: string;
 
     /**
-     * Return type of the formula, if explicitly specified. This is only applicable to "leaf" conditions
-     * (equivalent to the former Filter). (values from the ReturnType enum)
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The return type of the formula used to create the condition (value from the query.ReturnType enum).
+     * @since 2018.1
      */
-    readonly type?: string;
+    readonly type?: ReturnType | string;
 
     /**
-     * Aggregate function. This is only applicable to "leaf" conditions (equivalent to the former Filter).
-     * (values from the Aggregate enum)
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An aggregate function that is performed on the condition (value from the query.Aggregate enum).
+     * @since 2018.1
      */
-    readonly aggregate?: string;
+    readonly aggregate?: Aggregate | string;
 
     /**
-     * Query component to which this condition belongs. This is only applicable to "leaf" conditions (equivalent to the
-     * former Filter).
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The query.Component object to which this condition belongs. Not applicable to parent conditions.
+     * @since 2018.1
      */
     readonly component?: Component;
 }
 
 export type QueryResultValue = string | boolean | number | bigint | null;
-export type QueryResultMap = { [fieldId: string]: QueryResultValue };
+export type QueryResultMap = Record<string, QueryResultValue>;
 /**
- * Set of results returned by the query.
+ * The set of results returned by the query. The maximum number of results in a ResultSet object is 5000.
+ * @since 2018.1
  */
 export interface ResultSet {
     /**
-     * The actual query results.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An array of query.Result objects.
+     * @since 2018.1
      */
     readonly results: Result[];
 
     /**
-     * The types of the return values. Array of values from the ReturnType enum. Number and order of values in the array
-     * exactly matches the ResultSet.columns property.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An array of the return types for ResultSet.results. The values correspond with the ResultSet.columns values.
+     * @since 2018.1
      */
     readonly types: string[];
 
     /**
-     * The return columns.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * An array of query result column references. The values correspond with the ResultSet.types values.
+     * @since 2018.1
      */
     readonly columns: Column[];
 
     /**
-     * Standard object for iterating through results.
-     * @governance 10 points for each page returned
+     * Standard SuiteScript 2.0 object for iterating through results.
+     * @governance none
+     * @since 2018.1
      */
     iterator(): Iterator;
 
@@ -644,23 +826,26 @@ export interface ResultSet {
      * Returns the query result set as an array of mapped results.
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
+     * @governance none
+     * @since 2019.2
      */
-    asMappedResults(): Array<QueryResultMap>;
-    asMappedResults<QueryResultMap>(): Array<QueryResultMap>;
+    asMappedResults<T = QueryResultMap>(): T[];
 }
 
-/** Corresponds to a single row of the ResultSet. */
+/**
+ * A single row of the result set (query.ResultSet).
+ * @since 2018.1
+ */
 export interface Result {
     /**
-     * The result values. Value types correspond to the ResultSet.types property. Number and order of values in
-     * the array exactly matches the ResultSet.types, ResultSet.columns or Result.columns property.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * The result values. Value types correspond to the ResultSet.types property. Values correspond to the values for
+     * ResultSet.columns.
+     * @since 2018.1
      */
-    readonly values: Array<QueryResultValue>;
+    readonly values: QueryResultValue[];
 
     /**
      * The return columns. This is equivalent to ResultSet.columns.
-     * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
      */
     // readonly columns: Column[]; // As of 2019.2, this is not in the Help documentation.
 
@@ -668,9 +853,18 @@ export interface Result {
      * Returns the query result as a mapped result.
      * A mapped result is a JavaScript object with key-value pairs.
      * In this object, the key is either the field ID or the alias that was used for the corresponding query.Column object.
+     * @governance none
+     * @since 2019.2
      */
-    asMap(): QueryResultMap;
-    asMap<QueryResultMap>(): QueryResultMap
+    asMap<T = QueryResultMap>(): T;
+
+    /**
+     * Gets the value at a given index in Result.values. Value types correspond to the ResultSet.types property.
+     * @param options The index of the element from Result.values to return.
+     * @governance none
+     * @since 2018.2
+     */
+    getValue(options: number): QueryResultValue;
 }
 
 /**
@@ -679,57 +873,77 @@ export interface Result {
  */
 export interface Page {
     /**
-     * References the query results contained in this page.
+     * The query results contained in this page.
+     * @since 2018.1
      */
     readonly data: ResultSet;
 
     /**
-     * Indicates whether this page is the first of the paged query results.
+     * Whether this page is the first of the paged query results.
+     * @since 2018.1
      */
     readonly isFirst: boolean;
 
     /**
-     * Indicates whether this page is the last of the paged query results.
+     * Whether this page is the last of the paged query results.
+     * @since 2018.1
      */
     readonly isLast: boolean;
 
     /**
-     * References the set of paged query results that this page is from.
+     * The set of paged query results that this page is from.
+     * @since 2018.1
      */
     readonly pagedData: PagedData;
 
     /**
      * The range of query results for this page.
+     * @since 2018.1
      */
     readonly pageRange: PageRange;
 }
 
 /**
- * Encapsulates a set of paged query results. This object also contains information about the set of paged results
+ * A set of paged query results. This object also contains information about the set of paged results
  * it encapsulates.
+ * @since 2018.1
  */
 export interface PagedData {
     /**
-     * Describes the total number of paged query results.
+     * The total number of paged query result rows.
+     * @since 2018.1
      */
     readonly count: number;
 
     /**
-     * Holds an array of page ranges for the set of paged query results.
+     * An array of query.PageRange objects for the set of paged query results.
+     * @since 2018.1
      */
     readonly pageRanges: PageRange[];
 
     /**
-     * Describes the number of query result rows per page.
+     * The number of query result rows per page. The maximum is 1000 and the minimum is 5
+     * (except for the last page in the result set).
+     * @since 2018.1
      */
     readonly pageSize: number;
 
     /**
-     * Standard SuiteScript 2.0 object for iterating through results.
+     * Standard SuiteScript 2.x object for iterating through results.
+     * @governance 10 units
+     * @since 2018.1
      */
     iterator(): PageIterator;
 
-    fetch: FetchType;
+    /**
+     * Retrieves a page in the set of pages included in the PagedData object (page indexes start at 0).
+     * Also available as PagedData.fetch.promise(options), which has the same errors and governance.
+     * @throws {SuiteScriptError} INVALID_PAGE_INDEX if the value of the options.index parameter is not a number
+     * @throws {SuiteScriptError} INVALID_PAGE_RANGE if the value of the options.index parameter is a negative number or is greater than or equal to the number of pages
+     * @governance none
+     * @since 2018.1
+     */
+    readonly fetch: FetchType;
 }
 
 interface FetchType {
@@ -738,30 +952,45 @@ interface FetchType {
 }
 
 /**
- * Encapsulates the range of query results for a page.
+ * The range of query results for a page.
+ * @since 2018.1
  */
 export interface PageRange {
     /**
-     * Describes the array index for this page range.
+     * The index for this page range.
+     * @since 2018.1
      */
     readonly index: number;
 
     /**
-     * Describes the number of query result rows in this page range.
+     * The number of query result rows in this page range.
+     * @since 2018.1
      */
     readonly size: number;
 }
 
-/** A period of time to use in query conditions. Use query.createPeriod(options) to create this object. */
-interface Period {
-    /** The adjustment of the period. This property uses values from the query.PeriodAdjustment enum. */
+/**
+ * A period of time to use in query conditions. Use query.createPeriod(options) to create this object.
+ * @since 2020.1
+ */
+export interface Period {
+    /**
+     * The adjustment of the period. This property uses values from the query.PeriodAdjustment enum.
+     * If you create a period using query.createPeriod(options) and do not specify a value for the options.adjustment
+     * parameter, the default value of this property is query.PeriodAdjustment.NOT_LAST.
+     * @since 2020.1
+     */
     readonly adjustment: string;
-    /** The code of the period. This property uses values from the query.PeriodCode enum. */
+    /**
+     * The code of the period. This property uses values from the query.PeriodCode enum.
+     * @since 2020.1
+     */
     readonly code: string;
     /**
      * The type of the period. This property uses values from the query.PeriodType enum.
      * If you create a period using query.createPeriod(options) and do not specify a value for the options.type
      * parameter, the default value of this property is query.PeriodType.START.
+     * @since 2020.1
      */
     readonly type: string;
 }
@@ -775,16 +1004,21 @@ export interface PageIterator {
 }
 
 /**
- * Create a Query object with a single query component based on the given query type.
- * @throws {SuiteScriptError} INVALID_RCRD_TYPE when query type is invalid
+ * Creates a query.Query object (the initial query definition) based on the given query type.
+ * @throws {SuiteScriptError} INVALID_RCRD_TYPE if the specified query type is invalid (custom record types are validated when the query is run)
+ * @governance none
+ * @since 2018.1
  */
 export function create(options: CreateQueryOptions): Query;
 
 /**
- * Loads query by id
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
- * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if query doesn't exist or no permissions to load it
+ * Loads an existing query definition (previously created in the SuiteAnalytics Workbook UI) as a query.Query object.
+ * Also available as query.load.promise(options), which has the same errors and governance.
+ * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if the query does not exist or you do not have permission to load it
+ * @throws {SuiteScriptError} WORKBOOK_MORE_TABLEVIEWS_ARE_ASSIGNED if more than one table view is included in the specified workbook or dataset
+ * @throws {SuiteScriptError} WORKBOOK_NO_TABLEVIEW_IS_ASSIGNED if no table views are included in the specified workbook or dataset
+ * @governance 5 units
+ * @since 2018.2
  */
 export const load: QueryLoadFunction;
 
@@ -794,15 +1028,16 @@ interface QueryLoadFunction {
 }
 
 interface deleteQuery {
-    (options: DeleteQueryOptions): Query;
-    promise: (options: DeleteQueryOptions) => Promise<Query>;
+    (options: DeleteQueryOptions): void;
+    /** Not listed in Oracle's N/query members table. */
+    promise: (options: DeleteQueryOptions) => Promise<void>;
 }
 
 /**
- * Deletes query by id
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
- * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
+ * Deletes an existing query definition (previously created in the SuiteAnalytics Workbook UI).
+ * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if the query does not exist or you do not have permission to delete it
+ * @governance 5 units
+ * @since 2018.2
  */
 export { deleteQuery as delete };
 
@@ -812,13 +1047,15 @@ interface RunSuiteQL {
 }
 
 /**
- * Runs an arbitrary SuiteQL query.
+ * Runs an arbitrary SuiteQL query and returns the results as a query.ResultSet. Returns a maximum of 5000 results;
+ * use query.runSuiteQLPaged(options) to retrieve more.
  * SuiteQL is a query language based on the SQL-92 revision of the SQL database query language.
- * It provides advanced query capabilities you can use to access your NetSuite records and data.
+ * Also available as query.runSuiteQL.promise(options), which has the same errors and governance.
+ * Security: bind untrusted values with `?` placeholders and options.params rather than string concatenation.
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if the parameter is missing
+ * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if types other than string, number, or boolean are included in options.params
  * @governance 10 units
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
- * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
+ * @since 2020.1
  */
 export const runSuiteQL: RunSuiteQL;
 
@@ -828,15 +1065,44 @@ interface RunSuiteQLPaged {
 }
 
 /**
- * Execute the suiteQL query and return paged results.
+ * Runs an arbitrary SuiteQL query as a paged query. Returns a maximum of 1000 pages.
+ * Also available as query.runSuiteQLPaged.promise(options), which has the same errors and governance.
+ * Security: bind untrusted values with `?` placeholders and options.params rather than string concatenation.
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if the parameter is missing
+ * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if types other than string, number, or boolean are included in options.params
  * @governance 10 units
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
- * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if there's parameter of different type than string/number/boolean in params array
- *
  * @since 2020.1
  */
 export const runSuiteQLPaged: RunSuiteQLPaged;
 
+interface ListTablesOptions {
+    /** The ID of the workbook containing the table view objects to list. */
+    workbookId: string;
+}
+
+/** A table view included in a SuiteAnalytics workbook, as returned by query.listTables(options). */
+export interface TableView {
+    /** The name of the table view object. */
+    name: string;
+    /** The script ID of the table view object. */
+    scriptId: string;
+}
+
+/**
+ * Lists the table view objects that are included in a workbook in SuiteAnalytics Workbook.
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if a required parameter is missing
+ * @throws {SuiteScriptError} SCRIPT_ID_OF_WORKBOOK_IS_REQUIRED if the specified workbook ID represents an analytical record that is not a workbook
+ * @throws {SuiteScriptError} SSS_INVALID_SCRIPT_ID_1 if the specified workbook ID is not valid
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the specified workbook ID is not a string
+ * @governance none
+ * @since 2020.1
+ */
+export function listTables(options: ListTablesOptions): TableView[];
+
+/**
+ * Holds the string values for supported date codes in relative dates. Use with query.createRelativeDate(options).
+ * @since 2019.1
+ */
 export const enum DateId {
     DAYS_AGO = "dago",
     DAYS_FROM_NOW = "dfn",
@@ -857,58 +1123,47 @@ export const enum DateId {
 }
 
 /**
- * Special object which can be used as a condition while querying dates.
- *
+ * A relative date to use in query conditions. Use query.createRelativeDate(options) to create this object,
+ * or use a value from the query.RelativeDateRange enum.
  * @since 2019.1
  */
 export interface RelativeDate {
     /**
-     * Start of relative date
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * The start point of the relative date.
      * @since 2019.1
      */
-    readonly start: Object;
+    readonly start: object;
 
     /**
-     * End of relative date
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * The end point of the relative date.
      * @since 2019.1
      */
-    readonly end: Object;
+    readonly end: object;
 
     /**
-     * Interval of relative date
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * The interval from RelativeDate.start to RelativeDate.end.
      * @since 2019.1
      */
-    readonly interval: Object;
+    readonly interval: object;
 
     /**
-     * Value of relative date
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * The value associated with the relative date (for example, the number of days for query.DateId.DAYS_AGO).
      * @since 2019.1
      */
-    readonly value: Object;
+    readonly value: number;
 
     /**
-     * Flag if this relative date represents range
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * Indicates whether this relative date represents a range of dates (true for query.RelativeDateRange values)
+     * or a specific moment in time (false for relative dates created using query.createRelativeDate(options)).
      * @since 2019.1
      */
     readonly isRange: boolean;
 
     /**
-     * Id of relative date
-     * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-     *
+     * The ID of the relative date (a query.DateId value for relative dates created using query.createRelativeDate(options)).
      * @since 2019.1
      */
-    readonly dateId: Object;
+    readonly dateId: string;
 
     /**
      * Returns the object type name (query.RelativeDate)
@@ -922,28 +1177,37 @@ export interface RelativeDate {
      *
      * @since 2019.1
      */
-    toJSON(): any;
+    toJSON(): object;
 }
 
 interface CreatePeriodOptions {
     /** The code of the period. This property uses values from the query.PeriodCode enum. */
     code: PeriodCode;
-    /** The adjustment of the period. This property uses values from the query.PeriodAdjustment enum. */
+    /** The adjustment of the period. This property uses values from the query.PeriodAdjustment enum. The default value of this property is query.PeriodAdjustment.NOT_LAST. */
     adjustment?: PeriodAdjustment;
     /** The type of the period. This property uses values from the query.PeriodType enum. The default value of this property is query.PeriodType.START. */
     type?: PeriodType;
 }
 
+/**
+ * Creates a query.Period object, which represents a period of time to use in query conditions.
+ * @throws {SuiteScriptError} INVALID_PERIOD_ADJUSTMENT if the specified period adjustment is not a value from the query.PeriodAdjustment enum
+ * @throws {SuiteScriptError} INVALID_PERIOD_CODE if the specified period code is not a value from the query.PeriodCode enum
+ * @throws {SuiteScriptError} INVALID_PERIOD_TYPE if the specified period type is not a value from the query.PeriodType enum
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if any of the parameters is not a string
+ * @governance none
+ * @since 2020.1
+ */
 export function createPeriod(options: CreatePeriodOptions): Period;
 
 interface CreateRelativeDateOptions {
     /**
-     * The ID of the relative date to create.
+     * The ID of the relative date to create. Use the query.DateId enum.
      */
     dateId: DateId;
 
     /**
-     * The value to use to create the relative date.
+     * The value to use to create the relative date (for example, 5 with query.DateId.DAYS_AGO for five days ago).
      */
     value: number;
 }
@@ -951,13 +1215,16 @@ interface CreateRelativeDateOptions {
 
 /**
  * Creates a query.RelativeDate object that represents a date relative to the current date.
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT If options or id are undefined.
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE If options isn't object or id isn't string.
- *
- * @since 2019.2
+ * @throws {SuiteScriptError} INVALID_DATE_ID if the specified value for options.dateId is not a value from the query.DateId enum
+ * @governance none
+ * @since 2019.1
  */
 export function createRelativeDate(options: CreateRelativeDateOptions): RelativeDate;
 
+/**
+ * Holds the string values for operators supported with the N/query module. Use with Query.createCondition(options) and Component.createCondition(options).
+ * @since 2018.1
+ */
 export enum Operator {
     AFTER = "AFTER",
     AFTER_NOT = "AFTER_NOT",
@@ -1003,21 +1270,46 @@ export enum Operator {
     WITHIN_NOT = "WITHIN_NOT",
 }
 
-export enum Type { // As of 15 June 2020
+/**
+ * Holds the string values for query types used in the query definition. Use with query.create(options).
+ * A query type is not the same as a record type. Custom record types are not included in this enum.
+ * @since 2018.1
+ */
+export enum Type {
     ACCOUNT = "account",
+    ACCOUNTING_BOOK = "accountingbook",
     ACCOUNTING_CONTEXT = "accountingcontext",
     ACCOUNTING_PERIOD = "accountingperiod",
+    ACTIVITY = "activity",
+    ADDRESS_BOOK = "addressbook",
+    ADVANCED_NUMBERING_LOG = "advancednumberinglog",
+    ADVANCED_PDF_TEMPLATE = "advancedpdftemplate",
     ALLOCATION_METHOD = "allocationmethod",
+    ALL_PARSER_PLUGIN = "allparserplugin",
     AMORTIZATION_SCHEDULE = "amortizationschedule",
     AMORTIZATION_TEMPLATE = "amortizationtemplate",
+    AUTHORIZATION_CONSENT = "authorizationconsent",
+    AUTOMATED_CLEARING_HOUSE = "automatedclearinghouse",
+    BALANCING_SEGMENTS_PREFERENCE = "balancingsegmentspreference",
+    BILLING_CLASS = "billingclass",
+    BILLING_RATE_CARD = "billingratecard",
     BILLING_SCHEDULE = "billingschedule",
+    BILL_OF_DISTRIBUTION = "billofdistribution",
+    BILL_RUN = "billrun",
+    BILL_RUN_SCHEDULE = "billrunschedule",
     BIN = "bin",
+    BOM = "bom",
+    BOM_REVISION = "bomrevision",
+    BOM_REVISION_COMPONENT = "bomrevisioncomponent",
     BUDGETCATEGORY = "budgetcategory",
+    BUDGETIMPORT = "budgetimport",
     BUDGETS = "budgets",
     BUDGET_EXCHANGE_RATE = "budgetexchangerate",
+    BUDGET_LEGACY = "budgetlegacy",
     BULK_PROC_SUBMISSION = "bulkprocsubmission",
     BUNDLE_INSTALLATION_SCRIPT = "bundleinstallationscript",
     BUNDLE_INSTALLATION_SCRIPT_DEPLOYMENT = "bundleinstallationscriptdeployment",
+    BUSINESS_EVENTS_PROCESSING_HISTORY = "businesseventsprocessinghistory",
     CALENDAR_EVENT = "calendarevent",
     CAMPAIGN_AUDIENCE = "campaignaudience",
     CAMPAIGN_CATEGORY = "campaigncategory",
@@ -1034,9 +1326,14 @@ export enum Type { // As of 15 June 2020
     CARDHOLDER_AUTHENTICATION = "cardholderauthentication",
     CARDHOLDER_AUTHENTICATION_EVENT = "cardholderauthenticationevent",
     CATEGORY1099MISC = "category1099misc",
+    CHARGE = "charge",
+    CHARGE_RULE = "chargerule",
+    CHARGE_RUN = "chargerun",
+    CHARGE_TYPE = "chargetype",
     CLASSIFICATION = "classification",
     CLIENT_SCRIPT = "clientscript",
     CLIENT_SCRIPT_DEPLOYMENT = "clientscriptdeployment",
+    COMPANY_FEATURE_SETUP = "companyfeaturesetup",
     COMPETITOR = "competitor",
     CONSOLIDATED_EXCHANGE_RATE = "consolidatedexchangerate",
     CONSOLIDATED_RATE_ADJUSTOR_PLUGIN = "consolidatedrateadjustorplugin",
@@ -1048,22 +1345,34 @@ export enum Type { // As of 15 June 2020
     COUPON_CODE = "couponcode",
     CURRENCY = "currency",
     CURRENCY_RATE = "currencyrate",
+    CURRENCY_RATE_TYPE = "currencyratetype",
     CUSTOMER = "customer",
     CUSTOMER_CATEGORY = "customercategory",
     CUSTOMER_MESSAGE = "customermessage",
+    CUSTOMER_SEGMENT = "customersegment",
     CUSTOMER_SUBSIDIARY_RELATIONSHIP = "customersubsidiaryrelationship",
     CUSTOM_FIELD = "customfield",
+    CUSTOM_FIELD_2 = "customfield2",
     CUSTOM_GL_PLUGIN = "customglplugin",
     CUSTOM_LIST = "customlist",
+    CUSTOM_RECORD_ACTION_SCRIPT = "customrecordactionscript",
     CUSTOM_RECORD_TYPE = "customrecordtype",
+    CUSTOM_SEGMENT = "customsegment",
+    CUSTOM_SEGMENT_FIELD = "customsegmentfield",
     CUSTOM_TRANSACTION_TYPE = "customtransactiontype",
+    DATASET_BUILDER_PLUGIN = "datasetbuilderplugin",
     DELETED_RECORD = "deletedrecord",
+    DELETED_RECORD_IN_CONNECT = "deletedrecordinconnect",
     DEPARTMENT = "department",
     DEVICE_ID = "deviceid",
+    DISTRIBUTION_CATEGORY = "distributioncategory",
+    DISTRIBUTION_NETWORK = "distributionnetwork",
     DOMAIN = "domain",
+    DUAL = "dual",
     EMAIL_CAPTURE_PLUGIN = "emailcaptureplugin",
     EMAIL_TEMPLATE = "emailtemplate",
     EMPLOYEE = "employee",
+    EMPLOYEE_EXPENSE_SOURCE_TYPE = "employeeexpensesourcetype",
     EMPLOYEE_LIST = "employeelist",
     EMPLOYEE_STATUS = "employeestatus",
     EMPLOYEE_SUBSIDIARY_RELATIONSHIP = "employeesubsidiaryrelationship",
@@ -1072,27 +1381,52 @@ export enum Type { // As of 15 June 2020
     ENTITY_GROUP = "entitygroup",
     ENTITY_SUBSIDIARY_RELATIONSHIP = "entitysubsidiaryrelationship",
     EXPENSE_CATEGORY = "expensecategory",
+    EXPENSE_REPORT_POLICY = "expensereportpolicy",
     FAX_TEMPLATE = "faxtemplate",
     FILE = "file",
+    FISCAL_CALENDAR = "fiscalcalendar",
     FI_CONNECTIVITY_PLUGIN = "ficonnectivityplugin",
     FORECAST = "forecast",
+    FORMAT_PROFILE = "formatprofile",
     FULFILLMENT_EXCEPTION_REASON = "fulfillmentexceptionreason",
+    FULFILLMENT_REQUEST = "fulfillmentrequest",
+    F_I_PARSER_PLUGIN = "fiparserplugin",
     GATEWAY_NOTIFICATION = "gatewaynotification",
+    GENERALIZED_ITEM = "generalizeditem",
     GENERAL_ALLOCATION_SCHEDULE = "generalallocationschedule",
     GENERAL_TOKEN = "generaltoken",
     GENERIC_RESOURCE = "genericresource",
     GENERIC_RESOURCE_SUBSIDIARY_RELATIONSHIP = "genericresourcesubsidiaryrelationship",
     GIFT_CERTIFICATE = "giftcertificate",
+    GLOBAL_ACCOUNT_MAPPING = "globalaccountmapping",
+    GLOBAL_INVENTORY_RELATIONSHIP = "globalinventoryrelationship",
     GL_LINES_AUDIT_LOG = "gllinesauditlog",
     GL_LINES_PLUGIN_REVISION = "gllinespluginrevision",
+    G_L_NUMBERING_SEQUENCE = "glnumberingsequence",
+    IMPORTED_EMPLOYEE_EXPENSE = "importedemployeeexpense",
+    INBOUND_SHIPMENT = "inboundshipment",
+    /** Oracle documents this key; INCO_TERM is kept for backward compatibility. */
+    INCOTERM = "incoterm",
     INCO_TERM = "incoterm",
     INVENTORY_COST_TEMPLATE = "inventorycosttemplate",
     INVENTORY_NUMBER = "inventorynumber",
+    INVENTORY_STATUS = "inventorystatus",
+    INVOICE_GROUP = "invoicegroup",
     INVT_ITEM_PRICE_HISTORY = "invtitempricehistory",
+    ISSUE = "issue",
+    ISSUE_PRIORITY = "issuepriority",
+    ISSUE_SEVERITY = "issueseverity",
+    ISSUE_STATUS = "issuestatus",
     ITEM = "item",
+    ITEM_ACCOUNT_MAPPING = "itemaccountmapping",
     ITEM_COLLECTION = "itemcollection",
     ITEM_DEMAND_PLAN = "itemdemandplan",
+    ITEM_LOCATION_CONFIGURATION = "itemlocationconfiguration",
+    ITEM_PROCESS_FAMILY = "itemprocessfamily",
+    ITEM_PROCESS_GROUP = "itemprocessgroup",
     ITEM_REVISION = "itemrevision",
+    ITEM_SEGMENT_CUSTOMER_SEGMENT_MAP = "itemsegmentcustomersegmentmap",
+    ITEM_SEGMENT_INCLUDING_SYNTHETIC = "itemsegmentincludingsynthetic",
     ITEM_SUPPLY_PLAN = "itemsupplyplan",
     I_P_RESTRICTIONS = "iprestrictions",
     JOB = "job",
@@ -1101,9 +1435,12 @@ export enum Type { // As of 15 June 2020
     JOB_TYPE = "jobtype",
     KNOWLEDGE_BASE = "knowledgebase",
     LOCATION = "location",
+    LOCATION_COSTING_GROUP = "locationcostinggroup",
     LOGIN_AUDIT = "loginaudit",
     MAIL_TEMPLATE = "mailtemplate",
+    MANUFACTURING_COMPONENT = "manufacturingcomponent",
     MANUFACTURING_COST_TEMPLATE = "manufacturingcosttemplate",
+    MANUFACTURING_OPERATION_TASK = "manufacturingoperationtask",
     MANUFACTURING_ROUTING = "manufacturingrouting",
     MANUFACTURING_TRANSACTION = "manufacturingtransaction",
     MAP_REDUCE_SCRIPT = "mapreducescript",
@@ -1113,20 +1450,37 @@ export enum Type { // As of 15 June 2020
     MEDIA_ITEM_FOLDER = "mediaitemfolder",
     MEM_DOC = "memdoc",
     MEM_DOC_TRANSACTION_TEMPLATE = "memdoctransactiontemplate",
+    MERCHANDISE_HIERARCHY_LEVEL = "merchandisehierarchylevel",
+    MERCHANDISE_HIERARCHY_NODE = "merchandisehierarchynode",
+    MERCHANDISE_HIERARCHY_VERSION = "merchandisehierarchyversion",
     MESSAGE = "message",
     MFG_PLANNED_TIME = "mfgplannedtime",
+    NETTING_STATEMENT = "nettingstatement",
     NEXUS = "nexus",
     NOTE = "note",
+    OCR_IMPORT_JOB = "ocrimportjob",
+    OCR_IMPORT_JOB_REVIEW = "ocrimportjobreview",
+    OCR_PLUGIN = "ocrplugin",
     ONLINE_CASE_FORM = "onlinecaseform",
     ONLINE_FORM_TEMPLATE = "onlineformtemplate",
     ONLINE_LEAD_FORM = "onlineleadform",
+    ORDER_ALLOCATION_STRATEGY = "orderallocationstrategy",
+    /** Key as documented by Oracle (the value is "orderreleaseline"). */
+    ORDER_RELEASE_LIN = "orderreleaseline",
+    ORDER_RESERVATION = "orderreservation",
+    ORDER_TYPE_RECORD = "ordertyperecord",
     OTHER_NAME = "othername",
     OTHER_NAME_CATEGORY = "othernamecategory",
     OTHER_NAME_SUBSIDIARY_RELATIONSHIP = "othernamesubsidiaryrelationship",
     OUTBOUND_REQUEST = "outboundrequest",
+    /** Value as documented by Oracle (possibly a typo for "oauth2clientcredentials"). */
+    O_AUTH2_CLIENT_CREDENTIALS = "oauth22clientcredentials",
     O_AUTH_TOKEN = "oauthtoken",
     PARTNER = "partner",
     PARTNER_SUBSIDIARY_RELATIONSHIP = "partnersubsidiaryrelationship",
+    PAYCHECK = "paycheck",
+    PAYMENT_CARD = "paymentcard",
+    PAYMENT_CARD_SEARCH_RECORD = "paymentcardsearchrecord",
     PAYMENT_CARD_TOKEN = "paymentcardtoken",
     PAYMENT_EVENT = "paymentevent",
     PAYMENT_GATEWAY_PLUGIN = "paymentgatewayplugin",
@@ -1134,35 +1488,70 @@ export enum Type { // As of 15 June 2020
     PAYMENT_METHOD = "paymentmethod",
     PAYMENT_PROCESSING_PROFILE = "paymentprocessingprofile",
     PAYMENT_RESULT_PREVIEW = "paymentresultpreview",
+    PAYROLL_BATCH = "payrollbatch",
     PAYROLL_ITEM = "payrollitem",
+    PAYROLL_ITEM_GROUP = "payrollitemgroup",
     PDF_TEMPLATE = "pdftemplate",
+    PERFORMANCE_REVIEW_SCHEDULE_TALENT_DATASET = "performancereviewscheduletalentdataset",
     PHONE_CALL = "phonecall",
+    PICK_STRATEGY = "pickstrategy",
+    PICK_TASK = "picktask",
+    PICK_TASK_INVENTORY_BALANCE = "picktaskinventorybalance",
+    PLANNED_ORDER = "plannedorder",
     PLANNED_STANDARD_COST = "plannedstandardcost",
+    PLANNING_ITEM_CATEGORY = "planningitemcategory",
+    PLANNING_ITEM_GROUP = "planningitemgroup",
+    PLANNING_ITEM_GROUP_SOURCE = "planningitemgroupsource",
+    PLANNING_RULE_GROUP = "planningrulegroup",
+    PLANNING_VIEW = "planningview",
     PLATFORM_EXTENSION_PLUGIN = "platformextensionplugin",
     PLUG_IN_TYPE = "plugintype",
     PLUG_IN_TYPE_IMPL = "plugintypeimpl",
     PORTLET = "portlet",
     PORTLET_DEPLOYMENT = "portletdeployment",
+    POSTING_ACCOUNT_ACTIVITY = "postingaccountactivity",
+    PREDICTED_RISK_TRAIN_EVAL_HISTORY = "predictedrisktrainevalhistory",
     PRICE_LEVEL = "pricelevel",
     PRICING = "pricing",
     PRICING_GROUP = "pricinggroup",
+    PRICING_WITH_CUSTOMERS = "pricingwithcustomers",
+    PROJECT_BUDGET = "projectbudget",
+    PROJECT_EXPENSE_TYPE = "projectexpensetype",
+    PROJECT_FINANCIALS = "projectfinancials",
+    PROJECT_IC_CHARGE_REQUEST = "projecticchargerequest",
     PROJECT_SUBSIDIARY_RELATIONSHIP = "projectsubsidiaryrelationship",
     PROJECT_TASK = "projecttask",
     PROJECT_TEMPLATE = "projecttemplate",
     PROJECT_TEMPLATE_SUBSIDIARY_RELATIONSHIP = "projecttemplatesubsidiaryrelationship",
     PROMOTIONS_PLUGIN = "promotionsplugin",
     PROMOTION_CODE = "promotioncode",
+    PROMPT = "prompt",
     PUBLISHED_SAVED_SEARCH = "publishedsavedsearch",
     QUANTITY_PRICING_SCHEDULE = "quantitypricingschedule",
     QUOTA = "quota",
     RECENT_RECORD = "recentrecord",
+    RECORD_ACTION_SCRIPT_DEPLOYMENT = "recordactionscriptdeployment",
+    REC_SYS_ALGORITHM = "recsysalgorithm",
+    REC_SYS_ANALYTICS_REPORT = "recsysanalyticsreport",
+    REC_SYS_ANALYTICS_REPORT_AGG = "recsysanalyticsreportagg",
+    REC_SYS_BLOCKLIST = "recsysblocklist",
+    REC_SYS_CONVERSION = "recsysconversion",
+    REC_SYS_ELIGIBILITY = "recsyseligibility",
+    REC_SYS_SCENARIO = "recsysscenario",
     REDIRECT = "redirect",
+    RESOURCE_ALLOCATION = "resourceallocation",
     RESOURCE_GROUP = "resourcegroup",
     RESTLET = "restlet",
     RESTLET_DEPLOYMENT = "restletdeployment",
+    RETIREMENT_PLAN = "retirementplan",
+    REVENUE_ELEMENT = "revenueelement",
+    REV_REC_SCHEDULE = "revrecschedule",
+    REV_REC_TEMPLATE = "revrectemplate",
     ROLE = "role",
+    SALES_CHANNEL = "saleschannel",
     SALES_INVOICED = "salesinvoiced",
     SALES_ORDERED = "salesordered",
+    SALES_ROLE = "salesrole",
     SALES_TAX_ITEM = "salestaxitem",
     SCHEDULED_SCRIPT = "scheduledscript",
     SCHEDULED_SCRIPT_DEPLOYMENT = "scheduledscriptdeployment",
@@ -1176,11 +1565,17 @@ export enum Type { // As of 15 June 2020
     SENT_EMAIL = "sentemail",
     SHIPPING_PACKAGE = "shippingpackage",
     SHIPPING_PARTNERS_PLUGIN = "shippingpartnersplugin",
+    SHIPPING_PARTNER_REGISTRATION = "shippingpartnerregistration",
     SHIP_ITEM = "shipitem",
     SHOPPING_CART = "shoppingcart",
     SITE_CATEGORY = "sitecategory",
+    SITE_THEME = "sitetheme",
     SOLUTION = "solution",
     STANDARD_COST_VERSION = "standardcostversion",
+    STATE = "state",
+    STATISTICAL_JOURNAL_ENTRY = "statisticaljournalentry",
+    STATISTICAL_SCHEDULE = "statisticalschedule",
+    STORE_PICKUP_FULFILLMENT = "storepickupfulfillment",
     STORE_TAB = "storetab",
     SUBLIST = "sublist",
     SUBSIDIARY = "subsidiary",
@@ -1188,27 +1583,48 @@ export enum Type { // As of 15 June 2020
     SUITELET = "suitelet",
     SUITELET_DEPLOYMENT = "suiteletdeployment",
     SUITE_SCRIPT_DETAIL = "suitescriptdetail",
+    SUPPLY_CHAIN_SNAPSHOT = "supplychainsnapshot",
+    SUPPLY_CHAIN_SNAPSHOT_SIMULATION = "supplychainsnapshotsimulation",
+    SUPPLY_CHANGE_ORDER = "supplychangeorder",
+    SUPPLY_PLAN_DEFINITION = "supplyplandefinition",
     SUPPORT_CASE = "supportcase",
+    SUPPORT_CASE_PRIORITY = "supportcasepriority",
+    SUPPORT_CASE_STATUS = "supportcasestatus",
     SYSTEM_EMAIL_TEMPLATE = "systememailtemplate",
     SYSTEM_NOTE = "systemnote",
     SYSTEM_NOTE2 = "systemnote2",
     SYSTEM_NOTE_FIELD = "systemnotefield",
+    SYSTEM_NOTE_TYPE = "systemnotetype",
     TASK = "task",
+    TASK_ITEM_STATUS = "taskitemstatus",
     TAX_CALCULATION_PLUGIN = "taxcalculationplugin",
     TAX_ITEM_TAX_GROUP = "taxitemtaxgroup",
     TAX_TYPE = "taxtype",
     TERM = "term",
     TEST_PLUGIN = "testplugin",
+    TEXT_ENHANCE_ACTION = "textenhanceaction",
     TIME_BILL = "timebill",
     TIME_MODIFICATION_REQUEST = "timemodificationrequest",
+    TIME_SHEET = "timesheet",
     TOPIC = "topic",
+    TRACKING_NUMBER = "trackingnumber",
     TRANSACTION = "transaction",
+    TRANSACTION_ADDRESSBOOK = "transactionaddressbook",
+    TRANSACTION_APPLIED_RULES_LOG = "transactionappliedruleslog",
+    TRANSACTION_BILLING = "transactionbilling",
+    TRANSACTION_BILLING_ADDRESSBOOK = "transactionbillingaddressbook",
     TRANSACTION_DELETION_REASON = "transactiondeletionreason",
     TRANSACTION_HISTORY = "transactionhistory",
     TRANSACTION_NUMBERING_AUDIT_LOG = "transactionnumberingauditlog",
+    TRANSACTION_PAYEE_ADDRESSBOOK = "transactionpayeeaddressbook",
+    TRANSACTION_RETURN_ADDRESSBOOK = "transactionreturnaddressbook",
+    TRANSACTION_SHIPPING_ADDRESSBOOK = "transactionshippingaddressbook",
+    TRANSACTION_STATUS = "transactionstatus",
     UMD_FIELD = "umdfield",
     UNDELIVERED_EMAIL = "undeliveredemail",
     UNITS_TYPE = "unitstype",
+    UNLOCKED_TIME_PERIOD = "unlockedtimeperiod",
+    USER_AUTHORIZATION_CONSENT = "userauthorizationconsent",
     USER_EVENT_SCRIPT = "usereventscript",
     USER_EVENT_SCRIPT_DEPLOYMENT = "usereventscriptdeployment",
     USER_O_AUTH_TOKEN = "useroauthtoken",
@@ -1217,16 +1633,25 @@ export enum Type { // As of 15 June 2020
     USR_DS_AUDIT_LOG = "usrdsauditlog",
     USR_DS_EXECUTION_LOG = "usrdsexecutionlog",
     USR_EXECUTION_LOG = "usrexecutionlog",
+    U_S_R_SNAPSHOT = "usrsnapshot",
     VENDOR = "vendor",
     VENDOR_CATEGORY = "vendorcategory",
     VENDOR_SUBSIDIARY_RELATIONSHIP = "vendorsubsidiaryrelationship",
+    WBS = "wbs",
     WEBAPP = "webapp",
     WEB_SITE = "website",
+    WORKBOOK_BUILDER_PLUGIN = "workbookbuilderplugin",
     WORKFLOW_ACTION_SCRIPT = "workflowactionscript",
     WORKFLOW_ACTION_SCRIPT_DEPLOYMENT = "workflowactionscriptdeployment",
-    WORK_CALENDAR = "workcalendar"
+    WORKPLACE = "workplace",
+    WORK_CALENDAR = "workcalendar",
+    ZONE = "zone",
 }
 
+/**
+ * Holds the string values for aggregate functions supported with the N/query module.
+ * @since 2018.1
+ */
 export enum Aggregate {
     AVERAGE = "AVERAGE",
     AVERAGE_DISTINCT = "AVERAGE_DISTINCT",
@@ -1241,9 +1666,14 @@ export enum Aggregate {
     SUM_DISTINCT = "SUM_DISTINCT",
 }
 
+/**
+ * Holds the string values for the formula return types supported with the N/query module.
+ * @since 2018.1
+ */
 export enum ReturnType {
     ANY = "ANY",
     BOOLEAN = "BOOLEAN",
+    CLOBTEXT = "CLOBTEXT",
     CURRENCY = "CURRENCY",
     DATE = "DATE",
     DATETIME = "DATETIME",
@@ -1251,6 +1681,7 @@ export enum ReturnType {
     FLOAT = "FLOAT",
     INTEGER = "INTEGER",
     KEY = "KEY",
+    PERCENT = "PERCENT",
     RELATIONSHIP = "RELATIONSHIP",
     STRING = "STRING",
     UNKNOWN = "UNKNOWN",
@@ -1259,6 +1690,7 @@ export enum ReturnType {
 /**
  * Holds the string values for the field context to use when creating a column.
  * The field context determines how field values are displayed in a column.
+ * @since 2019.1
  */
 export enum FieldContext {
     /** Displays consolidated debit / credit amount in the base currency. */
@@ -1289,49 +1721,67 @@ export enum FieldContext {
     RAW = "RAW"
 }
 
-declare enum PeriodAdjustment {
+/**
+ * Holds the string values for adjustment types for a period. Use with query.createPeriod(options).
+ * @since 2020.1
+ */
+export enum PeriodAdjustment {
     ALL,
     NOT_LAST
 }
 
-declare enum PeriodCode {
-    FIRST_FISCAL_QUARTER_LAST_FY,
-    FIRST_FISCAL_QUARTER_THIS_FY,
-    FISCAL_QUARTER_BEFORE_LAST,
-    FISCAL_YEAR_BEFORE_LAST,
-    FOURTH_FISCAL_QUARTER_LAST_FY,
-    FOURTH_FISCAL_QUARTER_THIS_FY,
-    LAST_FISCAL_QUARTER,
-    LAST_FISCAL_QUARTER_ONE_FISCAL_YEAR_AGO,
-    LAST_FISCAL_QUARTER_TO_PERIOD,
-    LAST_FISCAL_YEAR,
-    LAST_FISCAL_YEAR_TO_PERIOD,
-    LAST_PERIOD,
-    LAST_PERIOD_ONE_FISCAL_QUARTER_AGO,
-    LAST_PERIOD_ONE_FISCAL_YEAR_AGO,
-    LAST_ROLLING_18_PERIODS,
-    LAST_ROLLING_6_FISCAL_QUARTERS,
-    PERIOD_BEFORE_LAST,
-    SAME_FISCAL_QUARTER_LAST_FY,
-    SAME_FISCAL_QUARTER_LAST_FY_TO_PERIOD,
-    SAME_PERIOD_LAST_FY,
-    SAME_PERIOD_LAST_FISCAL_QUARTER,
-    SECOND_FISCAL_QUARTER_LAST_FY,
-    SECOND_FISCAL_QUARTER_THIS_FY,
-    THIRD_FISCAL_QUARTER_LAST_FY,
-    THIRD_FISCAL_QUARTER_THIS_FY,
-    THIS_FISCAL_QUARTER,
-    THIS_FISCAL_QUARTER_TO_PERIOD,
-    THIS_FISCAL_YEAR,
-    THIS_FISCAL_YEAR_TO_PERIOD,
-    THIS_PERIOD
+/**
+ * Holds the string values for period codes for a period. Use with query.createPeriod(options).
+ * Each value sets the Period.code property to the corresponding period code string.
+ * @since 2020.1
+ */
+export enum PeriodCode {
+    FIRST_FISCAL_QUARTER_LAST_FY = "Q1LFY",
+    FIRST_FISCAL_QUARTER_THIS_FY = "Q1TFY",
+    FISCAL_QUARTER_BEFORE_LAST = "QBL",
+    FISCAL_YEAR_BEFORE_LAST = "FYBL",
+    FOURTH_FISCAL_QUARTER_LAST_FY = "Q4LFY",
+    FOURTH_FISCAL_QUARTER_THIS_FY = "Q4TFY",
+    LAST_FISCAL_QUARTER = "LQ",
+    LAST_FISCAL_QUARTER_ONE_FISCAL_YEAR_AGO = "LQOLFY",
+    LAST_FISCAL_QUARTER_TO_PERIOD = "LFQTP",
+    LAST_FISCAL_YEAR = "LFY",
+    LAST_FISCAL_YEAR_TO_PERIOD = "LFYTP",
+    LAST_PERIOD = "LP",
+    LAST_PERIOD_ONE_FISCAL_QUARTER_AGO = "LPOLQ",
+    LAST_PERIOD_ONE_FISCAL_YEAR_AGO = "LPOLFY",
+    LAST_ROLLING_18_PERIODS = "LR18FP",
+    LAST_ROLLING_6_FISCAL_QUARTERS = "LR6FQ",
+    PERIOD_BEFORE_LAST = "PBL",
+    SAME_FISCAL_QUARTER_LAST_FY = "TQOLFY",
+    SAME_FISCAL_QUARTER_LAST_FY_TO_PERIOD = "TFQOLFYTP",
+    SAME_PERIOD_LAST_FY = "TPOLFY",
+    SAME_PERIOD_LAST_FISCAL_QUARTER = "TPOLQ",
+    SECOND_FISCAL_QUARTER_LAST_FY = "Q2LFY",
+    SECOND_FISCAL_QUARTER_THIS_FY = "Q2TFY",
+    THIRD_FISCAL_QUARTER_LAST_FY = "Q3LFY",
+    THIRD_FISCAL_QUARTER_THIS_FY = "Q3TFY",
+    THIS_FISCAL_QUARTER = "TQ",
+    THIS_FISCAL_QUARTER_TO_PERIOD = "TFQTP",
+    THIS_FISCAL_YEAR = "TFY",
+    THIS_FISCAL_YEAR_TO_PERIOD = "TFYTP",
+    THIS_PERIOD = "TP"
 }
 
-declare enum PeriodType {
+/**
+ * Holds the string values for period types for a period. Use with query.createPeriod(options).
+ * @since 2020.1
+ */
+export enum PeriodType {
     END,
     START
 }
 
+/**
+ * Holds the string values for sort locales supported with the N/query module. Use with Query.createSort(options) and Component.createSort(options).
+ * You must enable the specified locale in your company settings to avoid potential scripting errors.
+ * @since 2018.2
+ */
 export enum SortLocale {
     ARABIC = "ARABIC",
     ARABIC_ABJ_MATCH = "ARABIC_ABJ_MATCH",
@@ -1387,6 +1837,7 @@ export enum SortLocale {
     ES_ES = "ES_ES",
     FINNISH = "FINNISH",
     FINNISH_CI = "FINNISH_CI",
+    FI_FI = "FI_FI",
     FRENCH = "FRENCH",
     FRENCH_AI = "FRENCH_AI",
     FRENCH_CI = "FRENCH_CI",
@@ -1419,6 +1870,7 @@ export enum SortLocale {
     ICELANDIC = "ICELANDIC",
     ICELANDIC_AI = "ICELANDIC_AI",
     ICELANDIC_CI = "ICELANDIC_CI",
+    ID_ID = "ID_ID",
     INDONESIAN = "INDONESIAN",
     INDONESIAN_AI = "INDONESIAN_AI",
     INDONESIAN_CI = "INDONESIAN_CI",
@@ -1443,6 +1895,7 @@ export enum SortLocale {
     MALAY_AI = "MALAY_AI",
     MALAY_CI = "MALAY_CI",
     NL_NL = "NL_NL",
+    NO_NO = "NO_NO",
     NORWEGIAN = "NORWEGIAN",
     NORWEGIAN_AI = "NORWEGIAN_AI",
     NORWEGIAN_CI = "NORWEGIAN_CI",
@@ -1497,6 +1950,7 @@ export enum SortLocale {
     VIETNAMESE = "VIETNAMESE",
     VIETNAMESE_AI = "VIETNAMESE_AI",
     VIETNAMESE_CI = "VIETNAMESE_CI",
+    VI_VN = "VI_VN",
     WEST_EUROPEAN = "WEST_EUROPEAN",
     WEST_EUROPEAN_AI = "WEST_EUROPEAN_AI",
     WEST_EUROPEAN_CI = "WEST_EUROPEAN_CI",
@@ -1504,6 +1958,11 @@ export enum SortLocale {
     ZH_TW = "ZH_TW",
 }
 
+/**
+ * Holds query.RelativeDate object values for supported date ranges in relative dates.
+ * Use with Query.createCondition(options) and Component.createCondition(options).
+ * @since 2019.1
+ */
 export enum RelativeDateRange {
     FISCAL_HALF_BEFORE_LAST,
     FISCAL_HALF_BEFORE_LAST_TO_DATE,

@@ -16,8 +16,17 @@ export interface IAccountRequest {
     /** The financial institution account's unique identifier */
     accountMappingKey: string;
 
-    /** If provided, indicates the reason for the failed imported statement */
+    /**
+     * If provided, indicates the reason for the failed imported statement.
+     * Note: Oracle is phasing out free-text failure reasons in favor of errorCode.
+     */
     failureReason?: string;
+
+    /**
+     * Standardized account-level error code for the failure (see Bank Import Error Codes (Reference)).
+     * All valid account-level error codes begin with "2".
+     */
+    errorCode?: string;
 }
 
 interface getConfigurationFieldValueOptions {
@@ -39,7 +48,7 @@ interface pluginConfiguration {
 
 export interface getConfigurationIFrameUrlContext {
 
-    /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
     /**
@@ -138,6 +147,18 @@ interface addAccountOptions {
     groupName: string;
 
     /**
+     * If provided, indicates the reason the account could not be retrieved.
+     * Note: Oracle is phasing out free-text failure reasons in favor of errorCode.
+     */
+    failureReason?: string;
+
+    /**
+     * Standardized account-level error code for an account retrieval failure (see Bank Import Error Codes (Reference)).
+     * All valid account-level error codes begin with "2".
+     */
+    errorCode?: string;
+
+    /**
      * The last time the financial institution updated data for an account. If the financial institution has
      * not updated the account since the last import, then you know there is no new data to import.
      * If getAccounts() returns a lastUpdated value for an account, NetSuite calls getTransactionData(),
@@ -147,9 +168,21 @@ interface addAccountOptions {
     lastUpdated?: string;
 }
 
+interface retryOptions {
+
+    /**
+     * How many minutes into the future to schedule the import retry. Must be greater than or equal to 30,
+     * and less than or equal to 240
+     */
+    deltaMinutesLater: number;
+
+    /** -optional- The reason an import retry is needed */
+    currentFailureReason?: string;
+}
+
 export interface getAccountsContext {
 
-    /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
     /**
@@ -158,6 +191,23 @@ export interface getAccountsContext {
      * Bank Reconciliation format profile record.
      */
     addAccount: (options: addAccountOptions) => void;
+
+    /**
+     * This function is invoked by the plug-in to check whether a bank import retry is allowed.
+     * - A retry is not permitted if it is not called during an import job
+     * - If a retry is called during an import job, a retry is permitted if there has been no more than one
+     * failed import job in the past two hours for a format profile or for a single financial institution account
+     */
+    isRetryAllowed: () => boolean;
+
+    /**
+     * This method is invoked by the plug-in to schedule a bank import retry deltaMinutesLater minutes in the future.
+     * The current import job is marked as failed, and then a retry is initiated.
+     * @throws {SuiteScriptError} SSS_RETRY_NOT_ALLOWED if retry is called when retry is not allowed.
+     * @throws {SuiteScriptError} SSS_INVALID_RETRY_DELAY if deltaMinutesLater is outside of the valid range.
+     * @throws {SuiteScriptError} SSS_RETRY_FAILURE_REASON_SIZE_LIMIT_EXCEEDED if currentFailureReason is too long.
+     */
+    retry: (options: retryOptions) => void;
 }
 
 /**
@@ -166,14 +216,14 @@ export interface getAccountsContext {
  * open the Account Linking subtab on a Bank Reconciliation format profile record, or when bank data is imported
  * into NetSuite
  */
-export type  getAccounts = (options: getAccountsContext) => void;
+export type getAccounts = (options: getAccountsContext) => void;
 
 interface addDataChunkOptions {
 
     /**
-     * This function enables you to transmit the financial institution’s data file to NetSuite as a series of chunks.
-     * It encrypts the incoming chunks before storing them in the database.
-     * Each chunk size has a 25–million character limit.
+     * A chunk of data from your financial institution's data file. NetSuite encrypts each chunk before storing it
+     * in the database. Encryption and multibyte characters can increase a chunk's size. Each chunk supports
+     * approximately 14 million single-byte characters.
      */
     dataChunk: string;
 }
@@ -187,33 +237,21 @@ interface returnAccountRequestsJSONOptions {
     accountsJson: string;
 }
 
-interface retryOptions {
-
-    /**
-     * How many minutes into the future to schedule the import retry. Must be greater than or equal to 30,
-     * and less than or equal to 240
-     */
-    deltaMinutesLater: number;
-
-    /** The reason an import retry is needed */
-    currentFailureReason: string;
-}
-
 export interface getTransactionDataContext {
 
-    /** Allow the plug-in to retrieve user-suppled standard configuration properties (field values) for this plug-in */
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
     pluginConfiguration: pluginConfiguration;
 
     /**
      * A list of financial institution accounts required for the plug-in to query bank data, as well as the
-     * required data date ranges. The information retrieved is provided as a JSON format string
+     * required data date ranges. The information retrieved is provided as a JSON format string that parses to
+     * an IAccountRequest[]. Only applicable to Bank Reconciliation format profile setups.
      */
     accountRequestsJSON: string;
 
     /**
-     * This function enables you to transmit the financial institution’s data file to NetSuite as a series of chunks.
-     * It encrypts the incoming chunks before storing them in the database. Each chunk size has a 25–million
-     * character limit.
+     * This function sends a financial institution's data file to NetSuite in chunks. NetSuite encrypts each chunk
+     * before storing it in the database. Each chunk supports approximately 14 million single-byte characters.
      */
     addDataChunk: (options: addDataChunkOptions) => void;
 
@@ -237,6 +275,9 @@ export interface getTransactionDataContext {
      * The current import job will fail and a failure reason will appear. If your role has the Import Online Banking
      * File permission with create-level access at a minimum, the failure reason will include an error from the
      * plug-in. Otherwise, the failure reason will be more generic.
+     * @throws {SuiteScriptError} SSS_RETRY_NOT_ALLOWED if retry is called when retry is not allowed.
+     * @throws {SuiteScriptError} SSS_INVALID_RETRY_DELAY if deltaMinutesLater is outside of the valid range.
+     * @throws {SuiteScriptError} SSS_RETRY_FAILURE_REASON_SIZE_LIMIT_EXCEEDED if currentFailureReason is too long.
      */
     retry: (options: retryOptions) => void;
 }
@@ -245,4 +286,100 @@ export interface getTransactionDataContext {
  * This function enables the plug-in to invoke a Financial Institution Parser Plug-in or Bank Statement Parser
  * Plug-in to parse content into transactions. This happens when a bank data import is initiated
  */
-export type  getTransactionData = (options: getTransactionDataContext) => void;
+export type getTransactionData = (options: getTransactionDataContext) => void;
+interface addAccountErrorOptions {
+
+    /** The financial institution account's unique identifier. Must match an entry in accountRequestsJSON. */
+    accountMappingKey: string;
+
+    /**
+     * The error message for the failure. If provided, the account isn't included in accountRequestsJSON when
+     * getTransactionData is called.
+     */
+    failureReason?: string;
+
+    /**
+     * Standardized error code for account retrieval failure (see Bank Import Error Codes (Reference)).
+     * All valid account-level error codes begin with "2". Values that aren't part of the valid list are converted
+     * to "2000000000".
+     */
+    errorCode?: string;
+}
+
+interface setRefreshRequestIdOptions {
+
+    /** The request ID returned from the Account Information Service Provider (AISP) when a data refresh is requested. */
+    refreshRequestId: string;
+}
+
+export interface refreshDataContext {
+
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
+    pluginConfiguration: pluginConfiguration;
+
+    /**
+     * A list of financial institution accounts to refresh, provided as a JSON format string that parses to an
+     * IAccountRequest[].
+     */
+    accountRequestsJSON: string;
+
+    /**
+     * Records an error for an account specified in accountRequestsJSON. Use this function to indicate that a data
+     * refresh couldn't be initiated for the account.
+     */
+    addAccountError: (options: addAccountErrorOptions) => void;
+
+    /**
+     * Records the request ID returned from the AISP when a data refresh is requested. Do not call this function if
+     * the request is unsuccessful. Only applicable to Corporate Card Expenses type format profiles.
+     * @throws {SuiteScriptError} SSS_INVALID_REFRESH_REQUEST_ID if refreshRequestId is an empty string, null, or undefined.
+     */
+    setRefreshRequestId: (options: setRefreshRequestIdOptions) => void;
+}
+
+/**
+ * Initiates an on-demand request for the latest transaction data from the Account Information Service Provider
+ * (AISP) for one or more connected accounts.
+ */
+export type refreshData = (context: refreshDataContext) => void;
+
+/** The refresh request status values available on getRefreshRequestStatusContext.status. */
+interface refreshRequestStatusEnum {
+    readonly NOT_FOUND: string;
+    readonly IN_PROGRESS: string;
+    readonly FAILED: string;
+    readonly COMPLETED: string;
+}
+
+interface returnRefreshRequestStatusOptions {
+
+    /**
+     * The request ID returned from the AISP when a data refresh is requested, which must match
+     * context.refreshRequestId. Otherwise, the status is set to NOT_FOUND.
+     */
+    refreshRequestId: string;
+
+    /** The status returned from the AISP. Must be one of the context.status values. */
+    status: string;
+}
+
+export interface getRefreshRequestStatusContext {
+
+    /** Allow the plug-in to retrieve user-supplied standard configuration properties (field values) for this plug-in */
+    pluginConfiguration: pluginConfiguration;
+
+    /** The request ID previously recorded with setRefreshRequestId(options). */
+    refreshRequestId: string;
+
+    /** Holds the status enumeration values: NOT_FOUND, IN_PROGRESS, FAILED, COMPLETED. */
+    status: refreshRequestStatusEnum;
+
+    /** Returns the status of the refresh request for data from the AISP. */
+    returnRefreshRequestStatus: (options: returnRefreshRequestStatusOptions) => void;
+}
+
+/**
+ * Retrieves the status of a data refresh request from the Account Information Service Provider (AISP).
+ * Only applicable to connectivity plug-ins used in Corporate Card Expenses type format profiles.
+ */
+export type getRefreshRequestStatus = (context: getRefreshRequestStatusContext) => void;
