@@ -1,4 +1,4 @@
-# SuiteScript 2.1 Typings
+# SuiteScript 2.0 Typings
 
 [![Build Status](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0.png?branch=master)](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0)
 [![devDependencies Status](https://david-dm.org/headintheclouddev/typings-suitescript-2.0/dev-status.svg)](https://david-dm.org/headintheclouddev/typings-suitescript-2.0?type=dev)
@@ -80,9 +80,7 @@ Full example for a User Event Script might look something like this:
 import type {EntryPoints} from 'N/types';
 import * as log from 'N/log';
 
-export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (
-  context: EntryPoints.UserEvent.beforeSubmitContext
-) => {
+export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
   const x = context.newRecord.getValue({fieldId: 'companyname'});
   log.audit('value', `companyname is: ${x}`);
 };
