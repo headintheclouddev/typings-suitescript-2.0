@@ -200,7 +200,7 @@ export interface CreateSearchFilterOptions {
     /** Operator used for the search filter. Use the search.Operator enum. */
     operator: Operator;
     /** Values to be used as filter parameters. */
-    values?: FieldValue | FieldValue[] | string | Date | number | string[] | Date[] | number[] | boolean;
+    values?: Readonly<FieldValue> | readonly FieldValue[];
     /** Formula used by the search filter. */
     formula?: string;
     /** Summary type for the search filter. */
