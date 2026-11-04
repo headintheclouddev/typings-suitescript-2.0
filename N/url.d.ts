@@ -35,17 +35,38 @@ interface resolveTaskLinkOptions {
     params?: any;
 }
 
-/** Creates a serialized representation of an object containing query parameters. Use the returned value to build a URL query string. */
+/**
+ * Creates a serialized representation of an object containing query parameters. Use the returned value to build a URL query string.
+ * @governance none
+ * @since 2015.1
+ */
 export function format(options: formatOptions): string;
-/** Returns a domain name for a NetSuite account. */
+/**
+ * Returns a domain name for a NetSuite account.
+ * @governance none
+ * @since 2017.1
+ */
 export function resolveDomain(options: resolveHostOptions): string;
-/** Returns the URL string to a NetSuite record. */
+/**
+ * Returns the URL string to a NetSuite record.
+ * @governance none
+ * @since 2015.1
+ */
 export function resolveRecord(options: resolveRecordOptions): string;
-/** Returns an external or internal URL string to a script. */
+/**
+ * Returns an external or internal URL string to a script.
+ * @governance none
+ * @since 2015.1
+ */
 export function resolveScript(options: resolveScriptOptions): string;
-/** Returns the internal URL to a NetSuite tasklink. */
+/**
+ * Returns the internal URL to a NetSuite tasklink.
+ * @governance none
+ * @since 2015.2
+ */
 export function resolveTaskLink(options: resolveTaskLinkOptions): string;
 
+/** @since 2017.1 */
 export enum HostType {
     /** The domain for UI access, for users with a non-Customer Center role. Sample: system.na2.netsuite.com */
     APPLICATION,
