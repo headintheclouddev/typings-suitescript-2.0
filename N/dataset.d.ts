@@ -13,57 +13,103 @@
 import type {PagedData, RelativeDate, ResultSet} from "./query";
 import type {Expression} from "./workbook";
 
-/** Encapsulates the record fields in the dataset. Columns are equivalent to the fields you use when you build a dataset in SuiteAnalytics. */
+/**
+ * Encapsulates the record fields in the dataset. Columns are equivalent to the fields you use when you build a dataset in SuiteAnalytics.
+ * @since 2020.2
+ */
 interface Column {
+  /** @since 2020.2 */
   readonly alias: string;
+  /** @since 2020.2 */
   readonly fieldId: string;
+  /** @since 2020.2 */
   readonly formula: string;
+  /** @since 2020.2 */
   readonly id: string;
+  /** @since 2020.2 */
   readonly join: string;
+  /** @since 2020.2 */
   readonly label: string;
+  /** @since 2020.2 */
   readonly type: string;
 }
 
-/** The conditions for the dataset. Conditions are equivalent to criteria you use when you build a dataset in SuiteAnalytics. */
+/**
+ * The conditions for the dataset. Conditions are equivalent to criteria you use when you build a dataset in SuiteAnalytics.
+ * @since 2020.2
+ */
 interface Condition {
+  /** @since 2020.2 */
   readonly children: Condition[];
+  /** @since 2020.2 */
   readonly column: Column;
+  /** @since 2020.2 */
   readonly operator: string;
+  /** @since 2020.2 */
   readonly values: string[]|number[]|boolean[]|Date[];
 }
 
 /**
-* Encapsulates joined records used in the dataset. This object is created using the dataset.createJoin(options) method.
-* For more information on using joins in SuiteAnalytics, see Joining Records Types in a Dataset.
-*/
+ * Encapsulates joined records used in the dataset. This object is created using the dataset.createJoin(options) method.
+ * For more information on using joins in SuiteAnalytics, see Joining Records Types in a Dataset.
+ * @since 2020.2
+ */
 interface Join {
+  /** @since 2020.2 */
   readonly fieldId: string;
+  /** @since 2020.2 */
   readonly join: Join;
+  /** @since 2020.2 */
   readonly source: string;
+  /** @since 2020.2 */
   readonly target: string;
 }
 
-/** Encapsulates the entire dataset, including columns, conditions, and joins. This object is created using the dataset.create(options) method. */
+/**
+ * Encapsulates the entire dataset, including columns, conditions, and joins. This object is created using the dataset.create(options) method.
+ * @since 2020.2
+ */
 export interface Dataset {
   /**
-  * Returns an expression which can be used in workbook.
-  * The Help Center documentation shows alias is optional and columnId is required.
-  * Testing on version 2021.2 indicates that alias is required and columnId is optional.
-  */
+   * Returns an expression which can be used in workbook.
+   * The Help Center documentation shows alias is optional and columnId is required.
+   * Testing on version 2021.2 indicates that alias is required and columnId is optional.
+   * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.columnId and options.alias are specified
+   * @throws {SuiteScriptError} NEITHER_ARGUMENT_DEFINED if neither options.columnId nor options.alias is specified
+   * @governance none
+   * @since 2020.2
+   */
   getExpressionFromColumn(options: { alias: string, columnId?: number }): Expression;
-  /** Executes the dataset and returns the result set (the same as in N/query Module). */
+  /**
+   * Executes the dataset and returns the result set (the same as in N/query Module).
+   * @governance 10 units
+   * @since 2020.2
+   */
   run(): ResultSet;
   /**
    * Executes the dataset and returns the result set as paginated data (the same as in N/query Module).
    * The maximum number of results per page is 1000. The minimum number of results per page is 5, except for the last page, which may include fewer than 5 results.
+   * @governance 10 units
+   * @since 2020.2
    */
   runPaged(options?: { pageSize: number }): PagedData;
+  /**
+   * @throws {SuiteScriptError} INVALID_ID_PREFIX if the value of the options.id parameter does not start with custdataset
+   * @governance 10 units
+   * @since 2020.2
+   */
   save(options: SaveOptions): SaveResult;
+  /** @since 2020.2 */
   columns: Column[];
+  /** @since 2020.2 */
   condition: Condition;
+  /** @since 2020.2 */
   description: string;
+  /** @since 2020.2 */
   id: string;
+  /** @since 2020.2 */
   name: string;
+  /** @since 2020.2 */
   type: string;
 }
 
@@ -120,9 +166,39 @@ interface CreateJoinOptions {
   target?: string;
 }
 
+/**
+ * @throws {SuiteScriptError} INVALID_SEARCH_TYPE if the options.type parameter is invalid
+ * @governance none
+ * @since 2020.2
+ */
 export function create(options: CreateOptions): Dataset;
+/**
+ * @throws {SuiteScriptError} INVALID_FORMULA_TYPE if the options.type parameter is invalid
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.formula and options.fieldId are specified, or both options.formula and options.join are specified
+ * @governance none
+ * @since 2020.2
+ */
 export function createColumn(options: CreateColumnOptions): Column;
+/**
+ * @throws {SuiteScriptError} INVALID_OPERATOR if the options.operator parameter is invalid
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.column and options.children are specified
+ * @governance none
+ * @since 2020.2
+ */
 export function createCondition(options: CreateConditionOptions): Condition;
+/**
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.source and options.target are specified
+ * @governance none
+ * @since 2020.2
+ */
 export function createJoin(options: CreateJoinOptions): Join;
+/**
+ * @governance 10 units
+ * @since 2020.2
+ */
 export function list(): { id: string, name: string, record: string, description?: string }[];
+/**
+ * @governance 10 units
+ * @since 2020.2
+ */
 export function load(options: { id: string }): Dataset;
