@@ -473,6 +473,7 @@ export interface Column {
     /**
      * Id of column field.
      * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+     * @deprecated Not documented by Oracle. Use Column.fieldId instead.
      */
     readonly prototype?: string;
 

@@ -294,7 +294,9 @@ interface DocumentCaptureTaskCreateOptions {
     outputFilePath?: string;
     features?: Feature[];
     language?: Language;
+    /** @deprecated This object is no longer supported. Any values specified in this object are ignored. */
     ociConfig?: IOCIConfig;
+    /** @deprecated Oracle does not document an addInboundDependency option for task.create(options). Use DocumentCaptureTask.addInboundDependency(options) on the created task instead. */
     addInboundDependency?: AddInboundDependencyOptions;
 }
 
@@ -307,6 +309,7 @@ interface DocumentCaptureTask {
     outputFilePath: string;
     features: Feature[];
     language: Language;
+    /** @deprecated This object is no longer supported. Any values specified in this object are ignored. */
     ociConfig: IOCIConfig;
 }
 

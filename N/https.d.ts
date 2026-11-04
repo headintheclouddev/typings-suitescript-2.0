@@ -25,6 +25,7 @@ interface AppendStringOptions {
      * The encoding of the string that is being appended.
      * The default value is https.Encoding.UTF_8.
      * Note: This parameter is deprecated; it is recommended to use this method only for appending a string (UTF-8) content to a SecureString.
+     * @deprecated Oracle documents this parameter as not supported; use this method only for appending string (UTF-8) content to a SecureString.
      */
     inputEncoding?: Encoding;
     /** Keeps the appended string in its original encoding. Set this value to true to prevent unexpected content re-encoding. The default value is false. */
@@ -99,7 +100,10 @@ interface RequestRestletFunction {
 }
 
 export interface RequestSuiteletOptions extends RequestRestletOptions {
-    /** Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role. */
+    /**
+     * Specifies whether to perform the request as an unauthenticated user; this case uses the Online Form User role.
+     * @deprecated The options.external parameter was removed in NetSuite 2024.1. https.requestSuitelet(options) can only call internal Suitelets in trusted contexts for authenticated users.
+     */
     external?: boolean,
 }
 

@@ -106,6 +106,7 @@ interface NSElement extends NSNode {
     getElementsByTagNameNS: (options: GetAttributeNodeNSOpts) => NSElement[];
     hasAttribute: (options: GetAttributeOptions) => boolean;
     hasAttributeNS: (options: GetAttributeNodeNSOpts) => boolean;
+    /** @deprecated Not documented by Oracle (likely a typo). Use removeAttribute(options) instead. */
     removeAttributes: (options: GetAttributeOptions) => void;
     removeAttributeNode: (options: RemoveAttributeNodeOptions) => NSAttr;
     removeAttributeNS: (options: GetAttributeNodeNSOpts) => void;
@@ -149,6 +150,7 @@ interface NSXMLDocument extends NSNode {
     createAttribute: (options: CreateAttributeOptions) => NSAttr;
     createAttributeNS: (options: CreateAttributeNSOpts) => NSAttr;
     createCDATASection: (options: CDATAOptions) => NSNode;
+    /** @deprecated Not documented by Oracle (likely a typo). Use createComment(options) instead. */
     createComments: (options: CreateCommentOptions) => NSNode;
     createDocumentFragment: () => NSNode;
     createElement: (options: CreateElementOptions) => NSElement;
