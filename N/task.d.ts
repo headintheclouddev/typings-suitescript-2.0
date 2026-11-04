@@ -333,18 +333,18 @@ declare enum ActionCondition {
 }
 
 export enum DedupeEntityType {
-    CUSTOMER,
-    CONTACT,
-    VENDOR,
-    PARTNER,
-    LEAD,
-    PROSPECT,
+    CUSTOMER = "CUSTOMER",
+    CONTACT = "CONTACT",
+    VENDOR = "VENDOR",
+    PARTNER = "PARTNER",
+    LEAD = "LEAD",
+    PROSPECT = "PROSPECT",
 }
 export enum DedupeMode {
-    MERGE,
-    DELETE,
-    MAKE_MASTER_PARENT,
-    MARK_AS_NOT_DUPES,
+    MERGE = "MERGE",
+    DELETE = "DELETE",
+    MAKE_MASTER_PARENT = "MAKE_MASTER_PARENT",
+    MARK_AS_NOT_DUPES = "MARK_AS_NOT_DUPES",
 }
 export enum MapReduceStage {
     GET_INPUT = "GET_INPUT",
@@ -354,10 +354,10 @@ export enum MapReduceStage {
     SUMMARIZE = "SUMMARIZE"
 }
 export enum MasterSelectionMode {
-    CREATED_EARLIEST,
-    MOST_RECENT_ACTIVITY,
-    MOST_POPULATED_FIELDS,
-    SELECT_BY_ID,
+    CREATED_EARLIEST = "CREATED_EARLIEST",
+    MOST_RECENT_ACTIVITY = "MOST_RECENT_ACTIVITY",
+    MOST_POPULATED_FIELDS = "MOST_POPULATED_FIELDS",
+    SELECT_BY_ID = "SELECT_BY_ID",
 }
 export enum TaskStatus {
     PENDING = "PENDING",
@@ -373,7 +373,8 @@ export enum TaskType {
     WORKFLOW_TRIGGER = "WORKFLOW_TRIGGER",
     SEARCH = "SEARCH",
     RECORD_ACTION = "RECORD_ACTION",
-    SUITE_QL = "SUITE_QL",
+    SUITE_QL = "SUITEQL",
     QUERY = "QUERY",
-    DOCUMENT_CAPTURE = "DOCUMENT_CAPTURE"
+    DOCUMENT_CAPTURE = "DOCUMENT_CAPTURE",
+    PIVOT = "PIVOT",
 }
