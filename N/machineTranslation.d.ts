@@ -8,11 +8,24 @@
  * A document returned from machineTranslation.createDocument(options) or machineTranslation.translate(options).
  * A document represents text that you send to or receive from the translation service.
  * This object includes properties for the document ID (Document.id), document language (Document.language), and document text (Document.text).
+ * @since 2025.1
  */
 interface Document {
-    /** The ID of the document. When passing documents to machineTranslation.translate(options), all document IDs must be unique. */
+    /**
+     * The ID of the document. When passing documents to machineTranslation.translate(options), all document IDs must be unique.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly id: string;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly language?: string;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly text: string;
 }
 
@@ -21,19 +34,39 @@ interface Document {
  * The translation service returns an error if a provided document couldn't be translated.
  * An error might occur if the text to translate isn't formatted correctly (for example, if it contains unrecognized characters).
  * This object includes properties for the ID of the document that the error relates to (Error.documentId) and the text of the error message (Error.message).
+ * @since 2025.1
  */
 interface IMachineTranslationError {
-    /** The ID of the document that the error relates to. */
+    /**
+     * The ID of the document that the error relates to.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly documentId: string;
-    /** The text of the error message. */
+    /**
+     * The text of the error message.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly message: string;
 }
 
-/** A response returned from machineTranslation.translate(options). */
+/**
+ * A response returned from machineTranslation.translate(options).
+ * @since 2025.1
+ */
 interface Response {
-    /** The errors returned from the translation service. */
+    /**
+     * The errors returned from the translation service.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly errors: IMachineTranslationError[];
-    /** The translation documents. */
+    /**
+     * The translation documents.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2025.1
+     */
     readonly results: Document[];
 }
 
@@ -52,16 +85,33 @@ interface Response {
  * - The overall maximum length for all documents is 20,000 characters.
  * - You can't pass an empty document (one where the Document.text property is empty).
  * - If you pass a document that doesn't specify its source language (one where the Document.language property is null or undefined), the translation service detects the source language automatically.
+ * @throws {SuiteScriptError} INVALID_LANGUAGE if options.language uses a value that isn't part of the machineTranslation.Language enum.
+ * @governance none
+ * @since 2025.1
  */
 export function createDocument(options: { id: string, text: string, language?: string }): Document;
 
 interface ITranslateFunction {
     (options: { documents: Document[], targetLanguage: string, timeout?: number }): Response;
+    /**
+     * @governance 100 units
+     * @since 2025.1
+     */
     promise(options: { documents: Document[], targetLanguage: string, timeout?: number }): Promise<Response>;
 }
 
+/**
+ * @throws {SuiteScriptError} DOCUMENT_CANNOT_BE_EMPTY if one of the documents is empty.
+ * @throws {SuiteScriptError} DOCUMENT_IDS_MUST_BE_UNIQUE if two or more documents have duplicate IDs.
+ * @throws {SuiteScriptError} DOCUMENT_TOO_LARGE if one of the documents is longer than 5,000 characters.
+ * @throws {SuiteScriptError} INPUT_TOO_LARGE if the total length of all documents is longer than 20,000 characters.
+ * @throws {SuiteScriptError} INVALID_LANGUAGE if a language isn't part of the machineTranslation.Language enum.
+ * @governance 100 units
+ * @since 2025.1
+ */
 export const translate: ITranslateFunction;
 
+/** @since 2025.1 */
 declare enum Language {
     ARABIC = 'ARABIC',
     BRAZILIAN_PORTUGUESE = 'BRAZILIAN_PORTUGUESE',
