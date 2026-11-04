@@ -306,6 +306,16 @@ interface Pivot {
   filterExpressions: Expression[];
   id: string;
   name: string;
+  /**
+   * The name of the portlet for the pivot.
+   * @since 2021.2
+   */
+  portletName: string | Expression;
+  /**
+   * Report styles for the pivot.
+   * @since 2021.1
+   */
+  reportStyles: ReportStyle[];
   rowAxis: PivotAxis;
 }
 
@@ -390,6 +400,11 @@ interface Series {
  * You can create a sort using workbook.createSort(options).
  */
 interface Sort {
+  /**
+   * Sort order indicator.
+   * @since 2022.2
+   */
+  order: number;
   /** The ascending sort indicator of the sort. */
   ascending: boolean;
   /** The indicator that determines if the sort is case-sensitive. */
@@ -472,6 +487,25 @@ interface TableDefinition {
   id: string;
   /** The name of the table definition. */
   name: string;
+}
+
+/**
+ * A condition for a table view column. Create one with workbook.createTableColumnCondition(options).
+ * @since 2021.1
+ */
+interface TableColumnCondition {
+  /** Filters for the condition. */
+  filters?: TableColumnFilter[];
+  /** Operator of the condition. */
+  operator: string;
+}
+
+/**
+ * A selector for child nodes. Access it with workbook.ChildNodesSelector.
+ * @since 2021.2
+ */
+interface ChildNodesSelector {
+  readonly __selectorType: "ChildNodesSelector";
 }
 
 /**
@@ -688,6 +722,8 @@ interface CreatePivotDefinition {
   filterExpressions?: Expression[];
   id: string;
   name: string;
+  /** Report styles for the pivot. */
+  reportStyles?: ReportStyle[];
   rowAxis: PivotAxis;
   datasetLink?: DatasetLink;
 }
@@ -790,6 +826,48 @@ interface CreateTableColumnFilter {
 
 interface Load {
   id: string;
+}
+
+interface CreateCurrency {
+  /** The amount of the currency. */
+  amount: number;
+  /** The ID of the currency (for example, USD, EUR, GBP, and so on). */
+  id: string;
+}
+
+interface CreateDuration {
+  /** Start date or date time. Use the workbook.TemporalUnit enum to set the value. */
+  start: TemporalUnit | string;
+  /** End date or date time. Use the workbook.TemporalUnit enum to set the value. */
+  end: TemporalUnit | string;
+}
+
+interface CreateRange {
+  /** Start date or date time in the range. */
+  start: string;
+  /** End date or date time in the range. */
+  end: string;
+}
+
+interface CreateTableColumnCondition {
+  /** Filters for the condition. */
+  filters?: TableColumnFilter[];
+  /** Operator of the condition. */
+  operator: string;
+}
+
+interface CreateTranslation {
+  /** Key of the translation. */
+  key: string;
+  /** Collection of the translation. */
+  collection: string;
+}
+
+interface ListPagedOptions {
+  /** The page size. */
+  pageSize: number;
+  /** The category of datasets or workbooks to retrieve metadata for. */
+  category?: string;
 }
 
 interface RunTable {
@@ -1044,6 +1122,51 @@ export function createTableColumnFilter(options: CreateTableColumnFilter): Table
 export function createSimpleRecordKey(options: { key: number }): number;
 
 /**
+ * Creates a complex RecordKey object from another object (for example, `{numberkey: 1, stringkey: "a"}`).
+ * @governance none
+ * @since 2021.2
+ */
+export function createComplexRecordKey(options: {[key: string]: string | number}): RecordKey;
+
+/**
+ * Creates a currency.
+ * @throws {SuiteScriptError} INVALID_CURRENCY if options.id is not valid
+ * @governance none
+ * @since 2021.2
+ */
+export function createCurrency(options: CreateCurrency): Currency;
+
+/**
+ * Creates a duration.
+ * @throws {SuiteScriptError} INVALID_TEMPORAL_UNIT if options.start or options.end is not a valid temporal unit value
+ * @governance none
+ * @since 2021.2
+ */
+export function createDuration(options: CreateDuration): Duration;
+
+/**
+ * Creates a range.
+ * @governance none
+ * @since 2021.2
+ */
+export function createRange(options: CreateRange): Range;
+
+/**
+ * Creates a table column condition.
+ * @throws {SuiteScriptError} INVALID_OPERATOR if options.operator is invalid
+ * @governance none
+ * @since 2021.1
+ */
+export function createTableColumnCondition(options: CreateTableColumnCondition): TableColumnCondition;
+
+/**
+ * Creates a translation expression.
+ * @governance none
+ * @since 2021.2
+ */
+export function createTranslation(options: CreateTranslation): Expression;
+
+/**
  * Lists all existing workbooks.
  */
 export function list(): Object[];
@@ -1054,11 +1177,33 @@ export function list(): Object[];
 export function load(options: { id: string }): Workbook;
 
 /**
+ * Loads an existing workbook. After you load a workbook, you can execute a table and view the results.
+ * @governance 10 units
+ * @since 2020.2
+ */
+export function loadWorkbook(options: Load): Workbook;
+
+/**
+ * Retrieves a set of pages with metadata about workbooks.
+ * Oracle documents the return type only as PagedInfoData, which it does not otherwise describe.
+ * @throws {SuiteScriptError} INVALID_OWNER_CATEGORY if options.category is not included in the OwnerCategory enum
+ * @governance 10 units
+ * @since 2021.2
+ */
+export function listPaged(options: ListPagedOptions): any;
+
+/**
  * A selector for descendant or self nodes object.
  *
  * A selector for descendant or self nodes object is used as a parameter in the workbook.createMeasureValueSelector(options), and workbook.createSortByMeasure(options) methods.
  */
 export const DescendantOrSelfNodesSelector: unknown;
+
+/**
+ * A selector for child nodes.
+ * @since 2021.2
+ */
+export const ChildNodesSelector: ChildNodesSelector;
 
 declare enum Aggregation {
   COUNT,
@@ -1066,7 +1211,8 @@ declare enum Aggregation {
   MAX,
   MEDIAN,
   MIN,
-  SUM
+  SUM,
+  AVG
 }
 
 declare enum AspectType {
@@ -1102,7 +1248,11 @@ declare enum ConstantType {
   DATE_TIME,
   DURATION,
   NUMBER,
-  TEXT
+  TEXT,
+  DECIMAL,
+  INTEGER,
+  RANGE,
+  RECORD
 }
 
 declare enum DateTimeHierarchy {
@@ -1150,7 +1300,10 @@ declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 202
   RECORD_KEY,
   SIMPLE_CONSOLIDATE,
   TRANSLATE,
-  TRUNCATE_DATE_TIME
+  TRUNCATE_DATE_TIME,
+  DATASET_COLUMN,
+  IF,
+  PLUS
 }
 
 declare enum FontSize {
@@ -1198,7 +1351,20 @@ declare enum Stacking {
 
 declare enum TemporalUnit {
   HOURS,
-  MINUTES
+  MINUTES,
+  CENTURIES,
+  DAYS,
+  DECADES,
+  ERA,
+  HALF_DAYS,
+  MICROS,
+  MILLENIA,
+  MILLIS,
+  MONTHS,
+  NANOS,
+  SECONDS,
+  WEEKS,
+  YEARS
 }
 
 declare enum TextAlign {
