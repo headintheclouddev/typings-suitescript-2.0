@@ -653,21 +653,21 @@ export interface ClientCurrentRecord {
      */
     getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
     /**
-     * Returns a text representation of the field value in the currently selected line.
+     * Returns a text representation of the field value in the currently selected line, or undefined if the sublist has no such field.
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
+    getCurrentSublistText(options: GetCurrentSublistValueOptions): string | undefined;
     /**
-     * Returns the value of a sublist field on the currently selected sublist line.
+     * Returns the value of a sublist field on the currently selected sublist line, or undefined if the sublist has no such field.
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
+    getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue | undefined;
     // getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue; // Deprecated in 2026.1.8
     /**
      * Returns a field object from a record. 
@@ -751,23 +751,25 @@ export interface ClientCurrentRecord {
      */
     getSublistField(options: GetSublistFieldOptions): Field | null;
     /**
-     * Returns the value of a sublist field in a text representation.
+     * Returns the value of a sublist field in a text representation, or undefined if the sublist has no such field.
      * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in standard mode, if getSublistText is used before setSublistText on a new record, or after setSublistValue on a loaded record, for the same field
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getSublistText(options: GetSublistValueOptions): string;
+    getSublistText(options: GetSublistValueOptions): string | undefined;
     /**
-     * Returns the value of a sublist field.
+     * Returns the value of a sublist field, or undefined if the sublist has no such field. In standard mode, a line or
+     * sublist that does not exist also gives undefined; in dynamic mode and in the browser, it throws
+     * SSS_INVALID_SUBLIST_OPERATION.
      * @throws {SuiteScriptError} SSS_INVALID_API_USAGE if invoked prior to using setSublistValue in standard record mode
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getSublistValue(options: GetSublistValueOptions): FieldValue;
+    getSublistValue(options: GetSublistValueOptions): FieldValue | undefined;
     // getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue; // Deprecated in 2026.1.8
     /**
      * Gets the subrecord for the associated field.
@@ -780,25 +782,25 @@ export interface ClientCurrentRecord {
      */
     getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
     /**
-     * Returns the text representation of a field value.
+     * Returns the text representation of a field value, or undefined if the record has no such field.
      * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in certain cases in standard mode, such as calling getText on a field before setting it with setText on a new record, or after setValue on a loaded record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getText(options: GetFieldOptions): string | string[];
-    /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
-    getText(fieldId: string): string | string[];
+    getText(options: GetFieldOptions): string | string[] | undefined;
+    /** Returns the text representation of a field value, or undefined if the record has no such field. Warning: this is an undocumented function overload. */
+    getText(fieldId: string): string | string[] | undefined;
     /**
-     * Returns the value of a field.
+     * Returns the value of a field, or undefined if the record has no such field.
      * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in standard mode, if setText or getText was used on the same field
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
      * @governance none
      * @since 2015.2
      */
-    getValue(options: GetFieldOptions): FieldValue;
-    /** Returns the value of a field. Warning: the fieldId string parameter is an undocumented function overload. */
-    getValue(fieldId: string): FieldValue;
+    getValue(options: GetFieldOptions): FieldValue | undefined;
+    /** Returns the value of a field, or undefined if the record has no such field. Warning: the fieldId string parameter is an undocumented function overload. */
+    getValue(fieldId: string): FieldValue | undefined;
     /**
      * Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records.
      * @governance none
