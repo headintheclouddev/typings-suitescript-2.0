@@ -202,8 +202,8 @@ interface LoadQueryOptions {
 }
 
 interface DeleteQueryOptions {
-    /** The id of query to be deleted. */
-    id: number;
+    /** The script ID of the query to delete. */
+    id: string;
 }
 
 export interface RunSuiteQLOptions {
@@ -794,8 +794,8 @@ interface QueryLoadFunction {
 }
 
 interface deleteQuery {
-    (options: DeleteQueryOptions): Query;
-    promise: (options: DeleteQueryOptions) => Promise<Query>;
+    (options: DeleteQueryOptions): void;
+    promise: (options: DeleteQueryOptions) => Promise<void>;
 }
 
 /**
