@@ -31,11 +31,15 @@ interface ChartAxis {
  * A chart is a workbook component that enables you to visualize your dataset query results using predefined chart and graph types, such as line graphs and bar charts.
  * A chart definition is used when you create a workbook.
  * You can create a chart definition using workbook.createChartDefinition(options).
+ * @since 2020.2
  */
 interface ChartDefinition {
   /** The limiting and conditional filters of the chart definition. */
   aggregationFilters: (LimitingFilter|ConditionalFilter)[];
-  /** The category of the chart definition. */
+  /**
+   * The category of the chart definition.
+   * @since 2020.2
+   */
   category: Category;
   /** The underlying dataset for the chart definition. */
   dataset: Dataset;
@@ -47,7 +51,10 @@ interface ChartDefinition {
   legend: Legend;
   /** The name of the chart definition. */
   name: string;
-  /** The series of the chart definition. */
+  /**
+   * The series of the chart definition.
+   * @since 2020.2
+   */
   series: Series[];
   /** The stacking type for the chart definition. */
   stacking: Stacking;
@@ -64,6 +71,7 @@ interface ChartDefinition {
 /**
  * A color, which is made up of red, green, blue, and alpha components.
  * Object is called `Color` in documentation, used different name here to avoid naming collision with `Color` enum.
+ * @since 2021.2
  */
 interface ColorRGBA {
   alpha: number;
@@ -76,6 +84,7 @@ interface ColorRGBA {
  * A conditional filter.
  * A conditional filter can be used when you create a pivot definition or a chart definition.
  * You can create a conditional filter using workbook.createConditionalFilter(options).
+ * @since 2020.2
  */
 interface ConditionalFilter {
   /** The selected filters in the condition filter. */
@@ -109,6 +118,7 @@ interface Currency {
 /**
  * A data dimension. A data dimension can be used when you create a category, a legend, a pivot axis, a dimension selector, or a section.
  * You can create a data dimension using workbook.createDataDimension(options).
+ * @since 2020.2
  */
 interface DataDimension {
   /** The children of the data dimension. */
@@ -122,6 +132,7 @@ interface DataDimension {
 /**
  * A data dimension item. A data dimension item is used when you create a data dimension or a dimension sort.
  * You can create a data dimension item using workbook.createDataDimensionItem(options).
+ * @since 2020.2
  */
 interface DataDimensionItem {
   /** The expression for data dimension item. */
@@ -152,6 +163,7 @@ interface DataMeasure {
 /**
  * A dimension selector. A dimension selector is used when you create a path selector, a sort definition, a conditional filter, a limiting filter or a measure sort.
  * You can create a dimension selector using workbook.createDimensionSelector(options).
+ * @since 2020.2
  */
 interface DimensionSelector {
   /** The dimension of the dimension selector. */
@@ -177,6 +189,7 @@ interface Duration {
 /**
  * An expression. An expression can be used when you create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, or a constant.
  * You can create an expression using workbook.createExpression(options).
+ * @since 2020.2
  */
 export interface Expression {
   /** The ID of the function used in the expression. */
@@ -188,6 +201,7 @@ export interface Expression {
 /**
  * A field context. A field context is used when you create a table column.
  * You can create a field context using workbook.createFieldContext(options).
+ * @since 2020.2
  */
 interface FieldContext {
   /** The name of the field context (for example, DISPLAY or CONSOLIDATED) */
@@ -199,6 +213,7 @@ interface FieldContext {
 /**
  * A font size.
  * Object is called `FontSize` in documentation, used different name here to avoid naming collision with `FontSize` enum.
+ * @since 2021.2
  */
 interface FontSizeObj {
   size: number;
@@ -208,6 +223,7 @@ interface FontSizeObj {
 /**
  * A legend. A legend can be used when you create a chart definition.
  * You can create a legend using workbook.createLegend(options).
+ * @since 2020.2
  */
 interface Legend {
   /** The axes for the legend. */
@@ -221,6 +237,7 @@ interface Legend {
 /**
  * A limiting filter. A limiting factor can be used when you create a chart definition or a pivot definition.
  * You can create a limiting filter using workbook.createLimitingFilter(options).
+ * @since 2020.2
  */
 interface LimitingFilter {
   /** The selections for the limiting filter. */
@@ -279,14 +296,16 @@ interface MeasureValueSelector {
 /**
  * A path selector. A path selector can be used when you create a sort definition, a conditional filter, a limiting filter, or a measure sort.
  * You can create a path selector using workbook.createPathSelector(options).
+ * @since 2020.2
  */
 interface PathSelector {
   /** The elements denoting 'xpath' of the path selector. */
   elements: PathSelector|DimensionSelector|(PathSelector|DimensionSelector)[];
 }
 
-/** A pivot axis. A pivot axis is used with you create a pivot definition.
+/**
  * You can create a pivot axis using workbook.createPivotAxis(options).
+ * @since 2020.2
  */
 interface PivotAxis {
   /** The root data for the pivot axis. */
@@ -298,6 +317,7 @@ interface PivotAxis {
 /**
  * A pivot is a workbook component that enables you to pivot your dataset query results by defining measures and dimensions, so that you can analyze different subsets of data.
  * You can create a pivot using workbook.createPivot(options).
+ * @since 2020.2
  */
 interface Pivot {
   aggregationFilters: (ConditionalFilter|LimitingFilter)[];
@@ -334,6 +354,7 @@ interface PositionValues {
 /**
  * A date or date-time range.
  * The dates in the range are formatted according to the user’s preferences in their account. This object can be returned from a pivot execution.
+ * @since 2021.2
  */
 interface Range {
   end: string;
@@ -364,6 +385,7 @@ interface ReportStyleRule {
 /**
  * A section. A section can be used when you create a category, a legend, a data dimension, a dimension selector, a pivot axis, or a pivot definition.
  * You can create a section using workbook.createSection(options).
+ * @since 2020.2
  */
 interface Section {
   /** The children of the section. */
@@ -379,6 +401,7 @@ interface SectionValue {
 /**
  * A series in a workbook. A series is used when you create a chart definition.
  * You can create a series using workbook.createSeries(options).
+ * @since 2020.2
  */
 interface Series {
   /** The aspects for the series. */
@@ -388,6 +411,7 @@ interface Series {
 /**
  * A sort. A sort is used when you create a table column, a dimension sort, or a measure sort.
  * You can create a sort using workbook.createSort(options).
+ * @since 2020.2
  */
 interface Sort {
   /** The ascending sort indicator of the sort. */
@@ -403,6 +427,7 @@ interface Sort {
 /**
  * A sort definition. A sort definition can be used with you create a category, a legend, and a pivot axis.
  * You can create a sort definition using workbook.createSortDefinition(options).
+ * @since 2020.2
  */
 interface SortDefinition {
   /** The selector for the sort definition. */
@@ -439,6 +464,7 @@ interface Style {
 /**
  * A table column. A table column is used when you create a table definition.
  * You can create a table column using workbook.createTableColumn(options).
+ * @since 2020.2
  */
 interface TableColumn {
   /** The alias for the column. */
@@ -462,6 +488,7 @@ interface TableColumn {
 /**
  * A table definition. A table is a workbook component that enables you to view your dataset query results in a simple table.
  * You can create a table definition using workbook.createTable(options).
+ * @since 2021.2
  */
 interface TableDefinition {
   /** The columns of the table definition. */
@@ -477,7 +504,8 @@ interface TableDefinition {
 /**
  * A table filter. A table filter can be used when you create a table column.
  * You can create a table filter using workbook.createTableFilter(options).
- * */
+ * @since 2021.2
+ */
 interface TableColumnFilter {
   /** The operator of the table filter. */
   operator: Operator;
@@ -490,8 +518,14 @@ interface TableColumnFilter {
  * Workbooks are where you analyze the results of your dataset queries using different components, such as table views, pivot tables, and charts.
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
  * A workbook can include tables, pivots, and charts. A workbook is created using workbook.create(options).
+ * @since 2020.2
  */
 export interface Workbook {
+  /**
+   * @throws {SuiteScriptError} PIVOT_DOES_NOT_EXIST if the pivot specified by options.id is not included in the workbook.
+   * @governance 10 units for each intersection returned
+   * @since 2021.2
+   */
   runPivot(options: RunPivot): PivotIntersection[];
   /** Executes the table and returns the result set (the same as in N/query Module). */
   runTable(options: RunTable): ResultSet;
@@ -809,6 +843,8 @@ interface RunPivot {
  * Creates a new workbook. Workbooks are where you analyze the results of your dataset queries using different components, such as table views, pivot tables, and charts.
  * All workbooks are based on a dataset, and a single dataset can be used as the basis for multiple workbooks.
  * A workbook can include an ID, a name, a description, pivot definitions, chart definitions, and table definitions.
+ * @governance none
+ * @since 2020.2
  */
 export function create(options: CreateOptions): Workbook;
 
@@ -819,21 +855,29 @@ export function create(options: CreateOptions): Workbook;
 
 /**
  * Creates an aspect for a chart series. An aspect includes a measure and an aspect type.
+ * @governance none
+ * @since 2020.2
  */
 export function createAspect(options: CreateAspectOptions): Aspect;
 
 /**
  * Creates a calculated measure.
+ * @governance none
+ * @since 2021.2
  */
 export function createCalculatedMeasure(options: CreateCalculatedMeasure): CalculatedMeasure;
 
 /**
  * Creates a chart category, which includes an axis, a data root, and a sort definition. A chart category is used in a workbook.ChartDefinition.
+ * @governance none
+ * @since 2020.2
  */
 export function createCategory(options: CreateCategoryOptions): Category;
 
 /**
  * Creates an X-axis or a Y-axis for the chart.
+ * @governance none
+ * @since 2020.2
  */
 export function createChartAxis(options: CreateChartAxis): ChartAxis;
 
@@ -842,51 +886,82 @@ export function createChartAxis(options: CreateChartAxis): ChartAxis;
  * A chart is a workbook component that enables you to visualize your dataset query results using predefined chart and graph types, such as line graphs and bar charts.
  * A chart is built from an underlying dataset and can also include a category, a legend, series, a type, expressions, filters, stacking behavior indicators, along with an ID, a name, a title, and a subtitle.
  * For more information on charts in SuiteAnalytics, see Workbook Charts.
+ * @throws {SuiteScriptError} INVALID_CHART_TYPE if options.type is invalid. Set this value using workbook.ChartType.
+ * @throws {SuiteScriptError} INVALID_STACKING_TYPE if options.stacking is invalid. Set this value using workbook.Stacking.
+ * @governance none
+ * @since 2020.2
  */
 export function createChart(options: CreateChartDefinition): ChartDefinition;
 
 /**
  * Creates a color.
+ * @throws {SuiteScriptError} INVALID_COLOR_VALUE if options.blue, options.green, or options.red is less than 0 or greater than 255.
+ * @throws {SuiteScriptError} INVALID_INVALID_ALPHA_VALUE if options.alpha is less than 0 or greater than 1.
+ * @governance none
+ * @since 2021.2
  */
 export function createColor(options: CreateColor): ColorRGBA;
 
 /**
  * Creates a conditional filter, which includes a selector of what to filter, a row axis and other axis, a measure and a predicate.
  * Conditional filters can be used in pivot definitions and chart definitions.
+ * @governance none
+ * @since 2020.2
  */
 export function createConditionalFilter(options: CreateConditionalFilter): ConditionalFilter;
 
 /**
  * Creates a conditional format.
+ * @throws {SuiteScriptError} NO_RULE_DEFINED if options.rules is an empty array.
+ * @governance none
+ * @since 2021.2
  */
 export function createConditionalFormat(options: CreateConditionalFormat): ConditionalFormat;
 
 /**
  * Creates a conditional format rule.
+ * @governance none
+ * @since 2021.2
  */
 export function createConditionalFormatRule(options: CreateConditionalFormatRule): ConditionalFormatRule;
 
 /**
  * Creates a constant expression.
+ * @governance none
+ * @since 2020.2
  */
 export function createConstant(options: CreateConstant): Expression;
 
 /**
  * Creates a data dimension, which includes items, child data items, and a total line.
  * A data dimension is used in a workbook.Category, a workbook.Legend a workbook.PivotAxis, a workbook.DimensionSelector, and a workbook.Section.
+ * @throws {SuiteScriptError} INVALID_TOTAL_LINE if options.totalLine is invalid. Set this value using workbook.TotalLine.
+ * @throws {SuiteScriptError} NO_DIMENSION_ITEM_DEFINED if options.items is empty.
+ * @governance none
+ * @since 2020.2
  */
 export function createDataDimension(options: CreateDataDimension): DataDimension;
 
 /**
  * Creates a data dimension item, which includes an expression and a label.
+ * @governance none
+ * @since 2020.2
  */
 export function createDataDimensionItem(options: CreateDataDimensionItem): DataDimensionItem;
 
-/** Creates a data measure. TODO: Test this, this method doesn't seem to actually exist in NetSuite as of December 2021. */
+/**
+ * Creates a data measure. TODO: Test this, this method doesn't seem to actually exist in NetSuite as of December 2021.
+ * @throws {SuiteScriptError} AT_LEAST_ONE_EXPRESSION_IS_NEEDED if options.expression is not provided and options.expressions is an empty array.
+ * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.expression and options.expressions are provided.
+ * @governance none
+ * @since 2021.2
+ */
 export function createDataMeasure(options: CreateDataMeasure): DataMeasure;
 
 /**
  * Creates a dimension selector.
+ * @governance none
+ * @since 2020.2
  */
 export function createDimensionSelector(options: CreateDimensionSelector): DimensionSelector;
 
@@ -898,27 +973,38 @@ export function createDimensionSort(options: CreateDimensionSort): DimensionSort
 /**
  * Creates an expression, that includes a function ID and parameters.
  * Expressions can be used to create a pivot definition, a chart definition, a data dimension item, a measure, a conditional filter, and a dimension sort.
+ * @governance none
+ * @since 2020.2
  */
 export function createExpression(options: CreateExpression): Expression;
 
 /**
  * Creates a field context for a table definition column.
+ * @governance none
+ * @since 2020.2
  */
 export function createFieldContext(options: CreateFieldContext): FieldContext;
 
 /**
  * Creates a font size defined using units.
+ * @throws {SuiteScriptError} INVALID_UNIT if options.unit is not included in the workbook.Unit enum.
+ * @governance none
+ * @since 2021.2
  */
 export function createFontSize(options: CreateFontSize): FontSizeObj;
 
 /**
  * Creates a chart legend.
+ * @governance none
+ * @since 2020.2
  */
 export function createLegend(options: CreateLegend): Legend;
 
 /**
  * Creates a limiting filter, which includes a selector of what to filter, a row axis, a limit, and a sorting order.
  * Limiting filters can be used in pivot definitions and chart definitions to limit the data shown on a pivot or chart.
+ * @governance none
+ * @since 2020.2
  */
 export function createLimitingFilter(options: CreateLimitingFilter): LimitingFilter;
 
@@ -929,6 +1015,9 @@ export function createMeasure(options: CreateMeasure): Measure;
 
 /**
  * Creates a measure selector.
+ * @throws {SuiteScriptError} NO_MEASURE_DEFINED if options.measures is an empty array.
+ * @governance none
+ * @since 2021.2
  */
 export function createMeasureSelector(options: CreateMeasureSelector): MeasureSelector;
 
@@ -939,16 +1028,22 @@ export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 
 /**
  * Creates a measure value selector.
+ * @governance none
+ * @since 2021.2
  */
 export function createMeasureValueSelector(options: CreateMeasureValueSelector): MeasureValueSelector;
 
 /**
  * Creates a path selector.
+ * @governance none
+ * @since 2020.2
  */
 export function createPathSelector(options: CreatePathSelector): PathSelector;
 
 /**
  * Creates a pivot axis, which includes a data root and a sort definition.
+ * @governance none
+ * @since 2020.2
  */
 export function createPivotAxis(options: CreatePivotAxis): PivotAxis;
 
@@ -956,73 +1051,117 @@ export function createPivotAxis(options: CreatePivotAxis): PivotAxis;
  * Creates a pivot definition.
  * A pivot is a workbook component that enables you to pivot your dataset query results by defining measures and dimensions, so that you can analyze different subsets of data.
  * A pivot definition is based on an underlying dataset and can include an ID, a name, a row axis, a column axis, conditional/limiting filters, and filter expressions.
+ * @governance none
+ * @since 2020.2
  */
 export function createPivot(options: CreatePivotDefinition): Pivot;
 
 /**
  * Creates a percent-defined background position.
+ * @governance none
+ * @since 2021.2
  */
 export function createPositionPercent(options: CreatePositionPercent): PositionPercent;
 
 /**
  * Creates a background position defined using x-y coordinates and units.
+ * @throws {SuiteScriptError} INVALID_POSITION if the resulting position is not included in the workbook.Position enum.
+ * @throws {SuiteScriptError} INVALID_UNIT if options.unit is not included in the workbook.Unit enum.
+ * @governance none
+ * @since 2021.2
  */
 export function createPositionUnits(options: CreatePositionUnits): PositionUnits;
 
 /**
  * Creates a background position defined using position values.
+ * @throws {SuiteScriptError} INVALID_POSITION if options.horizontal or options.vertical is not included in the workbook.Position enum.
+ * @governance none
+ * @since 2021.2
  */
 export function createPositionValues(options: CreatePositionValues): PositionValues;
 
 /**
  * Creates a report style.
+ * @throws {SuiteScriptError} NO_RULE_DEFINED if options.rules is an empty array.
+ * @throws {SuiteScriptError} NO_SELECTORS_DEFINED if options.selectors is an empty array.
+ * @governance none
+ * @since 2021.2
  */
 export function createReportStyle(options: CreateReportStyle): ReportStyle;
 
 /**
  * Creates a report style formatting rule.
+ * @governance none
+ * @since 2021.2
  */
 export function createReportStyleRule(options: CreateReportStyleRule): ReportStyleRule;
 
 /**
  * Creates a section, which includes children and a total line.
+ * @throws {SuiteScriptError} INVALID_TOTAL_LINE if options.totalLine is invalid. Set this value using workbook.TotalLine.
+ * @governance none
+ * @since 2020.2
  */
 export function createSection(options: CreateSection): Section;
 
 /**
  * Creates a chart series, which is a set of aspects.
+ * @governance none
+ * @since 2020.2
  */
 export function createSeries(options: CreateSeries): Series;
 
 /**
  * Creates a sort, which includes indicators for sorting in ascending order, case sensitivity, sort locale, and whether nulls should be placed last.
+ * @throws {SuiteScriptError} INVALID_SORT_LOCALE if options.locale is invalid. Set this value using query.SortLocale.
+ * @governance none
+ * @since 2020.2
  */
 export function createSort(options: CreateSort): Sort;
 
 /**
  * Creates a sort based on data dimension items.
+ * @governance none
+ * @since 2021.2
  */
 export function createSortByDataDimensionItem(options: CreateSortByDataDimensionItem): SortByDataDimensionItem;
 
 /**
  * Creates a sort based on a measure.
+ * @governance none
+ * @since 2021.2
  */
 export function createSortByMeasure(options: CreateSortByMeasure): SortByMeasure;
 
 /**
  * Creates a sort definition.
  * A sort definition is used to specify sorting for a category, legend, pivot definition, or pivot axis.
+ * @throws {SuiteScriptError} NO_SORT_BY_DEFINED if options.sortBys is empty.
+ * @governance none
+ * @since 2020.2
  */
 export function createSortDefinition(options: CreateSortDefinition): SortDefinition;
 
 /**
  * Creates a style to be used for conditional formatting.
+ * @throws {SuiteScriptError} INVALID_COLOR if options.backgroundColor, options.color, or options.textDecorationColor is not included in the workbook.Color enum and is not a workbook.Color object.
+ * @throws {SuiteScriptError} INVALID_FONT_SIZE if options.fontSize is not included in the workbook.FontSize enum.
+ * @throws {SuiteScriptError} INVALID_FONT_STYLE if options.fontStyle is not included in the workbook.FontStyle enum.
+ * @throws {SuiteScriptError} INVALID_FONT_WEIGHT if options.fontWeight is not included in the workbook.FontWeight enum.
+ * @throws {SuiteScriptError} INVALID_IMAGE if options.backgroundImage is not included in the workbook.Image enum.
+ * @throws {SuiteScriptError} INVALID_TEXT_ALIGN if options.textAlign is not included in the workbook.TextAlign enum.
+ * @throws {SuiteScriptError} INVALID_TEXT_DECORATION_LINE if options.textDecorationLine is not included in the workbook.TextDecorationLine enum.
+ * @throws {SuiteScriptError} INVALID_TEXT_DECORATION_STYLE if options.textDecorationStyle is not included in the workbook.TextDecorationStyle enum.
+ * @governance none
+ * @since 2021.2
  */
 export function createStyle(options: CreateStyle): Style;
 
 /**
  * Creates a table column.
  * Table columns are used in table definitions, and include an alias, dataset column alias/ID, filters, a label, sorts, and a column width.
+ * @governance none
+ * @since 2020.2
  */
 export function createTableColumn(options: CreateTableColumn): TableColumn;
 
@@ -1030,26 +1169,36 @@ export function createTableColumn(options: CreateTableColumn): TableColumn;
  * Creates a table.
  * A table is a workbook component that enables you to view your dataset query results in a simple table.
  * A table is based on an underlying dataset and can include an ID, a name, a dataset, and table columns,
+ * @governance none
+ * @since 2020.2
  */
 export function createTable(options: CreateTableDefinition): TableDefinition;
 
 /**
  * Creates a table filter, which includes an operator and values.
+ * @governance none
+ * @since 2020.2
  */
 export function createTableColumnFilter(options: CreateTableColumnFilter): TableColumnFilter;
 
 /**
-* Creates a record key.
-*/
+ * Creates a record key.
+ * @governance none
+ * @since 2021.2
+ */
 export function createSimpleRecordKey(options: { key: number }): number;
 
 /**
  * Lists all existing workbooks.
+ * @governance 10 units
+ * @since 2020.2
  */
 export function list(): Object[];
 
 /**
  * Loads an existing workbook. Once you load a workbook, you can execute a table and view the results.
+ * @governance 10 units
+ * @since 2020.2
  */
 export function load(options: { id: string }): Workbook;
 
@@ -1057,6 +1206,7 @@ export function load(options: { id: string }): Workbook;
  * A selector for descendant or self nodes object.
  *
  * A selector for descendant or self nodes object is used as a parameter in the workbook.createMeasureValueSelector(options), and workbook.createSortByMeasure(options) methods.
+ * @since 2021.2
  */
 export const DescendantOrSelfNodesSelector: unknown;
 
@@ -1120,6 +1270,7 @@ declare enum DateTimeProperty {
   YEAR
 }
 
+/** @since 2020.2 */
 declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 2022.1
   AND,
   // ANY_IN_HIERARCHY,
