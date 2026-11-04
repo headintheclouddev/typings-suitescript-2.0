@@ -10,61 +10,142 @@ interface SetOptions {
     value: string;
 }
 
-/** Encapsulates the runtime settings of the currently executing script. */
+/**
+ * Encapsulates the runtime settings of the currently executing script.
+ * @since 2015.2
+ */
 interface Script {
-    /** Returns the value of a script parameter for the currently executing script. */
+    /**
+     * Returns the value of a script parameter for the currently executing script.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the options.name parameter is not specified.
+     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the value for the options.name parameter is not a string.
+     * @governance none
+     * @since 2015.2
+     */
     getParameter(options: GetParameterOptions): boolean | number | Date | string | string[];
-    /** Returns a number value for the usage units remaining for the currently executing script. */
+    /**
+     * Returns a number value for the usage units remaining for the currently executing script.
+     * @governance none
+     * @since 2015.2
+     */
     getRemainingUsage(): number;
-    /** The deployment ID for the script deployment on the currently executing script. */
+    /**
+     * The deployment ID for the script deployment on the currently executing script.
+     * @since 2015.2
+     */
     deploymentId: string;
-    /** The script ID for the currently executing script. */
+    /**
+     * The script ID for the currently executing script.
+     * @since 2015.2
+     */
     id: string;
-    /** The script logging level for the current script execution. This method is not supported on client scripts. */
+    /**
+     * The script logging level for the current script execution. This method is not supported on client scripts.
+     * @since 2015.2
+     */
     logLevel: string;
-    /** The percent complete specified for the current scheduled script execution. The return value will appear in the % Complete column in the Scheduled Script Status page. */
+    /**
+     * The percent complete specified for the current scheduled script execution. The return value will appear in the % Complete column in the Scheduled Script Status page.
+     * @throws {SuiteScriptError} SSS_OPERATION_UNAVAILABLE if the currently executing script is not a scheduled script.
+     * @since 2015.2
+     */
     percentComplete: number;
-    /** An Array of bundle IDs for the bundles that include the currently executing script. */
+    /**
+     * An Array of bundle IDs for the bundles that include the currently executing script.
+     * @since 2015.2
+     */
     bundleIds: string[];
 }
 
-/** Encapsulates the user session for the currently executing script. */
+/**
+ * Encapsulates the user session for the currently executing script.
+ * @since 2015.2
+ */
 interface Session {
-    /** Returns the user-defined session object value associated with the session object key. */
+    /**
+     * Returns the user-defined session object value associated with the session object key.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the options.name parameter is not specified.
+     * @governance none
+     * @since 2015.2
+     */
     get(options: GetParameterOptions): string;
-    /** Sets a key and value for a user-defined runtime.Session. */
+    /**
+     * Sets a key and value for a user-defined runtime.Session.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the options.name or options.value parameter is not specified.
+     * @governance none
+     * @since 2015.2
+     */
     set(options: SetOptions): void;
 }
 
-/** Encapsulates the properties and preferences for the user of the currently executing script. */
+/**
+ * Encapsulates the properties and preferences for the user of the currently executing script.
+ * @since 2015.2
+ */
 interface User {
-    /** Returns a user permission level for the specified permission as a runtime.Permission enumeration. */
+    /**
+     * Returns a user permission level for the specified permission as a runtime.Permission enumeration.
+     * @governance none
+     * @since 2015.2
+     */
     getPermission(options: GetParameterOptions): Permission;
-    /** Returns the value of a NetSuite preference. */
+    /**
+     * Returns the value of a NetSuite preference.
+     * @governance none
+     * @since 2015.2
+     */
     getPreference(options: GetParameterOptions): string;
-    /** The internal ID of the currently logged-in contact. If no logged-in entity or other entity than contact is logged in, then 0 is returned as value. */
+    /**
+     * The internal ID of the currently logged-in contact. If no logged-in entity or other entity than contact is logged in, then 0 is returned as value.
+     * @since 2019.1
+     */
     readonly contact: number;
-    /** The internal ID of the department for the currently logged-in user. */
+    /**
+     * The internal ID of the department for the currently logged-in user.
+     * @since 2015.2
+     */
     department: number;
-    /** The email address of the currently logged-in user. */
+    /**
+     * The email address of the currently logged-in user.
+     * @since 2015.2
+     */
     email: string;
-    /** The internal ID of the currently logged-in user. */
+    /**
+     * The internal ID of the currently logged-in user.
+     * @since 2019.2
+     */
     id: number;
-    /** The internal ID of the location of the currently logged-in user. */
+    /**
+     * The internal ID of the location of the currently logged-in user.
+     * @since 2015.2
+     */
     location: number;
-    /** The name of the currently logged-in user. */
+    /**
+     * The name of the currently logged-in user.
+     * @since 2015.2
+     */
     name: string;
-    /** The internal ID of the role for the currently logged-in user. */
+    /**
+     * The internal ID of the role for the currently logged-in user.
+     * @since 2015.2
+     */
     role: number;
-    /** The script ID of the center type, or role center, for the currently logged-in user.
-      *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
-      *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
-      *  what the documentation claims (just number).
-      */
+    /**
+     *  NOTE: The actual behavior of this strays from the documentation. This in practice returns the script id
+     *  of the role center as opposed to its internal id. That is why the return type is string | number instead of
+     *  what the documentation claims (just number).
+     * @since 2015.2
+     */
     roleCenter: string | number;
-    /** The custom scriptId of the role for the currently logged-in user. */
+    /**
+     * The custom scriptId of the role for the currently logged-in user.
+     * @since 2015.2
+     */
     roleId: string;
-    /** The internal ID of the subsidiary for the currently logged-in user. */
+    /**
+     * The internal ID of the subsidiary for the currently logged-in user.
+     * @since 2015.2
+     */
     subsidiary: number;
 }
 
@@ -374,34 +455,74 @@ export type NetSuiteFeature =
     | "WORKFLOW"
     | "WORKORDERS";
 
-/** The NetSuite account ID for the currently logged-in user. */
+/**
+ * The NetSuite account ID for the currently logged-in user.
+ * @since 2015.2
+ */
 export const accountId: string;
-/** The country for the current company. Returns the two-letter abbreviation.  For example, US */
+/**
+ * The country for the current company. Returns the two-letter abbreviation.  For example, US
+ * @since 2020.2
+ */
 export const country: string;
-/** The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration. */
+/**
+ * The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration.
+ * @since 2015.2
+ */
 export const envType: EnvType;
-/** Returns a runtime.ContextType enumeration that represents what triggered the current script. */
+/**
+ * Returns a runtime.ContextType enumeration that represents what triggered the current script.
+ * @since 2015.2
+ */
 export const executionContext: ContextType;
-/** The number of processors available to the currently logged in account.
- SuiteCloud Processors is the current system used to execute (process) scheduled scripts and map/reduce scripts. This property is helpful if you are a SuiteApp developer and your script needs to know the total number of processors available to a deployment.
- For scheduled script deployments that continue to use queues, use runtime.queueCount. With the introduction of SuiteCloud Processors, map/reduce script deployments and new scheduled script deployments no longer use queues, but pre-existing scheduled script deployments continue to use queues until the queues are removed (see SuiteCloud Processors – Supported Task Types).
- Be aware that the number of processors available may not be the same as the number of queues available. For more information, see SuiteCloud Plus Settings.
+/**
+ *  SuiteCloud Processors is the current system used to execute (process) scheduled scripts and map/reduce scripts. This property is helpful if you are a SuiteApp developer and your script needs to know the total number of processors available to a deployment.
+ *  For scheduled script deployments that continue to use queues, use runtime.queueCount. With the introduction of SuiteCloud Processors, map/reduce script deployments and new scheduled script deployments no longer use queues, but pre-existing scheduled script deployments continue to use queues until the queues are removed (see SuiteCloud Processors – Supported Task Types).
+ *  Be aware that the number of processors available may not be the same as the number of queues available. For more information, see SuiteCloud Plus Settings.
+ * @since 2018.1
  */
 export const processorCount: number;
-/** Returns the number of scheduled script queues in a given account. */
+/**
+ * Returns the number of scheduled script queues in a given account.
+ * @since 2015.2
+ */
 export const queueCount: number;
-/** Returns the version of NetSuite that the method is called in. For example, the  runtime.version property in an account running NetSuite 2015.2 is 2015.2. */
+/**
+ * Returns the version of NetSuite that the method is called in. For example, the  runtime.version property in an account running NetSuite 2015.2 is 2015.2.
+ * @since 2015.2
+ */
 export const version: string;
-/** Returns a runtime.Script that represents the currently executing script. */
+/**
+ * Returns a runtime.Script that represents the currently executing script.
+ * @governance none
+ * @since 2015.2
+ */
 export function getCurrentScript(): Script;
-/** Returns a runtime.Session that represents the user session for the currently executing script. */
+/**
+ * Returns a runtime.Session that represents the user session for the currently executing script.
+ * @governance none
+ * @since 2015.2
+ */
 export function getCurrentSession(): Session;
-/** Returns a runtime.User that represents the properties and preferences for the user of the currently executing script. */
+/**
+ * Returns a runtime.User that represents the properties and preferences for the user of the currently executing script.
+ * @governance none
+ * @since 2015.2
+ */
 export function getCurrentUser(): User;
-/** Use this method to determine if a particular feature is enabled in a NetSuite account. These are the features that appear on the Enable Features page at Setup > Company > Setup Tasks > Enable Features. */
+/**
+ * Use this method to determine if a particular feature is enabled in a NetSuite account. These are the features that appear on the Enable Features page at Setup > Company > Setup Tasks > Enable Features.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the options.feature parameter is not specified.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the value for the options.feature parameter is not a string.
+ * @governance none
+ * @since 2015.2
+ */
 export function isFeatureInEffect(options: FeatureOptions): boolean;
 
-/** Enumeration that holds the context information about what triggered the current script. Returned by the runtime.executionContext property of the N/runtime Module. */
+/**
+ * Enumeration that holds the context information about what triggered the current script. Returned by the runtime.executionContext property of the N/runtime Module.
+ * @since 2015.2
+ */
 export enum ContextType {
     ACTION = "ACTION",
     ADVANCEDREVREC = "ADVANCEDREVREC",
@@ -441,14 +562,20 @@ export enum ContextType {
     WORKFLOW = "WORKFLOW"
 }
 
-/** Enumeration that holds all possible environment types that the current script can execute in. */
+/**
+ * Enumeration that holds all possible environment types that the current script can execute in.
+ * @since 2015.2
+ */
 export enum EnvType {
     SANDBOX,
     PRODUCTION,
     BETA,
     INTERNAL,
 }
-/** Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method. */
+/**
+ * Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method.
+ * @since 2015.2
+ */
 export enum Permission {
     FULL = 4,
     EDIT = 3,
