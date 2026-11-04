@@ -4,7 +4,7 @@ import type {AddSelectOptionOptions} from './ui/serverWidget';
  * Submits a new record or saves edits to an existing record. 
  * 
  * @governance 20 units for transactions, 4 for custom records, 10 for all other records
- * @return id of submitted record
+ * @return id of submitted record. The record object's own id is not updated.
  */
 interface RecordSaveFunction {
     /**
@@ -822,11 +822,12 @@ export interface ClientCurrentRecord {
     /**
      * The internal ID of a specific record.
      *
-     * If {@link isNew} is true, this is normally null, but there are exceptions,
-     * such as when {@link isNew} is true in the afterSubmit() entrypoint of a user event script.
+     * A record that has not been saved has no ID: on the server this is null, but in the browser (as a client script's
+     * current record) it is an empty string. Saving a record returns its ID, but does not update this. Test this rather
+     * than {@link isNew}, which can be false for a record that has not been saved.
      * @since 2015.2
      */
-    id: number | null;
+    id: number | '' | null;
     /**
      * Inserts a sublist line.
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
@@ -846,7 +847,10 @@ export interface ClientCurrentRecord {
      * @since 2015.2
      */
     isDynamic: boolean;
-    /** UNDOCUMENTED (as of 2023.1): This value is true when the record is being created. */
+    /**
+     * UNDOCUMENTED (as of 2023.1): This value is true when the record is being created, but not always: a user event
+     * script sees false in beforeLoad for a copy, and in beforeSubmit for a record being created. Test {@link id} instead.
+     */
     readonly isNew: boolean;
     /** UNDOCUMENTED (as of 2023.1): Returns true if the record form cannot be edited, or false otherwise. */
     readonly isReadOnly: boolean;
@@ -966,6 +970,12 @@ export interface ClientCurrentRecord {
 /** @since 2015.2 */
 export interface Record extends ClientCurrentRecord {
     /**
+     * The internal ID of a specific record, or null if the record has not been saved. Saving a record returns its ID, but
+     * does not update this. Unlike a client script's current record, a record on the server never has an empty string ID.
+     * @since 2015.2
+     */
+    id: number | null;
+    /**
      * Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields.
      * @governance none
      * @since 2015.2
@@ -1001,7 +1011,7 @@ export interface Record extends ClientCurrentRecord {
     /**
      * Submits a new record or saves edits to an existing record. 
      *
-     * @return id of submitted record
+     * @return id of submitted record. The record object's own id is not updated.
      * @governance 20 units for transactions, 4 for custom records, 10 for all other records
      * @since 2015.2
      */
