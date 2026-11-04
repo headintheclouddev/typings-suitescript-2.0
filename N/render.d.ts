@@ -37,10 +37,17 @@ interface BOMOptions {
     inCustLocale?: boolean;
 }
 
+/** @since 2015.2 */
 interface EmailMergeResult {
-    /** The body of the email distribution in string format. */
+    /**
+     * The body of the email distribution in string format.
+     * @since 2015.2
+     */
     body: string;
-    /** The subject of the email distribution in string format. */
+    /**
+     * The subject of the email distribution in string format.
+     * @since 2015.2
+     */
     subject: string;
 }
 
@@ -139,34 +146,81 @@ interface GLImpactOptions {
     template?: number;
 }
 
+/** @since 2015.2 */
 interface TemplateRenderer {
-    /** Adds XML or JSON as custom data source to an advanced PDF/HTML template. */
+    /**
+     * Adds XML or JSON as custom data source to an advanced PDF/HTML template.
+     * @governance none
+     * @since 2016.1
+     */
     addCustomDataSource(options: AddCustomDataSourceOptions): void;
     /**
      * Uses Query as the renderer’s data source.
      * You can specify the SuiteAnalytics workbook query either in the Query object, or provide a workbook ID to use the query from an existing SuiteAnalytics workbook.
      * One of options.query or options.id is required in the script.
+     * @throws {SuiteScriptError} MUTUALLY_EXCLUSIVE_ARGUMENTS if both options.query and options.id are provided.
+     * @throws {SuiteScriptError} NEITHER_ARGUMENT_DEFINED if neither options.query nor options.id is provided.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.templateName is not specified.
+     * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if the query ID is not valid.
+     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options.query is not a query.Query.
+     * @governance none
+     * @since 2019.2
      */
     addQuery(options: AddQueryOptions): void;
-    /** Binds a record to a template variable. */
+    /**
+     * Binds a record to a template variable.
+     * @governance none
+     * @since 2015.2
+     */
     addRecord(options: AddRecordOptions): void;
-    /** Binds a search result to a template variable. */
+    /**
+     * Binds a search result to a template variable.
+     * @governance none
+     * @since 2015.2
+     */
     addSearchResults(options: AddSearchResultsOptions): void;
-    /** Uses the advanced template to produce a PDF printed form. */
+    /**
+     * Uses the advanced template to produce a PDF printed form.
+     * @governance none
+     * @since 2015.2
+     */
     renderAsPdf(): File;
-    /** Renders a server response into a PDF file. For example, you can pass in a response to be rendered as a PDF in a browser, or downloaded by a user. */
+    /**
+     * Renders a server response into a PDF file. For example, you can pass in a response to be rendered as a PDF in a browser, or downloaded by a user.
+     * @governance none
+     * @since 2015.2
+     */
     renderPdfToResponse(options: RenderToResponseOptions): void;
     renderPdfToResponse(serverResponse: ServerResponse): void;
-    /** Return template content in string form. */
+    /**
+     * Return template content in string form.
+     * @governance none
+     * @since 2015.2
+     */
     renderAsString(): string;
-    /** Writes template content to a server response. */
+    /**
+     * Writes template content to a server response.
+     * @governance none
+     * @since 2015.2
+     */
     renderToResponse(options: RenderToResponseOptions): void;
     renderToResponse(serverResponse: ServerResponse): void;
-    /** Sets the template using the internal ID. */
+    /**
+     * Sets the template using the internal ID.
+     * @governance none
+     * @since 2016.1
+     */
     setTemplateById(options: { id: number; }): void;
-    /** Sets the template using the script ID. */
+    /**
+     * Sets the template using the script ID.
+     * @governance none
+     * @since 2016.1
+     */
     setTemplateByScriptId(options: { scriptId: Uppercase<string>; }): void;
-    /** Content of template. */
+    /**
+     * Content of template.
+     * @since 2015.2
+     */
     templateContent: string;
 }
 
@@ -194,26 +248,61 @@ interface TransactionOptions {
     inCustLocale?: boolean;
 }
 
-/** Use this method to create a PDF or HTML object of a bill of material. */
+/**
+ * Use this method to create a PDF or HTML object of a bill of material.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function bom(options: BOMOptions): File;
-/** Use this method to produce HTML and PDF printed forms with advanced PDF/HTML templates. */
+/**
+ * Use this method to produce HTML and PDF printed forms with advanced PDF/HTML templates.
+ * @governance none
+ * @since 2015.2
+ */
 export function create(): TemplateRenderer;
-/** Creates a render.EmailMergeResult object for a mail merge with an existing scriptable email template. */
+/**
+ * Creates a render.EmailMergeResult object for a mail merge with an existing scriptable email template.
+ * @governance none
+ * @since 2015.2
+ */
 export function mergeEmail(options: MergeEmailOptions): EmailMergeResult;
-/** Use this method to create a PDF or HTML object of a packing slip. */
+/**
+ * Use this method to create a PDF or HTML object of a packing slip.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function packingSlip(options: PackingSlipOptions): File;
-/** Use this method to create a PDF or HTML object of a picking ticket. */
+/**
+ * Use this method to create a PDF or HTML object of a picking ticket.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function pickingTicket(options: PickingTicketOptions): File;
-/** Use this method to create a PDF or HTML object of a statement. */
+/**
+ * Use this method to create a PDF or HTML object of a statement.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function statement(options: StatementOptions): File;
-/** Use this method to create a PDF or HTML object of a transaction. */
+/**
+ * Use this method to create a PDF or HTML object of a transaction.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function transaction(options: TransactionOptions): File;
-/** Method used to pass XML to the Big Faceless Organization tag library (which is stored by NetSuite), and return a PDF file. */
+/**
+ * Method used to pass XML to the Big Faceless Organization tag library (which is stored by NetSuite), and return a PDF file.
+ * @governance 10 units
+ * @since 2015.2
+ */
 export function xmlToPdf(options: XMLToPDFOptions): File;
 /** Use this method to create a PDF or HTML object of the GL Impact of a transaction. */
 export function glImpact(options: GLImpactOptions): File;
 
-/** Holds the string values for supported data source types. Use this enum to set the options.format parameter. */
+/**
+ * Holds the string values for supported data source types. Use this enum to set the options.format parameter.
+ * @since 2015.2
+ */
 export enum DataSource {
     JSON,
     OBJECT,
@@ -221,7 +310,10 @@ export enum DataSource {
     XML_STRING
 }
 
-/** Holds the string values for supported print output types. Use this enum to set the options.printMode parameter. */
+/**
+ * Holds the string values for supported print output types. Use this enum to set the options.printMode parameter.
+ * @since 2015.2
+ */
 export enum PrintMode {
     DEFAULT,
     HTML,
