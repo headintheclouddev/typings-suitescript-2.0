@@ -25,5 +25,13 @@ interface TriggerOptions {
     stateId?: string | number;
 }
 
+/**
+ * @governance 20 units
+ * @since 2015.2
+ */
 export function initiate(options: InitiateOptions): number;
+/**
+ * @governance 20 units
+ * @since 2015.2
+ */
 export function trigger(options: TriggerOptions): number;
