@@ -33,6 +33,8 @@ interface BOMOptions {
     entityId: number;
     /** The print output type. Set using the render.PrintMode enum. */
     printMode?: PrintMode;
+    /** Applies when advanced templates are used. Print the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale. */
+    inCustLocale?: boolean;
 }
 
 interface EmailMergeResult {
@@ -66,6 +68,8 @@ interface PackingSlipOptions {
     formId?: number;
     /** Fulfillment ID number. */
     fulfillmentId?: number;
+    /** Applies when advanced templates are used. Print the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale. */
+    inCustLocale?: boolean;
 }
 
 interface PickingTicketOptions {
@@ -79,6 +83,8 @@ interface PickingTicketOptions {
     shipgroup?: number;
     /** Location for the ticket. */
     location?: number;
+    /** Applies when advanced templates are used. Print the document in the customer's locale. If basic printing is used, this parameter is ignored and the transaction form is printed in the customer's locale. */
+    inCustLocale?: boolean;
 }
 
 interface RecordRef {
