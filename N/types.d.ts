@@ -19,6 +19,7 @@ export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context) => {
 };
 */
 
+/** @since 2015.2 */
 declare enum UserEventType {
     APPROVE,
     CANCEL,
@@ -73,6 +74,7 @@ declare interface UserEventTypes {
     XEDIT: UserEventType;
 }
 
+/** @since 2015.2 */
 declare enum ScheduledInvocationType {
     SCHEDULED,      // The normal execution according to the deployment options specified in the UI.
     ON_DEMAND,      // The script is executed via a call from a script (using ScheduledScriptTask.submit()).
@@ -99,6 +101,7 @@ export namespace EntryPoints {
             column?: number;
         }
 
+        /** @since 2015.2 */
         type fieldChanged = (scriptContext: fieldChangedContext) => void;
 
         interface lineInitContext {
@@ -106,6 +109,7 @@ export namespace EntryPoints {
             sublistId: string;
         }
 
+        /** @since 2015.2 */
         type lineInit = (scriptContext: lineInitContext) => void;
 
         interface pageInitContext {
@@ -113,6 +117,7 @@ export namespace EntryPoints {
             mode: 'create' | 'copy' | 'edit' | 'view';
         }
 
+        /** @since 2015.2 */
         type pageInit = (scriptContext: pageInitContext) => void;
 
         interface postSourcingContext {
@@ -121,12 +126,14 @@ export namespace EntryPoints {
             fieldId: string;
         }
 
+        /** @since 2015.2 */
         type postSourcing = (scriptContext: postSourcingContext) => void;
 
         interface saveRecordContext {
             currentRecord: N_record.ClientCurrentRecord;
         }
 
+        /** @since 2015.2 */
         type saveRecord = (scriptContext: saveRecordContext) => boolean;
 
         interface sublistChangedContext {
@@ -138,14 +145,17 @@ export namespace EntryPoints {
             operation: string;
         }
 
+        /** @since 2015.2 */
         type sublistChanged = (scriptContext: sublistChangedContext) => void;
 
         interface validateDeleteContext {
             currentRecord: N_record.ClientCurrentRecord;
             sublistId: string;
+            /** @since 2020.2 */
             lineCount: number; // As of 2020.2
         }
 
+        /** @since 2015.2 */
         type validateDelete = (scriptContext: validateDeleteContext) => boolean;
 
         interface validateFieldContext {
@@ -156,6 +166,7 @@ export namespace EntryPoints {
             column?: number;
         }
 
+        /** @since 2015.2 */
         type validateField = (scriptContext: validateFieldContext) => boolean;
 
         interface validateInsertContext {
@@ -163,6 +174,7 @@ export namespace EntryPoints {
             sublistId: string;
         }
 
+        /** @since 2015.2 */
         type validateInsert = (scriptContext: validateInsertContext) => boolean;
 
         interface validateLineContext {
@@ -170,14 +182,18 @@ export namespace EntryPoints {
             sublistId: string;
         }
 
+        /** @since 2015.2 */
         type validateLine = (scriptContext: validateLineContext) => boolean;
 
         interface localizationContext {
             currentRecord: N_record.ClientCurrentRecord;
+            /** @since 2020.1 */
             locale: string;
         }
 
+        /** @since 2020.1 */
         type localizationContextEnter = (scriptContext: localizationContext) => void;
+        /** @since 2020.1 */
         type localizationContextExit = (scriptContext: localizationContext) => void;
     }
 
@@ -190,6 +206,7 @@ export namespace EntryPoints {
             request: N_http.ServerRequest | undefined;
         }
 
+        /** @since 2015.2 */
         type beforeLoad = (scriptContext: beforeLoadContext) => void;
 
         interface beforeSubmitContext {
@@ -199,6 +216,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
         }
 
+        /** @since 2015.2 */
         type beforeSubmit = (scriptContext: beforeSubmitContext) => void;
 
         interface afterSubmitContext {
@@ -208,6 +226,7 @@ export namespace EntryPoints {
             UserEventType: UserEventTypes;
         }
 
+        /** @since 2015.2 */
         type afterSubmit = (scriptContext: afterSubmitContext) => void;
     }
 
@@ -217,6 +236,7 @@ export namespace EntryPoints {
             InvocationType: ScheduledInvocationTypes;
         }
 
+        /** @since 2015.2 */
         type execute = (scriptContext: executeContext) => void | Promise<void>;
     }
 
@@ -239,6 +259,7 @@ export namespace EntryPoints {
         }
 
         type GetInputDataResponse = N_search.Search | any | any[] | ObjectReference;
+        /** @since 2015.2 */
         type getInputData = (scriptContext: getInputDataContext) => Promise<GetInputDataResponse> | GetInputDataResponse;
 
         interface mapContext {
@@ -251,6 +272,7 @@ export namespace EntryPoints {
             write(options: IKeyValuePair): void;
         }
 
+        /** @since 2015.2 */
         type map = (scriptContext: mapContext) => Promise<void> | void;
 
         interface reduceContext {
@@ -263,6 +285,7 @@ export namespace EntryPoints {
             write(options: IKeyValuePair): void;
         }
 
+        /** @since 2015.2 */
         type reduce = (scriptContext: reduceContext) => Promise<void> | void;
 
         interface MapReduceOutputIterator {
@@ -329,6 +352,7 @@ export namespace EntryPoints {
             output: MapReduceOutputIteratorContainer;
         }
 
+        /** @since 2015.2 */
         type summarize = (summary: summarizeContext) => Promise<void> | void;
     }
 
@@ -340,6 +364,7 @@ export namespace EntryPoints {
             entity: string;
         }
 
+        /** @since 2015.2 */
         type render = (scriptContext: renderContext) => void;
     }
 
@@ -349,6 +374,7 @@ export namespace EntryPoints {
             response: N_http.ServerResponse;
         }
 
+        /** @since 2015.2 */
         type onRequest = (scriptContext: onRequestContext) => void;
     }
 
@@ -358,6 +384,7 @@ export namespace EntryPoints {
             type: string;
         }
 
+        /** @since 2016.1 */
         type each = (scriptContext: eachContext) => void;
     }
 
@@ -365,18 +392,26 @@ export namespace EntryPoints {
         interface onActionContext {
             newRecord: N_record.Record;
             oldRecord: N_record.Record | null;
+            /** @since 2016.2 */
             form?: N_ui_serverWidget.Form;
+            /** @since 2016.2 */
             type?: string;
+            /** @since 2016.2 */
             workflowId?: number;
         }
 
+        /** @since 2016.1 */
         type onAction = (scriptContext: onActionContext) => void;
     }
 
     namespace RESTlet {
+        /** @since 2015.2 */
         type get<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
+        /** @since 2015.2 */
         type delete_<T = unknown, Y = string> = (requestParams?: Partial<T>) => Promise<Y> | Y;
+        /** @since 2015.2 */
         type post<T = unknown, Y = string> = (requestBody: Partial<T> | string) => Promise<Y> | Y;
+        /** @since 2015.2 */
         type put<T = unknown, Y = string> = (requestBody: Partial<T> | string) => Promise<Y> | Y;
     }
 
@@ -385,6 +420,7 @@ export namespace EntryPoints {
             version: number;
         }
 
+        /** @since 2016.1 */
         type afterInstall = (scriptContext: onAfterInstallContext) => void;
 
         interface onAfterUpdateContext {
@@ -392,18 +428,21 @@ export namespace EntryPoints {
             toVersion: number;
         }
 
+        /** @since 2016.1 */
         type afterUpdate = (scriptContext: onAfterUpdateContext) => void;
 
         interface onBeforeInstallContext {
             version: number;
         }
 
+        /** @since 2016.1 */
         type beforeInstall = (scriptContext: onBeforeInstallContext) => void;
 
         interface onBeforeUninstallContext {
             version: number;
         }
 
+        /** @since 2016.1 */
         type beforeUninstall = (scriptContext: onBeforeUninstallContext) => void;
 
         interface onBeforeUpdateContext {
@@ -411,6 +450,7 @@ export namespace EntryPoints {
             toVersion: number;
         }
 
+        /** @since 2016.1 */
         type beforeUpdate = (scriptContext: onBeforeUpdateContext) => void;
     }
 
@@ -422,6 +462,7 @@ export namespace EntryPoints {
             toVersion: string;
         }
 
+        /** @since 2015.2 */
         type run = (scriptContext: runContext) => void;
     }
 
