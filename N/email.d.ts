@@ -95,24 +95,63 @@ interface SendCampaignOptions {
 
 interface EmailSendFunction {
     (options: SendOptions): void;
+    /**
+     * @governance 20 units
+     * @since 2015.2
+     */
     promise(options: SendOptions): Promise<void>;
 }
 
 interface EmailSendCampaignFunction {
     (options: SendCampaignOptions): number;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: SendCampaignOptions): Promise<number>;
 }
 
 /**
  * Method used to send transactional email asynchronously and receive bounceback notifications if the email is not successfully delivered.
+ * @throws {SuiteScriptError} SSS_AUTHOR_MUST_BE_EMPLOYEE if the author internal ID or email address doesn't match an employee.
+ * @throws {SuiteScriptError} SSS_INVALID_TO_EMAIL if a recipient's email address is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_CC_EMAIL if an email address in options.cc is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_BCC_EMAIL if an email address in options.bcc is invalid.
+ * @throws {SuiteScriptError} SSS_MAXIMUM_NUMBER_RECIPIENTS_EXCEEDED if the total number of recipients exceeds 10.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required parameter is missing.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if a parameter's type is incorrect.
+ * @throws {SuiteScriptError} SSS_FILE_CONTENT_SIZE_EXCEEDED if an attachment exceeds the 10 MB file size limit.
+ * @throws {SuiteScriptError} ATTACH_SIZE_EXCEEDED if the size of the attachments exceeds the limit.
+ * @governance 20 units
+ * @since 2015.2
  */
 export const send: EmailSendFunction;
 /**
  * This method is used to send bulk email when a bounceback notification is not required.
+ * @throws {SuiteScriptError} SSS_AUTHOR_MUST_BE_EMPLOYEE if the author internal ID or email address doesn't match an employee.
+ * @throws {SuiteScriptError} SSS_INVALID_TO_EMAIL if a recipient's email address is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_CC_EMAIL if an email address in options.cc is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_BCC_EMAIL if an email address in options.bcc is invalid.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required parameter is missing.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if a parameter's type is incorrect.
+ * @throws {SuiteScriptError} SSS_FILE_CONTENT_SIZE_EXCEEDED if an attachment exceeds the 10 MB file size limit.
+ * @throws {SuiteScriptError} ATTACH_SIZE_EXCEEDED if the size of the attachments exceeds the limit.
+ * @governance 10 units
+ * @since 2015.2
  */
 export const sendBulk: EmailSendFunction;
 /**
  * Method used to send a single “on-demand” campaign email to a specified recipient and return a campaign response ID to track the email.
  * Email (campaignemail) sublists are not supported. The campaign must use a Lead Nurturing (campaigndrip) sublist.
+ * @throws {SuiteScriptError} SSS_AUTHOR_MUST_BE_EMPLOYEE if the author internal ID or email address doesn't match an employee.
+ * @throws {SuiteScriptError} SSS_INVALID_TO_EMAIL if a recipient's email address is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_CC_EMAIL if an email address in options.cc is invalid.
+ * @throws {SuiteScriptError} SSS_INVALID_BCC_EMAIL if an email address in options.bcc is invalid.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required parameter is missing.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if a parameter's type is incorrect.
+ * @throws {SuiteScriptError} SSS_FILE_CONTENT_SIZE_EXCEEDED if an attachment exceeds the 10 MB file size limit.
+ * @throws {SuiteScriptError} ATTACH_SIZE_EXCEEDED if the size of the attachments exceeds the limit.
+ * @governance 10 units
+ * @since 2015.2
  */
 export const sendCampaignEvent: EmailSendCampaignFunction;
