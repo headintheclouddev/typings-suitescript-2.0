@@ -136,7 +136,7 @@ interface DocumentToTextOptions {
 
 interface DocumentToTextFunction {
     (options: DocumentToTextOptions): string;
-    promise(options: DocumentToTextFunction): Promise<string>;
+    promise(options: DocumentToTextOptions): Promise<string>;
 }
 
 export const documentToText: DocumentToTextFunction;
