@@ -26,6 +26,8 @@ interface Column {
 
 /** The conditions for the dataset. Conditions are equivalent to criteria you use when you build a dataset in SuiteAnalytics. */
 interface Condition {
+  /** Indicates whether the condition in a sort is case sensitive. */
+  caseSensitive: boolean;
   readonly children: Condition[];
   readonly column: Column;
   readonly operator: string;
@@ -126,3 +128,52 @@ export function createCondition(options: CreateConditionOptions): Condition;
 export function createJoin(options: CreateJoinOptions): Join;
 export function list(): { id: string, name: string, record: string, description?: string }[];
 export function load(options: { id: string }): Dataset;
+
+/**
+ * Creates a translation expression based on a Translation Collection.
+ * @governance none
+ * @since 2021.2
+ */
+export function createTranslation(options: {
+  /** The Translation Collection to use. */
+  collection: string;
+  /** The translation term to use. */
+  key: string;
+}): Expression;
+
+/**
+ * Retrieves information about a dataset, including name, description, and a list of columns and formulas with their labels and types.
+ * @governance 10 units
+ * @since 2021.2
+ */
+export function describe(options: { id: string }): object[];
+export namespace describe {
+  /**
+   * Asynchronously retrieves information about a dataset. Parameters and errors are the same as dataset.describe(options).
+   * @governance 10 units
+   * @since 2021.2
+   */
+  function promise(options: { id: string }): Promise<object[]>;
+}
+
+/**
+ * Retrieves metadata about datasets as a set of paged results.
+ * @throws {SuiteScriptError} INVALID_OWNER_CATEGORY if the value of the category parameter is not included in the OwnerCategory enum
+ * @governance 10 units
+ * @since 2021.2
+ */
+export function listPaged(options: {
+  /** The page size. */
+  pageSize: number;
+  /** The category of datasets or workbooks to get a paginated listing for. */
+  category?: string;
+}): object;
+
+export namespace load {
+  /**
+   * Asynchronously loads an existing dataset. Parameters and errors are the same as dataset.load(options).
+   * @governance 10 units
+   * @since 2020.2
+   */
+  function promise(options: { id: string }): Promise<Dataset>;
+}
