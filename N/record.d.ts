@@ -122,6 +122,8 @@ interface GetMatrixSublistFieldOptions {
     sublistId: string;
     /** The internal ID of the matrix field. */
     fieldId: string;
+    /** The column number for the field. */
+    column: number;
     /** The line number for the field. */
     line: number;
 }
