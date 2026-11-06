@@ -44,30 +44,40 @@ interface FormatNumberOptions {
 /**
  * Use format to convert an Object (like a Date) into a specific NS string format. 
  * Options: value (Date|string|number), type (format.FormatType).
+ * @governance none
+ * @since 2015.2
  */
 export function format(options: FormatOptions): string | any;
 
 /**
  * Use format to convert an Object (like a Date) into a specific NS string format. 
  * Options: value (Date|string), type (format.FormatType), timezone (enum).
+ * @governance none
+ * @since 2015.2
  */
 export function format(options: FormatDateTimeOptions): string | any;
 
 /**
  * Use parse to convert a string into an object, like a Date.
  * Options: value (Date|string), type (format.FormatType), timezone (enum).
+ * @governance none
+ * @since 2015.2
  */
 export function parse(options: FormatDateTimeOptions): Date;
 
 /**
  * Use parse to convert a string into a number.
  * Options: value (number|string), type (format.FormatType).
+ * @governance none
+ * @since 2015.2
  */
 export function parse(options: FormatNumberOptions): number;
 
 /**
  * Use parse to convert a string into an object, like a Date.
  * Options: value (Date|string|number), type (format.FormatType).
+ * @governance none
+ * @since 2015.2
  */
 export function parse(options: FormatOptions): Date | string | number;
 
