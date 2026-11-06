@@ -72,7 +72,7 @@ interface FindSublistLineWithValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The value to search for. */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
 }
 
 interface GetCurrentMatrixSublistValueOptions {
@@ -122,6 +122,8 @@ interface GetMatrixSublistFieldOptions {
     sublistId: string;
     /** The internal ID of the matrix field. */
     fieldId: string;
+    /** The column number for the field. */
+    column: number;
     /** The line number for the field. */
     line: number;
 }
@@ -203,7 +205,7 @@ interface SetCurrentMatrixSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
     /** Indicates whether to perform slaving synchronously. */
@@ -228,7 +230,7 @@ interface SetMatrixSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
@@ -248,7 +250,7 @@ interface SetCurrentSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
@@ -286,7 +288,7 @@ export interface SetValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
@@ -338,7 +340,7 @@ interface SetSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
@@ -382,10 +384,11 @@ export interface Sublist {
      */    
     isMultilineEditable: boolean;  
     /**
-     * Returns a column in the sublist.
+     * Returns a column in the sublist, or null if the sublist has no such column (such as a custom column that is not
+     * available on the form).
      * Client and server-side scripts
      */
-    getColumn(options: GetColumnOptions): Column
+    getColumn(options: GetColumnOptions): Column | null
     /**
      * Returns the object type name (sublist.Sublist)
      */    
@@ -494,8 +497,11 @@ export interface ClientCurrentRecord {
      * return field object from record's sublist current line. Only available in dynamic record
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @restriction only available in dynamic record
+     * @returns The field, or null if the field is not available on the current line (such as a custom column that is
+     * not available on the form). For a sublist that does not exist, this returns null on the server, but throws
+     * SSS_MISSING_REQD_ARGUMENT in the browser.
      */
-    getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field;
+    getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field | null;
     /** Returns the line number of the currently selected line. */
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
     /** Gets the subrecord for the associated sublist field on the current line. */
@@ -530,14 +536,17 @@ export interface ClientCurrentRecord {
     getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field;
     /** Gets the value for the associated field in the matrix. */
     getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
-    /** Returns the specified sublist. */
-    getSublist(options: RecordGetLineCountOptions): Sublist;
+    /** Returns the specified sublist, or null if it does not exist. */
+    getSublist(options: RecordGetLineCountOptions): Sublist | null;
     /**
      * Return field object from record's sublist
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if line number is invalid
+     * @returns The field, or null if the field is not available on the line (such as a custom column that is not
+     * available on the form). For a sublist that does not exist, this also returns null in standard mode, but throws
+     * SSS_INVALID_SUBLIST_OPERATION in dynamic mode and in the browser.
      */
-    getSublistField(options: GetSublistFieldOptions): Field;
+    getSublistField(options: GetSublistFieldOptions): Field | null;
     /** Returns the value of a sublist field in a text representation. */
     getSublistText(options: GetSublistValueOptions): string;
     /** Returns the value of a sublist field. */
@@ -623,7 +632,7 @@ export interface ClientCurrentRecord {
     setText(fieldId: string, value: string): this;
     /** Sets the value of a field. */
     setValue(options: SetValueOptions): this;
-    setValue(fieldId: string, value: FieldValue): this;
+    setValue(fieldId: string, value: Readonly<FieldValue>): this;
 
     /** The record type. */
     readonly type: Type | `${Type}` | `customrecord${string}` | `customtransaction${string}`;

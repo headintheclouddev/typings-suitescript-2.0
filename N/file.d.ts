@@ -1,16 +1,28 @@
+/**
+ * A file object, such as one returned by {@link create}.
+ *
+ * A file that has not been saved has no ID or URL. Saving it does not change this:
+ * {@link File.save} returns the new ID (as a number), but does not update the object.
+ * Use {@link load} to get an object for the saved file.
+ */
 export interface File {
-    description: string;
-    encoding: string;
-    fileType: Type;
+    description: string | null;
+    /** The encoding, one of the values of {@link Encoding}, such as `UTF-8`. This may be null if the file has not been saved. */
+    encoding: string | null;
+    /** The file type. A file in the File Cabinet can have a type that {@link Type} does not list, such as `MISCBINARY` or `WOFF2`. */
+    fileType: Type | string;
+    /** The internal ID of the containing folder. This is -1 if the file has not been saved and no folder has been set. */
     folder: number;
-    readonly id: number;
+    /** The internal ID of the file, as a string such as `"123"`. This is null if the file has not been saved. */
+    readonly id: string | null;
     isInactive: boolean;
     isOnline: boolean;
     readonly isText: boolean;
     name: string;
     readonly path: string;
     readonly size: number;
-    readonly url: string;
+    /** The URL of the file. This is null if the file has not been saved. */
+    readonly url: string | null;
     save: () => number;
     getContents: () => string;
     getReader: () => FileReader; // Since 2019.1
@@ -19,6 +31,13 @@ export interface File {
     resetStream: () => void;
     appendLine: (option: FileAppendLineOptions) => File;
     lines: { iterator: () => FileIterator; };
+}
+
+/** A file in the File Cabinet, such as one returned by {@link load} or {@link copy}. */
+export interface FileCabinetFile extends File {
+    encoding: string;
+    readonly id: string;
+    readonly url: string;
 }
 
 /** Use for special read operations. Reads from a file until a specified delimiter is reached. Reads an arbitrary number of characters from a file. Since 2019.1. */
@@ -63,7 +82,10 @@ export interface FileDeleteOptions {
 export interface FileCopyOptions {
     /** The internal ID of the folder to copy the file to.  This folder must already exist in the File Cabinet. */
     folder: number;
-    /** The internal ID of the file to copy. The file must already exist in the file cabinet. */
+    /**
+     * The internal ID of the file to copy. The file must already exist in the file cabinet.
+     * It must be a number: a string, such as the ID of a loaded file, throws SSS_INVALID_TYPE_ARG.
+     */
     id: number;
     /**
      * The conflict resolution value.
@@ -97,17 +119,17 @@ export interface FileCreateOptions {
 export function create(options: FileCreateOptions): File;
 
 /** Copy an existing file in the NetSuite File Cabinet. */
-export function copy(options: FileCopyOptions): File;
+export function copy(options: FileCopyOptions): FileCabinetFile;
 
 /**  Method used to delete an existing file from the NetSuite file cabinet. */
 declare function deleteFunc(options: FileDeleteOptions): void;
 export {deleteFunc as delete};
 
 /** Method used to load an existing file from the NetSuite file cabinet. */
-export function load(options: FileLoadOptions): File;
+export function load(options: FileLoadOptions): FileCabinetFile;
 
 /** Method used to load an existing file from the NetSuite file cabinet. */
-export function load(idOrPath: number | string): File;
+export function load(idOrPath: number | string): FileCabinetFile;
 
 export enum NameConflictResolution {
     /** Fail with an error if a conflict occurs. */

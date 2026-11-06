@@ -40,7 +40,7 @@ interface ToSearchOptions {
 }
 
 interface ToSearchResultOptions {
-    Search: Search;
+    search: Search;
 }
 
 interface ToSuiteletOptions {

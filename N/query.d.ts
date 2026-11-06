@@ -202,8 +202,8 @@ interface LoadQueryOptions {
 }
 
 interface DeleteQueryOptions {
-    /** The id of query to be deleted. */
-    id: number;
+    /** The script ID of the query to delete. */
+    id: string;
 }
 
 export interface RunSuiteQLOptions {
@@ -783,7 +783,7 @@ export function create(options: CreateQueryOptions): Query;
 /**
  * Loads query by id
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't string
  * @throws {SuiteScriptError} UNABLE_TO_LOAD_QUERY if query doesn't exist or no permissions to load it
  */
 export const load: QueryLoadFunction;
@@ -794,17 +794,18 @@ interface QueryLoadFunction {
 }
 
 interface deleteQuery {
-    (options: DeleteQueryOptions): Query;
-    promise: (options: DeleteQueryOptions) => Promise<Query>;
+    (options: DeleteQueryOptions): void;
+    promise: (options: DeleteQueryOptions) => Promise<void>;
 }
 
 /**
- * Deletes query by id
+ * Deletes an existing query by its script ID.
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or id are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't string
  * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
  */
-export { deleteQuery as delete };
+declare const deleteFunc: deleteQuery; // "delete" is a reserved word, so declare a const and export it under that name (same as N/http)
+export { deleteFunc as delete };
 
 interface RunSuiteQL {
     (options: RunSuiteQLOptions): ResultSet;
@@ -817,8 +818,7 @@ interface RunSuiteQL {
  * It provides advanced query capabilities you can use to access your NetSuite records and data.
  * @governance 10 units
  * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if options or query are undefined
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options isn't object or id isn't number
- * @throws {SuiteScriptError} UNABLE_TO_DELETE_QUERY if query doesn't exist or no permissions to delete it
+ * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if options.params includes a value of an unsupported type
  */
 export const runSuiteQL: RunSuiteQL;
 

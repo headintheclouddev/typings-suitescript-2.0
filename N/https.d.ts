@@ -140,9 +140,9 @@ interface RequestSuiteTalkRestFunction {
 // OBJECTS \\
 /** Encapsulates data that may be sent to a third-party via an HTTPS call. */
 export interface SecureString {
-    /** Appends a passed in https.SecureString to another https.SecureString. */
-    appendString(options: AppendStringOptions): SecureString;
     /** Appends a passed in string to a https.SecureString. */
+    appendString(options: AppendStringOptions): SecureString;
+    /** Appends a passed in https.SecureString to another https.SecureString. */
     appendSecureString(options: AppendSecureStringOptions): SecureString;
     /** Changes the encoding of a https.SecureString. */
     convertEncoding(options: ConvertEncodingOptions): SecureString;
