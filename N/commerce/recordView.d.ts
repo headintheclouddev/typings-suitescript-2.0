@@ -1,7 +1,7 @@
 /** Load the N/commerce/recordView module when you want to provide fast, cached, and public access to the item fields and website settings. */
 
 /** A flat JSON structure of field:value pairs, where each value is wrapped as `{ value: ... }`. */
-export type RecordViewFields = { [fieldId: string]: { value: unknown } };
+export type RecordViewFields = { [fieldId: string]: { value: any } };
 
 /** Retrieves one or more Items with requested items fields from an Item Record. */
 export declare function viewItems(options: RecordViewOptions): RecordViewFields[];
