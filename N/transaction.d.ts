@@ -5,14 +5,38 @@ interface VoidOptions {
 }
 
 interface TransactionVoidFunction {
+    /**
+     * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+     * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+     * @governance 10 units
+     * @since 2015.2
+     */
     (options: VoidOptions): number;
+    /**
+     * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+     * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: VoidOptions): Promise<number>;
 }
 
+/**
+ * @throws {SuiteScriptError} INVALID_RECORD_TYPE if the type argument is not valid or the record type is not voidable
+ * @throws {SuiteScriptError} THAT_RECORD_DOES_NOT_EXIST if the id argument is not valid
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the type or id argument is missing
+ * @governance 10 units
+ * @since 2015.2
+ */
 declare const voidFunc: TransactionVoidFunction;
 export {voidFunc as void};
 
-/** N/transaction.Type enum */
+/**
+ * N/transaction.Type enum
+ * @since 2015.2
+ */
 export enum Type { // As of 6 June 2025
     ASSEMBLY_BUILD = 'assemblybuild',
     ASSEMBLY_UNBUILD = 'assemblyunbuild',
