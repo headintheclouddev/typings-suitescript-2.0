@@ -72,7 +72,7 @@ interface FindSublistLineWithValueOptions {
     /** The internal ID of a standard or custom sublist field. */
     fieldId: string;
     /** The value to search for. */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
 }
 
 interface GetCurrentMatrixSublistValueOptions {
@@ -205,7 +205,7 @@ interface SetCurrentMatrixSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
     /** Indicates whether to perform slaving synchronously. */
@@ -230,7 +230,7 @@ interface SetMatrixSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
@@ -250,7 +250,7 @@ interface SetCurrentSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. Default is false. */
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
@@ -288,7 +288,7 @@ export interface SetValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** If set to true, the field change and slaving event is ignored. */
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
@@ -340,7 +340,7 @@ interface SetSublistValueOptions {
      * - Date and DateTime fields accept Date values.
      * - Integer, Float, Currency and Percent fields accept number values.
      */
-    value: FieldValue;
+    value: Readonly<FieldValue>;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
     /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
@@ -625,7 +625,7 @@ export interface ClientCurrentRecord {
     setText(fieldId: string, value: string): this;
     /** Sets the value of a field. */
     setValue(options: SetValueOptions): this;
-    setValue(fieldId: string, value: FieldValue): this;
+    setValue(fieldId: string, value: Readonly<FieldValue>): this;
 
     /** The record type. */
     readonly type: Type | `${Type}` | `customrecord${string}` | `customtransaction${string}`;
