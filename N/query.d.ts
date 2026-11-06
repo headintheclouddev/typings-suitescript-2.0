@@ -74,6 +74,12 @@ export interface CreateConditionOptions {
 
     /** Aggregate function. Use the Aggregate enum. */
     aggregate?: string;
+
+    /**
+     * Whether filtered text is case sensitive. Only valid for text fields; script errors may occur
+     * if set with number or date values. Defaults to false.
+     */
+    caseSensitive?: boolean;
 }
 
 interface CreateConditionWithFormulaOptions {
@@ -128,6 +134,12 @@ interface CreateColumnOptions {
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
     context?: string | FieldContext | ColumnContextOptions
+
+    /**
+     * The label for the column. A label is important if the query is used as the data source for printing,
+     * such as in render.TemplateRenderer.addQuery(options). This value sets the Column.label property.
+     */
+    label?: string;
 }
 
 interface CreateColumnWithFormulaOptions {
@@ -165,6 +177,12 @@ interface CreateColumnWithFormulaOptions {
 
     /** The field context for values in the query result column. This value sets the Column.context property. */
     context?: string | FieldContext | ColumnContextOptions
+
+    /**
+     * The label for the column. A label is important if the query is used as the data source for printing,
+     * such as in render.TemplateRenderer.addQuery(options). This value sets the Column.label property.
+     */
+    label?: string;
 }
 
 interface CreateSortOptions {
@@ -216,6 +234,12 @@ export interface RunSuiteQLOptions {
         ReadonlyArray<string | number | boolean>;
 
     customScriptId?: string;
+
+    /**
+     * Indicates whether the query should fail if you lack the necessary permissions for some fields or records.
+     * SUITE_QL (default): the query fails. STATIC: the query succeeds but returns no data for those fields or records.
+     */
+    metaDataProvider?: "SUITE_QL" | "STATIC";
 }
 
 export interface RunSuiteQLPagedOptions extends RunSuiteQLOptions {
@@ -836,6 +860,29 @@ interface RunSuiteQLPaged {
  * @since 2020.1
  */
 export const runSuiteQLPaged: RunSuiteQLPaged;
+
+interface ListTablesOptions {
+    /** The ID of the workbook containing the table view objects to list. */
+    workbookId: string;
+}
+
+export interface TableView {
+    /** The name of the table view object. */
+    name: string;
+    /** The script ID of the table view object. */
+    scriptId: string;
+}
+
+/**
+ * Lists the table view objects that are included in a workbook in SuiteAnalytics Workbook.
+ * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if a required parameter is missing
+ * @throws {SuiteScriptError} SCRIPT_ID_OF_WORKBOOK_IS_REQUIRED if the specified workbook ID represents an analytical record that is not a workbook
+ * @throws {SuiteScriptError} SSS_INVALID_SCRIPT_ID_1 if the specified workbook ID is not valid
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the specified workbook ID is not a string
+ * @governance none
+ * @since 2020.1
+ */
+export function listTables(options: ListTablesOptions): TableView[];
 
 export const enum DateId {
     DAYS_AGO = "dago",
