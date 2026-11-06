@@ -10,9 +10,22 @@ interface ExecuteBulkOptions {
   recordType: string;
   /** The action ID */
   id:     string;
-  params: { recordId: string }[];
-  condition: string;
-  paramCallback: string;
+  /**
+   * An array of parameter objects. Each object corresponds to one record ID of the record for which the action is to be executed.
+   * The recordId parameter is always required. Other parameters are optional and are specific to the particular action.
+   * This parameter is mutually exclusive to options.condition and options.paramCallback.
+   */
+  params?: { recordId: number | string, [param: string]: any }[];
+  /**
+   * The condition used to select record IDs of records for which the action is to be executed.
+   * Only the action.ALL_QUALIFIED_INSTANCES constant is currently supported.
+   */
+  condition?: string;
+  /**
+   * Function that takes record ID and returns the parameter object for the specified record ID.
+   * Oracle documents the type of this parameter as string, even though the description calls it a function.
+   */
+  paramCallback?: string;
 }
 
 interface ExecuteOptions {
