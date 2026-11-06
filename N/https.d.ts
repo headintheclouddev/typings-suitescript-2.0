@@ -7,7 +7,10 @@ interface CreateSecretKeyOptions {
     encoding?: Encoding;
     /** A GUID used to generate a secret key. The GUID can resolve to either data or metadata. Required if secret is not specified */
     guid?: string;
-    /** The script ID of the secret used for authentication. This parameter is not required if you use the options.guid parameter. You cannot use both the options.guid parameter and secret parameter in combination. */
+    /**
+     * The script ID of the secret used for authentication. This parameter is not required if you use the options.guid parameter. You cannot use both the options.guid parameter and secret parameter in combination.
+     * @since 2021.1
+     */
     secret?: string;
 }
 
@@ -95,6 +98,10 @@ export interface RequestRestletOptions {
 
 interface RequestRestletFunction {
     (options: RequestRestletOptions): ClientResponse
+    /**
+     * @governance 10 units
+     * @since 2020.2
+     */
     promise(options: RequestRestletOptions): Promise<ClientResponse>;
 }
 
@@ -113,6 +120,10 @@ export interface RequestSuiteletOptions extends RequestRestletOptions {
  */
 interface RequestSuiteletFunction {
     (options: RequestSuiteletOptions): ClientResponse
+    /**
+     * @governance 10 units
+     * @since 2023.1
+     */
     promise(options: RequestSuiteletOptions): Promise<ClientResponse>;
 }
 
@@ -138,19 +149,57 @@ interface RequestSuiteTalkRestFunction {
 }
 
 // OBJECTS \\
-/** Encapsulates data that may be sent to a third-party via an HTTPS call. */
+/**
+ * Encapsulates data that may be sent to a third-party via an HTTPS call.
+ * @since 2015.2
+ */
 export interface SecureString {
-    /** Appends a passed in string to a https.SecureString. */
+    /**
+     * Appends a passed in string to a https.SecureString.
+     * @throws {SuiteScriptError} FAILED_TO_CONVERT_BINARY_DATA_TO_UTF_8 if options.keepEncoding is false and an invalid attempt to re-encode from binary to string data occurred during the append.
+     * @throws {SuiteScriptError} FAILED_TO_DECODE_STRING_ENCODED_BINARY_DATA_USING_1_ENCODING if options.keepEncoding is false and an invalid attempt to re-encode from string to binary data occurred during the append.
+     * @throws {SuiteScriptError} INVALID_VALUE_1_FOR_PARAMETER_2 if options.inputEncoding is set to a value other than https.Encoding.UTF_8 and options.keepEncoding is true.
+     * @governance none
+     * @since 2015.2
+     */
     appendString(options: AppendStringOptions): SecureString;
-    /** Appends a passed in https.SecureString to another https.SecureString. */
+    /**
+     * Appends a passed in https.SecureString to another https.SecureString.
+     * @throws {SuiteScriptError} FAILED_TO_CONVERT_BINARY_DATA_TO_UTF_8 if options.keepEncoding is false and an invalid attempt to re-encode from binary to string data occurred during the append.
+     * @throws {SuiteScriptError} FAILED_TO_DECODE_STRING_ENCODED_BINARY_DATA_USING_1_ENCODING if options.keepEncoding is false and an invalid attempt to re-encode from string to binary data occurred during the append.
+     * @governance none
+     * @since 2015.2
+     */
     appendSecureString(options: AppendSecureStringOptions): SecureString;
-    /** Changes the encoding of a https.SecureString. */
+    /**
+     * Changes the encoding of a https.SecureString.
+     * @throws {SuiteScriptError} FAILED_TO_CONVERT_BINARY_DATA_TO_UTF_8 if the content of the SecureString is binary data that does not represent a valid UTF-8-encoded string.
+     * @throws {SuiteScriptError} FAILED_TO_DECODE_STRING_ENCODED_BINARY_DATA_USING_1_ENCODING if the content of the SecureString is not a valid encoded string according to options.fromEncoding.
+     * @governance none
+     * @since 2015.2
+     */
     convertEncoding(options: ConvertEncodingOptions): SecureString;
-    /** Produces the https.SecureString as a hash. */
+    /**
+     * Produces the https.SecureString as a hash.
+     * @throws {SuiteScriptError} FAILED_TO_CONVERT_BINARY_DATA_TO_UTF_8 if an invalid attempt was made to encode the binary result to a UTF-8 string.
+     * @throws {SuiteScriptError} FAILED_TO_DECODE_STRING_ENCODED_BINARY_DATA_USING_1_ENCODING if the content of the SecureString is not a valid encoded string according to options.contentEncoding.
+     * @governance none
+     * @since 2015.2
+     */
     hash(options: HashOptions): SecureString;
-    /** Produces the https.SecureString as an hmac. */
+    /**
+     * Produces the https.SecureString as an hmac.
+     * @throws {SuiteScriptError} FAILED_TO_CONVERT_BINARY_DATA_TO_UTF_8 if an invalid attempt was made to encode the binary result to a UTF-8 string.
+     * @throws {SuiteScriptError} FAILED_TO_DECODE_STRING_ENCODED_BINARY_DATA_USING_1_ENCODING if the content of the SecureString is not a valid encoded string according to options.contentEncoding.
+     * @governance none
+     * @since 2015.2
+     */
     hmac(options: HmacOptions): SecureString;
-    /** Replaces all occurrences of a pattern string inside an https.SecureString with a replacement string. */
+    /**
+     * Replaces all occurrences of a pattern string inside an https.SecureString with a replacement string.
+     * @governance none
+     * @since 2021.2
+     */
     replaceString(options: { pattern: string, replacement: string }): SecureString;
     /** Not Documented - 6/9/2016 */
     toString(): string;
@@ -159,19 +208,33 @@ export interface SecureString {
 export {get, delete as delete, request, post, put, CacheDuration, Method, ClientResponse, ServerRequest, ServerResponse, GetOptions, DeleteOptions, PostOptions, PutOptions, RequestOptions, SendRedirectOptions, RedirectType} from './http';
 
 // METHODS \\
-/** Creates a key for the contents of a credential field. */
+/**
+ * Creates a key for the contents of a credential field.
+ * @governance none
+ * @since 2015.2
+ */
 export const createSecretKey: HttpsCreateSecretKeyFunction;
 
 /**
  * Creates an https.SecureString object.
+ * @governance none
+ * @since 2015.2
  */
 export const createSecureString: HttpsCreateSecureStringFunction;
 
 /**
  * Sends an HTTPS request to a RESTlet and returns the response. Authentication headers are automatically added.
  * The RESTlet will run with the same privileges as the calling script.
- * 
+ *
+ * @throws {SuiteScriptError} INVALID_SCRIPT_DEPLOYMENT_ID_1 if options.deploymentId does not reference a valid deployment for the script.
+ * @throws {SuiteScriptError} SSS_AUTHORIZATION_HEADER_NOT_ALLOWED if the authorization header is set.
+ * @throws {SuiteScriptError} SSS_INVALID_HEADER if options.headers is in an invalid format or contains an invalid header.
+ * @throws {SuiteScriptError} SSS_INVALID_SCRIPT_ID_1 if options.scriptId does not reference a RESTlet script.
+ * @throws {SuiteScriptError} SSS_INVALID_URL_PARAMS if options.urlParams is in an invalid format.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.body, options.deploymentId, or options.scriptId is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if the script calls itself recursively too many times.
  * @governance 10 units
+ * @since 2020.2
  */
 export const requestRestlet: RequestRestletFunction;
 
@@ -182,14 +245,28 @@ export const requestRestlet: RequestRestletFunction;
  *
  * Currently, this method is supported only with the options.external parameter set to true
  *
+ * @throws {SuiteScriptError} INVALID_SCRIPT_DEPLOYMENT_ID_1 if options.deploymentId does not reference a valid deployment for the script.
+ * @throws {SuiteScriptError} SSS_AUTHORIZATION_HEADER_NOT_ALLOWED if the authorization header is set.
+ * @throws {SuiteScriptError} SSS_INVALID_HEADER if options.headers is in an invalid format or contains an invalid header.
+ * @throws {SuiteScriptError} SSS_INVALID_SCRIPT_ID_1 if options.scriptId does not reference a Suitelet script.
+ * @throws {SuiteScriptError} SSS_INVALID_URL_PARAMS if options.urlParams is in an invalid format.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.deploymentId or options.scriptId is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if the script calls itself recursively too many times.
  * @governance 10 units
+ * @since 2023.1
  */
 export const requestSuitelet: RequestSuiteletFunction;
 
 /**
  * Sends an HTTPS request to a SuiteTalk REST endpoint and returns the response. Authentication headers are automatically added.
- * 
+ *
+ * @throws {SuiteScriptError} SSS_AUTHORIZATION_HEADER_NOT_ALLOWED if the authorization header is set.
+ * @throws {SuiteScriptError} SSS_INVALID_HEADER if options.headers is in an invalid format or contains an invalid header.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if options.url is invalid or does not reference a SuiteTalk REST endpoint.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.body, options.method, or options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if the script calls itself recursively too many times.
  * @governance 10 units
+ * @since 2020.2
  */
 export const requestSuiteTalkRest: RequestSuiteTalkRestFunction;
 
