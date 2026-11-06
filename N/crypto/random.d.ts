@@ -6,16 +6,26 @@
  * that uses N/crypto/random module and consuming it from your script with https.requestRestlet(options).
  */
 
-/** Cryptographically strong pseudorandom data. */
+/**
+ * Cryptographically strong pseudorandom data.
+ * @governance none
+ * @since 2023.1
+ */
 export function generateBytes(options: GenerateBytesOptions): Uint8Array;
 
 /**
  * Method used to generate cryptographically strong pseudorandom number.
  * Note: As of 21 July 2023, the documentation says it returns a string, but in testing it actually returns a number.
+ * @governance 5 units
+ * @since 2023.1
  */
 export function generateInt(options: GenerateIntOptions): number;
 
-/** Method used to generate a v4 UUID using a cryptographically secure random number generator. */
+/**
+ * Method used to generate a v4 UUID using a cryptographically secure random number generator.
+ * @governance none
+ * @since 2023.1
+ */
 export function generateUUID(): string;
 
 interface GenerateBytesOptions {
