@@ -10,7 +10,7 @@ interface ExecuteBulkOptions {
   recordType: string;
   /** The action ID */
   id:     string;
-  params: { recordId: string };
+  params: { recordId: string }[];
   condition: string;
   paramCallback: string;
 }
