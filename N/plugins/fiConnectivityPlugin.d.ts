@@ -237,6 +237,9 @@ export interface getTransactionDataContext {
      * The current import job will fail and a failure reason will appear. If your role has the Import Online Banking
      * File permission with create-level access at a minimum, the failure reason will include an error from the
      * plug-in. Otherwise, the failure reason will be more generic.
+     * @throws {SuiteScriptError} SSS_RETRY_NOT_ALLOWED if retry is called when retry is not allowed.
+     * @throws {SuiteScriptError} SSS_INVALID_RETRY_DELAY if deltaMinutesLater is outside of the valid range.
+     * @throws {SuiteScriptError} SSS_RETRY_FAILURE_REASON_SIZE_LIMIT_EXCEEDED if currentFailureReason is too long.
      */
     retry: (options: retryOptions) => void;
 }
