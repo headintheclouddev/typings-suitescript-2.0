@@ -376,5 +376,4 @@ export enum TaskType {
     SUITE_QL = "SUITEQL",
     QUERY = "QUERY",
     DOCUMENT_CAPTURE = "DOCUMENT_CAPTURE",
-    PIVOT = "PIVOT",
 }
