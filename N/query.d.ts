@@ -209,8 +209,8 @@ interface CreateSortOptions {
 interface CreateQueryOptions {
     /** The query type. Use the Type enum. */
     type: string;
-    columns?: Column[] | readonly Column[];
-    condition?: Condition;
+    columns?: (Column | CreateColumnOptions | CreateColumnWithFormulaOptions)[] | readonly (Column | CreateColumnOptions | CreateColumnWithFormulaOptions)[];
+    condition?: Condition | CreateConditionOptions | CreateConditionWithFormulaOptions;
     sort?: Sort[] | readonly Sort[];
 }
 
