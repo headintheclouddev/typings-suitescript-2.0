@@ -16,6 +16,11 @@ interface Script {
     getParameter(options: GetParameterOptions): boolean | number | Date | string | string[];
     /** Returns a number value for the usage units remaining for the currently executing script. */
     getRemainingUsage(): number;
+    /**
+     * The current script's runtime version.
+     * @since 2015.2
+     */
+    apiVersion: string;
     /** The deployment ID for the script deployment on the currently executing script. */
     deploymentId: string;
     /** The script ID for the currently executing script. */
@@ -400,6 +405,15 @@ export function getCurrentSession(): Session;
 export function getCurrentUser(): User;
 /** Use this method to determine if a particular feature is enabled in a NetSuite account. These are the features that appear on the Enable Features page at Setup > Company > Setup Tasks > Enable Features. */
 export function isFeatureInEffect(options: FeatureOptions): boolean;
+/**
+ * Returns whether NetSuite Next is active for the user running the script.
+ * For scheduled and map/reduce scripts, the return value depends on the user running the script; if NetSuite runs the script as the System user, this method returns false.
+ *
+ * Supported script types: Client and server scripts.
+ * @governance none
+ * @since 2026.1
+ */
+export function isNextActive(): boolean;
 
 /** Enumeration that holds the context information about what triggered the current script. Returned by the runtime.executionContext property of the N/runtime Module. */
 export enum ContextType {
@@ -420,11 +434,13 @@ export enum ContextType {
     FIPARSER = "FIPARSER",
     MAP_REDUCE = "MAPREDUCE",
     NONE = "NONE",
+    OCRPLUGIN = "OCRPLUGIN",
     PAYMENTGATEWAY = "PAYMENTGATEWAY",
     PAYMENTPOSTBACK = "PAYMENTPOSTBACK",
     PLATFORMEXTENSION = "PLATFORMEXTENSION",
     PORTLET = "PORTLET",
     PROMOTIONS = "PROMOTIONS",
+    RECORDACTION = "RECORDACTION",
     RESTLET = "RESTLET",
     REST_WEBSERVICES = "RESTWEBSERVICES",
     SCHEDULED = "SCHEDULED",
