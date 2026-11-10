@@ -4,33 +4,50 @@ import type {File} from './file';
  * The N/certificateControl module enables scripting access to the Digital Certificates list found in the UI at Setup > Company > Certificates.
  * You can use this module to find, create, update, read and delete certificates records. For more information, see Digital Signing and Uploading Digital Certificates in Help.
  * In order to access this module, you must use the Execute As Role field on the script deployment record. Select either the Administrator role or a custom role with the Certificate Access permission.
+ * @since 2019.2
  */
 
 export interface Certificate {
-  /** Saves a certificate record object. */
+  /**
+   * Saves a certificate record object.
+   * @governance 10 units
+   * @since 2019.2
+   */
   save: () => Certificate;
-  /** Describes the certificate record. */
+  /**
+   * Describes the certificate record.
+   * @since 2019.2
+   */
   description: string;
-  /** The File Object Members object of the certificate uploaded to the certificate record. */
+  /**
+   * The File Object Members object of the certificate uploaded to the certificate record.
+   * @since 2019.2
+   */
   file: File;
-  /** The name of the certificate record. */
+  /**
+   * The name of the certificate record.
+   * @since 2019.2
+   */
   name: string;
   /**
    * Indicates the setting of the Month box for Expiration Reminders on the certificate record.
    * This property is set to true if the Month box is checked and email reminders are sent to account administrators one month before the certificate expires.
    * If the Copy Employees box is also checked, selected employees are copied on the reminder emails.
+   * @since 2019.2
    */
   monthReminder: boolean;
   /**
    * The internal IDs of the employees copied on expiration notification email.
    * The values for this property are found in the Copy Employees field of the Audience tab on the certificate record.
    * When you create or edit a certificate object with values for this property, you also check the Copy Employees box for the certificate record.
+   * @since 2019.2
    */
   notifications: number[];
   /**
    * The password for the digital certificate (write-only).
    * If the certificate file is password-protected, you can store the password with the certificate record.
    * If the certificate is not password-protected, enter an empty string.
+   * @since 2019.2
    */
   password: string;
   /**
@@ -38,17 +55,25 @@ export interface Certificate {
    * If you set this property with an employee internal ID, you check the Restrict to Employees box and select that employee.
    * Employees selected must also have either the Certificate Management or Certificate Access role permission in order to access the certificate.
    * When the Restrict to Employees box is checked, only Administrators and the employees selected can access the certificate.
+   * @since 2019.2
    */
   restrictions: number[];
-  /** The ID of the certificate record. The script ID for certificate records begins with “custcertificate.” */
+  /**
+   * The ID of the certificate record. The script ID for certificate records begins with “custcertificate.”
+   * @since 2019.2
+   */
   scriptId: string;
-  /** The internal IDs of the subsidiaries associated with the certificate record. Subsidiary selections associate a certificate to one or more subsidiaries but do not affect access. */
+  /**
+   * The internal IDs of the subsidiaries associated with the certificate record. Subsidiary selections associate a certificate to one or more subsidiaries but do not affect access.
+   * @since 2019.2
+   */
   subsidiaries: number[];
   /**
    * Indicates the setting of the 3 Months box for Expiration Reminders on the certificate record.
    * This property is set to true if the 3 Months box is checked.
    * When set to true , email reminders are sent to account administrators three months before the certificate expires.
    * If the Copy Employees box is also checked, selected employees are copied on the reminder emails.
+   * @since 2019.2
    */
   threeMonthsReminder: boolean;
   /**
@@ -56,14 +81,37 @@ export interface Certificate {
    * This property is set to true if the Week box is checked.
    * When set to true , email reminders are sent to account administrators one week before the certificate expires.
    * If the Copy Employees box is also checked, selected employees are copied on the reminder emails.
+   * @since 2019.2
    */
   weekReminder: boolean;
 }
 
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function createCertificate(options: CreateCertificateOptions): Certificate;
+/**
+ * @governance 10 units
+ * @since 2019.1
+ */
 export function findCertificates(options: FindCertificatesOptions): { [key: string]: string };
+/**
+ * @throws {SuiteScriptError} SSS_INVALID_TYPE_ARG if a parameter provided is the wrong type.
+ * @throws {SuiteScriptError} TOO_MANY_RESULTS if there are more than 1000 results.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function findUsages(options: FindUsagesOptions): Operation[];
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function deleteCertificate(options: DeleteCertificateOptions): string;
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function loadCertificate(options: { scriptId: string }): Certificate;
 
 interface CreateCertificateOptions {
@@ -104,15 +152,30 @@ interface FindCertificatesOptions {
   subsidiary?: number;
   /** The certificate file type. */
   type?: string;
-  /** The internal ID of an employee selected in the Restrict to Employees field. */
+  /**
+   * The internal ID of an employee selected in the Restrict to Employees field.
+   * @since 2019.2
+   */
   restriction?: number;
-  /** The internal ID of an employee selected in the Copy Employees field. */
+  /**
+   * The internal ID of an employee selected in the Copy Employees field.
+   * @since 2019.2
+   */
   notification?: number;
-  /** The certificate name. You can use this filter with the certificateControl.Operator enum. */
+  /**
+   * The certificate name. You can use this filter with the certificateControl.Operator enum.
+   * @since 2019.2
+   */
   name?: string;
-  /** The certificate description. You can use this filter with the certificateControl.Operator enum. */
+  /**
+   * The certificate description. You can use this filter with the certificateControl.Operator enum.
+   * @since 2019.2
+   */
   description?: string;
-  /** Script name to be used for searching for certificates with restrictions to a particular script. */
+  /**
+   * Script name to be used for searching for certificates with restrictions to a particular script.
+   * @since 2022.1
+   */
   scriptRestriction?: string;
 }
 
@@ -133,6 +196,7 @@ interface FindUsagesOptions {
   entity?: number;
 }
 
+/** @since 2019.2 */
 export enum Operation {
   CONNECT,
   DELETE,
@@ -147,6 +211,7 @@ export enum Operation {
   VERIFY_XML
 }
 
+/** @since 2019.2 */
 export enum Operator {
   CONTAINS,
   ENDS_WITH,
@@ -154,6 +219,7 @@ export enum Operator {
   STARTS_WITH
 }
 
+/** @since 2019.1 */
 export enum Type {
   PFX,
   P12,
