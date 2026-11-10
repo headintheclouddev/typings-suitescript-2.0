@@ -565,6 +565,38 @@ export namespace EntryPoints {
 
         type executeAction = (scriptContext: executeActionContext) => void;
     }
+
+    /**
+     * Event Subscriber scripts are server scripts that run asynchronously after supported record events occur,
+     * such as a record being created, updated, or deleted. Unlike user event scripts, which run during record processing,
+     * they run after the originating operation is complete. Declare `@NScriptType EventSubscriber` (SuiteScript 2.1 only),
+     * and configure the subscription criteria in an `eventsubscriber` SDF object.
+     *
+     * Each execution allows up to 1,000 usage units and can run for up to 300 seconds.
+     * @since 2026.2
+     */
+    namespace EventSubscriber {
+        /** The options object NetSuite passes to the handle(options) entry point. */
+        interface handleContext {
+            /** Contains context about the event. */
+            context: {
+                /** The record type ID of the record that triggered the event, such as 'SALESORDER' or 'CUSTOMER'. */
+                recordType: string;
+            };
+            /** Contains the event payload. */
+            payload: {
+                /** Internal ID of the record that triggered the event. */
+                recordId: string;
+            };
+        }
+
+        /**
+         * Defines the function that handles a subscribed event.
+         * @governance 1,000 units per execution
+         * @since 2026.2
+         */
+        type handle = (options: handleContext) => void | Promise<void>;
+    }
 }
 
 interface IKeyValuePair {
