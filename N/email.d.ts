@@ -11,7 +11,7 @@ interface SendOptions {
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      * Note: Only the first recipient displays on the Communication tab (under the Recipient column).
      */
-    recipients: number|string|number[]|string[]|readonly number[]|readonly string[];
+    recipients: number|string|(number|string)[]|readonly (number|string)[];
     /**
      * The email address that appears in the reply-to header when an email is sent out.
      */
@@ -21,13 +21,13 @@ interface SendOptions {
      * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      */
-    cc?: number[]|string[]|readonly number[]|readonly string[];
+    cc?: (number|string)[]|readonly (number|string)[];
     /**
      * The internal ID or email address of the secondary recipient to blind copy.
      * For multiple recipients, use an array of internal IDs or email addresses. You can use an array that contains a combination of internal IDs and email addresses.
      * A maximum of 10 recipients (recipient + cc + bcc) is allowed.
      */
-    bcc?: number[]|string[]|readonly number[]|readonly string[];
+    bcc?: (number|string)[]|readonly (number|string)[];
     /**
      * Subject of the outgoing message
      */
