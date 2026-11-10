@@ -124,6 +124,15 @@ export interface Column {
     // };
 }
 
+interface ResultGetOptions {
+    /** The search return column name. */
+    name: string;
+    /** The join id for this search return column. */
+    join?: string;
+    /** The summary type for this column. See search.Summary. */
+    summary?: Summary | keyof typeof Summary;
+}
+
 /** @since 2015.2 */
 export interface Result {
     /**
@@ -132,10 +141,22 @@ export interface Result {
      */
     getValue(column: Column | string): boolean | string | string[];
     /**
+     * Returns the value of a specified search result column. Takes in arguments for name, join, and summary.
+     * @governance none
+     * @since 2015.2
+     */
+    getValue(options: ResultGetOptions): boolean | string | string[];
+    /**
      * @governance none
      * @since 2015.2
      */
     getText(options: Column | string): string;
+    /**
+     * Returns the text value of a specified search result column. Takes in arguments for name, join, and summary.
+     * @governance none
+     * @since 2015.2
+     */
+    getText(options: ResultGetOptions): string;
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object containing all column values by name. */
     getAllValues(): { [fieldId: string]: boolean|string|LookupValueObject[] };
     /** This method is undocumented but works in client and server-side scripts in NetSuite 2019.2.  It returns an object representing the search result. */
