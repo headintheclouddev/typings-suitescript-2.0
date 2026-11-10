@@ -547,6 +547,27 @@ export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
  */
 export const getRemainingFreeEmbedUsage: GetRemainingFreeUsageFunction;
 
+/**
+ * Ranks the document strings you provide by their relevance to a prompt. The results are ordered by relevance, with the most relevant document first.
+ *
+ * Each result includes the document's index in the original options.documents array and a relevance score.
+ * Refer to the input array to identify the ranked documents. The response doesn't contain document text or a generated answer.
+ * By default, the method returns one result. Use options.topN to return more results.
+ *
+ * This method consumes AI Units.
+ * @throws {SuiteScriptError} CAN_RERANK_1_DOCUMENTS_AT_MAXIMUM if options.documents contains more than 1,000 strings.
+ * @throws {SuiteScriptError} INVALID_MODEL_FAMILY_VALUE if options.reRankModelFamily is not included in the llm.ReRankModelFamily enum.
+ * @throws {SuiteScriptError} MAX_TOKENS_PER_DOCUMENT_CANNOT_EXCEED_1 if options.maxTokensPerDocument exceeds 32,768.
+ * @throws {SuiteScriptError} MAX_TOKENS_PER_DOCUMENT_MUST_BE_POSITIVE if options.maxTokensPerDocument is less than 1.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_RE_RANK_REQUESTS_LIMIT_EXCEEDED if the maximum number of parallel rerank requests has been reached.
+ * @throws {SuiteScriptError} NO_DOCUMENTS_TO_RERANK if options.documents is empty.
+ * @throws {SuiteScriptError} TOP_N_CANNOT_EXCEED_NUMBER_OF_DOCUMENTS if options.topN exceeds the number of input documents.
+ * @throws {SuiteScriptError} TOP_N_MUST_BE_POSITIVE if options.topN is less than 1.
+ * @governance 50 units
+ * @since 2026.2
+ */
+export const reRank: IReRankFunction;
+
 interface IEmbedFunction {
     (options: IEmbedOptions): EmbedResponse;
     /**
@@ -664,6 +685,81 @@ interface IEmbedOptions {
     timeout?: number;
     /** The truncation method to use when embeddings input exceeds 512 tokens. Use values from llm.Truncate to set this value. If not specified, no truncation method is used. */
     truncate?: Truncate | string;
+}
+
+interface IReRankFunction {
+    (options: IReRankOptions): ReRankResponse;
+    /**
+     * Asynchronously ranks document strings by their relevance to a prompt. The parameters and errors are the same as llm.reRank(options).
+     * @governance 50 units
+     * @since 2026.2
+     */
+    promise(options: IReRankOptions): Promise<ReRankResponse>;
+}
+
+interface IReRankOptions {
+    /**
+     * The document strings to rank. Provide a minimum of 1 and a maximum of 1,000 strings.
+     * Refer to this array to identify documents by the indexes in the response.
+     */
+    documents: string[] | readonly string[];
+    /** The text used to evaluate each document's relevance. */
+    prompt: string;
+    /**
+     * The maximum number of tokens to use from each document. Longer documents are truncated to this limit.
+     * The value must be between 1 and 32,768, and the default value is 4,096.
+     */
+    maxTokensPerDocument?: number;
+    /** The rerank model family to use. Use a value from the llm.ReRankModelFamily enum. If omitted, llm.ReRankModelFamily.COHERE_RERANK is used. */
+    reRankModelFamily?: ReRankModelFamily | string;
+    /** The request timeout in milliseconds. The default value is 30,000 milliseconds. */
+    timeout?: number;
+    /**
+     * The number of ranked documents to return, from 1 through options.documents.length. The default is 1.
+     * Set it to the number of input documents to rank all of them.
+     */
+    topN?: number;
+}
+
+/**
+ * The response returned by llm.reRank(options) or llm.reRank.promise(options).
+ * @since 2026.2
+ */
+interface ReRankResponse {
+    /**
+     * The document ranks returned for the prompt, ordered from most relevant to least relevant.
+     * The number of entries is controlled by options.topN, which defaults to 1. Document text is not included in the results.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2026.2
+     */
+    readonly documentRanks: DocumentRank[];
+    /**
+     * The model used to rank the documents.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2026.2
+     */
+    readonly model: string;
+}
+
+/**
+ * A ranked document in the ReRankResponse.documentRanks array.
+ * Use the DocumentRank.index property to retrieve the original document string. This object does not include that string.
+ * @since 2026.2
+ */
+interface DocumentRank {
+    /**
+     * The document's index in the original options.documents array. Use this index to retrieve the input document string.
+     * This value is not the document's position in the ranked results.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2026.2
+     */
+    readonly index: number;
+    /**
+     * The document's relevance score for the prompt. Results are ordered by relevance, with the most relevant document first.
+     * @throws {SuiteScriptError} READ_ONLY if setting the property is attempted.
+     * @since 2026.2
+     */
+    readonly relevance: number;
 }
 
 interface IEvaluatePromptOptions {
@@ -893,6 +989,18 @@ declare enum ModelFamily {
     GPT_OSS = 'openai.gpt-oss-120b',
     /** Always uses the latest supported OpenAI gpt-oss model. Supports preambles; does not support RAG (documents). */
     GPT_OSS_LATEST = 'openai.gpt-oss-120b'
+}
+
+/**
+ * The large language model to be used to generate document rankings.
+ * Use this enum to set the value of the options.reRankModelFamily parameter in llm.reRank(options) and llm.reRank.promise(options).
+ * @since 2026.2
+ */
+declare enum ReRankModelFamily {
+    /** Cohere Rerank v4.0 Fast. This is the default when the options.reRankModelFamily parameter is omitted. */
+    COHERE_RERANK = 'cohere.rerank-v4.0-fast',
+    /** Always uses the latest supported Cohere Rerank model. */
+    COHERE_RERANK_LATEST = 'cohere.rerank-v4.0-fast'
 }
 
 /**
