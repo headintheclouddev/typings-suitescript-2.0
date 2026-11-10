@@ -7,7 +7,15 @@ import type {AddSelectOptionOptions} from './ui/serverWidget';
  * @return id of submitted record
  */
 interface RecordSaveFunction {
+    /**
+     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     * @since 2015.2
+     */
     (options?: SubmitConfig): number;
+    /**
+     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     * @since 2015.2
+     */
     promise(options?: SubmitConfig): Promise<number>;
 }
 
@@ -210,7 +218,10 @@ interface SetCurrentMatrixSublistValueOptions {
     ignoreFieldChange?: boolean;
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 interface SetMatrixSublistValueOptions {
@@ -233,7 +244,10 @@ interface SetMatrixSublistValueOptions {
     value: Readonly<FieldValue>;
     /** Indicates whether to perform slaving synchronously. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -255,7 +269,10 @@ interface SetCurrentSublistValueOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -273,7 +290,10 @@ interface SetCurrentSublistTextOptions {
      * Defaults to false – dependent field values are not sourced synchronously.
      */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -293,7 +313,10 @@ export interface SetValueOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -306,7 +329,10 @@ interface SetFieldTextOptions {
     ignoreFieldChange?: boolean;
     /** Documented in N/currentRecord but not N/record. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -321,7 +347,10 @@ interface SetSublistTextOptions {
     text: string;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -343,7 +372,10 @@ interface SetSublistValueOptions {
     value: Readonly<FieldValue>;
     /** WARNING - UNDOCUMENTED. Set to true to synchronously set this value and its sourced values before returning. */
     fireSlavingSync?: boolean;
-    /** Use forceSyncSourcing instead of fireSlavingSync on currentRecord module. */
+    /**
+     * Use forceSyncSourcing instead of fireSlavingSync on currentRecord module.
+     * @since 2019.1
+     */
     forceSyncSourcing?: boolean
 }
 
@@ -354,6 +386,7 @@ interface GetSelectOptionsOpts {
     operator: "contains" | "is" | "startswith";
 }
 
+/** @since 2015.2 */
 export interface Sublist {
     /**
      * The name of the sublist.
@@ -361,14 +394,17 @@ export interface Sublist {
     name: string;   
     /**
      * The name of the sublist.
+     * @since 2015.2
      */    
     id: string;     
     /**
      * The type of the sublist.
+     * @since 2015.2
      */    
     type: string;    
     /**
      * The sublist is changed
+     * @since 2015.2
      */    
     isChanged: boolean;    
     /**
@@ -377,6 +413,7 @@ export interface Sublist {
     isHidden: boolean;    
     /**
      * The sublist is display
+     * @since 2015.2
      */    
     isDisplay: boolean;    
     /**
@@ -387,6 +424,8 @@ export interface Sublist {
      * Returns a column in the sublist, or null if the sublist has no such column (such as a custom column that is not
      * available on the form).
      * Client and server-side scripts
+     * @governance none
+     * @since 2015.2
      */
     getColumn(options: GetColumnOptions): Column | null
     /**
@@ -407,71 +446,135 @@ export interface GetColumnOptions {
  * For a complete list of this object’s properties, see Column Object Members.
  * This object does not return a value, it returns information about the sublist column.
  * Client and server-side scripts
+ * @since 2015.2
  */
 export interface Column {
-    /** Client and server-side scripts. Returns the internal ID of the column. */
+    /**
+     * Client and server-side scripts. Returns the internal ID of the column.
+     * @since 2015.2
+     */
     id: string;
-    /** Client and server-side scripts. Returns the column type. */
+    /**
+     * Client and server-side scripts. Returns the column type.
+     * @since 2015.2
+     */
     type: string;
-    /** Client and server-side scripts. Returns the UI label for the column. */
+    /**
+     * Client and server-side scripts. Returns the UI label for the column.
+     * @since 2015.2
+     */
     label: string
-    /** Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column. */
+    /**
+     * Client and server-side scripts. Returns the internal ID of the standard or custom sublist that contains the column.
+     * @since 2015.2
+     */
     sublistId: string
-    /** Indicates whether the column is disabled. */
+    /**
+     * Indicates whether the column is disabled.
+     * @since 2020.2
+     */
     isDisabled: boolean;
-    /** Indicates whether the column is displayed. */
+    /**
+     * Indicates whether the column is displayed.
+     * @since 2020.2
+     */
     isDisplay: boolean;
-    /** Indicates whether the column is mandatory. */
+    /**
+     * Indicates whether the column is mandatory.
+     * @since 2020.2
+     */
     isMandatory: boolean;
-    /** Indicates whether the column is sortable. */
+    /**
+     * Indicates whether the column is sortable.
+     * @since 2020.2
+     */
     isSortable: boolean;
 }
 
 /**
  * Client and server-side scripts. 
  * Encapsulates a body or sublist field on a standard or custom record. 
+ * @since 2015.2
  */
 export interface Field {
-    /** Adds the select options that appears in the dropdown of a field. */
+    /**
+     * Adds the select options that appears in the dropdown of a field.
+     * @throws {SuiteScriptError} SSS_INVALID_UI_OBJECT_TYPE if a script uses this method on the wrong type of field
+     * @governance none
+     * @since 2016.2
+     */
     insertSelectOption(options: AddSelectOptionOptions): void;
-    /** 
+    /**
      * Returns an array of available options on a standard or custom select, multi-select, or radio field as key-value pairs. Only the first 1,000 available options are returned. 
-     * 
+     *
      * Returns only the first 1,000 available options are returned in an array. If there are more than 1,000 available options, an empty array [] is returned. This function returns an array in the following format: `[{value: 5, text: 'abc'},{value: 6, text: '123'}]`.
-     * 
+     *
      * This function returns Type Error if the field is not a supported field for this method.
+     * @governance none
+     * @since 2015.2
      */
     getSelectOptions(options?: GetSelectOptionsOpts): { value: any, text: string }[];
     /**
      * Removes a single select option from a select or multiselect field added via script.
      * Note that this API call can only be used on select/multiselect fields that are added via the UI Objects API (for example on Suitelets or beforeLoad user event scripts).
-    */
+     * @throws {SuiteScriptError} SSS_INVALID_UI_OBJECT_TYPE if a script uses this method on the wrong type of field
+     * @governance none
+     * @since 2016.2
+     */
     removeSelectOption(options?: { value: string }): void;
     /** get JSON format of the object */    
     toJSON (options?:any): {id: string, label: string, type: string};
     toString(options?: any): string;
-    /** Returns the UI label for a standard or custom field body or sublist field. */
+    /**
+     * Returns the UI label for a standard or custom field body or sublist field.
+     * @since 2015.2
+     */
     label: string;
-    /** Returns the internal ID of a standard or custom body or sublist field. */
+    /**
+     * Returns the internal ID of a standard or custom body or sublist field.
+     * @since 2015.2
+     */
     id: string;
-    /** Returns the type of a body or sublist field. */
+    /**
+     * Returns the type of a body or sublist field.
+     * @since 2015.2
+     */
     type: string;
-    /** Returns true if the standard or custom field is mandatory on the record form, or false otherwise. */
+    /**
+     * Returns true if the standard or custom field is mandatory on the record form, or false otherwise.
+     * @since 2015.2
+     */
     isMandatory: boolean;
-    /** Returns true if the standard or custom field is disabled on the record form, or false otherwise. */
+    /**
+     * Returns true if the standard or custom field is disabled on the record form, or false otherwise.
+     * @since 2016.2
+     */
     isDisabled: boolean;
-    /** Returns true if the field is a popup list field, or false otherwise. */
+    /**
+     * Returns true if the field is a popup list field, or false otherwise.
+     * @since 2016.2
+     */
     isPopup: boolean;
-    /** Returns true if the field is set to display on the record form, or false otherwise. */
+    /**
+     * Returns true if the field is set to display on the record form, or false otherwise.
+     * @since 2015.2
+     */
     isDisplay: boolean;
-    /** Returns true if the field is visible on the record form, or false otherwise. */
+    /**
+     * Returns true if the field is visible on the record form, or false otherwise.
+     * @since 2016.2
+     */
     isVisible: boolean;
     /**
      * Returns true if the field on the record form cannot be edited, or false otherwise.
      * For textarea fields, this property can be read or written to. For all other fields, this property is read-only.
+     * @since 2016.2
      */
     isReadOnly: boolean;
-    /** Return the sublistId of the field */
+    /**
+     * Return the sublistId of the field
+     * @since 2015.2
+     */
     sublistId: string;
 }
 
@@ -479,64 +582,162 @@ export type FieldValue = Date | number | number[] | string | string[] | boolean 
 
 /** Almost like a full Record, except without things like save(). */
 export interface ClientCurrentRecord {
-    /** Cancels the currently selected line on a sublist. */
+    /**
+     * Cancels the currently selected line on a sublist.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     cancelLine(options: CancelCommitLineOptions): Record;
     // cancelLine(sublistId: string): Record; // Deprecated in 2026.1.8
-    /** Commits the currently selected line on a sublist. */
+    /**
+     * Commits the currently selected line on a sublist.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     commitLine(options: CommitLineOptions): Record;
     copy: RecordCopyFunction;
-    /** Performs macro operation and returns its result in a plain JavaScript object. */
+    /**
+     * Performs macro operation and returns its result in a plain JavaScript object.
+     * @governance none
+     * @since 2018.2
+     */
     executeMacro: ExecuteMacroFunction;
-    /** Returns the line number of the first instance where a specified value is found in a specified column of the matrix. */
+    /**
+     * Returns the line number of the first instance where a specified value is found in a specified column of the matrix.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     findMatrixSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
-    /** Returns the line number for the first occurrence of a field value in a sublist. */
+    /**
+     * Returns the line number for the first occurrence of a field value in a sublist.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or not defined
+     * @governance none
+     * @since 2015.2
+     */
     findSublistLineWithValue(options: FindSublistLineWithValueOptions): number;
-    /** Gets the value for the currently selected line in the matrix. */
+    /**
+     * Gets the value for the currently selected line in the matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getCurrentMatrixSublistValue(options: GetCurrentMatrixSublistValueOptions): number | Date | string | string[] | boolean;
     /**
      * return field object from record's sublist current line. Only available in dynamic record
-     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
      * @restriction only available in dynamic record
      * @returns The field, or null if the field is not available on the current line (such as a custom column that is
      * not available on the form). For a sublist that does not exist, this returns null on the server, but throws
      * SSS_MISSING_REQD_ARGUMENT in the browser.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2016.2
      */
     getCurrentSublistField(options: GetCurrentSublistFieldOptions): Field | null;
-    /** Returns the line number of the currently selected line. */
+    /**
+     * Returns the line number of the currently selected line.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getCurrentSublistIndex(options: RecordGetLineCountOptions): number;
-    /** Gets the subrecord for the associated sublist field on the current line. */
+    /**
+     * Gets the subrecord for the associated sublist field on the current line.
+     * @governance none
+     * @since 2015.2
+     */
     getCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): Record;
-    /** Returns a text representation of the field value in the currently selected line. */
+    /**
+     * Returns a text representation of the field value in the currently selected line.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getCurrentSublistText(options: GetCurrentSublistValueOptions): string;
-    /** Returns the value of a sublist field on the currently selected sublist line. */
+    /**
+     * Returns the value of a sublist field on the currently selected sublist line.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getCurrentSublistValue(options: GetCurrentSublistValueOptions): FieldValue;
     // getCurrentSublistValue(sublistId: string, fieldId: string): FieldValue; // Deprecated in 2026.1.8
-    /** 
+    /**
      * Returns a field object from a record. 
-     * 
-     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.fieldId is missing or undefined
+     *
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
      */
     getField(options: GetFieldOptions): Field | null;
-    /** Returns the number of lines in a sublist. */
+    /**
+     * Returns the number of lines in a sublist.
+     * @governance none
+     * @since 2015.2
+     */
     getLineCount(options: RecordGetLineCountOptions): number;
     // getLineCount(sublistId: string): number; // Deprecated in 2026.1.8
-    /** Provides a macro to be executed. */
+    /**
+     * Provides a macro to be executed.
+     * @throws {SuiteScriptError} SSS_INVALID_MACRO_ID if a macro does not exist on the record
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required parameter is missing
+     * @governance none
+     * @since 2018.2
+     */
     getMacro(options: { id: string }): Function; // TODO: Test this!
-    /** Provides a plain JavaScript object of available macro objects defined for a record type, indexed by the Macro ID. */
+    /**
+     * Provides a plain JavaScript object of available macro objects defined for a record type, indexed by the Macro ID.
+     * @throws {SuiteScriptError} SSS_INVALID_RECORD_TYPE if the specified record type is invalid
+     * @governance none
+     * @since 2018.2
+     */
     getMacros(): { [macroId: string]: Macro };
-    /** Returns the number of columns for the specified matrix. */
+    /**
+     * Returns the number of columns for the specified matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getMatrixHeaderCount(options: GetMatrixHeaderCountOptions): number;
-    /** Gets the field for the specified header in the matrix.
-     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if any required values are missing
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
      */
     getMatrixHeaderField(options: GetMatrixHeaderFieldOptions): Field;
-    /** Gets the value for the associated header in the matrix. */
+    /**
+     * Gets the value for the associated header in the matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getMatrixHeaderValue(options: GetMatrixHeaderFieldOptions): FieldValue;
-    /** Gets the field for the specified sublist in the matrix. */
+    /**
+     * Gets the field for the specified sublist in the matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getMatrixSublistField(options: GetMatrixSublistFieldOptions): Field;
-    /** Gets the value for the associated field in the matrix. */
+    /**
+     * Gets the value for the associated field in the matrix.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getMatrixSublistValue(options: GetMatrixSublistValueOptions): FieldValue;
-    /** Returns the specified sublist, or null if it does not exist. */
+    /**
+     * Returns the specified sublist, or null if it does not exist.
+     * @governance none
+     * @since 2015.2
+     */
     getSublist(options: RecordGetLineCountOptions): Sublist | null;
     /**
      * Return field object from record's sublist
@@ -545,37 +746,92 @@ export interface ClientCurrentRecord {
      * @returns The field, or null if the field is not available on the line (such as a custom column that is not
      * available on the form). For a sublist that does not exist, this also returns null in standard mode, but throws
      * SSS_INVALID_SUBLIST_OPERATION in dynamic mode and in the browser.
+     * @governance none
+     * @since 2015.2
      */
     getSublistField(options: GetSublistFieldOptions): Field | null;
-    /** Returns the value of a sublist field in a text representation. */
+    /**
+     * Returns the value of a sublist field in a text representation.
+     * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in standard mode, if getSublistText is used before setSublistText on a new record, or after setSublistValue on a loaded record, for the same field
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getSublistText(options: GetSublistValueOptions): string;
-    /** Returns the value of a sublist field. */
+    /**
+     * Returns the value of a sublist field.
+     * @throws {SuiteScriptError} SSS_INVALID_API_USAGE if invoked prior to using setSublistValue in standard record mode
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getSublistValue(options: GetSublistValueOptions): FieldValue;
     // getSublistValue(sublistId: string, fieldId: string, line: number): FieldValue; // Deprecated in 2026.1.8
-    /** Gets the subrecord for the associated field. */
+    /**
+     * Gets the subrecord for the associated field.
+     * @throws {SuiteScriptError} FIELD_1_IS_DISABLED_YOU_CANNOT_APPLY_SUBRECORD_OPERATION_ON_THIS_FIELD if the specified field is disabled
+     * @throws {SuiteScriptError} FIELD_1_IS_NOT_A_SUBRECORD_FIELD if the specified field is not a subrecord field
+     * @throws {SuiteScriptError} SSS_INVALID_FIELD_ON_SUBRECORD_OPERATION if the specified fieldId does not refer to a subrecord (documented for N/currentRecord only)
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getSubrecord(options: GetFieldOptions): Omit<Record, "save">;
-    /** Returns the text representation of a field value. */
+    /**
+     * Returns the text representation of a field value.
+     * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in certain cases in standard mode, such as calling getText on a field before setting it with setText on a new record, or after setValue on a loaded record
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getText(options: GetFieldOptions): string | string[];
     /** Returns the text representation of a field value. Warning: this is an undocumented function overload. */
     getText(fieldId: string): string | string[];
-    /** Returns the value of a field. */
+    /**
+     * Returns the value of a field.
+     * @throws {SuiteScriptError} SSS_INVALID_API_USAGE in standard mode, if setText or getText was used on the same field
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getValue(options: GetFieldOptions): FieldValue;
     /** Returns the value of a field. Warning: the fieldId string parameter is an undocumented function overload. */
     getValue(fieldId: string): FieldValue;
-    /** Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records. */
+    /**
+     * Returns a value indicating whether the associated sublist field has a subrecord on the current line. This method can only be used on dynamic records.
+     * @governance none
+     * @since 2015.2
+     */
     hasCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): boolean;
-    /** Returns a value indicating whether the associated sublist field contains a subrecord. */
+    /**
+     * Returns a value indicating whether the associated sublist field contains a subrecord.
+     * @governance none
+     * @since 2015.2
+     */
     hasSublistSubrecord(options: GetSublistValueOptions): boolean;
-    /** Returns a value indicating whether the field contains a subrecord. */
+    /**
+     * Returns a value indicating whether the field contains a subrecord.
+     * @governance none
+     * @since 2015.2
+     */
     hasSubrecord(options: HasSubrecordOptions): boolean;
     /**
      * The internal ID of a specific record.
      *
      * If {@link isNew} is true, this is normally null, but there are exceptions,
      * such as when {@link isNew} is true in the afterSubmit() entrypoint of a user event script.
+     * @since 2015.2
      */
     id: number | null;
-    /** Inserts a sublist line. */
+    /**
+     * Inserts a sublist line.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     insertLine(options: InsertLineOptions): this; // Issue #132
     /**
      * Indicates whether the record is in dynamic or standard mode.
@@ -585,6 +841,7 @@ export interface ClientCurrentRecord {
      *  - When a SuiteScript 2.0 script creates, copies, loads, or transforms a record in dynamic mode, the record’s body fields and sublist line items are sourced, calculated, and validated in real-time. A record in dynamic mode emulates the behavior of a record in the UI.
      *  - When you work with a record in dynamic mode, it is important that you set values in the same order you would within the UI. If you fail to do this, your results may not be accurate.
      * This value is set when the record is created or accessed.
+     * @since 2015.2
      */
     isDynamic: boolean;
     /** UNDOCUMENTED (as of 2023.1): This value is true when the record is being created. */
@@ -596,74 +853,173 @@ export interface ClientCurrentRecord {
      * The sublist must contain the _sequence field. The sublist type must be edit machine. When using this method, the order of the other lines is preserved.
      */
     moveLine(options: MoveLineOptions): this;
-    /** 
+    /**
      * Removes the subrecord for the associated sublist field on the current line. 
      * @return {Record} same record, for chaining
+     * @governance none
+     * @since 2015.2
      */
     removeCurrentSublistSubrecord(options: GetCurrentSublistValueOptions): this;
-    /** 
+    /**
      * Removes a sublist line.
      * @return {Record} same record, for chaining 
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
      */
     removeLine(options: InsertLineOptions): this;
-    /** 
+    /**
      * Removes the subrecord for the associated field. 
      * @return {Record} same record, for chaining
+     * @governance none
+     * @since 2015.2
      */
     removeSubrecord(options: GetFieldOptions): this;
-    /** Selects an existing line in a sublist. */
+    /**
+     * Selects an existing line in a sublist.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     selectLine(options: SelectLineOptions): this;
     // selectLine(sublistId: string, line: number): this; // Deprecated in 2026.1.8
-    /** Selects a new line at the end of a sublist. */
+    /**
+     * Selects a new line at the end of a sublist.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     selectNewLine(options: RecordGetLineCountOptions): this;
-    /** Sets the value for the line currently selected in the matrix. */
+    /**
+     * Sets the value for the line currently selected in the matrix.
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setCurrentMatrixSublistValue(options: SetCurrentMatrixSublistValueOptions): Record;
-    /** Sets the value for the field in the currently selected line by a text representation. */
+    /**
+     * Sets the value for the field in the currently selected line by a text representation.
+     * @throws {SuiteScriptError} A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD if a user tries to edit a read-only sublist field
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setCurrentSublistText(options: SetCurrentSublistTextOptions): this;
-    /** Sets the value for the field in the currently selected line. */
+    /**
+     * Sets the value for the field in the currently selected line.
+     * @throws {SuiteScriptError} A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD if a user tries to edit a read-only sublist field
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setCurrentSublistValue(options: SetCurrentSublistValueOptions): this;
     // setCurrentSublistValue(sublistId: string, fieldId: string, value: FieldValue): this;  // Deprecated in 2026.1.8
-    /** Sets the value for the associated header in the matrix. */
+    /**
+     * Sets the value for the associated header in the matrix.
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setMatrixHeaderValue(options: SetCurrentMatrixSublistValueOptions): Record;
-    /** Sets the value for the associated field in the matrix. */
+    /**
+     * Sets the value for the associated field in the matrix.
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setMatrixSublistValue(options: SetMatrixSublistValueOptions): Record;
-    /** Sets the value of the field by a text representation. */
+    /**
+     * Sets the value of the field by a text representation.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setText(options: SetFieldTextOptions): this;
     setText(fieldId: string, value: string): this;
-    /** Sets the value of a field. */
+    /**
+     * Sets the value of a field.
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setValue(options: SetValueOptions): this;
     setValue(fieldId: string, value: Readonly<FieldValue>): this;
 
-    /** The record type. */
+    /**
+     * The record type.
+     * @since 2015.2
+     */
     readonly type: Type | `${Type}` | `customrecord${string}` | `customtransaction${string}`;
 }
 
 // Exported for other modules to be able to consume this type
+/** @since 2015.2 */
 export interface Record extends ClientCurrentRecord {
-    /** Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields. */
+    /**
+     * Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields.
+     * @governance none
+     * @since 2015.2
+     */
     getFields(): string[];
-    /** Returns all the names of all the sublists. */
+    /**
+     * Returns all the names of all the sublists.
+     * @governance none
+     * @since 2015.2
+     */
     getSublists(): string[];
-    /** Returns all the field names in a sublist. */
+    /**
+     * Returns all the field names in a sublist.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     getSublistFields(options: RecordGetLineCountOptions): string[];
-    /** Gets the subrecord associated with a sublist field. */
+    /**
+     * Gets the subrecord associated with a sublist field.
+     * @governance none
+     * @since 2015.2
+     */
     getSublistSubrecord(options: GetSublistValueOptions): Omit<Record, "save">;
     /**
      * Removes the subrecord for the associated sublist field.
      * @restriction only available in deferred dynamic record
      * @return {Record} same record, for chaining
+     * @governance none
+     * @since 2015.2
      */
     removeSublistSubrecord(options: GetSublistValueOptions): this;
-    /** 
+    /**
      * Submits a new record or saves edits to an existing record. 
-     * 
-     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     *
      * @return id of submitted record
-    */
+     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     * @since 2015.2
+     */
     save: RecordSaveFunction;
-    /** Sets the value of a sublist field by a text representation. */
+    /**
+     * Sets the value of a sublist field by a text representation.
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setSublistText(options: SetSublistTextOptions): Record;
-    /** Sets the value of a sublist field. (standard mode only). */
+    /**
+     * Sets the value of a sublist field. (standard mode only).
+     * @throws {SuiteScriptError} INVALID_FLD_VALUE if the options.value type does not match the field type
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if a required argument is invalid or the sublist is not editable
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance none
+     * @since 2015.2
+     */
     setSublistValue(options: SetSublistValueOptions): Record;
     toString(): string;
     /** get JSON format of the object, something like `{id: string, type: string, fields: {[fieldId: string]: any}, sublists: {[sublistId:string]: {[line_id:string]:{[sublist_field_id:string]: string}}}` */  
@@ -730,24 +1086,45 @@ interface ExecuteMacroOptions {
 }
 
 interface ExecuteMacroFunction {
-    /** Performs a macro operation and returns its result in a plain JavaScript object. */
+    /**
+     * Performs a macro operation and returns its result in a plain JavaScript object.
+     * @governance none
+     * @since 2018.2
+     */
     <TResponse = { [key: string]: any }>(options: ExecuteMacroOptions): MacroExecuteResult<TResponse>;
     /** Asynchronously performs a macro operation and returns its result in a plain JavaScript object. */
     promise<TResponse = { [key: string]: any }>(options: ExecuteMacroOptions): Promise<MacroExecuteResult<TResponse>>;
 }
 
 interface MacroExecuteFunction {
-    /** Executes the macro and returns its result in a plain JavaScript object. */
+    /**
+     * Executes the macro and returns its result in a plain JavaScript object.
+     * @governance none
+     * @since 2018.2
+     */
     <TResponse = { [key: string]: any }>(options?: { params?: object }): MacroExecuteResult<TResponse>;
-    /** Asynchronously executes the macro and returns its result in a plain JavaScript object. */
+    /**
+     * Asynchronously executes the macro and returns its result in a plain JavaScript object.
+     * @governance none
+     * @since 2018.2
+     */
     promise<TResponse = { [key: string]: any }>(options?: { params?: object }): Promise<MacroExecuteResult<TResponse>>;
 }
 
+/** @since 2018.2 */
 interface Macro {
+    /**
+     * @governance none
+     * @since 2018.2
+     */
     execute: MacroExecuteFunction;
+    /** @since 2018.2 */
     id: string;
+    /** @since 2018.2 */
     label: string;
+    /** @since 2018.2 */
     description: string;
+    /** @since 2018.2 */
     attributes: Object;
 }
 
@@ -775,16 +1152,31 @@ export interface SubmitFieldsOptions {
  */
 interface SubmitFieldsFunction {
     (options: SubmitFieldsOptions): number;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+     * @since 2015.2
+     */
     promise(options: SubmitFieldsOptions): Promise<number>;
 }
 
 interface RecordAttachFunction {
     (options: AttachOptions): void;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: AttachOptions): Promise<void>;
 }
 
 interface RecordCopyFunction {
     (options: CopyLoadOptions): Record;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+     * @since 2015.2
+     */
     promise(options: CopyLoadOptions): Promise<Record>;
 }
 
@@ -799,6 +1191,11 @@ export type RecordCreateOptions = Omit<CopyLoadOptions, 'id'>
  */
 interface RecordCreateFunction {
     (options: RecordCreateOptions): Record;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+     * @since 2015.2
+     */
     promise(options: RecordCreateOptions): Promise<Record>;
 }
 
@@ -815,6 +1212,11 @@ interface RecordDeleteOptions {
 
 interface RecordDetachFunction {
     (options: DetachOptions): void;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: DetachOptions): Promise<void>;
 }
 
@@ -827,6 +1229,11 @@ interface RecordDetachFunction {
  */
 interface RecordLoadFunction {
     (options: CopyLoadOptions): Record & { id: number };
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+     * @since 2015.2
+     */
     promise(options: CopyLoadOptions): Promise<Record & { id: number }>;
 }
 /**
@@ -840,6 +1247,11 @@ interface RecordLoadFunction {
  */
 interface RecordDeleteFunction {
     (options: RecordDeleteOptions): number;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+     * @since 2015.2
+     */
     promise(options: RecordDeleteOptions): Promise<number>;
 }
 
@@ -852,6 +1264,11 @@ interface RecordDeleteFunction {
  */
 interface RecordTransformFunction {
     (options: RecordTransformOptions): Record;
+    /**
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+     * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+     * @since 2015.2
+     */
     promise(options: RecordTransformOptions): Promise<Record>;
 }
 
@@ -868,28 +1285,53 @@ interface RecordTransformOptions {
     defaultValues?: any;
 }
 
-/** Attaches a record to another record. */
+/**
+ * Attaches a record to another record.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units
+ * @since 2015.2
+ */
 export const attach: RecordAttachFunction;
-/** Creates a new record by copying an existing record in NetSuite. */
+/**
+ * Creates a new record by copying an existing record in NetSuite.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * @since 2015.2
+ */
 export const copy: RecordCopyFunction;
-/** Creates a new record. */
+/**
+ * Creates a new record.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * @since 2015.2
+ */
 export const create: RecordCreateFunction;
-/** Deletes a record. */
+/**
+ * Deletes a record.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 20 units for transactions, 4 for custom records, 10 for all other records
+ * @since 2015.2
+ */
 declare const deleteFunc: RecordDeleteFunction;
 export { deleteFunc as delete };
-/** Detaches a record from another record. */
+/**
+ * Detaches a record from another record.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units
+ * @since 2015.2
+ */
 export const detach: RecordDetachFunction;
 /**
  * Loads an existing nlobjRecord from the database based on provided type, id
  *
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
  * @governance 10 units for transactions, 2 for custom records, 5 for all other records
- * 
- * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing
+ * @since 2015.2
  */
 export const load: RecordLoadFunction;
 /**
  * commit record field updates to the system.
- * 
+ *
  * Updates and submits one or more body fields on an existing record in NetSuite, and returns the internal ID of the parent record.
  * When you use this method, you do not need to load or submit the parent record.
  * You can use this method to edit and submit the following:
@@ -900,18 +1342,25 @@ export const load: RecordLoadFunction;
  * - Sublist line item fields
  * - Subrecord fields (for example, address fields)
  *
- * @governance 10 units for transactions, 2 for custom records, 5 for all other records
  * @restriction only supported for records and fields where DLE (Direct List Editing) is supported
- *
  * @return {number} id of submitted record
- *
- * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if type or id is missing
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * @since 2015.2
  */
 export const submitFields: SubmitFieldsFunction;
-/** Transforms a record from one type into another, using data from an existing record. */
+/**
+ * Transforms a record from one type into another, using data from an existing record.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a required argument is missing or undefined
+ * @governance 10 units for transactions, 2 for custom records, 5 for all other records
+ * @since 2015.2
+ */
 export const transform: RecordTransformFunction;
 
-/** N/record.Type enum */
+/**
+ * N/record.Type enum
+ * @since 2015.2
+ */
 export enum Type { // As of NetSuite 2026.2
     ACCOUNT = 'account',
     ACCOUNTING_BOOK = 'accountingbook',
