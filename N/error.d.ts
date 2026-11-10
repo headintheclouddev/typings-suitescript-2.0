@@ -13,19 +13,40 @@ interface CreateOptions {
     notifyOff?: boolean;
 }
 
-/** Encapsulates a SuiteScript error thrown by any script type that is not a user event script. */
+/**
+ * Encapsulates a SuiteScript error thrown by any script type that is not a user event script.
+ * @since 2015.2
+ */
 export interface SuiteScriptError {
-    /** Error ID that is automatically generated when a new error is created. */
+    /**
+     * Error ID that is automatically generated when a new error is created.
+     * @since 2015.2
+     */
     readonly id: string;
-    /** Text that displays on the SuiteScript Execution Log, in the Details column. */
+    /**
+     * Text that displays on the SuiteScript Execution Log, in the Details column.
+     * @since 2015.2
+     */
     readonly message: string;
-    /** A user-defined name (error code). */
+    /**
+     * A user-defined name (error code).
+     * @since 2015.2
+     */
     readonly name: string | Type;
-    /** A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top. */
+    /**
+     * A list of method calls that the script is executing when the error is thrown. The most recently executed method is listed at the top.
+     * @since 2015.2
+     */
     readonly stack: string[];
-    /** The cause of the error message. */
+    /**
+     * The cause of the error message.
+     * @since 2015.2
+     */
     readonly cause: any;
-    /** Whether email notification is suppressed. */
+    /**
+     * Whether email notification is suppressed.
+     * @since 2015.2
+     */
     notifyOff?: boolean;
 }
 
@@ -45,9 +66,16 @@ export interface UserEventError {
     readonly stack: string[];
 }
 
-/** Creates a new error.SuiteScriptError or error.UserEventError object. */
+/**
+ * Creates a new error.SuiteScriptError or error.UserEventError object.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.message or options.name is not specified.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if a parameter is not the correct type (options.message and options.name must be strings, options.notifyOff must be a boolean).
+ * @governance none
+ * @since 2015.2
+ */
 export function create<T extends SuiteScriptError | UserEventError = SuiteScriptError>(options: CreateOptions): T;
 
+/** @since 2015.2 */
 export enum Type {
     AT_LEAST_ONE_EXPRESSION_IS_NEEDED = "AT_LEAST_ONE_EXPRESSION_IS_NEEDED",
     A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD = "A_SCRIPT_IS_ATTEMPTING_TO_EDIT_THE_1_SUBLIST_THIS_SUBLIST_IS_CURRENTLY_IN_READONLY_MODE_AND_CANNOT_BE_EDITED_CALL_YOUR_NETSUITE_ADMINISTRATOR_TO_DISABLE_THIS_SCRIPT_IF_YOU_NEED_TO_SUBMIT_THIS_RECORD",
