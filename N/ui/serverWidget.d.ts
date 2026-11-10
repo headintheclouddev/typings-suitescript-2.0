@@ -495,7 +495,10 @@ export interface List {
     addRow(options: AddRowOptions): void;
     /** Adds multiple rows to a list */
     addRows(options: AddRowsOptions): void;
-    /** The file cabinet ID of client script file to be used in this list */
+    /**
+     * The file cabinet ID of client script file to be used in this list
+     * @deprecated Not a NetSuite property. Use List.clientScriptFileId instead.
+     */
     clientScriptField: number;
     /** The relative path to the client script file to be used in this list */
     clientScriptModulePath: string;
@@ -538,6 +541,7 @@ export interface Sublist {
     helpText: string;
     label: string;
     lineCount: number;
+    /** @deprecated Not documented by Oracle as a member of serverWidget.Sublist. */
     name: string
 }
 

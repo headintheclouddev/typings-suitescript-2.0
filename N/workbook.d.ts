@@ -161,6 +161,7 @@ interface DimensionSelector {
 /**
  * A dimension sort. A dimension sort can be used when you create a sort definition or a limiting filter.
  * You can create a dimension sort using workbook.createDimensionSort(options).
+ * @deprecated Oracle's N/workbook documentation no longer includes this member (its help page was removed). Use workbook.SortByDataDimensionItem instead.
  */
 interface DimensionSort {
   /** The data dimension item for the dimension sort. */
@@ -236,6 +237,7 @@ interface LimitingFilter {
 /**
  * A measure. A measure can be used when you create an aspect, a section, a conditional filter, or a measure sort.
  * You can create a measure using workbook.createMeasure(options).
+ * @deprecated Oracle's N/workbook documentation no longer includes this member (its help page was removed). Use workbook.DataMeasure or workbook.CalculatedMeasure instead.
  */
 interface Measure {
   /** The aggregation for the measure. */
@@ -255,6 +257,7 @@ interface MeasureSelector {
 /**
  * A measure sort. A measure sort can be used when you create a limiting filter or a sort definition.
  * You can create a measure sort using workbook.createMeasureSort(options).
+ * @deprecated Oracle's N/workbook documentation no longer includes this member (its help page was removed). Use workbook.SortByMeasure instead.
  */
 interface MeasureSort {
   /** The sort of the measure sort. */
@@ -527,9 +530,15 @@ interface TableColumnFilter {
  */
 export interface Workbook {
   runPivot(options: RunPivot): PivotIntersection[];
-  /** Executes the table and returns the result set (the same as in N/query Module). */
+  /**
+   * Executes the table and returns the result set (the same as in N/query Module).
+   * @deprecated Not documented by Oracle; the Workbook object members are runPivot(options) and the description, id, name, pivots, and tables properties.
+   */
   runTable(options: RunTable): ResultSet;
-  /** Executes the table and returns paginated data (the same as in N/query Module). */
+  /**
+   * Executes the table and returns paginated data (the same as in N/query Module).
+   * @deprecated Not documented by Oracle; the Workbook object members are runPivot(options) and the description, id, name, pivots, and tables properties.
+   */
   runTablePaged(options: RunTablePaged): PagedData;
   /** Chart definitions that can be included in a workbook when you create a new workbook. */
   charts: ChartDefinition[];
@@ -567,8 +576,11 @@ interface CreateAspectOptions {
 interface CreateCalculatedMeasure {
   expression: Expression;
   label?: string | Expression;
+  /** @deprecated Not a documented parameter of workbook.createCalculatedMeasure(options). */
   name?: string;
+  /** @deprecated Not a documented parameter of workbook.createCalculatedMeasure(options). */
   pivotDefinitions?: Pivot[];
+  /** @deprecated Not a documented parameter of workbook.createCalculatedMeasure(options). */
   tableDefinitions?: TableDefinition[];
 }
 
@@ -970,6 +982,7 @@ export function createDimensionSelector(options: CreateDimensionSelector): Dimen
 
 /**
  * Creates a dimension sort.
+ * @deprecated Oracle's N/workbook documentation no longer includes this method (its help page was removed). Use workbook.createSortByDataDimensionItem(options) instead.
  */
 export function createDimensionSort(options: CreateDimensionSort): DimensionSort;
 
@@ -1002,6 +1015,7 @@ export function createLimitingFilter(options: CreateLimitingFilter): LimitingFil
 
 /**
  * Creates a measure, which includes an aggregation, a label, and one or more expressions.
+ * @deprecated Oracle's N/workbook documentation no longer includes this method (its help page was removed). Use workbook.createDataMeasure(options) or workbook.createCalculatedMeasure(options) instead.
  */
 export function createMeasure(options: CreateMeasure): Measure;
 
@@ -1012,6 +1026,7 @@ export function createMeasureSelector(options: CreateMeasureSelector): MeasureSe
 
 /**
  * Creates a measure sort, which defines a sort on a measure.
+ * @deprecated Oracle's N/workbook documentation no longer includes this method (its help page was removed). Use workbook.createSortByMeasure(options) instead.
  */
 export function createMeasureSort(options: CreateMeasureSort): MeasureSort;
 
