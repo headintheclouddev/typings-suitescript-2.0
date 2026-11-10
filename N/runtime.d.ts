@@ -74,8 +74,12 @@ interface User {
 }
 
 interface FeatureOptions {
-    /** The internal ID of the feature to check. */
-    feature: NetSuiteFeature;
+    /**
+     * The internal ID of the feature to check.
+     * Known IDs are suggested, but any string is accepted, because Oracle's Feature Names and IDs list doesn't include every feature
+     * (for example, SUBSIDIARIES is missing). `string & {}` keeps editor suggestions for the known IDs.
+     */
+    feature: NetSuiteFeature | (string & {});
 }
 
 export type NetSuiteFeature =
