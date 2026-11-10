@@ -35,7 +35,7 @@ interface RecordActionTaskStatus {
     readonly results: {};
     readonly status: string;
     readonly succeeded: number;
-    taskId: string;
+    readonly taskId: string;
 }
 
 /** The properties of a record action task. Use the methods and properties for this object to submit a record action task into the task queue and to execute it asynchronously. */
@@ -105,14 +105,14 @@ interface SuiteQLTaskStatus {
     params: (string|boolean|number)[];
     readonly query: string;
     readonly status: string;
-    taskId: string;
+    readonly taskId: string;
 }
 
 interface SuiteQLTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     /** Submits the SuiteQL task for asynchronous processing. */
     submit(): string;
     /** Adds a scheduled script task or map/reduce script task as a dependent task to the SuiteQL task. */
@@ -132,7 +132,7 @@ interface SuiteQLTask {
      * Dependent tasks are indexed in the order they are added to the SuiteQL task.
      * Each nested object contains the task type, script ID, script deployment ID, and script parameters.
      */
-    inboundDependencies: Record<string, {id: string; type: TaskType.SCHEDULED_SCRIPT | TaskType.MAP_REDUCE, scriptId: string; deploymentId: string; params?: {}}>;
+    readonly inboundDependencies: Record<string, {id: string; type: TaskType.SCHEDULED_SCRIPT | TaskType.MAP_REDUCE, scriptId: string; deploymentId: string; params?: {}}>;
     /** Parameters for the SuiteQL query. */
     params: (string|boolean|number)[];
 }
@@ -163,14 +163,14 @@ interface QueryTaskStatus {
     readonly fileId: number;
     readonly query: string;
     readonly status: string;
-    taskId: string;
+    readonly taskId: string;
 }
 
 interface QueryTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     /**
      * Key-value pairs containing information about the dependent tasks added to the query task, keyed by index (starting at 0).
      * @since 2020.2
@@ -192,7 +192,7 @@ interface SearchTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
     toString(): string;
@@ -227,7 +227,7 @@ interface CsvImportTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     toString(): string;
     importFile: File | string;
@@ -241,7 +241,7 @@ interface CsvImportTaskStatus {
     /**
      * The task ID associated with the specified task.
      */
-    taskId: string;
+    readonly taskId: string;
     toString(): string;
     status: TaskStatus | `${TaskStatus}`;
 }
@@ -259,7 +259,7 @@ interface EntityDeduplicationTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     toString(): string;
     dedupeMode: DedupeMode;
@@ -273,7 +273,7 @@ interface EntityDeduplicationTaskStatus {
     /**
      * The task ID associated with the specified task.
      */
-    taskId: string;
+    readonly taskId: string;
     toString(): string;
     status: TaskStatus | `${TaskStatus}`;
 }
@@ -289,7 +289,7 @@ interface MapReduceScriptTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     toString(): string;
     scriptId: string;
@@ -310,11 +310,11 @@ interface MapReduceScriptTaskStatus {
     getTotalReduceCount(): number;
     getTotalOutputCount(): number;
     toString(): string;
-    scriptId: number | null;
-    deploymentId: string | null;
+    readonly scriptId: number | null;
+    readonly deploymentId: string | null;
     readonly stage: MapReduceStage | `${MapReduceStage}` | null;
     readonly status: TaskStatus | `${TaskStatus}` | null;
-    taskId: string;
+    readonly taskId: string;
 }
 
 interface ScheduledScriptTaskCreateOptions {
@@ -328,7 +328,7 @@ interface ScheduledScriptTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     toString(): string;
     scriptId: string;
@@ -340,7 +340,7 @@ interface ScheduledScriptTaskStatus {
     /**
      * The task ID associated with the specified task.
      */
-    taskId: string;
+    readonly taskId: string;
     toString(): string;
     scriptId: string;
     deploymentId: string;
@@ -359,7 +359,7 @@ interface WorkflowTriggerTask {
     /**
      * The ID of the task.
      */
-    id: string;
+    readonly id: string;
     submit(): string;
     toString(): string;
     params: any;
@@ -372,7 +372,7 @@ interface WorkflowTriggerTaskStatus {
     /**
      * The task ID associated with the specified task.
      */
-    taskId: string;
+    readonly taskId: string;
     toString(): string;
     status: TaskStatus | `${TaskStatus}`;
 }
@@ -395,7 +395,7 @@ interface DocumentCaptureTask {
      * The ID of the task.
      * @since 2025.2
      */
-    id: string;
+    readonly id: string;
     /**
      * Key-value pairs containing information about the dependent tasks added to the document capture task, keyed by index (starting at 0).
      * @since 2025.2
@@ -418,7 +418,7 @@ interface DocumentCaptureTaskStatus {
      * The task ID associated with the specified task.
      * @since 2025.2
      */
-    taskId: string;
+    readonly taskId: string;
     toString(): string;
     status: TaskStatus | `${TaskStatus}`;
 }
