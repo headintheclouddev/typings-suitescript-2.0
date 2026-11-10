@@ -71,8 +71,11 @@ interface AddInboundDependencyOptions {
 
 interface SuiteQLTaskCreateOptions {
     taskType: TaskType.SUITE_QL;
-    /** The internal ID of the CSV file to export search results to. */
-    fileId?: number;
+    /**
+     * The internal ID of the CSV file to export search results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId?: number | string;
     /**
      * The path of the CSV file to export search results to.
      * This parameter is mutually exclusive with the options.fileId parameter. If you specify values for both parameters, an error occurs.
@@ -97,7 +100,11 @@ interface SuiteQLTask {
     /** Adds a scheduled script task or map/reduce script task as a dependent task to the SuiteQL task. */
     addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask | { taskType: TaskType, scriptId: string, deploymentId?: string, params?: {} } ): void;
     query: string;
-    fileId: number;
+    /**
+     * The internal ID of the CSV file to export results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId: number | string;
     filePath: string;
     /**
      * Key-value pairs that contain information about the dependent tasks added to the SuiteQL task.
@@ -115,14 +122,22 @@ interface SuiteQLTask {
 interface SearchTaskCreateOptions {
     taskType: TaskType.SEARCH
     savedSearchId?: number | string;
-    fileId?: number;
+    /**
+     * The internal ID of the CSV file to export results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId?: number | string;
     filePath?: string;
 }
 
 interface QueryTaskCreateOptions {
     taskType: TaskType.QUERY
     query: Query;
-    fileId?: number;
+    /**
+     * The internal ID of the CSV file to export results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId?: number | string;
     filePath?: string;
 }
 
@@ -138,7 +153,11 @@ interface QueryTask {
     addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
     toString(): string;
     query: Query;
-    fileId: number;
+    /**
+     * The internal ID of the CSV file to export results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId: number | string;
     filePath: string;
 }
 
@@ -147,7 +166,11 @@ interface SearchTask {
     addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
     toString(): string;
     savedSearchId: number;
-    fileId: number;
+    /**
+     * The internal ID of the CSV file to export results to.
+     * Oracle documents this as a number, but a string ID such as File.id from file.load() is also accepted here.
+     */
+    fileId: number | string;
     filePath: string;
     inboundDependencies: Record<string, Readonly<{id?: string; type: string; scriptId: string; deploymentId: string; params: any}>>;
 }
