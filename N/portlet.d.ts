@@ -102,37 +102,76 @@ interface AddRowsOptions {
  * @since 2016.2
  */
 export interface Portlet {
-    /** Adds a list column to the portlet. (List portlets only) */
+    /**
+     * Adds a list column to the portlet. (List portlets only)
+     * @since 2016.2
+     */
     addColumn(options: AddColumnOptions): ListColumn;
-    /** Adds an Edit or Edit/View column to the portlet. (List portlets only) */
+    /**
+     * Adds an Edit or Edit/View column to the portlet. (List portlets only)
+     * @since 2016.2
+     */
     addEditColumn(options: AddEditColumnOptions): ListColumn;
-    /** Adds a field to the form. (Form portlets only) */
+    /**
+     * Adds a field to the form. (Form portlets only)
+     * @since 2016.2
+     */
     addField(options: AddFieldOptions): Field;
-    /** Adds a line to the portlet. (Links portlets only) */
+    /**
+     * Adds a line to the portlet. (Links portlets only)
+     * @since 2016.2
+     */
     addLine(options: AddLineOptions): Object;
-    /** Adds a row to the portlet. (List portlets only) */
+    /**
+     * Adds a row to the portlet. (List portlets only)
+     * @since 2016.2
+     */
     addRow(options: AddRowOptions): Object;
-    /** Adds multiple rows to the portlet. (List portlets only) */
+    /**
+     * Adds multiple rows to the portlet. (List portlets only)
+     * @since 2016.2
+     */
     addRows(options: AddRowsOptions): Object;
-    /** Adds a submit button to the form. (Form portlets only) */
+    /**
+     * Adds a submit button to the form. (Form portlets only)
+     * @since 2016.2
+     */
     setSubmitButton(options: SetSubmitButtonOptions): Button;
-    /** The script file ID to be used in the portlet. Can be in either numerical or string format. (Form portlets only) */
+    /**
+     * The script file ID to be used in the portlet. Can be in either numerical or string format. (Form portlets only)
+     * @throws {SuiteScriptError} PROPERTY_VALUE_CONFLICT if you try to set this value when Portlet.clientScriptModulePath is already set.
+     * @since 2016.2
+     */
     clientScriptFileId: number | string;
-    /** The script path to be used in the portlet. (Form portlets only) */
+    /**
+     * The script path to be used in the portlet. (Form portlets only)
+     * @throws {SuiteScriptError} PROPERTY_VALUE_CONFLICT if you try to set this value when Portlet.clientScriptFileId is already set.
+     * @since 2016.2
+     */
     clientScriptModulePath: string;
-    /** The complete HTML contents of the portlet. (HTML portlets only) */
+    /**
+     * The complete HTML contents of the portlet. (HTML portlets only)
+     * @since 2016.2
+     */
     html: string;
-    /** The title of the portlet. */
+    /**
+     * The title of the portlet.
+     * @since 2016.2
+     */
     title: string;
 }
 
 /**
  * Resizes a form portlet immediately.
  * Supported in client scripts.
+ * @governance none
+ * @since 2016.1
  */
 export function resize(): void;
 /**
  * Refreshes a form portlet immediately.
  * Supported in client scripts.
+ * @governance none
+ * @since 2016.1
  */
 export function refresh(): void;
