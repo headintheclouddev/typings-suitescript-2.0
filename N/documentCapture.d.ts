@@ -9,7 +9,10 @@
 import file = require('N/file');
 import { IOCIConfig } from './llm';
 
-/** The extracted data from a document. */
+/**
+ * The extracted data from a document.
+ * @since 2025.2
+ */
 interface Document {
     /**
      * The MIME type of the document.
@@ -19,6 +22,8 @@ interface Document {
      *     PDF – application/pdf
      *     PNG – image/png
      *     TIFF – image/tiff
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
      */
     readonly mimeType: string;
     /**
@@ -27,13 +32,22 @@ interface Document {
      * returned documentCapture.Document object can contain up to five pages (as documentCapture.Page objects).
      * When you submit an asynchronous extraction task using the N/task module, you can provide documents of any length,
      * so the returned object contains as many pages as were in the provided document.
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
      */
     readonly pages: Page[];
-    /** Returns the entire text of the document. */
+    /**
+     * Returns the entire text of the document.
+     * @governance none
+     * @since 2025.2
+     */
     getText: () => string;
 }
 
-/** An extracted page from a document. */
+/**
+ * An extracted page from a document.
+ * @since 2025.2
+ */
 interface Page {
     /**
      * A set of confidence levels indicating whether the page represents a particular type of document.
@@ -41,59 +55,173 @@ interface Page {
      * The documentType value is a type of supported document (such as "INVOICE"), and the confidence value is a number between 0 and 1 indicating how confident the service is about whether
      * the page is a document of that type.
      * For example, a documentType value of "INVOICE" and a confidence value of 0.95 means that the service is 95% confident that the page represents an invoice.
-    */
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly detectedDocumentTypes: { documentType: DocumentType, confidence: number }[];
-    /** The extracted fields from the page of a document. */
+    /**
+     * The extracted fields from the page of a document.
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly fields: Field[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly lines: Line[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly tables: Table[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly words: Word[];
+    /**
+     * @governance none
+     * @since 2025.2
+     */
     getText: () => string;
 }
 
+/** @since 2025.2 */
 interface Field {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly label: string;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly type: string;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly value: string;
 }
 
+/** @since 2025.2 */
 interface FieldLabel {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly name: string;
 }
 
+/** @since 2025.2 */
 interface FieldValue {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly text: string;
 }
 
+/** @since 2025.2 */
 interface Cell {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly text: string;
 }
 
+/** @since 2025.2 */
 interface Table {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly bodyRows: TableRow[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly columnCount: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly footerRows: TableRow[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly headerRows: TableRow[];
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly rowCount: number;
 }
 
+/** @since 2025.2 */
 interface TableRow {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly cells: Cell[];
 }
 
-/** An extracted line of text from a document. */
+/**
+ * An extracted line of text from a document.
+ * @since 2025.2
+ */
 interface Line {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly text: string;
 }
 
-/** An extracted word from a document. */
+/**
+  * An extracted word from a document.
+  * @since 2025.2
+  */
  interface Word {
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly confidence: number;
+    /**
+     * @throws {SuiteScriptError} READ_ONLY if you try to set the value of this property.
+     * @since 2025.2
+     */
     readonly text: string;
 }
 
@@ -112,9 +240,27 @@ interface DocumentToStructureOptions {
 
 interface DocumentToStructureFunction {
     (options: DocumentToStructureOptions): Document;
+    /**
+     * @governance 100 units
+     * @since 2025.2
+     */
     promise(options: DocumentToStructureOptions): Promise<Document>;
 }
 
+/**
+ * @throws {SuiteScriptError} DOCUMENT_TOO_LONG if the file is longer than five pages.
+ * @throws {SuiteScriptError} FEATURES_CANNOT_BE_EMPTY if options.features is an empty array.
+ * @throws {SuiteScriptError} FEATURE_1_DOES_NOT_SUPPORT_LANGUAGE_2 if a feature is not supported in the specified language.
+ * @throws {SuiteScriptError} INCOMPATIBLE_DOCUMENT_TYPE_FOR_FEATURE_1 if a feature is not supported for the specified document type.
+ * @throws {SuiteScriptError} INVALID_DOCUMENT_CAPTURE_RESULT if the result provided by the service is invalid.
+ * @throws {SuiteScriptError} INVALID_DOCUMENT_TYPE if the document type is not included in the documentCapture.DocumentType enum.
+ * @throws {SuiteScriptError} INVALID_LANGUAGE if the language is not included in the documentCapture.Language enum.
+ * @throws {SuiteScriptError} MAXIMUM_PARALLEL_REQUESTS_LIMIT_EXCEEDED if more than five parallel requests are made.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.file is not specified.
+ * @throws {SuiteScriptError} UNSUPPORTED_FILE_TYPE if the file is not in PDF, JPG, PNG, or TIFF format.
+ * @governance 100 units
+ * @since 2025.2
+ */
 export const documentToStructure: DocumentToStructureFunction;
 
 interface DocumentToTextOptions {
@@ -136,36 +282,68 @@ interface DocumentToTextOptions {
 
 interface DocumentToTextFunction {
     (options: DocumentToTextOptions): string;
+    /**
+     * @governance 100 units
+     * @since 2025.2
+     */
     promise(options: DocumentToTextOptions): Promise<string>;
 }
 
+/**
+ * @throws {SuiteScriptError} FILE_CANNOT_BE_EMPTY if the file is empty.
+ * @throws {SuiteScriptError} FILE_CORRUPTED_OR_INVALID if the file couldn't be parsed.
+ * @throws {SuiteScriptError} UNSUPPORTED_ENCODING_EXCEPTION if the file is corrupted or contains invalid characters.
+ * @throws {SuiteScriptError} UNSUPPORTED_FILE_TYPE_1_USE_2 if the file is not a PDF file.
+ * @governance 100 units
+ * @since 2025.2
+ */
 export const documentToText: DocumentToTextFunction;
 
 interface GetRemainingConcurrencyFunction {
     (): number;
+    /**
+     * @governance none
+     * @since 2025.2
+     */
     promise(): Promise<number>;
 }
 
+/**
+ * @governance none
+ * @since 2025.2
+ */
 export const getRemainingConcurrency: GetRemainingConcurrencyFunction;
 
 /** @deprecated As of 2026.2, use llm.getRemainingUsage() and llm.getRemainingUsage.promise() from the N/llm module instead. */
 interface GetRemainingFreeUsageFunction {
     /** @deprecated As of 2026.2, use llm.getRemainingUsage() instead. Remains available for compatibility and calls llm.getRemainingUsage(). */
     (): number;
-    /** @deprecated As of 2026.2, use llm.getRemainingUsage.promise() instead. Remains available for compatibility and calls llm.getRemainingUsage.promise(). */
+    /**
+     * @governance none
+     * @since 2025.2
+     * @deprecated As of 2026.2, use llm.getRemainingUsage.promise() instead. Remains available for compatibility and calls llm.getRemainingUsage.promise().
+     */
     promise(): Promise<number>;
 }
 
 /**
  * Returns the number of free requests in the current month.
+ * @governance none
+ * @since 2025.2
  * @deprecated As of 2026.2, use llm.getRemainingUsage() from the N/llm module instead, which returns the number of AI Units remaining.
  * This method remains available for compatibility and calls llm.getRemainingUsage().
  */
 export const getRemainingFreeUsage: GetRemainingFreeUsageFunction;
 
+/**
+ * @throws {SuiteScriptError} UNSUPPORTED_FILE_TYPE_1_USE_2 if the file is not a JSON file.
+ * @governance none
+ * @since 2025.2
+ */
 export function parseResult(options: { file: file.File }): Document;
 
 // @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
+/** @since 2025.2 */
 export enum DocumentType {
     BANK_STATEMENT,
     CHECK,
@@ -180,6 +358,7 @@ export enum DocumentType {
     TAX_FORM
 }
 
+/** @since 2025.2 */
 export enum Feature {
     DOCUMENT_CLASSIFICATION,
     FIELD_EXTRACTION,
@@ -187,6 +366,7 @@ export enum Feature {
     TEXT_EXTRACTION
 }
 
+/** @since 2025.2 */
 export enum FieldType {
     KEY_VALUE,
     LINE_ITEM,
@@ -195,6 +375,7 @@ export enum FieldType {
     UNKNOWN
 }
 
+/** @since 2025.2 */
 export enum Language {
     ARA,
     CES,
