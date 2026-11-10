@@ -5,11 +5,28 @@
 
 import type {File} from './file';
 
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function createKey(options: CreateKeyOptions): Key;
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function findKeys(options: FindKeysOptions): { [key: string]: any }; // TODO: Confirm return type. Documentation says its "meta-data"
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function deleteKey(options: { scriptId: string }): string; // TODO: Confirm return type. Documentation says object, but example is keyId
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function loadKey(options: { scriptId: string }): Key;
 
+/** @since 2019.2 */
 export enum Operator {
   STARTS_WITH = "startswith",
   CONTAINS = "contains",
@@ -17,16 +34,33 @@ export enum Operator {
   EQUALS = "equals"
 }
 
+/** @since 2019.2 */
 interface Key {
+  /** @since 2019.2 */
   file: File;
-  /** The password of the key. GUID or secret token for working with passwords is accepted. */
+  /**
+   * The password of the key. GUID or secret token for working with passwords is accepted.
+   * @since 2019.2
+   */
   password: string;
-  /** The script ID of the key. Using Key.save() and keyControl.findKeys(options) returns the script ID. */
+  /**
+   * The script ID of the key. Using Key.save() and keyControl.findKeys(options) returns the script ID.
+   * @since 2019.2
+   */
   scriptId: string;
+  /** @since 2019.2 */
   name: string;
+  /** @since 2019.2 */
   description: string;
-  /** An array of employee IDs. Only these employees can access the key. */
+  /**
+   * An array of employee IDs. Only these employees can access the key.
+   * @since 2019.2
+   */
   restrictions: string[];
+  /**
+   * @governance 10 units
+   * @since 2019.2
+   */
   save: () => void; // TODO: Verify return type. Documentation says it returns an object?
 }
 
