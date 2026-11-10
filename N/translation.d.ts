@@ -9,6 +9,7 @@
 
 /**
  * @enum {string}
+ * @since 2019.1
  */
 export enum Locale {
     COMPANY_DEFAULT = "en_US",
@@ -77,7 +78,8 @@ export enum Locale {
 }
 
 /**
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE The function parameters were not passed as an array.
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the function parameters were not passed as an array.
+ * @since 2019.1
  */
 export type Translator = (options?: {params: string[]}) => string;
 
@@ -87,17 +89,15 @@ export type Translator = (options?: {params: string[]}) => string;
  * @param {string} options.collection - the scriptid of the collection the key is in
  * @param {string} options.key - a valid key from the collection
  * @param {Locale} [options.locale] - a valid locale from Locale enum or the session locale if not specified
- *
  * @return {function} - returns a translator function
- *
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if collection or key is missing
+ * @version 2021.1
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if collection or key is missing
  * @throws {SuiteScriptError} INVALID_TRANSLATION_KEY if key is of an invalid format
  * @throws {SuiteScriptError} INVALID_TRANSLATION_COLLECTION if collection is of an invalid format
  * @throws {SuiteScriptError} INVALID_LOCALE if locale is of an invalid format
  * @throws {SuiteScriptError} TRANSLATION_KEY_NOT_FOUND if translation key was not found
- *
+ * @governance 1 unit
  * @since 2019.1
- * @version 2021.1
  */
 export function get(
     options: {
@@ -123,18 +123,16 @@ export type Collection = {
  * @param {String} options.collections.collection - the scriptid of the collection to be loaded
  * @param {Array} [options.collections.keys] - a list of translation keys from the collection to be loaded
  * @param {Array} [options.locales] - a list of valid locales
- *
  * @return {Handle} - returns a translations.Handle
- *
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if collections, collections or locales are not of Array type
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if collections doesn't have at least one collection defined
+ * @version 2021.1
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if collections, collections.keys or locales are not of Array type
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if a collection or key parameter is missing
  * @throws {SuiteScriptError} INVALID_TRANSLATION_KEY if a key has an invalid format
  * @throws {SuiteScriptError} INVALID_TRANSLATION_COLLECTION if a collection has an invalid format
  * @throws {SuiteScriptError} INVALID_ALIAS if an alias has an invalid format
  * @throws {SuiteScriptError} INVALID_LOCALE if a locale is of an invalid format
- *
+ * @governance 10 units
  * @since 2019.1
- * @version 2021.1
  */
 export function load(
     options: {
@@ -148,16 +146,14 @@ export function load(
  *
  * @param {Handle} options.handle - a translations.Handle object
  * @param {Locale} options.locale - a valid locale supported by the handle
- *
  * @return {Handle} - returns a translations.Handle in the specified locale
- *
- * @throws {SuiteScriptError} MISSING_REQD_ARGUMENT if handle or locale is missing
- * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if handle is not a translations.Handle object
+ * @version 2021.1
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if handle or locale is missing
+ * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if handle is not a translation.Handle object
  * @throws {SuiteScriptError} INVALID_LOCALE if an unknown or unsupported locale is used in the scope of the handle
  * @throws {SuiteScriptError} TRANSLATION_HANDLE_IS_IN_AN_ILLEGAL_STATE if the handle passed is in an illegal state
- *
+ * @governance none
  * @since 2019.1
- * @version 2021.1
  */
 export function selectLocale(
     options: {
@@ -170,6 +166,7 @@ export function selectLocale(
  * Translations.Handle has a hierarchical structure.
  *
  * Each of its nodes is either another Handle or a translator function
+ * @since 2019.1
  */
 export interface Handle {
 
