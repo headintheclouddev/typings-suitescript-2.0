@@ -61,21 +61,59 @@ interface ToTaskLinkOptions {
     parameters?: any;
 }
 
-/** Method used to set the redirect to the URL of a Suitelet that is available externally (Suitelets set to Available Without Login on the Script Deployment page). */
+/**
+ * Method used to set the redirect to the URL of a Suitelet that is available externally (Suitelets set to Available Without Login on the Script Deployment page).
+ * @governance none
+ * @since 2015.2
+ */
 export function redirect(options: RedirectOptions): void;
-/** Method used to set the redirect URL to a specific NetSuite record. */
+/**
+ * Method used to set the redirect URL to a specific NetSuite record.
+ * @governance none
+ * @since 2015.2
+ */
 export function toRecord(options: ToRecordOptions): void;
-/** Method used to set the redirect URL to a transformed NetSuite record. */
+/**
+ * Method used to set the redirect URL to a transformed NetSuite record.
+ * @throws {SuiteScriptError} INVALID_RCRD_TYPE if the record type specified in the toType parameter is invalid.
+ * @throws {SuiteScriptError} INVALID_RCRD_TRANSFRM if transformation between the fromType and toType record types is not allowed.
+ * @governance none
+ * @since 2020.1
+ */
 export function toRecordTransform(options: ToRecordTransformOptions): void;
-/** Method used to load an existing saved search and redirect to the populated search definition page. */
+/**
+ * Method used to load an existing saved search and redirect to the populated search definition page.
+ * @governance 5 units
+ * @since 2015.2
+ */
 export function toSavedSearch(options: ToSavedSearchOptions): void;
-/** Method used to redirect a user to a search results page for an existing saved search. */
+/**
+ * Method used to redirect a user to a search results page for an existing saved search.
+ * @governance 5 units
+ * @since 2015.2
+ */
 export function toSavedSearchResult(options: ToSavedSearchOptions): void;
-/** Method used to redirect a user to an ad-hoc search built in SuiteScript. */
+/**
+ * Method used to redirect a user to an ad-hoc search built in SuiteScript.
+ * @governance none
+ * @since 2015.2
+ */
 export function toSearch(options: ToSearchOptions): void;
-/** Method used to redirect a user to a search results page. For example, the results from an ad-hoc search created with the N/search Module, or a loaded search that you modified but did not save. */
+/**
+ * Method used to redirect a user to a search results page. For example, the results from an ad-hoc search created with the N/search Module, or a loaded search that you modified but did not save.
+ * @governance none
+ * @since 2015.2
+ */
 export function toSearchResult(options: ToSearchResultOptions): void;
-/** Method used to redirect the user to a Suitelet. */
+/**
+ * Method used to redirect the user to a Suitelet.
+ * @governance none
+ * @since 2015.2
+ */
 export function toSuitelet(options: ToSuiteletOptions): void;
-/** Method used to redirect a user to a tasklink. */
+/**
+ * Method used to redirect a user to a tasklink.
+ * @governance none
+ * @since 2015.2
+ */
 export function toTaskLink(options: ToTaskLinkOptions): void;
