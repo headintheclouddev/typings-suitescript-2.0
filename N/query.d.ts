@@ -1247,7 +1247,7 @@ export enum Type { // As of 15 June 2020
     OTHER_NAME_CATEGORY = "othernamecategory",
     OTHER_NAME_SUBSIDIARY_RELATIONSHIP = "othernamesubsidiaryrelationship",
     OUTBOUND_REQUEST = "outboundrequest",
-    O_AUTH2_CLIENT_CREDENTIALS = "oauth22clientcredentials",
+    O_AUTH2_CLIENT_CREDENTIALS = "oauth2clientcredentials",
     O_AUTH_TOKEN = "oauthtoken",
     PARTNER = "partner",
     PARTNER_SUBSIDIARY_RELATIONSHIP = "partnersubsidiaryrelationship",
