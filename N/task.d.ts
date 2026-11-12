@@ -175,7 +175,7 @@ interface QueryTask {
      * Key-value pairs containing information about the dependent tasks added to the query task, keyed by index (starting at 0).
      * @since 2020.2
      */
-    inboundDependencies: Record<string, InboundDependency>;
+    readonly inboundDependencies: Record<string, InboundDependency>;
     submit(): string;
     addInboundDependency(dependency: ScheduledScriptTask | MapReduceScriptTask): void;
     toString(): string;
@@ -400,7 +400,7 @@ interface DocumentCaptureTask {
      * Key-value pairs containing information about the dependent tasks added to the document capture task, keyed by index (starting at 0).
      * @since 2025.2
      */
-    inboundDependencies: Record<string, InboundDependency>;
+    readonly inboundDependencies: Record<string, InboundDependency>;
     submit(): string;
     addInboundDependency(dependency: ScheduledScriptTask): void;
     toString(): string;
