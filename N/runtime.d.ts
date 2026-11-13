@@ -599,10 +599,10 @@ export enum ContextType {
  * @since 2015.2
  */
 export enum EnvType {
-    SANDBOX,
-    PRODUCTION,
-    BETA,
-    INTERNAL,
+    SANDBOX = "SANDBOX",
+    PRODUCTION = "PRODUCTION",
+    BETA = "BETA",
+    INTERNAL = "INTERNAL",
 }
 /**
  * Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method.

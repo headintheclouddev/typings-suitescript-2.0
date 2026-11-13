@@ -169,10 +169,10 @@ export function createConnection(options: CreateSFTPConnectionWithKeyOptions | C
 
 /** @since 2019.2 */
 export enum Sort {
-    DATE,
-    DATE_DESC,
-    SIZE,
-    SIZE_DESC,
-    NAME,
-    NAME_DESC
+    DATE = "DATE",
+    DATE_DESC = "DATE_DESC",
+    SIZE = "SIZE",
+    SIZE_DESC = "SIZE_DESC",
+    NAME = "NAME",
+    NAME_DESC = "NAME_DESC"
 }

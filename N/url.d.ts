@@ -69,13 +69,13 @@ export function resolveTaskLink(options: resolveTaskLinkOptions): string;
 /** @since 2017.1 */
 export enum HostType {
     /** The domain for UI access, for users with a non-Customer Center role. Sample: system.na2.netsuite.com */
-    APPLICATION,
+    APPLICATION = "APPLICATION",
     /** The domain for UI access, for users with a Customer Center role. Sample: system.na2.netsuite.com */
-    CUSTOMER_CENTER,
+    CUSTOMER_CENTER = "CUSTOMERCENTER",
     /** The domain for forms hosted online, usually in Suitelets. Sample: forms.na2.netsuite.com */
-    FORM,
+    FORM = "FORMS",
     /** The domain for calling a RESTlet from an external source. Sample: rest.na2.netsuite.com */
-    RESTLET,
+    RESTLET = "RESTLETS",
     /** The domain for SuiteTalk (web services) requests. Sample: webservices.​na2.​netsuite.​com */
-    SUITETALK
+    SUITETALK = "SUITETALK"
 }

@@ -111,7 +111,7 @@ interface VerifyOptions {
 /** @since 2019.1 */
 export enum HashAlg {
   // SHA1,
-  SHA256,
-  SHA384,
-  SHA512
+  SHA256 = "SHA256",
+  SHA384 = "SHA384",
+  SHA512 = "SHA512"
 }
