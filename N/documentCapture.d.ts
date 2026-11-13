@@ -345,34 +345,34 @@ export function parseResult(options: { file: file.File }): Document;
 // @ts-ignore Ignore the fact that this interface name conflicts with others (not NetSuite related)
 /** @since 2025.2 */
 export enum DocumentType {
-    BANK_STATEMENT,
-    CHECK,
-    DRIVER_LICENSE,
-    HEALTH_INSURANCE_ID,
-    INVOICE,
-    OTHERS,
-    PASSPORT,
-    PAYSLIP,
-    RECEIPT,
-    RESUME,
-    TAX_FORM
+    BANK_STATEMENT = "BANK_STATEMENT",
+    CHECK = "CHECK",
+    DRIVER_LICENSE = "DRIVER_LICENSE",
+    HEALTH_INSURANCE_ID = "HEALTH_INSURANCE_ID",
+    INVOICE = "INVOICE",
+    OTHERS = "OTHERS",
+    PASSPORT = "PASSPORT",
+    PAYSLIP = "PAYSLIP",
+    RECEIPT = "RECEIPT",
+    RESUME = "RESUME",
+    TAX_FORM = "TAX_FORM"
 }
 
 /** @since 2025.2 */
 export enum Feature {
-    DOCUMENT_CLASSIFICATION,
-    FIELD_EXTRACTION,
-    TABLE_EXTRACTION,
-    TEXT_EXTRACTION
+    DOCUMENT_CLASSIFICATION = "DOCUMENT_CLASSIFICATION",
+    FIELD_EXTRACTION = "FIELD_EXTRACTION",
+    TABLE_EXTRACTION = "TABLE_EXTRACTION",
+    TEXT_EXTRACTION = "TEXT_EXTRACTION"
 }
 
 /** @since 2025.2 */
 export enum FieldType {
-    KEY_VALUE,
-    LINE_ITEM,
-    LINE_ITEM_FIELD,
-    LINE_ITEM_GROUP,
-    UNKNOWN
+    KEY_VALUE = "KEY_VALUE",
+    LINE_ITEM = "LINE_ITEM",
+    LINE_ITEM_FIELD = "LINE_ITEM_FIELD",
+    LINE_ITEM_GROUP = "LINE_ITEM_GROUP",
+    UNKNOWN = "UNKNOWN"
 }
 
 /** @since 2025.2 */

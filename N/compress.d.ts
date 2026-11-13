@@ -79,9 +79,9 @@ export declare function createArchiver(): Archiver;
 
 /** @since 2020.2 */
 export enum Type {
-    CPIO,
-    TAR,
-    TBZ2,
-    TGZ,
-    ZIP
+    CPIO = "CPIO",
+    TAR = "TAR",
+    TBZ2 = "TBZ2",
+    TGZ = "TGZ",
+    ZIP = "ZIP"
 }

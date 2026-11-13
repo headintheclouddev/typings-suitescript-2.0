@@ -189,7 +189,7 @@ export interface CheckPasswordFieldOptions {
 
 /** @since 2015.2 */
 export declare enum EncryptionAlg {
-  AES,
+  AES = "AES",
 }
 
 /**
@@ -198,14 +198,14 @@ export declare enum EncryptionAlg {
  * @since 2015.2
  */
 export declare enum HashAlg {
-  SHA256,
-  SHA512
+  SHA256 = "SHA256",
+  SHA512 = "SHA512"
 }
 
 /** @since 2015.2 */
 export declare enum Padding {
-  NoPadding,
-  PKCS5Padding,
+  NoPadding = "NoPadding",
+  PKCS5Padding = "PKCS5Padding",
 }
 
 /**

@@ -437,10 +437,10 @@ export const put: HttpPutFunction;
  * @since 2015.2
  */
 export enum CacheDuration {
-    LONG,
-    MEDIUM,
-    SHORT,
-    UNIQUE,
+    LONG = "LONG",
+    MEDIUM = "MEDIUM",
+    SHORT = "SHORT",
+    UNIQUE = "UNIQUE",
 }
 
 /**
@@ -459,9 +459,9 @@ export enum Method {
 
 /** @since 2015.2 */
 export enum RedirectType {
-    MEDIA_ITEM,
-    RECORD,
-    RESTLET,
-    SUITELET,
-    TASK_LINK
+    MEDIA_ITEM = "MEDIAITEM",
+    RECORD = "RECORD",
+    RESTLET = "RESTLET",
+    SUITELET = "SUITELET",
+    TASK_LINK = "TASKLINK"
 }

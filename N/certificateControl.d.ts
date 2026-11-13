@@ -198,30 +198,30 @@ interface FindUsagesOptions {
 
 /** @since 2019.2 */
 export enum Operation {
-  CONNECT,
-  DELETE,
-  FIND,
-  GET,
-  HEAD,
-  POST,
-  PUT,
-  SIGN_STRING,
-  SIGN_XML,
-  VERIFY_STRING,
-  VERIFY_XML
+  CONNECT = "connect",
+  DELETE = "delete",
+  FIND = "find",
+  GET = "get",
+  HEAD = "head",
+  POST = "post",
+  PUT = "put",
+  SIGN_STRING = "sign",
+  SIGN_XML = "signXml",
+  VERIFY_STRING = "verify",
+  VERIFY_XML = "verifyXmlSignature"
 }
 
 /** @since 2019.2 */
 export enum Operator {
-  CONTAINS,
-  ENDS_WITH,
-  EQUALS,
-  STARTS_WITH
+  CONTAINS = "contains",
+  ENDS_WITH = "endswith",
+  EQUALS = "equals",
+  STARTS_WITH = "startswith"
 }
 
 /** @since 2019.1 */
 export enum Type {
-  PFX,
-  P12,
-  PEM
+  PFX = "PFX",
+  P12 = "P12",
+  PEM = "PEM"
 }

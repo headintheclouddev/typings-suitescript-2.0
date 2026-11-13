@@ -88,15 +88,15 @@ export function getCache(options: GetCacheOptions): Cache;
 /** @since 2016.2 */
 export enum Scope {
     /** The cache is available only to the current script. This value is the default. */
-    PRIVATE,
+    PRIVATE = "PRIVATE",
 
     /**
      * The cache is available only to some scripts, as follows:
      *  - If the script is part of a bundle, the cache is available to all scripts in the same bundle.
      *  - If the script is not in a bundle, then the cache is available to all scripts not in a bundle.
      */
-    PROTECTED,
+    PROTECTED = "PROTECTED",
 
     /** The cache is available to any script in the NetSuite account. */
-    PUBLIC,
+    PUBLIC = "PUBLIC",
 }

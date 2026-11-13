@@ -1371,13 +1371,13 @@ export const DescendantOrSelfNodesSelector: unknown;
 export const ChildNodesSelector: ChildNodesSelector;
 
 declare enum Aggregation {
-  COUNT,
-  COUNT_DISTINCT,
-  MAX,
-  MEDIAN,
-  MIN,
-  SUM,
-  AVG
+  COUNT = 'COUNT',
+  COUNT_DISTINCT = 'COUNT_DISTINCT',
+  MAX = 'MAX',
+  MEDIAN = 'MEDIAN',
+  MIN = 'MIN',
+  SUM = 'SUM',
+  AVG = 'AVG'
 }
 
 declare enum AspectType {
@@ -1386,24 +1386,24 @@ declare enum AspectType {
 }
 
 declare enum Color {
-  BLACK,
-  BLUE,
-  BROWN,
-  GRAY,
-  GREEN,
-  ORANGE,
-  PINK,
-  PURPLE,
-  RED,
-  WHITE,
-  YELLOW
+  BLACK = 'BLACK',
+  BLUE = 'BLUE',
+  BROWN = 'BROWN',
+  GRAY = 'GRAY',
+  GREEN = 'GREEN',
+  ORANGE = 'ORANGE',
+  PINK = 'PINK',
+  PURPLE = 'PURPLE',
+  RED = 'RED',
+  WHITE = 'WHITE',
+  YELLOW = 'YELLOW'
 }
 
 declare enum ChartType {
-  AREA,
-  BAR,
-  COLUMN,
-  LINE
+  AREA = 'AREA',
+  BAR = 'BAR',
+  COLUMN = 'COLUMN',
+  LINE = 'LINE'
 }
 
 declare enum ConstantType {
@@ -1421,161 +1421,161 @@ declare enum ConstantType {
 }
 
 declare enum DateTimeHierarchy {
-  MONTH_BASED,
-  WEEK_BASED
+  MONTH_BASED = 'MONTH_BASED',
+  WEEK_BASED = 'WEEK_BASED'
 }
 
 declare enum DateTimeProperty {
-  DATE,
-  DAY_OF_MONTH,
-  DAY_OF_WEEK,
-  MONTH,
-  QUARTER,
-  WEEK_OF_YEAR,
-  YEAR
+  DATE = 'DATE',
+  DAY_OF_MONTH = 'DAY_OF_MONTH',
+  DAY_OF_WEEK = 'DAY_OF_MONTH',
+  MONTH = 'MONTH',
+  QUARTER = 'QUARTER',
+  WEEK_OF_YEAR = 'WEEK_OF_YEAR',
+  YEAR = 'YEAR'
 }
 
 /** @since 2020.2 */
 declare enum ExpressionType { // Last updated 22 June 2022, NetSuite version 2022.1
-  AND,
+  AND = 'AND',
   // ANY_IN_HIERARCHY,
-  ANY_OF,
-  BETWEEN,
-  CHILD_OF,
-  COMPARE,
-  CONSTANT,
+  ANY_OF = 'ANY_OF',
+  BETWEEN = 'BETWEEN',
+  CHILD_OF = 'CHILD_OF',
+  COMPARE = 'COMPARE',
+  CONSTANT = 'CONSTANT',
   // CONSOLIDATE,
-  CURRENCY_CONVERSION,
-  DATE_RANGE_SELECTOR_ID,
-  DATE_SELECTOR_ID,
-  DATE_TIME_PROPERTY,
-  DIVIDE,
-  EQUALS,
-  FIELD,
-  HIERARCHY,
-  HIERARCHY_TO_TEXT,
-  IN_RANGE,
-  IS_NULL,
-  LAMBDA,
-  MEASURE_VALUE,
-  MINUS,
-  MULTIPLY,
-  NOT,
-  OR,
-  RECORD_DISPLAY_VALUE,
-  RECORD_KEY,
-  SIMPLE_CONSOLIDATE,
-  TRANSLATE,
-  TRUNCATE_DATE_TIME,
-  DATASET_COLUMN,
-  IF,
-  PLUS
+  CURRENCY_CONVERSION = 'CURRENCY_CONVERSION',
+  DATE_RANGE_SELECTOR_ID = 'DATE_RANGE_SELECTOR_ID',
+  DATE_SELECTOR_ID = 'DATE_SELECTOR_ID',
+  DATE_TIME_PROPERTY = 'DATE_TIME_PROPERTY',
+  DIVIDE = 'DIVIDE',
+  EQUALS = 'EQUALS',
+  FIELD = 'FIELD',
+  HIERARCHY = 'HIERARCHY',
+  HIERARCHY_TO_TEXT = 'HIERARCHY_TO_TEXT',
+  IN_RANGE = 'IN_RANGE',
+  IS_NULL = 'IS_NULL',
+  LAMBDA = 'LAMBDA',
+  MEASURE_VALUE = 'MEASURE_VALUE',
+  MINUS = 'MINUS',
+  MULTIPLY = 'MULTIPLY',
+  NOT = 'NOT',
+  OR = 'OR',
+  RECORD_DISPLAY_VALUE = 'RECORD_DISPLAY_VALUE',
+  RECORD_KEY = 'RECORD_KEY',
+  SIMPLE_CONSOLIDATE = 'SIMPLE_CONSOLIDATE',
+  TRANSLATE = 'TRANSLATE',
+  TRUNCATE_DATE_TIME = 'TRUNCATE_DATE_TIME',
+  DATASET_COLUMN = 'DATASET_COLUMN',
+  IF = 'IF',
+  PLUS = 'PLUS'
 }
 
 declare enum FontSize {
-  LARGE,
-  LARGER,
-  MEDIUM,
-  SMALL,
-  SMALLER,
-  XX_LARGE,
-  XX_SMALL,
-  X_LARGE,
-  X_SMALL
+  LARGE = 'LARGE',
+  LARGER = 'LARGER',
+  MEDIUM = 'MEDIUM',
+  SMALL = 'SMALL',
+  SMALLER = 'SMALLER',
+  XX_LARGE = 'XX_LARGE',
+  XX_SMALL = 'XX_SMALL',
+  X_LARGE = 'X_LARGE',
+  X_SMALL = 'X_SMALL'
 }
 
 declare enum FontStyle {
-  ITALIC,
-  NORMAL,
-  OBLIQUE,
+  ITALIC = 'ITALIC',
+  NORMAL = 'NORMAL',
+  OBLIQUE = 'OBLIQUE',
 }
 
 declare enum FontWeight {
-  BOLD,
-  NORMAL
+  BOLD = 'BOLD',
+  NORMAL = 'NORMAL'
 }
 
 declare enum Image {
-  EXCLAMATION,
-  QUESTION,
-  SMILE
+  EXCLAMATION = 'EXCLAMATION',
+  QUESTION = 'QUESTION',
+  SMILE = 'SMILE'
 }
 
 declare enum Position {
-  BOTTOM,
-  CENTER,
-  LEFT,
-  RIGHT,
-  TOP
+  BOTTOM = 'BOTTOM',
+  CENTER = 'CENTER',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+  TOP = 'TOP'
 }
 
 declare enum Stacking {
-  DISABLED,
-  NORMAL,
-  PERCENT
+  DISABLED = 'DISABLED',
+  NORMAL = 'NORMAL',
+  PERCENT = 'PERCENT'
 }
 
 declare enum TemporalUnit {
-  HOURS,
-  MINUTES,
-  CENTURIES,
-  DAYS,
-  DECADES,
-  ERA,
-  HALF_DAYS,
-  MICROS,
-  MILLENIA,
-  MILLIS,
-  MONTHS,
-  NANOS,
-  SECONDS,
-  WEEKS,
-  YEARS
+  HOURS = 'HOURS',
+  MINUTES = 'MINUTES',
+  CENTURIES = 'CENTURIES',
+  DAYS = 'DAYS',
+  DECADES = 'DECADES',
+  ERA = 'ERA',
+  HALF_DAYS = 'HALF_DAYS',
+  MICROS = 'MICROS',
+  MILLENIA = ' MILLENIA',
+  MILLIS = 'MILLIS',
+  MONTHS = 'MONTHS',
+  NANOS = 'NANOS',
+  SECONDS = 'SECONDS',
+  WEEKS = 'WEEKS',
+  YEARS = 'YEARS'
 }
 
 declare enum TextAlign {
-  CENTER,
-  JUSTIFY,
-  LEFT,
-  RIGHT
+  CENTER = 'CENTER',
+  JUSTIFY = 'JUSTIFY',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT'
 }
 
 declare enum TextDecorationLine {
-  LINE_THROUGH,
-  NONE,
-  OVERLINE,
-  UNDERLINE
+  LINE_THROUGH = 'LINE_THROUGH',
+  NONE = 'NONE',
+  OVERLINE = 'OVERLINE',
+  UNDERLINE = 'UNDERLINE'
 }
 
 declare enum TextDecorationStyle {
-  DASHED,
-  DOTTED,
-  DOUBLE,
-  SOLID,
-  WAVY
+  DASHED = 'DASHED',
+  DOTTED = 'DOTTED',
+  DOUBLE = 'DOUBLE',
+  SOLID = 'SOLID',
+  WAVY = 'WAVY'
 }
 
 declare enum TotalLine {
-  FIRST_LINE,
-  HIDDEN,
-  LAST_LINE
+  FIRST_LINE = 'FIRST_LINE',
+  HIDDEN = 'HIDDEN',
+  LAST_LINE = 'LAST_LINE'
 }
 
 declare enum Unit {
-  CH,
-  CM,
-  EM,
-  EX,
-  IN,
-  MM,
-  PC,
-  PT,
-  PX,
-  REM,
-  VH,
-  VMAX,
-  VMIN,
-  VW
+  CH = 'CH',
+  CM = 'CM',
+  EM = 'EM',
+  EX = 'EX',
+  IN = 'IN',
+  MM = 'MM',
+  PC = 'PC',
+  PT = 'PT',
+  PX = 'PX',
+  REM = 'REM',
+  VH = 'VH',
+  VMAX = 'VMAX',
+  VMIN = 'VMIN',
+  VW = 'VW'
 }
 
 declare enum Operator {
