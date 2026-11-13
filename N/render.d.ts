@@ -304,10 +304,10 @@ export function glImpact(options: GLImpactOptions): File;
  * @since 2015.2
  */
 export enum DataSource {
-    JSON,
-    OBJECT,
-    XML_DOC,
-    XML_STRING
+    JSON = "JSON",
+    OBJECT = "OBJECT",
+    XML_DOC = "XML_DOC",
+    XML_STRING = "XML_STRING"
 }
 
 /**
@@ -315,7 +315,7 @@ export enum DataSource {
  * @since 2015.2
  */
 export enum PrintMode {
-    DEFAULT,
-    HTML,
-    PDF
+    DEFAULT = "DEFAULT",
+    HTML = "HTML",
+    PDF = "PDF"
 }

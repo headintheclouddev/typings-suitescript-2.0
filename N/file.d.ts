@@ -243,16 +243,16 @@ export function load(idOrPath: number | string): FileCabinetFile;
 /** @since 2021.1 */
 export enum NameConflictResolution {
     /** Fail with an error if a conflict occurs. */
-    FAIL,
+    FAIL = "FAIL",
     /** Overwrite the existing file if a conflict occurs.
      * The attributes and permissions of the overwritten file are preserved (meaning that the copied file has the same attributes and permissions as the file that was overwritten).
      */
-    OVERWRITE,
+    OVERWRITE = "OVERWRITE",
     /**
      * Add a numeric suffix to the name of the copied file if a conflict occurs.
      * For example, if you are copying a file named file.txt and a conflict occurs, the name of the copied file is file (1).txt.
      */
-    RENAME_TO_UNIQUE
+    RENAME_TO_UNIQUE = "RENAME_TO_UNIQUE"
 }
 
 /**
@@ -260,14 +260,14 @@ export enum NameConflictResolution {
  * @since 2015.2
  */
 export enum Encoding {
-    UTF_8,
-    WINDOWS_1252,
-    ISO_8859_1,
-    GB18030,
-    SHIFT_JIS,
-    MAC_ROMAN,
-    GB2312,
-    BIG5,
+    UTF_8 = "UTF-8",
+    WINDOWS_1252 = "windows-1252",
+    ISO_8859_1 = "ISO-8859-1",
+    GB18030 = "GB18030",
+    SHIFT_JIS = "SHIFT_JIS",
+    MAC_ROMAN = "MacRoman",
+    GB2312 = "GB2312",
+    BIG5 = "Big5",
 }
 
 /**
@@ -275,45 +275,45 @@ export enum Encoding {
  * @since 2015.2
  */
 export enum Type {
-    APPCACHE,
-    AUTOCAD,
-    BMPIMAGE,
-    CERTIFICATE,
-    CONFIG,
-    CSV,
-    EXCEL,
-    FLASH,
-    FREEMARKER,
-    GIFIMAGE,
-    GZIP,
-    HTMLDOC,
-    ICON,
-    JAVASCRIPT,
-    JPGIMAGE,
-    JSON,
-    MESSAGERFC,
-    MP3,
-    MPEGMOVIE,
-    MSPROJECT,
-    PDF,
-    PJPGIMAGE,
-    PLAINTEXT,
-    PNGIMAGE,
-    POSTSCRIPT,
-    POWERPOINT,
-    QUICKTIME,
-    RTF,
-    SCSS,
-    SMS,
-    STYLESHEET,
-    SVG,
-    TAR,
-    TIFFIMAGE,
-    VISIO,
-    WEBAPPPAGE,
-    WEBAPPSCRIPT,
-    WORD,
-    XMLDOC,
-    XSD,
-    ZIP,
+    APPCACHE = "APPCACHE",
+    AUTOCAD = "AUTOCAD",
+    BMPIMAGE = "BMPIMAGE",
+    CERTIFICATE = "CERTIFICATE",
+    CONFIG = "CONFIG",
+    CSV = "CSV",
+    EXCEL = "EXCEL",
+    FLASH = "FLASH",
+    FREEMARKER = "FREEMARKER",
+    GIFIMAGE = "GIFIMAGE",
+    GZIP = "GZIP",
+    HTMLDOC = "HTMLDOC",
+    ICON = "ICON",
+    JAVASCRIPT = "JAVASCRIPT",
+    JPGIMAGE = "JPGIMAGE",
+    JSON = "JSON",
+    MESSAGERFC = "MESSAGERFC",
+    MP3 = "MP3",
+    MPEGMOVIE = "MPEGMOVIE",
+    MSPROJECT = "MSPROJECT",
+    PDF = "PDF",
+    PJPGIMAGE = "PJPGIMAGE",
+    PLAINTEXT = "PLAINTEXT",
+    PNGIMAGE = "PNGIMAGE",
+    POSTSCRIPT = "POSTSCRIPT",
+    POWERPOINT = "POWERPOINT",
+    QUICKTIME = "QUICKTIME",
+    RTF = "RTF",
+    SCSS = "SCSS",
+    SMS = "SMS",
+    STYLESHEET = "STYLESHEET",
+    SVG = "SVG",
+    TAR = "TAR",
+    TIFFIMAGE = "TIFFIMAGE",
+    VISIO = "VISIO",
+    WEBAPPPAGE = "WEBAPPPAGE",
+    WEBAPPSCRIPT = "WEBAPPSCRIPT",
+    WORD = "WORD",
+    XMLDOC = "XMLDOC",
+    XSD = "XSD",
+    ZIP = "ZIP",
 }

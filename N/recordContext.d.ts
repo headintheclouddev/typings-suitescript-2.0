@@ -47,5 +47,5 @@ export declare function getContext(options: GetContextOptions): { [contextType: 
 
 /** @since 2020.2 */
 export enum ContextType {
-    LOCALIZATION
+    LOCALIZATION = "LOCALIZATION"
 }
