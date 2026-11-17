@@ -1428,7 +1428,7 @@ declare enum DateTimeHierarchy {
 declare enum DateTimeProperty {
   DATE = 'DATE',
   DAY_OF_MONTH = 'DAY_OF_MONTH',
-  DAY_OF_WEEK = 'DAY_OF_MONTH',
+  DAY_OF_WEEK = 'DAY_OF_MONTH', // Not a typo: NetSuite gives DAY_OF_WEEK the same value as DAY_OF_MONTH.
   MONTH = 'MONTH',
   QUARTER = 'QUARTER',
   WEEK_OF_YEAR = 'WEEK_OF_YEAR',
@@ -1524,7 +1524,7 @@ declare enum TemporalUnit {
   ERA = 'ERA',
   HALF_DAYS = 'HALF_DAYS',
   MICROS = 'MICROS',
-  MILLENIA = ' MILLENIA',
+  MILLENIA = ' MILLENIA', // Not a typo: NetSuite's value has a leading space.
   MILLIS = 'MILLIS',
   MONTHS = 'MONTHS',
   NANOS = 'NANOS',

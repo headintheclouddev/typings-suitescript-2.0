@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### New
+
+- **Enum values:** 674 members of 64 enums now have the string values NetSuite uses, read at runtime on NetSuite 2026.2, so hovers and template literal types such as `` `${file.Encoding}` `` show the real strings, and a member can be passed where a `string` is expected (#468, @simeon-unicare). Many values aren't their keys: `config.Type.FEATURES` is `'companyfeatures'`, and `query.PeriodCode.LAST_FISCAL_YEAR` is `'LFY'`. The modules are cache, certificateControl, compress, config, crypto, crypto/certificate, documentCapture, encode, file, format/i18n, http, pgp, query, recordContext, render, runtime, search, sftp, ui/serverWidget, url, workbook and xml. Only code that treats a member as a number stops compiling.
+
 ## 2026.2.8
 
 ### Breaking changes (strict mode)
