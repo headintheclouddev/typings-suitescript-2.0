@@ -34,20 +34,39 @@ interface RemoveOptions {
     key: string;
 }
 
+/** @since 2016.2 */
 export interface Cache {
-    /** A label that identifies the cache. */
+    /**
+     * A label that identifies the cache.
+     * @since 2016.2
+     */
     name: string;
 
-    /** A value that describes the availability of the cache. A cache can be made available to the current script only, to all scripts in the current bundle, or to all scripts in your NetSuite account. */
+    /**
+     * A value that describes the availability of the cache. A cache can be made available to the current script only, to all scripts in the current bundle, or to all scripts in your NetSuite account.
+     * @since 2016.2
+     */
     scope: string | Scope;
 
-    /** Retrieves a value from the cache based on a key that you provide. If the requested value is not present in the cache, the method uses the user-defined function identified by the method’s option.loader parameter. The value retrieved by this function is cached and then returned. */
+    /**
+     * Retrieves a value from the cache based on a key that you provide. If the requested value is not present in the cache, the method uses the user-defined function identified by the method’s option.loader parameter. The value retrieved by this function is cached and then returned.
+     * @governance 1 unit if the value is present in the cache, 2 units if the loader function is used
+     * @since 2016.2
+     */
     get(options: GetOptions): string | null;
 
-    /** Puts a value into the cache. If the value provided is not a string, the system uses JSON.stringify() to convert the value to a string. */
+    /**
+     * Puts a value into the cache. If the value provided is not a string, the system uses JSON.stringify() to convert the value to a string.
+     * @governance 1 unit
+     * @since 2016.2
+     */
     put(options: PutOptions): void;
 
-    /** Removes a value from the cache. */
+    /**
+     * Removes a value from the cache.
+     * @governance 1 unit
+     * @since 2016.2
+     */
     remove(options: RemoveOptions): void;
 }
 
@@ -59,9 +78,14 @@ interface GetCacheOptions {
     scope?: Scope;
 }
 
-/** Checks for a cache object with the specified name. If the cache exists, this method returns the cache object. If the cache does not exist, the system creates it. */
+/**
+ * Checks for a cache object with the specified name. If the cache exists, this method returns the cache object. If the cache does not exist, the system creates it.
+ * @governance none
+ * @since 2016.2
+ */
 export function getCache(options: GetCacheOptions): Cache;
 
+/** @since 2016.2 */
 export enum Scope {
     /** The cache is available only to the current script. This value is the default. */
     PRIVATE,

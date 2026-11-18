@@ -1,52 +1,120 @@
 /** The N/format/i18n module has methods that allows for formatting of strings in international context and for formatting of numbers to currency or number strings. */
 
-/** The object that formats the number to currency string */
+/**
+ * The object that formats the number to currency string
+ * @since 2019.2
+ */
 interface CurrencyFormatter {
-  /** Describes the currency code. */
+  /**
+   * Describes the currency code.
+   * @since 2019.2
+   */
   readonly currency: string;
-  /** Describes the symbol of the currency code. */
+  /**
+   * Describes the symbol of the currency code.
+   * @since 2019.2
+   */
   readonly symbol: string;
-  /** Contains the format.NumberFormatter object derived from format.CurrencyFormatter with the same number formatting parameters without currency symbol. */
+  /**
+   * Contains the format.NumberFormatter object derived from format.CurrencyFormatter with the same number formatting parameters without currency symbol.
+   * @since 2019.2
+   */
   readonly numberFormatter: string;
-  /** Formats the number to the currency string. Costs 10 governance units. */
+  /**
+   * Formats the number to the currency string. Costs 10 governance units.
+   * @governance 10 units
+   * @since 2019.2
+   */
   format(options: { number: number }): string;
 }
 
-/** Object that formats number to string. */
+/**
+ * Object that formats number to string.
+ * @since 2019.2
+ */
 interface NumberFormatter {
-  /** Indicates the group separator. */
+  /**
+   * Indicates the group separator.
+   * @since 2019.2
+   */
   readonly groupSeparator: string;
-  /** Indicates the decimal separator. */
+  /**
+   * Indicates the decimal separator.
+   * @since 2019.2
+   */
   readonly decimalSeparator: string;
-  /** Indicates the precision. */
+  /**
+   * Indicates the precision.
+   * @since 2019.2
+   */
   readonly precision: number;
   /** Indicates the negative number format. */
   negativeNumberFormat: NegativeNumberFormat;
-  /** Formats number to the number string. Costs 10 governance units. */
+  /**
+   * Formats number to the number string. Costs 10 governance units.
+   * @governance 10 units
+   * @since 2019.2
+   */
   format(options: { number: number }): string;
 }
 
-/** The object that formats the phone number to string. */
+/**
+ * The object that formats the phone number to string.
+ * @since 2020.2
+ */
 interface PhoneNumberFormatter {
+  /**
+   * @governance none
+   * @since 2020.2
+   */
   format(options: { number: string }): string;
 }
 
-/** The object that parses the string with the phone number to an object. */
+/**
+ * The object that parses the string with the phone number to an object.
+ * @since 2020.2
+ */
 interface PhoneNumberParser {
+  /**
+   * @governance none
+   * @since 2020.2
+   */
   parse(options: { number: string }): { countryCode: string, extension: string, nationalNumber: string, numberOfLeadingZeroes: number, carrierCode: string, rawInput: string };
 }
 
-/** Spells out positive and negative number as a string in a specific language. For more information, see Codes for the Representation of Names of Languages. */
+/**
+ * Spells out positive and negative number as a string in a specific language. For more information, see Codes for the Representation of Names of Languages.
+ * @governance none
+ * @since 2019.1
+ */
 export function spellOut(options: SpellOutOptions): string;
 
-/** Create format.CurrencyFormatter object to format numbers into currency strings. Costs 10 governance units. */
+/**
+ * Create format.CurrencyFormatter object to format numbers into currency strings. Costs 10 governance units.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getCurrencyFormatter(options: GetCurrencyFormatterOptions): CurrencyFormatter;
 
-/** Create format.NumberFormatter object to format numbers into strings. Costs 10 governance units. */
+/**
+ * Create format.NumberFormatter object to format numbers into strings. Costs 10 governance units.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getNumberFormatter(options?: GetNumberFormatterOptions): NumberFormatter;
 
+/**
+ * @throws {SuiteScriptError} SSS_INVALID_FORMAT_TYPE if an invalid value is specified for the formatType option.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getPhoneNumberFormatter(options: { formatType: PhoneNumberFormatType }): PhoneNumberFormatter;
 
+/**
+ * @throws {SuiteScriptError} SSS_INVALID_COUNTRY_ID if an invalid value is specified for the defaultCountry parameter.
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function getPhoneNumberParser(options: { defaultCountry: Country }): PhoneNumberParser;
 
 interface GetCurrencyFormatterOptions {
@@ -75,6 +143,7 @@ interface SpellOutOptions {
   locale: string;
 }
 
+/** @since 2019.1 */
 export enum Currency { // Note The currency values depend on the company. Examples of currency value include:
   USD,
   CAD,
@@ -83,11 +152,13 @@ export enum Currency { // Note The currency values depend on the company. Exampl
   JPY
 }
 
+/** @since 2019.2 */
 export enum NegativeNumberFormat {
   BRACKETS,
   MINUS
 }
 
+/** @since 2020.2 */
 export enum PhoneNumberFormatType {
   E164,
   INTERNATIONAL,
@@ -95,6 +166,7 @@ export enum PhoneNumberFormatType {
   RFC3966
 }
 
+/** @since 2020.2 */
 export enum Country { // As of 17 August 2020
   AFGHANISTAN,
   ALAND_ISLANDS,

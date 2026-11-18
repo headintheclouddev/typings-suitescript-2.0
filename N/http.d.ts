@@ -124,43 +124,70 @@ export interface RequestOptions  extends GetOptions {
 
 interface HttpDeleteFunction {
     (options: DeleteOptions): ClientResponse;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: DeleteOptions): Promise<ClientResponse>;
 }
 
 interface HttpGetFunction {
     (options: GetOptions): ClientResponse;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: GetOptions): Promise<ClientResponse>;
 }
 
 interface HttpPostFunction {
     (options: PostOptions): ClientResponse;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: PostOptions): Promise<ClientResponse>;
 }
 
 interface HttpPutFunction {
     (options: PutOptions): ClientResponse;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: PutOptions): Promise<ClientResponse>;
 }
 
 interface HttpRequestFunction {
     (options: RequestOptions): ClientResponse;
+    /**
+     * @governance 10 units
+     * @since 2015.2
+     */
     promise(options: RequestOptions): Promise<ClientResponse>;
 }
 
 /**
  * Encapsulates the response to an HTTP client request.
+ * @since 2015.2
  */
 export interface ClientResponse {
     /**
      * The client response body.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
      */
     body: string;
     /**
      * The client response code.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
      */
     code: number;
     /**
      * The response header or headers.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
      */
     headers: object;
 }
@@ -176,83 +203,162 @@ interface GetSublistValueOptions {
 
 /**
  * Encapsulates the HTTP request information sent to an HTTP server. For example, a request received by a Suitelet or RESTlet.
+ * @since 2015.2
  */
 export interface ServerRequest {
-    /** Method used to return the number of lines in a sublist. */
+    /**
+     * Method used to return the number of lines in a sublist.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.group is not specified.
+     * @governance none
+     * @since 2015.2
+     */
     getLineCount(options: GetLineCountOptions): number;
-    /** Method used to return the value of a sublist line item. */
+    /**
+     * Method used to return the value of a sublist line item.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.group or options.line is not specified.
+     * @governance none
+     * @since 2015.2
+     */
     getSublistValue(options: GetSublistValueOptions): string;
-    /** The server request body. */
+    /**
+     * The server request body.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     body: string;
-    /** The remote IP address that made this request. */
+    /**
+     * The remote IP address that made this request.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     clientIpAddress: string;
-    /** The server request files. */
+    /**
+     * The server request files.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     files: any;
-    /** The server request headers. */
+    /**
+     * The server request headers.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     headers: { [key: string]: string };
     /**
      * The server request http method.
      * Allow usage as string here as N/http is a heavy import just
      * to get an enum.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
      */
     method: Method | `${Method}`;
-    /** The server request parameters. */
+    /**
+     * The server request parameters.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     parameters: any;
-    /** The server request URL. */
+    /**
+     * The server request URL.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
+     */
     url: string;
 }
 
 /**
  * Encapsulates the response from an HTTP server to an HTTP request. For example, a response from a Suitelet or RESTlet.
+ * @since 2015.2
  */
 export interface ServerResponse {
     /**
      * Method used to add a header to the response.
      * If the same header has already been set, this method adds another line for that header.
+     * @throws {SuiteScriptError} SSS_INVALID_HEADER if the header name or value is invalid (or the header is blocked for Suitelet responses).
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.name or options.value is not specified.
+     * @governance none
+     * @since 2015.2
      */
     addHeader(options: AddHeaderOptions): void;
     /**
      * Method used to return the value or values of a response header.
      * If multiple values are assigned to the header name, the values are returned as an Array.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.name is not specified.
+     * @governance none
+     * @since 2015.2
      */
     getHeader(options: GetHeaderOptions): string | string[];
     /**
      * Method used to set the redirect URL by resolving to a NetSuite resource.
+     * @throws {SuiteScriptError} SSS_INVALID_RECORD_TYPE if the redirect type is RECORD and an invalid record type is input for options.identifier. (https.ServerResponse.sendRedirect(options) documents this as INVALID_RCRD_TYPE.)
+     * @throws {SuiteScriptError} SSS_INVALID_SCRIPT_ID_1 if the type is SUITELET or RESTLET and an invalid script ID or deployment ID is input for options.identifier or options.id. (https documents this as INVALID_ID.)
+     * @throws {SuiteScriptError} SSS_INVALID_TASK_ID if the type is TASK_LINK and an invalid task ID is input for options.identifier. (https documents this as INVALID_TASK_ID.)
+     * @throws {SuiteScriptError} SSS_INVALID_URL_CATEGORY if options.type is not a recognized http.RedirectType value.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.identifier or options.type is not specified (also thrown if an enum value is misspelled).
+     * @governance none
+     * @since 2015.2
      */
     sendRedirect(options: SendRedirectOptions): void;
     /**
      * Method used to set the value of a response header.
+     * @throws {SuiteScriptError} SSS_INVALID_HEADER if the header name or value is invalid (or the header is blocked for Suitelet responses).
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.name or options.value is not specified.
+     * @governance none
+     * @since 2015.2
      */
     setHeader(options: SetHeaderOptions): void;
     /**
      * Method used to generate and render a PDF directly to the response.
      * This primarily converts XML to PDF.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.xmlString is not specified.
+     * @governance 10 units
+     * @since 2015.2
      */
     renderPdf(options: RenderPDFOptions): void;
     /**
      * Method used to set CDN caching for a period of time.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type is not specified.
+     * @governance none
+     * @since 2015.2
      */
     setCdnCacheable(options: SetCDNCacheableOptions): void;
     /**
      * Method used to write information to the response.
      * This method only accepts strings. Use writeFile() to pass files.
+     * @governance none
+     * @since 2015.2
      */
     write(output: string): void;
     /**
      * Method used to write information to the response.
      * This method only accepts strings. Use writeFile() to pass files.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.output is not specified.
+     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options.output is not a string.
+     * @governance none
+     * @since 2015.2
      */
     write(options: WriteOptions): void;
     /**
      * Method used to write a file to the response.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.file is not specified.
+     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options.file is not a file.File object.
+     * @governance none
+     * @since 2015.2
      */
     writeFile(options: WriteFileOptions): void;
     /**
      * Method used to write line information to the response.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.output is not specified.
+     * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if options.output is not a string.
+     * @governance none
+     * @since 2015.2
      */
     writeLine(options: WriteLineOptions): void;
     /**
      * Method used to generate a page.
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.pageObject is not specified.
+     * @governance none
+     * @since 2015.2
      */
     writePage(options: WritePageOptions): void;
     /**
@@ -262,39 +368,73 @@ export interface ServerResponse {
     writePage(form: Form): void;
     /**
      * The server response headers. This property is read-only.
+     * @throws {SuiteScriptError} READ_ONLY_PROPERTY if you attempt to edit this property.
+     * @since 2015.2
      */
     headers: object;
 }
 
 /**
  * Sends an HTTP GET request and returns the response.
+ * @throws {SuiteScriptError} SSS_INVALID_HOST_CERT if an untrusted, unsupported, or invalid certificate was found for this host, or the domain name in options.url is misspelled or uses invalid syntax.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if an invalid URL is specified in options.url.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if a script calls back into itself recursively using an HTTP/HTTPS request. (Listed for https.get(options) only.)
+ * @governance 10 units
+ * @since 2015.2
  */
 export const get: HttpGetFunction;
 
 /**
  * Sends an HTTP DELETE request and returns the response.
+ * @throws {SuiteScriptError} SSS_INVALID_HOST_CERT if an untrusted, unsupported, or invalid certificate was found for this host, or the domain name in options.url is misspelled or uses invalid syntax.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if an invalid URL is specified in options.url.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if a script calls back into itself recursively using an HTTP/HTTPS request. (Listed for https.delete(options) only.)
+ * @governance 10 units
+ * @since 2015.2
  */
 declare const deleteFunc: HttpDeleteFunction;
 export {deleteFunc as delete};
 
 /**
  * Sends an HTTP request and returns the response.
+ * @throws {SuiteScriptError} SSS_INVALID_HOST_CERT if an untrusted, unsupported, or invalid certificate was found for this host, or the domain name in options.url is misspelled or uses invalid syntax.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if an invalid URL is specified in options.url.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.method or options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if a script calls back into itself recursively using an HTTP/HTTPS request. (Listed for https.request(options) only.)
+ * @throws {SuiteScriptError} SSS_REQUEST_TIME_EXCEEDED if connecting takes longer than 5 seconds or sending the payload takes longer than 45 seconds. (Listed for https.request(options) only.)
+ * @governance 10 units
+ * @since 2015.2
  */
 export const request: HttpRequestFunction;
 
 /**
  * Sends an HTTP POST request and returns the response.
+ * @throws {SuiteScriptError} SSS_INVALID_HOST_CERT if an untrusted, unsupported, or invalid certificate was found for this host, or the domain name in options.url is misspelled or uses invalid syntax.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if options.url is not a fully qualified URL.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.body or options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if a script calls back into itself recursively using an HTTP/HTTPS request.
+ * @governance 10 units
+ * @since 2015.2
  */
 export const post: HttpPostFunction;
 
 /**
  * Sends an HTTP PUT request and returns the response.
+ * @throws {SuiteScriptError} SSS_INVALID_HOST_CERT if an untrusted, unsupported, or invalid certificate was found for this host, or the domain name in options.url is misspelled or uses invalid syntax.
+ * @throws {SuiteScriptError} SSS_INVALID_URL if an invalid URL is specified in options.url.
+ * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.body or options.url is not specified.
+ * @throws {SuiteScriptError} SSS_REQUEST_LOOP_DETECTED if a script calls back into itself recursively using an HTTP/HTTPS request. (Listed for https.put(options) only.)
+ * @governance 10 units
+ * @since 2015.2
  */
 export const put: HttpPutFunction;
 
 /**
  * Holds the string values for supported cache durations.
  * This enum is used to set the value of the ServerResponse.setCdnCacheable(options) property.
+ * @since 2015.2
  */
 export enum CacheDuration {
     LONG,
@@ -306,6 +446,7 @@ export enum CacheDuration {
 /**
  * Holds the string values for supported HTTP requests.
  * This enum is used to set the value of http.request(options) and ServerRequest.method.
+ * @since 2015.2
  */
 export enum Method {
     DELETE = "DELETE",
@@ -316,6 +457,7 @@ export enum Method {
     PATCH = "PATCH"
 }
 
+/** @since 2015.2 */
 export enum RedirectType {
     MEDIA_ITEM,
     RECORD,

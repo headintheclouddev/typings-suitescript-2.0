@@ -16,11 +16,27 @@
  * To use the N/piremoval module, the following requirements must be met:
  * - Remove Personal Information Create permission is required to create a PI removal task.
  * - Remove Personal Information Run permission is required to run a PI removal task.
+ * @governance none
+ * @since 2019.2
  */
 
 export function createTask(options: CreateTaskOptions): PiRemovalTask;
+/**
+ * @throws {SuiteScriptError} UNEXPECTED_ERROR if the job is not saved.
+ * @governance 20 units
+ * @since 2019.2
+ */
 export function deleteTask(options: { id: number }): void;
+/**
+ * @governance none
+ * @since 2019.2
+ */
 export function getTaskStatus(options: { id: number }): PiRemovalTaskStatus;
+/**
+ * @throws {SuiteScriptError} _1_WAS_NOT_FOUND if a job with the provided ID was not found.
+ * @governance none
+ * @since 2019.2
+ */
 export function loadTask(options: { id: number }): PiRemovalTask;
 
 interface CreateTaskOptions {
@@ -43,38 +59,81 @@ interface CreateTaskOptions {
   workflowIds?: number[];
 }
 
+/** @since 2019.2 */
 interface PiRemovalTask {
+  /**
+   * @throws {SuiteScriptError} UNEXPECTED_ERROR if the PI removal job is not saved.
+   * @governance 20 units
+   * @since 2019.2
+   */
   deleteTask: () => void;
+  /**
+   * @throws {SuiteScriptError} UNEXPECTED_ERROR if the PI removal job is not saved.
+   * @governance 20 units
+   * @since 2019.2
+   */
   run: () => void;
+  /**
+   * @throws {SuiteScriptError} _1_CANNOT_BE_EMPTY if the record type is not set.
+   * @throws {SuiteScriptError} _1_JOB_WAS_NOT_FOUND if the record type, a record ID, a field ID, or a workflow ID does not exist.
+   * @governance 20 units
+   * @since 2019.2
+   */
   save: () => void;
-  /** IDs of the fields whose PI is removed. If no field IDs are entered, no information changes are performed. */
+  /**
+   * IDs of the fields whose PI is removed. If no field IDs are entered, no information changes are performed.
+   * @since 2019.2
+   */
   readonly fieldIds: string[];
   /**
    * Indicates whether the PI removal task removes system note information only, not field values or workflow history.
    * If true, the task removes information from system notes only. If false, the task removes information from system notes, workflow history, and field values.
    * The default value is false.
+   * @since 2019.2
    */
   readonly historyOnly: boolean;
-  /** The text used in system notes to replace the original value. */
+  /**
+   * The text used in system notes to replace the original value.
+   * @since 2019.2
+   */
   readonly historyReplacement: string;
+  /** @since 2019.2 */
   readonly id: number;
-  /** ID of records whose PI is removed. If no record IDs are entered, no information changes are performed. */
+  /**
+   * ID of records whose PI is removed. If no record IDs are entered, no information changes are performed.
+   * @since 2019.2
+   */
   readonly recordIds: number[];
-  /** Type of record whose PI is removed. All records referenced in the piremoval.PiRemovalTask object must be the same type. */
+  /**
+   * Type of record whose PI is removed. All records referenced in the piremoval.PiRemovalTask object must be the same type.
+   * @since 2019.2
+   */
   readonly recordType: string;
+  /** @since 2019.2 */
   status: PiRemovalTaskStatus;
-  /** IDs of workflows where PI is removed from the workflow history. If no workflow IDs are entered, no information changes are performed. */
+  /**
+   * IDs of workflows where PI is removed from the workflow history. If no workflow IDs are entered, no information changes are performed.
+   * @since 2019.2
+   */
   readonly workflowIds: number[];
 }
 
+/** @since 2019.2 */
 interface PiRemovalTaskStatus {
+  /** @since 2019.2 */
   logList: PiRemovalTaskLogItem[];
+  /** @since 2019.2 */
   readonly status: 'PENDING' | 'PROCESSING' | 'COMPLETE' | 'FAILED';
 }
 
+/** @since 2019.2 */
 interface PiRemovalTaskLogItem {
+  /** @since 2019.2 */
   readonly exception: string;
+  /** @since 2019.2 */
   readonly message: string;
+  /** @since 2019.2 */
   readonly status: 'PENDING' | 'PROCESSING' | 'COMPLETE' | 'FAILED';
+  /** @since 2019.2 */
   readonly type: string;
 }

@@ -22,9 +22,25 @@ interface ArchiverArchiveOptions {
     type: string|Type;
 }
 
-/** The functionality for creating an archive file. Use compress.createArchiver() to create this object. */
+/**
+ * The functionality for creating an archive file. Use compress.createArchiver() to create this object.
+ * @since 2020.2
+ */
 export interface Archiver {
+    /**
+     * @throws {SuiteScriptError} COMPRESS_API_DUPLICATE_PATH if a file has already been added using the same target path.
+     * @throws {SuiteScriptError} COMPRESS_API_FILE_IS_TOO_LARGE if the file cannot be compressed due to size.
+     * @governance none
+     * @since 2020.2
+     */
     add(options: ArchiverAddOptions): void;
+    /**
+     * @throws {SuiteScriptError} COMPRESS_API_UNSUPPORTED_ARCHIVE_TYPE if options.type is an invalid archive type.
+     * @throws {SuiteScriptError} COMPRESS_API_UNRECOGNIZED_ARCHIVE_FILE_EXTENSION if options.type is not specified and the archive type cannot be determined.
+     * @throws {SuiteScriptError} COMPRESS_API_UNABLE_TO_RETRIEVE_FILE_CONTENTS if the contents cannot be retrieved for any of the files to be archived.
+     * @governance 25 units
+     * @since 2020.2
+     */
     archive(options: ArchiverArchiveOptions): File;
 }
 
@@ -35,15 +51,33 @@ interface GZipOptions {
     level?: number;
 }
 
-/** Compresses a file by using gzip and returns it as a temporary file object. 0 is no compression. */
+/**
+ * Compresses a file by using gzip and returns it as a temporary file object. 0 is no compression.
+ * @throws {SuiteScriptError} COMPRESS_API_UNABLE_TO_RETRIEVE_FILE_CONTENTS if the contents of the file cannot be retrieved.
+ * @throws {SuiteScriptError} COMPRESS_API_COMPRESSION_LEVEL_OUT_OF_RANGE if options.level is outside of the valid range (0 - 9).
+ * @throws {SuiteScriptError} COMPRESS_API_FILE_IS_TOO_LARGE if the file cannot be compressed due to size.
+ * @governance none
+ * @since 2020.2
+ */
 export function gzip(options: GZipOptions): File;
 
-/** Decompresses a file that was compressed using gzip and returns it as a temporary file object. */
+/**
+ * Decompresses a file that was compressed using gzip and returns it as a temporary file object.
+ * @throws {SuiteScriptError} COMPRESS_API_DECOMPRESS_ERROR if the file cannot be decompressed.
+ * @throws {SuiteScriptError} COMPRESS_API_UNABLE_TO_RETRIEVE_FILE_CONTENTS if the contents of the file cannot be retrieved.
+ * @governance none
+ * @since 2020.2
+ */
 export function gunzip(options: { file: File }): File;
 
-/** Creates a compress.Archiver object that can be used for creating file archives, such as ZIP or TAR files. */
+/**
+ * Creates a compress.Archiver object that can be used for creating file archives, such as ZIP or TAR files.
+ * @governance none
+ * @since 2020.2
+ */
 export declare function createArchiver(): Archiver;
 
+/** @since 2020.2 */
 export enum Type {
     CPIO,
     TAR,

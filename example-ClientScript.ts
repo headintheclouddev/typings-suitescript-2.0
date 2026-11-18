@@ -10,6 +10,7 @@ export function pageInit(context: EntryPoints.Client.pageInitContext) {
 	if (context.mode !== "edit") return;
 
 	const customerId = context.currentRecord.getValue("entity"); // Assume this script is running on a transaction
+	if (customerId === undefined) return; // getValue() gives undefined for a field the record does not have
 	search.lookupFields
 		.promise({
 			type: "customer",

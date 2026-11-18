@@ -31,14 +31,19 @@ interface CreateDatasetLinkOptions {
     id: string;
 }
 
-/** A representation of two datasets that are linked using datasetLink.create(options). */
+/**
+ * A representation of two datasets that are linked using datasetLink.create(options).
+ * @since 2021.2
+ */
 interface DatasetLink {
     /**
      * The linked datasets that the datasetLink.DatasetLink object represents.
+     * @since 2021.2
      */
     datasets: Dataset[];
     /**
      * The column expressions for the datasetLink.DatasetLink object.
+     * @since 2021.2
      */
     expressions: Array<Expression[]>;
     id: string;
@@ -48,7 +53,9 @@ interface DatasetLink {
  * Links two datasets using a common column expression.
  * To link two datasets, both datasets must include a column that shares common data, such as a date.
  * You use Dataset.getExpressionFromColumn(options) to obtain expressions for each column, then you specify these expressions (and the datasets they are part of) when you call datasetLink.create(options).
- * @throws {SuiteScriptError} NO_DATASET_DEFINED if the value of the options.datasets parameter is an empty array.
+ * @throws {SuiteScriptError} NO_DATASET_DEFINED if the value of the options.datasets parameter is an empty array
+ * @governance none
+ * @since 2021.2
  */
 export function create(option: CreateDatasetLinkOptions): DatasetLink
  

@@ -2,11 +2,31 @@
 
 import type {ClientResponse} from '../https';
 
+/**
+ * @governance 10 units
+ * @since 2019.1
+ */
 export function post(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function get(options: GetDeleteOptions): ClientResponse;
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function put(options: { url: string, certId: string, body: string, headers?: { [key: string]: any } }): ClientResponse;
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 declare const deleteFunc: DeleteMethod; // Workaround for the fact that "delete" is a JS keyword.
 export {deleteFunc as delete};
+/**
+ * @governance 10 units
+ * @since 2019.2
+ */
 export function request(options: RequestOptions): ClientResponse;
 
 interface DeleteMethod {

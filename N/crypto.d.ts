@@ -2,48 +2,104 @@ import type {Encoding} from './encode';
 import type {Type} from './record';
 export {Encoding} from './encode';
 
-/** Encapsulates a cipher. */
+/**
+ * Encapsulates a cipher.
+ * @since 2015.2
+ */
 export interface Cipher {
-  /** Method used to return the cipher data. Sets the output encoding for the crypto.CipherPayload object. */
+  /**
+   * Method used to return the cipher data. Sets the output encoding for the crypto.CipherPayload object.
+   * @governance none
+   * @since 2015.2
+   */
   final(options: FinalOptions): CipherPayload;
-  /** Method used to update the clear data with the specified encoding. */
+  /**
+   * Method used to update the clear data with the specified encoding.
+   * @governance none
+   * @since 2015.2
+   */
   update(options: UpdateOptions): void;
 }
 
-/** Encapsulates a cipher payload. */
+/**
+ * Encapsulates a cipher payload.
+ * @since 2015.2
+ */
 export interface CipherPayload {
-  /** The result of the ciphering process. For example, to take the cipher payload and send it to another system. */
+  /**
+   * The result of the ciphering process. For example, to take the cipher payload and send it to another system.
+   * @since 2015.2
+   */
   ciphertext: string;
-  /** Initialization vector for the cipher payload. You can pass in the iv value to crypto.createDecipher(options). */
+  /**
+   * Initialization vector for the cipher payload. You can pass in the iv value to crypto.createDecipher(options).
+   * @since 2015.2
+   */
   iv: string;
 }
 
-/** Encapsulates a decipher. This object has methods that decrypt. */
+/**
+ * Encapsulates a decipher. This object has methods that decrypt.
+ * @since 2015.2
+ */
 export interface Decipher {
-  /** Method used to return the clear data. */
+  /**
+   * Method used to return the clear data.
+   * @governance none
+   * @since 2015.2
+   */
   final(options: FinalOptions): string;
-  /** Method used to update decipher data with the specified encoding. */
+  /**
+   * Method used to update decipher data with the specified encoding.
+   * @governance none
+   * @since 2015.2
+   */
   update(options: UpdateOptions): void;
 }
 
+/** @since 2015.2 */
 export interface Hash {
-  /** Calculates the digest of the data to be hashed. */
+  /**
+   * Calculates the digest of the data to be hashed.
+   * @governance none
+   * @since 2015.2
+   */
   digest(options: FinalOptions): string;
-  /** Method used to update hash data with the encoding specified. */
+  /**
+   * Method used to update hash data with the encoding specified.
+   * @governance none
+   * @since 2015.2
+   */
   update(options: UpdateOptions): void;
 }
 
+/** @since 2015.2 */
 export interface Hmac {
-  /** Calculates the digest of the data to be hashed. Default output encoding is HEX. */
+  /**
+   * Calculates the digest of the data to be hashed. Default output encoding is HEX.
+   * @governance none
+   * @since 2015.2
+   */
   digest(options?: { outputEncoding: Encoding }): string;
-  /** Method used to update the hmac data with the encoding specified. */
+  /**
+   * Method used to update the hmac data with the encoding specified.
+   * @governance none
+   * @since 2015.2
+   */
   update(options: UpdateOptions): void;
 }
 
+/** @since 2015.2 */
 export interface SecretKey {
-  /** The GUID associated with the secret key. */
+  /**
+   * The GUID associated with the secret key.
+   * @since 2015.2
+   */
   guid: string;
-  /** The encoding used for the clear text value of the secret key. */
+  /**
+   * The encoding used for the clear text value of the secret key.
+   * @since 2015.2
+   */
   encoding: string;
 }
 
@@ -97,6 +153,7 @@ interface CreateSecretKeyOptions {
   /**
    * The script ID of the secret used for authentication. You can store secrets at Setup > Company > API Secrets. For more information, see Secrets Management.
    * This is only required if GUID is not provided. You cannot use the secret parameter in combination with the passwordGuid parameter.
+   * @since 2021.1
    */
   secret?: string;
   /** Specifies the encoding for the SecureKey. Set this value using the encode.Encoding enum. The default value is HEX. */
@@ -130,6 +187,7 @@ export interface CheckPasswordFieldOptions {
   value: string
 }
 
+/** @since 2015.2 */
 export declare enum EncryptionAlg {
   AES,
 }
@@ -137,12 +195,14 @@ export declare enum EncryptionAlg {
 /**
  * Holds the string values for supported hashing algorithms.
  * Use this enum to set the value of the options.algorithm parameter for crypto.createHash(options) and crypto.createHmac(options).
+ * @since 2015.2
  */
 export declare enum HashAlg {
   SHA256,
   SHA512
 }
 
+/** @since 2015.2 */
 export declare enum Padding {
   NoPadding,
   PKCS5Padding,
@@ -151,15 +211,33 @@ export declare enum Padding {
 /**
  * Method used to create and return a new crypto.EncryptionAlg object.
  * NOTE: we are NOT returning an EncryptionAlg, as it is not a real object. (5/9/2016)
+ * @governance none
+ * @since 2015.2
  */
 export declare function createCipher(options: CreateCipherOptions): Cipher;
-/** Method used to create a new crypto.Decipher object. */
+/**
+ * Method used to create a new crypto.Decipher object.
+ * @governance none
+ * @since 2015.2
+ */
 export declare function createDecipher(options: CreateDecipherOptions): Decipher;
-/** Method used to create a new crypto.Hash object. */
+/**
+ * Method used to create a new crypto.Hash object.
+ * @governance none
+ * @since 2015.2
+ */
 export declare function createHash(options?: CreateHashOptions): Hash;
-/** Method used to create a new crypto.Hmac object. */
+/**
+ * Method used to create a new crypto.Hmac object.
+ * @governance none
+ * @since 2015.2
+ */
 export declare function createHmac(options: CreateHmacOptions): Hmac;
-/** Method used to create a new crypto.SecretKey object. */
+/**
+ * Method used to create a new crypto.SecretKey object.
+ * @governance none
+ * @since 2015.2
+ */
 export declare function createSecretKey(options: CreateSecretKeyOptions): SecretKey;
 
 /**
@@ -168,5 +246,7 @@ export declare function createSecretKey(options: CreateSecretKeyOptions): Secret
  * Use this method instead of Record.getValue(options) or CurrentRecord.getValue(options) on a custom password field.
  * You should no longer use those methods for custom password fields.
  * This method provides a more secure way to check custom password fields.
+ * @governance none
+ * @since 2021.1
  */
 export declare function checkPasswordField(options: CheckPasswordFieldOptions): boolean;
