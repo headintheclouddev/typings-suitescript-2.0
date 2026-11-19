@@ -22,7 +22,7 @@ interface Script {
      * @governance none
      * @since 2015.2
      */
-    getParameter(options: GetParameterOptions): boolean | number | Date | string | string[];
+    getParameter(options: GetParameterOptions): boolean | number | Date | string | string[] | null;
     /**
      * Returns a number value for the usage units remaining for the currently executing script.
      * @governance none
