@@ -26,6 +26,7 @@ Oracle documents the return type as `number | Date | string | boolean | null | u
 ### Documentation
 
 - `@throws`, `@governance` and `@since` tags for N/task (#447, @nemchik).
+- **N/search:** `Search.columns` explains that reading it returns `search.Column` objects, even for columns assigned as strings, and is null for a search created without columns (#238).
 - `isNew` on a record is false in a user event's beforeLoad for a copy and in beforeSubmit for a create, so the doc comment suggests testing `id` instead (#467, @simeon-unicare).
 
 ## 2026.2.8
