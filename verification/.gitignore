@@ -1,0 +1,9 @@
+# Probes and the committed settings are source (the root .gitignore ignores *.js and .env)
+!probes/*.js
+!.env
+# The suitescript-verify tooling, installed as README.md describes, is never committed
+package.json
+package-lock.json
+node_modules/
+.env.local
+sdf/
