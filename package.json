@@ -1,6 +1,6 @@
 {
 	"name": "@hitc/netsuite-types",
-	"version": "2026.2.8",
+	"version": "2026.2.9",
 	"description": "TypeScript typings for SuiteScript 2.1",
 	"keywords": [
 		"netsuite",

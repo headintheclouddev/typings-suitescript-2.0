@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2026.2.9
 
 ### Breaking changes (strict mode)
 
