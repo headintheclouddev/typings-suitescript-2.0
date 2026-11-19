@@ -2,9 +2,31 @@
 
 ## Unreleased
 
+### Breaking changes (strict mode)
+
+**A client record's `id` can be an empty string** (#467, @simeon-unicare)
+
+In the browser, a client script's current record has an `id` of `''` while it's being created or copied, not `null`. `ClientCurrentRecord.id` is now `number | '' | null`, while `Record.id` stays `number | null`. Code that tests `id === null` to spot a new record treats a new client record as saved, and the compiler now flags it:
+
+```typescript
+const recordId = context.currentRecord.id;
+if (recordId) {
+  // Saved record: recordId is a number here
+}
+```
+
+**`Script.getParameter()` can return `null` or `undefined`** (#470, @tim88435)
+
+Oracle documents the return type as `number | Date | string | boolean | null | undefined`, such as for a parameter that isn't set on the deployment. Casts like `getParameter({ name: 'custscript_folder' }) as number` still compile. Calling a method directly on the result, such as `.toString()`, now needs a check.
+
 ### New
 
 - **Enum values:** 674 members of 64 enums now have the string values NetSuite uses, read at runtime on NetSuite 2026.2, so hovers and template literal types such as `` `${file.Encoding}` `` show the real strings, and a member can be passed where a `string` is expected (#468, @simeon-unicare). Many values aren't their keys: `config.Type.FEATURES` is `'companyfeatures'`, and `query.PeriodCode.LAST_FISCAL_YEAR` is `'LFY'`. The modules are cache, certificateControl, compress, config, crypto, crypto/certificate, documentCapture, encode, file, format/i18n, http, pgp, query, recordContext, render, runtime, search, sftp, ui/serverWidget, url, workbook and xml. Only code that treats a member as a number stops compiling.
+
+### Documentation
+
+- `@throws`, `@governance` and `@since` tags for N/task (#447, @nemchik).
+- `isNew` on a record is false in a user event's beforeLoad for a copy and in beforeSubmit for a create, so the doc comment suggests testing `id` instead (#467, @simeon-unicare).
 
 ## 2026.2.8
 
