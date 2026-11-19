@@ -340,6 +340,10 @@ export interface Search {
      */
     filterExpression: any[];
     /**
+     * The columns of the search. You can assign column names as strings or search.Column objects.
+     *
+     * When you read this property, NetSuite always returns search.Column objects, even for columns given as strings,
+     * so use `(columns as search.Column[]).map(c => c.name)` to get the names. It is null if the search was created without columns.
      * @throws {SuiteScriptError} SSS_INVALID_SRCH_COLUMN if the value passed in was not a string or search.Column object.
      * @since 2015.2
      */
