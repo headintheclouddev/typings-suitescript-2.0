@@ -1,4 +1,4 @@
-# SuiteScript 2.0 Typings
+# SuiteScript 2.1 Typings
 
 [![npm version](https://img.shields.io/npm/v/@hitc/netsuite-types.svg)](https://www.npmjs.com/package/@hitc/netsuite-types)
 
@@ -63,7 +63,7 @@ export const pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Clien
 
 Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point.
 
-Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-checking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
+Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-checking, and autocomplete for all of the SuiteScript 2.1 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
 
 ## User Event Example
 

@@ -109,7 +109,7 @@ export interface Column {
     /** Returns the object type name */
     toString(): string;
     /** Get JSON format of the object */
-    // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.0/issues/320
+    // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.1/issues/320
     //     name: string;
     //     join: string | null | undefined;
     //     summary: keyof typeof Summary | null | undefined;
