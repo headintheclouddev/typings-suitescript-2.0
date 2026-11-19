@@ -251,13 +251,13 @@ export function parseMessage(options: { value: string }): Message;
 
 /** @since 2022.2 */
 export enum CompressionAlgorithm {
-  ZLIB
+  ZLIB = "ZLIB"
 }
 
 /** @since 2022.2 */
 export enum Format {
-  UTF8,
-  BINARY
+  UTF8 = "UTF8",
+  BINARY = "BINARY"
 }
 
 interface CreateConfigOptions {
