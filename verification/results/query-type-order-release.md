@@ -2,7 +2,7 @@
 
 - **NetSuite version:** 2026.2
 - **Account type:** sandbox
-- **Date:** 2026-11-14, rerun 2026-11-19 under suitescript-verify 2.0.0
+- **Date:** 2026-11-14, rerun 2026-11-19 under suitescript-verify 2.0.0, and again on 2026-11-19 with the record type checks
 - **Method:** deployed RESTlet (the suitescript-verify runner)
 - **Probe:** [query-type-order-release](../probes/query-type-order-release.js)
 
@@ -41,6 +41,15 @@ define(["N/query"], (query) => ({
         .filter((k) => /orderrelease/i.test(String(query.Type[k])))
         .map((k) => `${k}=${query.Type[k]}`),
     );
+    // Is the record type itself available, whatever the enum says?
+    t("query.create with type orderreleaseline", () => {
+      query.create({ type: "orderreleaseline" });
+      return "created";
+    });
+    t("SuiteQL table orderreleaseline", () => {
+      query.runSuiteQL({ query: "SELECT COUNT(*) AS n FROM orderreleaseline" });
+      return "exists";
+    });
     return result;
   },
 }));
@@ -62,9 +71,28 @@ The runner now runs as a role that the deploy writes (token login, REST web serv
 
 Still no key contains `RELEASE` or `ORDER`, and no value is `orderrelease...`.
 
+### Rerun with the record type checks (2026-11-19)
+
+The probe now also asks whether the record type itself exists, whatever the enum says. The runner's role had more permissions by then (transaction and entity searches, declared by another probe), and `query.Type` grew to 97 keys:
+
+```json
+{
+  "SuiteQL table orderreleaseline": "THROWS: SSS_SEARCH_ERROR_OCCURRED: Search error occurred: Record 'orderreleaseline' was not found.",
+  "count of query.Type keys": 97,
+  "keys matching RELEASE or ORDER": [
+    "ORDERS_AND_RETURNS",
+    "SALES_ORDER"
+  ],
+  "query.create with type orderreleaseline": "THROWS: INVALID_SEARCH_TYPE: Invalid search type: orderreleaseline",
+  "values matching orderrelease": []
+}
+```
+
+`ORDERS_AND_RETURNS` and `SALES_ORDER` are unrelated members that match the probe's `ORDER` pattern. In a second sandbox of the same company, a SuiteQL query for `orderreleaseline` from an administrator-level role also answered `Record 'orderreleaseline' was not found.`. So the record type looks missing from these accounts rather than hidden from the runner's role.
+
 ## Explanation
 
-Inconclusive in this account. Runtime `query.Type` has 80 keys, and none contains `RELEASE` or `ORDER`, nor is any value `orderrelease...`. So neither `ORDER_RELEASE_LIN` nor `ORDER_RELEASE_LINE` exists here. The probe's header expected this: the member probably depends on a feature the account has not enabled, or, since the enum changes with the role (see the rerun above), on a permission the runner's role lacks. The result says nothing about which spelling Oracle uses when the feature is on.
+Inconclusive in this account. No run found an order release member in `query.Type` (80, 78 and 97 keys under different roles), and the record type `orderreleaseline` is not available here at all: `query.create` rejects it as an invalid type, and SuiteQL does not find the table (nor does it from an administrator-level role in a second sandbox). So the member depends on a feature this account has not enabled, and the result says nothing about which spelling NetSuite uses when it is on.
 
 ## Decision
 

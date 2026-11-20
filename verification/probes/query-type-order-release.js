@@ -30,6 +30,15 @@ define(["N/query"], (query) => ({
         .filter((k) => /orderrelease/i.test(String(query.Type[k])))
         .map((k) => `${k}=${query.Type[k]}`),
     );
+    // Is the record type itself available, whatever the enum says?
+    t("query.create with type orderreleaseline", () => {
+      query.create({ type: "orderreleaseline" });
+      return "created";
+    });
+    t("SuiteQL table orderreleaseline", () => {
+      query.runSuiteQL({ query: "SELECT COUNT(*) AS n FROM orderreleaseline" });
+      return "exists";
+    });
     return result;
   },
 }));
