@@ -22,13 +22,13 @@ export declare function load(options: LoadOptions): Record;
  * @since 2015.2
  */
 export declare enum Type {
-    USER_PREFERENCES,
-    COMPANY_INFORMATION,
-    COMPANY_PREFERENCES,
-    ACCOUNTING_PREFERENCES,
-    ACCOUNTING_PERIODS,
-    TAX_PERIODS,
-    FEATURES,
-    TIME_POST,
-    TIME_VOID
+    USER_PREFERENCES = "userpreferences",
+    COMPANY_INFORMATION = "companyinformation",
+    COMPANY_PREFERENCES = "companypreferences",
+    ACCOUNTING_PREFERENCES = "accountingpreferences",
+    ACCOUNTING_PERIODS = "accountingperiods",
+    TAX_PERIODS = "taxperiods",
+    FEATURES = "companyfeatures",
+    TIME_POST = "timepost",
+    TIME_VOID = "timevoid"
 }

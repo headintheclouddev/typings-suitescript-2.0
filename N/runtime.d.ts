@@ -17,12 +17,14 @@ interface SetOptions {
 interface Script {
     /**
      * Returns the value of a script parameter for the currently executing script.
+     * Oracle documents the return type as number | Date | string | boolean | null | undefined, so check for a missing value,
+     * such as a parameter that isn't set on the deployment.
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if the options.name parameter is not specified.
      * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE if the value for the options.name parameter is not a string.
      * @governance none
      * @since 2015.2
      */
-    getParameter(options: GetParameterOptions): boolean | number | Date | string | string[];
+    getParameter(options: GetParameterOptions): boolean | number | Date | string | string[] | null | undefined;
     /**
      * Returns a number value for the usage units remaining for the currently executing script.
      * @governance none
@@ -599,10 +601,10 @@ export enum ContextType {
  * @since 2015.2
  */
 export enum EnvType {
-    SANDBOX,
-    PRODUCTION,
-    BETA,
-    INTERNAL,
+    SANDBOX = "SANDBOX",
+    PRODUCTION = "PRODUCTION",
+    BETA = "BETA",
+    INTERNAL = "INTERNAL",
 }
 /**
  * Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method.

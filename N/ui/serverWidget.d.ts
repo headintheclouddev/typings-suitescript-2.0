@@ -1005,40 +1005,40 @@ export function createForm(options: CreateAssistantOptions): Form;
 
 /** @since 2015.2 */
 export enum AssistantSubmitAction {
-    BACK,
-    CANCEL,
-    FINISH,
-    JUMP,
-    NEXT,
+    BACK = "back",
+    CANCEL = "cancel",
+    FINISH = "finish",
+    JUMP = "jump",
+    NEXT = "next",
 }
 
 /** @since 2015.2 */
 export enum FieldBreakType {
-    NONE,
-    STARTCOL,
-    STARTROW,
+    NONE = "NONE",
+    STARTCOL = "STARTCOL",
+    STARTROW = "STARTROW",
 }
 
 /** @since 2015.2 */
 export enum FieldDisplayType {
-    DISABLED,
-    ENTRY,
-    HIDDEN,
-    INLINE,
-    NODISPLAY,
-    NORMAL,
-    READONLY,
+    DISABLED = "DISABLED",
+    ENTRY = "ENTRY",
+    HIDDEN = "HIDDEN",
+    INLINE = "INLINE",
+    NODISPLAY = "NODISPLAY",
+    NORMAL = "NORMAL",
+    READONLY = "READONLY",
 }
 
 /** @since 2015.2 */
 export enum FieldLayoutType {
-    ENDROW,
-    NORMAL,
-    MIDROW,
-    OUTSIDE,
-    OUTSIDEBELOW,
-    OUTSIDEABOVE,
-    STARTROW,
+    ENDROW = "ENDROW",
+    NORMAL = "NORMAL",
+    MIDROW = "MIDROW",
+    OUTSIDE = "OUTSIDE",
+    OUTSIDEBELOW = "OUTSIDEBELOW",
+    OUTSIDEABOVE = "OUTSIDEABOVE",
+    STARTROW = "STARTROW",
 }
 
 /** @since 2015.2 */
@@ -1072,35 +1072,35 @@ export enum FieldType {
 
 /** @since 2015.2 */
 export enum FormPageLinkType {
-    BREADCRUMB,
-    CROSSLINK,
+    BREADCRUMB = "BREADCRUMB",
+    CROSSLINK = "CROSSLINK",
 }
 
 /** @since 2015.2 */
 export enum LayoutJustification {
-    CENTER,
-    LEFT,
-    RIGHT,
+    CENTER = "CENTER",
+    LEFT = "LEFT",
+    RIGHT = "RIGHT",
 }
 
 /** @since 2015.2 */
 export enum ListStyle {
-    GRID,
-    REPORT,
-    PLAIN,
-    NORMAL,
+    GRID = "grid",
+    REPORT = "report",
+    PLAIN = "plain",
+    NORMAL = "normal",
 }
 
 /** @since 2015.2 */
 export enum SublistDisplayType {
-    HIDDEN,
-    NORMAL,
+    HIDDEN = "HIDDEN",
+    NORMAL = "NORMAL",
 }
 
 /** @since 2015.2 */
 export enum SublistType {
-    EDITOR,
-    INLINEEDITOR,
-    LIST,
-    STATICLIST,
+    EDITOR = "EDITOR",
+    INLINEEDITOR = "INLINEEDITOR",
+    LIST = "LIST",
+    STATICLIST = "STATICLIST",
 }

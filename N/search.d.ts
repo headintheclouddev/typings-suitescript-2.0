@@ -109,7 +109,7 @@ export interface Column {
     /** Returns the object type name */
     toString(): string;
     /** Get JSON format of the object */
-    // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.0/issues/320
+    // toJSON(): { // See https://github.com/headintheclouddev/typings-suitescript-2.1/issues/320
     //     name: string;
     //     join: string | null | undefined;
     //     summary: keyof typeof Summary | null | undefined;
@@ -346,6 +346,10 @@ export interface Search {
      */
     filterExpression: any[];
     /**
+     * The columns of the search. You can assign column names as strings or search.Column objects.
+     *
+     * When you read this property, NetSuite always returns search.Column objects, even for columns given as strings,
+     * so use `(columns as search.Column[]).map(c => c.name)` to get the names. It is null if the search was created without columns.
      * @throws {SuiteScriptError} SSS_INVALID_SRCH_COLUMN if the value passed in was not a string or search.Column object.
      * @since 2015.2
      */
@@ -1083,59 +1087,59 @@ export enum IncludePeriodTransactionEnum {
 
 /** @since 2015.2 */
 export enum Operator {
-    AFTER,
-    ALLOF,
-    ANY,
-    ANYOF,
-    BEFORE,
-    BETWEEN,
-    CONTAINS,
-    DOESNOTCONTAIN,
-    DOESNOTSTARTWITH,
-    EQUALTO,
-    GREATERTHAN,
-    GREATERTHANOREQUALTO,
-    HASKEYWORDS,
-    IS,
-    ISEMPTY,
-    ISNOT,
-    ISNOTEMPTY,
-    LESSTHAN,
-    LESSTHANOREQUALTO,
-    NONEOF,
-    NOTAFTER,
-    NOTALLOF,
-    NOTBEFORE,
-    NOTBETWEEN,
-    NOTEQUALTO,
-    NOTGREATERTHAN,
-    NOTGREATERTHANOREQUALTO,
-    NOTLESSTHAN,
-    NOTLESSTHANOREQUALTO,
-    NOTON,
-    NOTONORAFTER,
-    NOTONORBEFORE,
-    NOTWITHIN,
-    ON,
-    ONORAFTER,
-    ONORBEFORE,
-    STARTSWITH,
-    WITHIN,
+    AFTER = "after",
+    ALLOF = "allof",
+    ANY = "any",
+    ANYOF = "anyof",
+    BEFORE = "before",
+    BETWEEN = "between",
+    CONTAINS = "contains",
+    DOESNOTCONTAIN = "doesnotcontain",
+    DOESNOTSTARTWITH = "doesnotstartwith",
+    EQUALTO = "equalto",
+    GREATERTHAN = "greaterthan",
+    GREATERTHANOREQUALTO = "greaterthanorequalto",
+    HASKEYWORDS = "haskeywords",
+    IS = "is",
+    ISEMPTY = "isempty",
+    ISNOT = "isnot",
+    ISNOTEMPTY = "isnotempty",
+    LESSTHAN = "lessthan",
+    LESSTHANOREQUALTO = "lessthanorequalto",
+    NONEOF = "noneof",
+    NOTAFTER = "notafter",
+    NOTALLOF = "notallof",
+    NOTBEFORE = "notbefore",
+    NOTBETWEEN = "notbetween",
+    NOTEQUALTO = "notequalto",
+    NOTGREATERTHAN = "notgreaterthan",
+    NOTGREATERTHANOREQUALTO = "notgreaterthanorequalto",
+    NOTLESSTHAN = "notlessthan",
+    NOTLESSTHANOREQUALTO = "notlessthanorequalto",
+    NOTON = "noton",
+    NOTONORAFTER = "notonorafter",
+    NOTONORBEFORE = "notonorbefore",
+    NOTWITHIN = "notwithin",
+    ON = "on",
+    ONORAFTER = "onorafter",
+    ONORBEFORE = "onorbefore",
+    STARTSWITH = "startswith",
+    WITHIN = "within",
 }
 
 /** @since 2015.2 */
 export enum Summary {
-    GROUP,
-    COUNT,
-    SUM,
-    AVG,
-    MIN,
-    MAX,
+    GROUP = "GROUP",
+    COUNT = "COUNT",
+    SUM = "SUM",
+    AVG = "AVG",
+    MIN = "MIN",
+    MAX = "MAX",
 }
 
 /** @since 2015.2 */
 export enum Sort {
-    ASC,
-    DESC,
-    NONE,
+    ASC = "ASC",
+    DESC = "DESC",
+    NONE = "NONE",
 }

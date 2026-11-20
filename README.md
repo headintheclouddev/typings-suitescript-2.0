@@ -1,8 +1,6 @@
-# SuiteScript 2.0 Typings
+# SuiteScript 2.1 Typings
 
-[![Build Status](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0.png?branch=master)](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0)
-[![devDependencies Status](https://david-dm.org/headintheclouddev/typings-suitescript-2.0/dev-status.svg)](https://david-dm.org/headintheclouddev/typings-suitescript-2.0?type=dev)
-[![Join the chat at https://gitter.im/typings-suitescript-2-0/Lobby](https://badges.gitter.im/typings-suitescript-2-0/Lobby.svg)](https://gitter.im/typings-suitescript-2-0/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![npm version](https://img.shields.io/npm/v/@hitc/netsuite-types.svg)](https://www.npmjs.com/package/@hitc/netsuite-types)
 
 ## Installation Instructions
 
@@ -65,7 +63,7 @@ export const pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Clien
 
 Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point.
 
-Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-checking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
+Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-checking, and autocomplete for all of the SuiteScript 2.1 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
 
 ## User Event Example
 
