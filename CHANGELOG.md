@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixes
+
+- **N/query:** `ResultSet.asMappedResults()` and `Result.asMap()` now infer their row type from the variable they're assigned to, so `const rows: { id: number }[] = resultSet.asMappedResults()` compiles without a cast. Each pair of overloads is now one generic signature that defaults to `QueryResultMap`, so `asMappedResults<{ id: number }>()`, casts and code that names no type work as before (#307).
+
 ## 2026.2.9
 
 ### Breaking changes (strict mode)
