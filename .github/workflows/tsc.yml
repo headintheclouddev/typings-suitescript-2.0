@@ -1,0 +1,24 @@
+name: tsc
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # tsconfig.json sets skipLibCheck, so this checks the example scripts against the typings.
+      - run: npx tsc
+      # This also checks the .d.ts files themselves.
+      - run: npx tsc --skipLibCheck false
