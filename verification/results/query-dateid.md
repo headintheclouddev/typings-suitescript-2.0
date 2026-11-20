@@ -109,4 +109,4 @@ The typings declare `DateId` as an `export const enum`, so tsc inlines the value
 
 ## Decision
 
-Supports [issue 474](https://github.com/headintheclouddev/typings-suitescript-2.1/issues/474) (open question 4). No typing has changed yet: changing `DateId` to a plain `enum` waits for the maintainer.
+Supports [issue 474](https://github.com/headintheclouddev/typings-suitescript-2.1/issues/474) (open question 4) and [pull request 476](https://github.com/headintheclouddev/typings-suitescript-2.1/pull/476), which makes `DateId` a plain `enum` with the same values.
