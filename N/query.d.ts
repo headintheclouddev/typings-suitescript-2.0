@@ -775,8 +775,7 @@ export interface ResultSet {
      * @governance none
      * @since 2019.2
      */
-    asMappedResults(): Array<QueryResultMap>;
-    asMappedResults<QueryResultMap>(): Array<QueryResultMap>;
+    asMappedResults<T = QueryResultMap>(): Array<T>;
 }
 
 /**
@@ -805,8 +804,7 @@ export interface Result {
      * @governance none
      * @since 2019.2
      */
-    asMap(): QueryResultMap;
-    asMap<QueryResultMap>(): QueryResultMap
+    asMap<T = QueryResultMap>(): T;
 }
 
 /**
