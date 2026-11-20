@@ -147,12 +147,18 @@ export interface Result {
      */
     getValue(options: ResultGetOptions): boolean | string | string[];
     /**
+     * Returns the text value of a specified search result column. Use it on select, image and document fields:
+     * for a select field with no value it returns an empty string, and for a column with no text representation
+     * (for example a text field, where getValue is the method to use) it returns null.
      * @governance none
      * @since 2015.2
      */
     getText(options: Column | string): string;
     /**
      * Returns the text value of a specified search result column. Takes in arguments for name, join, and summary.
+     * Use it on select, image and document fields: for a select field with no value it returns an empty string,
+     * and for a column with no text representation (for example a text field, where getValue is the method to use)
+     * it returns null.
      * @governance none
      * @since 2015.2
      */
