@@ -1034,7 +1034,7 @@ export interface TableView {
 export function listTables(options: ListTablesOptions): TableView[];
 
 /** @since 2019.1 */
-export const enum DateId {
+export enum DateId {
     DAYS_AGO = "dago",
     DAYS_FROM_NOW = "dfn",
     HOURS_AGO = "hago",
